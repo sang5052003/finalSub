@@ -12,14 +12,14 @@ public class Review {
 	private Customer customer;
 	private Cosmetic cosmetic;
 	private Recommend recommend;
-	private PageMaker pm;
+	private Integer listCount; // 전체개수를 알아오기 위해
 
-	public PageMaker getPm() {
-		return pm;
+	public int getListCount() {
+		return listCount;
 	}
 
-	public void setPm(PageMaker pm) {
-		this.pm = pm;
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
 	}
 
 	public Review() {
