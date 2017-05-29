@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+
 import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+
 import org.apache.http.client.methods.HttpGet;
+
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -25,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+
 import controller.utils.Const;
 import controller.utils.HttpResponse;
 import domain.Cosmetic;
@@ -32,9 +37,12 @@ import domain.Recommend;
 import domain.SkinType;
 import domain.Test;
 
+
 @Controller
 @RequestMapping("survey")
 public class SurveyController {
+	
+	private HttpResponse httpResponse;
 
 	// 설문지 등록
 	@RequestMapping(value = "skinTypeRegistForm.do", method = RequestMethod.GET)
@@ -68,7 +76,9 @@ public class SurveyController {
 		CloseableHttpResponse resp = hc.execute(hp);
 
 		return "/survey/skinTypeResult.do";
+
 	}
+
 
 	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.GET)
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
@@ -120,6 +130,7 @@ public class SurveyController {
 	}
 
 	@RequestMapping(value = "gradeRegist.do", method = RequestMethod.POST)
+
 	public String surveyGradeRegist(HttpServletRequest req, Model model, Recommend recommend)
 			throws ClientProtocolException, IOException {
 
@@ -142,6 +153,7 @@ public class SurveyController {
 		System.out.println(responseStatus);
 
 		return "/survey/surveyResult.do";
+
 
 	}
 
@@ -201,6 +213,7 @@ public class SurveyController {
 
 	// 픽미템 탭 누르면 나오는 페이지(설문을 했다면 skinTypeResult페이지가 나올것이다)
 	@RequestMapping(value = "survey.do", method = RequestMethod.GET)
+
 	public String survey(HttpServletRequest req, Model model) {
 
 		String skinType = (String) req.getSession().getAttribute("skinType");
