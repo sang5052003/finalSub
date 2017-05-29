@@ -15,6 +15,7 @@ public class SkinType {
 	
 	public SkinType(){}
 
+
 	public String getBaumanType() {
 		return baumanType;
 	}
