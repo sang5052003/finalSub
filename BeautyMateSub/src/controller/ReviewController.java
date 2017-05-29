@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -21,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 
 import controller.utils.Const;
 import controller.utils.HttpResponse;
+import domain.Customer;
 import domain.Review;
 
 @Controller
@@ -43,6 +46,7 @@ public class ReviewController {
 
 	}
 
+	// 리뷰 이름검색
 	@RequestMapping(value = "titleSearch.do", method = RequestMethod.GET)
 	public String showReviewTitle(String reviewTitle, Model model) throws ClientProtocolException, IOException {
 		String url = Const.getOriginpath() + "review/reviewTitle" + reviewTitle;
@@ -58,6 +62,7 @@ public class ReviewController {
 
 	}
 
+	// 리뷰 내용검색
 	@RequestMapping(value = "contentSearch.do", method = RequestMethod.GET)
 	public String showReviewContent(String reviewContent, Model model) throws ClientProtocolException, IOException {
 		String url = Const.getOriginpath() + "review/reviewContent" + reviewContent;
@@ -73,18 +78,40 @@ public class ReviewController {
 
 	}
 
+	// 리뷰 카테고리 검색
+	@RequestMapping(value = "categorySearch.do", method = RequestMethod.GET)
+	public String showReviewcategory(String category, Model model) throws ClientProtocolException, IOException {
+		String url = Const.getOriginpath() + "review/reviewCategory" + category;
+
+		List<Review> list = jsonByList(url);
+
+		for (Review r : list) {
+			System.out.println(r.toString());
+		}
+		model.addAttribute("reviewList", list);
+
+		return "/review/list.jsp";
+
+	}
+
 	// 리뷰 등록
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
-	public String reviewRegist() {
+	public String reviewRegist(HttpSession session) {
+
+		if (session.getAttribute("loginCustomer") == null) {
+			// 로그인 페이지로
+		}
 
 		return "/review/registerForm.jsp";
 	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public String reviewRegist(Review review) throws ClientProtocolException, IOException {
+	public String reviewRegist(Review review, HttpSession session) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/register";
 		int result = 0;
+		// Customer customer = (Customer)session.getAttribute("loginCustomer");
+		// review.setCustomer(customer);
 		result = jsonByObject(url, review);
 
 		if (result == 1) { // 성공
@@ -96,7 +123,9 @@ public class ReviewController {
 
 	// 리뷰 수정
 	@RequestMapping(value = "modify.do", method = RequestMethod.GET)
-	public String reviewModify() {
+	public String reviewModify(Review review, Model model) {
+
+		model.addAttribute("review", review);
 
 		return "/review/modifyForm.jsp";
 	}
