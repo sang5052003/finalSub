@@ -5,14 +5,14 @@ import java.util.List;
 public class SkinType {
 	
 	private String baumanType;
-	private List<String> recommendedIngredient;
-	private List<String> bannedIngredient;
+	private String recommendedIngredient;
+	private String bannedIngredient;
 	private String habit;
 	private List<Cosmetic> recommendedCosmetics;
 	
 	public SkinType(){}
 
-	public SkinType(String baumanType, List<String> recommendedIngredient, List<String> bannedIngredient, String habit,
+	public SkinType(String baumanType, String recommendedIngredient,String bannedIngredient, String habit,
 			List<Cosmetic> recommendedCosmetics) {
 		super();
 		this.baumanType = baumanType;
@@ -30,19 +30,19 @@ public class SkinType {
 		this.baumanType = baumanType;
 	}
 
-	public List<String> getRecommendedIngredient() {
+	public String getRecommendedIngredient() {
 		return recommendedIngredient;
 	}
 
-	public void setRecommendedIngredient(List<String> recommendedIngredient) {
+	public void setRecommendedIngredient(String recommendedIngredient) {
 		this.recommendedIngredient = recommendedIngredient;
 	}
 
-	public List<String> getBannedIngredient() {
+	public String getBannedIngredient() {
 		return bannedIngredient;
 	}
 
-	public void setBannedIngredient(List<String> bannedIngredient) {
+	public void setBannedIngredient(String bannedIngredient) {
 		this.bannedIngredient = bannedIngredient;
 	}
 
