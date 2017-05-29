@@ -3,7 +3,7 @@ package domain;
 import java.util.List;
 
 public class Review {
-	
+
 	private int reviewNo;
 	private String reviewTitle;
 	private String reviewContent;
@@ -12,8 +12,18 @@ public class Review {
 	private Customer customer;
 	private Cosmetic cosmetic;
 	private Recommend recommend;
-	
-	public Review(){}
+	private PageMaker pm;
+
+	public PageMaker getPm() {
+		return pm;
+	}
+
+	public void setPm(PageMaker pm) {
+		this.pm = pm;
+	}
+
+	public Review() {
+	}
 
 	public Review(int reviewNo, String reviewTitle, String reviewContent, String image, List<Reply> replys,
 			Customer customer, Cosmetic cosmetic, Recommend recommend) {
@@ -98,6 +108,5 @@ public class Review {
 				+ ", image=" + image + ", replys=" + replys + ", customer=" + customer + ", cosmetic=" + cosmetic
 				+ ", recommend=" + recommend + "]";
 	}
-	
-	
+
 }
