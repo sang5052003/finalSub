@@ -31,7 +31,7 @@ import domain.Test;
 @RequestMapping("cosmetic")
 public class CosmeticController {
 
-	// test용
+//	// test용
 	@RequestMapping(value = "test.do", method = RequestMethod.GET)
 	public String test(Model model) throws ClientProtocolException, IOException {
 
