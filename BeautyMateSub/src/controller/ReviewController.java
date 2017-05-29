@@ -45,6 +45,10 @@ public class ReviewController {
 		return "/review/list.jsp";
 		
 	}
+//	@RequestMapping(value ="/readPage.do", method = RequestMethod.GET)
+//	public String read()
+	
+	
 
 	// 리뷰 리스트
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
