@@ -11,12 +11,12 @@ public class Customer {
 	private String gender;
 	private Date birth;
 	private String email;
-	private SkinType skinType;
+	private String skinType;
 	
 	public Customer(){}
 	
 	public Customer(int customerNo, String id, String password, String name, String gender, Date birth, String email,
-			SkinType skinType) {
+			String skinType) {
 		super();
 		this.customerNo = customerNo;
 		this.id = id;
@@ -84,11 +84,11 @@ public class Customer {
 		this.email = email;
 	}
 
-	public SkinType getSkinType() {
+	public String getSkinType() {
 		return skinType;
 	}
 
-	public void setSkinType(SkinType skinType) {
+	public void setSkinType(String skinType) {
 		this.skinType = skinType;
 	}
 
