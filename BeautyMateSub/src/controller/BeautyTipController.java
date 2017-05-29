@@ -77,7 +77,7 @@ public class BeautyTipController {
 
 		System.out.println(beautyTip);
 
-		model.addAttribute("beautyTip", beautyTip);
+		model.addAttribute("beautyTip", beautyTip); //이안에 이미 매퍼에서 받아온 댓글들이 들어있어야 함
 
 		//
 		response.close();
@@ -96,14 +96,15 @@ public class BeautyTipController {
 	}
 
 	@RequestMapping(value = "regist.do", method = RequestMethod.POST)
-	public String beautyTipRegist(HttpServletRequest req) throws ClientProtocolException, IOException {
+	public String beautyTipRegist(BeautyTip beautyTip) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "beautyTip/insert";
 
+		//form태그로 완성된 객체가 옴
 		// req, jsp에서 받아온 값으로 beautyTip객체 생성
-		BeautyTip beautyTip = new BeautyTip(0, "cbeautyTipTitle", "cimage", "cbeautyTipContent", "cvideo",
-				new Customer(1, "cid", "cpassword", "cname", "m", null, "email", null),
-				BeautyTipCategory.makeupInformation, null);
+//		BeautyTip beautyTip = new BeautyTip(0, "cbeautyTipTitle", "cimage", "cbeautyTipContent", "cvideo",
+//				new Customer(1, "cid", "cpassword", "cname", "m", null, "email", null),
+//				BeautyTipCategory.makeupInformation, null);
 
 		//
 		HttpPost httpPost = new HttpPost(url);
@@ -130,10 +131,10 @@ public class BeautyTipController {
 		response.close();
 		httpClient.close();
 
-		// 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
-		String category = req.getParameter("category");
-		category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
-		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.valueOf(category);
+//		// 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
+//		String category = ;
+//		category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
+		return "redirect:/beautyTip/list.do?category=" + beautyTip.getCategory();
 	}
 
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
@@ -248,6 +249,7 @@ public class BeautyTipController {
 		return beautyTip;
 	}
 
+	//form태그로 객체 가져오는 것...test필요
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
 	public String beautyTipEdit(HttpServletRequest req) throws ClientProtocolException, IOException {
 
