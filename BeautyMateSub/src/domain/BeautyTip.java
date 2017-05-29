@@ -15,7 +15,6 @@ public class BeautyTip {
 	
 	public BeautyTip(){}
 	
-	
 	public BeautyTip(int beautyTipNo, String beautyTipTitle, String image, String beautyTipContent, String video,
 			Customer customer, BeautyTipCategory category, List<Reply> beautyTipReplys) {
 		super();
