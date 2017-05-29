@@ -184,22 +184,7 @@ input {
 		}
 		return researchAnswer;
 	}
-	function checkCheckBox() {
-		var arr;
-		var researchAnswer = '';
-		var arr = document.getElementsByName('tabBtn5');
 
-		for (i = 0; i < arr.length; i++) {
-			if (arr[i].checked == true) {
-				researchAnswer += ',' + arr[i].value;
-			}
-		}
-		if (researchAnswer == '') {
-			alert('피부 고민이 선택 되지 않았습니다.');
-			researchAnswer = false;
-		}
-		return researchAnswer;
-	}
 	function LoginEventurl() {
 		if (confirm('로그인후 이용해주시기 바랍니다.\n\n아직 고운세상의 회원이아니시라면 회원가입 후 참여 가능합니다.\n로그인페이지로 이동하시겠습니까?')) {
 			url = document.getElementById('url').value;
@@ -350,7 +335,7 @@ input {
 			<input type="hidden" id="p_count2" name="p_count2" value="11">
 			<input type="hidden" id="p_count3" name="p_count3" value="7">
 			<input type="hidden" id="p_count4" name="p_count4" value="11">
-			<input type="hidden" id="GSS_ID" name="GSS_ID" value="lastpang91">
+			<input type="hidden" id="GSS_ID" name="GSS_ID" value="lastpang91"><!-- ******************** -->
 			<!--<input type="text" name="ssid" value="bb5638c114c00aac8a5a979c5e8930ee">-->
 			<div style="margin-bottom: 5px;">
 				<div class="tab_st1" align="center"
@@ -365,10 +350,8 @@ input {
 						<span style="color: #fbe5ce">피지 생성 및 수분 측정</span></li>
 						<li
 							style="float: left; width: 10%; text-align: left; padding-left: 10px; vertical-align: baseline;">
-							<input type="checkbox" class="input_Cb" id="tabBtn1"
-							name="tabBtn1" onclick="opencloseTabe(this.id,1)"> <input
-							type="text" class="input_Cbn" id="tabBtn1_n" name="tabBtn1_n"
-							size="6" value="설문열기" readonly="">
+							<input type="checkbox" class="input_Cb" id="tabBtn1" name="tabBtn1" onclick="opencloseTabe(this.id,1)"> 
+							<input	type="text" class="input_Cbn" id="tabBtn1_n" name="tabBtn1_n" size="6" value="설문열기" readonly="">
 						</li>
 					</ul>
 				</div>
