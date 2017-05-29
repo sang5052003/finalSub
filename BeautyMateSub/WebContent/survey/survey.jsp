@@ -121,12 +121,9 @@
 							style="color: #ff0000">피지 생성 및 수분 측정</span></li>
 						<li
 							style="float: left; width: 10%; text-align: left; padding-left: 10px; vertical-align: baseline;">
-							<input type="button" class="input_Cb" id="tabBtn1" name="tabBtn1"
-							onclick="opencloseTabe('tabBtn',1);" value="설문 열기"> <input
-							type="checkbox" class="input_Cb" id="checktabBtn1"
-							name="checktabBtn1" style="display: none"> <input
-							type="text" class="input_Cbn" id="tabBtn1_n" name="tabBtn1_n"
-							size="6" value="" readonly="">
+							<input type="button" class="input_Cb" id="tabBtn1" name="tabBtn1" onclick="opencloseTabe('tabBtn',1);" value="설문 열기"> 
+							<input type="checkbox" class="input_Cb" id="checktabBtn1" name="checktabBtn1" style="display: none"> 
+							<input type="text" class="input_Cbn" id="tabBtn1_n" name="tabBtn1_n" size="6" value="">
 						</li>
 					</ul>
 				</div>
@@ -167,7 +164,7 @@
 							<!-- -----2---- -->
 							<tr>
 								<td style="font-weight: bold;"><a href="javascript:;"
-									id="ex11tab" name="ex11tab">2. 위 01번과 같은 상황에서, 얼굴은 윤기가 있나요? </a></td>
+									id="ex11tab" name="ex11tab">2. 위 1번과 같은 상황에서, 얼굴은 윤기가 있나요? </a></td>
 							</tr>
 							<tr>
 								<td style="padding: 0px 2px 5px 10px;"><input type="radio"
@@ -2160,7 +2157,7 @@
 							<tr>
 								<td style="height: 10px;"></td>
 							</tr>
-							<!-- -----20---- -->
+							<!-- -----21---- -->
 							<tr>
 								<td style="font-weight: bold;"><a href="javascript:;"
 									id="ex411tab" name="ex411tab">21. 당신은 65세 이상입니까?</a></td>
