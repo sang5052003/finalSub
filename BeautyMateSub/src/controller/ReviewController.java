@@ -30,6 +30,22 @@ import domain.Review;
 @RequestMapping("review")
 public class ReviewController {
 
+	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
+	public String showReviewPage(Model model) throws ClientProtocolException, IOException {
+		String url = Const.getOriginpath() + "review/listpage";
+		
+		List<Review> list = jsonByList(url);
+		
+		for (Review r : list) {
+			System.out.println(r.toString());
+		}
+		
+		model.addAttribute("reviewList", list);
+		
+		return "/review/list.jsp";
+		
+	}
+
 	// 리뷰 리스트
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
 	public String showReviewList(Model model) throws ClientProtocolException, IOException {

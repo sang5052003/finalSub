@@ -26,7 +26,6 @@ import domain.Reply;
 public class ReplyController {
 
 	// 리뷰 댓글 추가
-
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	public String replyRegist(Reply reply) throws ClientProtocolException, IOException {
 
