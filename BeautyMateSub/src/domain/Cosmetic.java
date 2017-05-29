@@ -6,19 +6,19 @@ public class Cosmetic {
 	
 	private int cosmeticNo;
 	private String cosmeticName;
-	private int volume;
+	private String volume;
 	private int cost;
 	private String img;
 	private String brand;
 	private CosmeticCategory category;
-	private List<String> ingredients;
+	private String ingredients;
 	private List<Review> reviews;
 	private int averageGrade;
 	
 	public Cosmetic(){}
-	
-	public Cosmetic(int cosmeticNo, String cosmeticName, int volume, int cost, String img, String brand,
-			CosmeticCategory category, List<String> ingredients, List<Review> reviews, int averageGrade) {
+
+	public Cosmetic(int cosmeticNo, String cosmeticName, String volume, int cost, String img, String brand,
+			CosmeticCategory category, String ingredients, List<Review> reviews, int averageGrade) {
 		super();
 		this.cosmeticNo = cosmeticNo;
 		this.cosmeticName = cosmeticName;
@@ -48,11 +48,11 @@ public class Cosmetic {
 		this.cosmeticName = cosmeticName;
 	}
 
-	public int getVolume() {
+	public String getVolume() {
 		return volume;
 	}
 
-	public void setVolume(int volume) {
+	public void setVolume(String volume) {
 		this.volume = volume;
 	}
 
@@ -88,11 +88,11 @@ public class Cosmetic {
 		this.category = category;
 	}
 
-	public List<String> getIngredients() {
+	public String getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List<String> ingredients) {
+	public void setIngredients(String ingredients) {
 		this.ingredients = ingredients;
 	}
 
@@ -121,9 +121,6 @@ public class Cosmetic {
 	
 	
 	
-	
-	
-	
-	
+
 
 }
