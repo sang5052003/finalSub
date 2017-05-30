@@ -51,11 +51,11 @@ public class SurveyController {
 		return "/survey/skinTypeRegistForm.jsp";
 	}
 
-	@RequestMapping(value = "skinTypeRegist.do", method = RequestMethod.GET)
+	@RequestMapping(value = "skinTypeRegist.do")
 	public String surveySkinTypeRegist(HttpServletRequest req, Model model)
 			throws ClientProtocolException, IOException {
 
-		String skinType = "Success";
+		String skinType = req.getParameter("skintType");
 		int customerNo = 1;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
@@ -82,7 +82,7 @@ public class SurveyController {
 
 	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.GET)
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
-
+//		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
 		
 		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
@@ -124,8 +124,28 @@ public class SurveyController {
 
 	// 설문지 평점 등록
 	@RequestMapping(value = "gradeRegistForm.do", method = RequestMethod.GET)
-	public String surveyGradeRegistForm(HttpSession session) throws ClientProtocolException, IOException {
+	public String surveyGradeRegistForm(HttpSession session, Model model) throws ClientProtocolException, IOException {
+		
+		String url = Const.getOriginpath() + "cosmetic/findAll";
 
+		HttpGet httpGet = new HttpGet(url);
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		CloseableHttpResponse response = httpClient.execute(httpGet);
+
+		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+
+
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};	
+		Type type = typeToken.getType();
+		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
+		
+		response.close();
+
+		model.addAttribute("cosmetics", cosmetics);
+		
 		return "/survey/gradeRegistForm.jsp";
 	}
 
