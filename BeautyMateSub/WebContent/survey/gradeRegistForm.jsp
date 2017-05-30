@@ -45,12 +45,12 @@ $( ".star_rating a" ).click(function() {
 <body>
 	<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
 		<form action="gradeRegist.do" method="post">
-			<p class="star_rating" id="grade" value="">
+			<p class="star_rating" name="grade" value="">
 				<a href="#" class="on">★</a> <a href="#" class="on">★</a>
 				<a href="#" class="on">★</a> <a href="#">★</a> <a href="#">★</a>
 			</p>
 			<input type="hidden" name="${cosmetics.cosmeticNo }"
-				id="${cosmetics.cosmeticNo }"> ${cosmetics.cosmeticName }
+				name="${cosmetics.cosmeticNo }"> ${cosmetics.cosmeticName }
 			<button type="submit">등록</button>
 
 		</form>

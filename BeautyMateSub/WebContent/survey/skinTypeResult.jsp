@@ -2,6 +2,7 @@
 
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -18,7 +19,7 @@
 <br><br>
 추천 습관 : ${skinType.habit }
 <br><br>
-추천 화장품 : ${skinType.recommendedCosmetics }
+<a href="${ctx }/survey/gradeRegistForm.do">화장품 추천 받기</a>
 <br><br>
 </body>
 </html>
