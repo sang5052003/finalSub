@@ -1,13 +1,9 @@
 package controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import domain.BeautyTipCategory;
-import domain.Customer;
-import domain.Reply;
 
 @Controller
 public class IndexController {
