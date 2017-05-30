@@ -31,7 +31,7 @@ public class PageMaker {
 																									// 페이지수에
 																									// 대응하기
 																									// 위해
-		
+
 		startPage = (endPage - displayPageNum) + 1; // 시작 페이지
 
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) pager.getPerPageNum()));
