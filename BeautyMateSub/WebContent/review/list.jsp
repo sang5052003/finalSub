@@ -3,11 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="false"%>
-
+<c:set var="ctx" value="${pageContext.request.contextPath }" />
 
 
 <link
-	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"
+	href="${ctx}/resources/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- Font Awesome Icons -->
 <link
@@ -19,33 +19,33 @@
 	rel="stylesheet" type="text/css" />
 <!-- Theme style -->
 <link
-	href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.min.css"
+	href="${ctx}/resources/dist/css/AdminLTE.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
 <link
-	href="${pageContext.request.contextPath}/resources/dist/css/skins/_all-skins.min.css"
+	href="${ctx}/resources/dist/css/skins/_all-skins.min.css"
 	rel="stylesheet" type="text/css" />
 
 <!-- Bootstrap 3.3.2 JS -->
 <script
-	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"
+	src="${ctx}/resources/bootstrap/js/bootstrap.min.js"
 	type="text/javascript"></script>
 <!-- FastClick -->
 <script
-	src='${pageContext.request.contextPath}/resources/plugins/fastclick/fastclick.min.js'></script>
+	src='${ctx}/resources/plugins/fastclick/fastclick.min.js'></script>
 <!-- AdminLTE App -->
 <script
-	src="${pageContext.request.contextPath}/resources/dist/js/app.min.js"
+	src="${ctx}/resources/dist/js/app.min.js"
 	type="text/javascript"></script>
 <!-- AdminLTE for demo purposes -->
 <script
-	src="${pageContext.request.contextPath}/resources/dist/js/demo.js"
+	src="${ctx}/resources/dist/js/demo.js"
 	type="text/javascript"></script>
 
 
 <script
-	src="${pageContext.request.contextPath}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	src="${ctx}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Main content -->
 <section class="content">
 	<div class="row">
@@ -112,7 +112,7 @@
 							<tr>
 								<td>${review.reviewNo}</td>
 								<td><a
-									href='/review/detail.do${pageMaker.makeSearch(pageMaker.pager.page) }&reviewNo=${review.reviewNo}'>
+									href='${ctx}/review/detail.do${pageMaker.makeSearch(pageMaker.pager.page) }&reviewNo=${review.reviewNo}'>
 										${review.reviewTitle} </a></td>
 								<td>${review.customer.id}</td>
 								<td><span class="badge bg-red">**</span></td>
@@ -140,7 +140,14 @@
 								end="${pageMaker.endPage }" var="idx">
 								<li
 									<c:out value="${pageMaker.pager.page == idx?'class =active':''}"/>>
-									<a href="listpage.do${pageMaker.makeSearch(idx)}">${idx}</a>
+<%-- 									<c:choose> --%>
+<%-- 									<c:when test="${idx==1 }"> --%>
+										<a href="listpage.do${pageMaker.makeSearch(idx)}">${idx}</a>
+<%-- 									</c:when> --%>
+<%-- 									<c:otherwise> --%>
+<%-- 										<a href="listpage.do${pageMaker.makeSearch(idx*10 -9)}">${idx}</a> --%>
+<%-- 									</c:otherwise> --%>
+<%-- 									</c:choose> --%>
 								</li>
 							</c:forEach>
 

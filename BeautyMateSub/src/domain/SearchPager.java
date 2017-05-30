@@ -23,7 +23,8 @@ public class SearchPager extends Pager {
 
 	@Override
 	public String toString() {
-		return "SearchPager [searchType=" + searchType + ", keyword=" + keyword + "]";
+		return "SearchPager [searchType=" + searchType + ", keyword=" + keyword + ", page=" + page + ", perPageNum="
+				+ perPageNum + ", pagStart=" + pagStart + ", pagEnd=" + pagEnd + "]";
 	}
 
 }
