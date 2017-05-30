@@ -58,7 +58,7 @@ public class SurveyController {
 
 		String skinType = req.getParameter("skinType");
 
-		int customerNo = 1;
+		int customerNo = 123;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
 		HttpPost httpPost = new HttpPost(url);
@@ -172,7 +172,7 @@ public class SurveyController {
 
 		int responseStatus = getResponseStatus(response);
 		String responseContent = getResponseContent(response);
-		System.out.println(responseStatus);
+//		System.out.println(responseStatus);
 
 		return "/survey/surveyResult.do";
 
