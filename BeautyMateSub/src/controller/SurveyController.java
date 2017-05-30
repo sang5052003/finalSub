@@ -55,7 +55,7 @@ public class SurveyController {
 	public String surveySkinTypeRegist(HttpServletRequest req, Model model)
 			throws ClientProtocolException, IOException {
 
-		String skinType = "Success";
+		String skinType = req.getParameter("skinType");
 		int customerNo = 1;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
