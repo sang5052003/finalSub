@@ -2,12 +2,14 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.Consts;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -15,6 +17,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.HTTP;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +51,7 @@ public class BeautyTipController {
 
 		// os에 붙음
 		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
-		
+
 		// 상태코드확인
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
 		// 내용을 json으로 받는다(stream으로)
@@ -56,7 +59,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -75,11 +77,12 @@ public class BeautyTipController {
 
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
-		System.out.println(beautyTip);
 
+		model.addAttribute("beautyTip", beautyTip); //이안에 이미 매퍼에서 받아온 댓글들이 들어있어야 함
+
+		//
 		response.close();
-
-		model.addAttribute("beautyTip", beautyTip);
+		httpClient.close();
 
 		return "/beautyTip/detail.jsp";
 	}
@@ -94,14 +97,19 @@ public class BeautyTipController {
 	}
 
 	@RequestMapping(value = "regist.do", method = RequestMethod.POST)
-	public String beautyTipRegist(HttpServletRequest req) throws ClientProtocolException, IOException {
+	public String beautyTipRegist(BeautyTip beautyTip) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "beautyTip/insert";
 
+		//
+		beautyTip.setCustomer(new Customer(1)); //session에서
+		
+		
+		//form태그로 완성된 객체가 옴
 		// req, jsp에서 받아온 값으로 beautyTip객체 생성
-		BeautyTip beautyTip = new BeautyTip(0, "cbeautyTipTitle", "cimage", "cbeautyTipContent", "cvideo",
-				new Customer(1, "cid", "cpassword", "cname", "m", null, "email", null),
-				BeautyTipCategory.makeupInformation, null);
+//		BeautyTip beautyTip = new BeautyTip(0, "cbeautyTipTitle", "cimage", "cbeautyTipContent", "cvideo",
+//				new Customer(1, "cid", "cpassword", "cname", "m", null, "email", null),
+//				BeautyTipCategory.makeupInformation, null);
 
 		//
 		HttpPost httpPost = new HttpPost(url);
@@ -109,7 +117,7 @@ public class BeautyTipController {
 
 		// form(데이터) 집어넣어서 보내기
 		// user객체를 json으로..
-		StringEntity entity = new StringEntity(new Gson().toJson(beautyTip)); // throw
+		StringEntity entity = new StringEntity(new Gson().toJson(beautyTip), Consts.UTF_8); // throw
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json"); // data가
 																// json이다(os에
@@ -121,11 +129,16 @@ public class BeautyTipController {
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 		// System.out.println(responseStatus);
 
-		//true/false
-		System.out.println("resp : " + responseContent);
+		// true/false
 
-		//이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
-		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.makeupInformation;
+		//
+		response.close();
+		httpClient.close();
+
+//		// 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
+//		String category = ;
+//		category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
+		return "redirect:/beautyTip/list.do?category=" + beautyTip.getCategory();
 	}
 
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
@@ -142,7 +155,7 @@ public class BeautyTipController {
 
 		// os에 붙음
 		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
-		
+
 		// 상태코드확인
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
 		// 내용을 json으로 받는다(stream으로)
@@ -150,7 +163,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -169,18 +181,34 @@ public class BeautyTipController {
 
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
-		response.close();
-
 		model.addAttribute("beautyTipList", beautyTipList);
+		model.addAttribute("category", category.toString());
+		
+		
+
+		response.close();
+		httpClient.close();
 
 		return "/beautyTip/list.jsp";
 	}
-	
-	//수정
+
+	// 수정
 	@RequestMapping(value = "editForm.do", method = RequestMethod.GET)
-	public String beautyTipEditForm(int beautyTipNo, HttpSession session, Model model) throws ClientProtocolException, IOException {
+	public String beautyTipEditForm(int beautyTipNo, HttpSession session, Model model)
+			throws ClientProtocolException, IOException {
 
 		// session체크(로그인)
+
+		//
+		BeautyTip beautyTip = this.getSrcForEdit(beautyTipNo);
+
+		model.addAttribute("beautyTip", beautyTip);
+
+		//
+		return "/beautyTip/editForm.jsp"; // 디스패쳐방식으로 수정할 beautyTip을 들고 감
+	}
+
+	private BeautyTip getSrcForEdit(int beautyTipNo) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "beautyTip/find/id/" + beautyTipNo;// get
 
@@ -192,7 +220,7 @@ public class BeautyTipController {
 
 		// os에 붙음
 		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
-		
+
 		// 상태코드확인
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
 		// 내용을 json으로 받는다(stream으로)
@@ -200,7 +228,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -219,32 +246,31 @@ public class BeautyTipController {
 
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
-		System.out.println(beautyTip);
-
-		response.close();
-
-		model.addAttribute("beautyTip", beautyTip);
-		
 		//
-		return "/beautyTip/editForm.jsp"; //디스패쳐방식으로 수정할 beautyTip을 들고 감
+		response.close();
+		httpClient.close();
+
+		return beautyTip;
 	}
 
+	//form태그로 객체 가져오는 것...test필요
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
 	public String beautyTipEdit(HttpServletRequest req) throws ClientProtocolException, IOException {
 
+		// 원본객체필요없음
+		// req.get...
+		int beautyTipNo = 4; // post방식으로 넘길때 번호 알아와야 함
+		// BeautyTip srcTip = this.getSrcForEdit(beautyTipNo);
+
+		BeautyTip srcTip = new BeautyTip(beautyTipNo, "4editbeautyTipTitle", "4editimage", "4editbeautyTipContent",
+				"video", new Customer(2, "2id", "2password", "name", "m", null, "email", null),
+				BeautyTipCategory.makeupInformation, null);
+
+		//
 		String url = Const.getOriginpath() + "beautyTip/modify";
 
-		/*BeautyTip tip = (BeautyTip)req.getAttribute("beautyTip");
-		System.out.println("attr");
-		System.out.println(tip);
-		System.out.println("/attr");*/
-		
-		
-		
 		// req, jsp에서 받아온 값으로 beautyTip객체 수정
-		BeautyTip beautyTip = new BeautyTip(5, "editTitle", "editimage", "editbeautyTipContent", "cvideo",
-				new Customer(1, "cid", "cpassword", "cname", "m", null, "email", null),
-				BeautyTipCategory.makeupInformation, null);
+		srcTip.setBeautyTipContent("수정합니다");
 
 		//
 		HttpPost httpPost = new HttpPost(url);
@@ -252,7 +278,7 @@ public class BeautyTipController {
 
 		// form(데이터) 집어넣어서 보내기
 		// user객체를 json으로..
-		StringEntity entity = new StringEntity(new Gson().toJson(beautyTip)); // throw
+		StringEntity entity = new StringEntity(new Gson().toJson(srcTip)); // throw
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json"); // data가
 																// json이다(os에
@@ -264,10 +290,154 @@ public class BeautyTipController {
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 		// System.out.println(responseStatus);
 
-		//true/false
-		System.out.println("resp : " + responseContent);
+		// true/false
 
-		//이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
-		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.makeupInformation;
+		//
+		response.close();
+		httpClient.close();
+
+		// req -> 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
+		String category = req.getParameter("category");
+		category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
+		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.valueOf(category);
+	}
+
+	// 삭제
+	@RequestMapping(value = "clear.do", method = RequestMethod.GET)
+	public String beautyTipClear(HttpServletRequest req) throws ClientProtocolException, IOException {
+
+		// remove
+		int removeNo = Integer.parseInt(req.getParameter("beautyTipNo"));
+		String url = Const.getOriginpath() + "beautyTip/remove/" + removeNo;// get
+
+		// apache lib
+		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
+
+		// HttpClient
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		// os에 붙음
+		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
+
+		// 상태코드확인
+		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		// 내용을 json으로 받는다(stream으로)
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+		// 상태체크해서 처리 해줘야 됨
+		// System.out.println(responseStatusCode);
+
+
+		response.close();
+		httpClient.close();
+
+		// req -> 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
+		String category = req.getParameter("category");
+		category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
+		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.valueOf(category);
+	}
+
+	// 작성자 검색
+	@RequestMapping(value = "showByAuthor.do", method = RequestMethod.GET)
+	public String showByAuthor(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
+
+		// findByAuthor
+		String authorId = req.getParameter("authorId");
+		String category = req.getParameter("category");
+		String url = Const.getOriginpath() + "beautyTip/find/author/" + authorId;// get
+
+		// apache lib
+		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
+
+		// HttpClient
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		// os에 붙음
+		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
+
+		// 상태코드확인
+		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		// 내용을 json으로 받는다(stream으로)
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+		// 상태체크해서 처리 해줘야 됨
+		// System.out.println(responseStatusCode);
+
+		// json(String) to object
+		// gson lib
+		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
+
+		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
+		};
+
+		// java.lang.reflect.type, import
+		Type type = typeToken.getType();
+
+		// 객체에 Date타입 필드가 있는 경우
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		List<BeautyTip> beautyTipList = gsonBuilder.create().fromJson(responseContent, type);
+
+		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
+
+		model.addAttribute("beautyTipList", beautyTipList);
+		model.addAttribute("category", category.toString());
+
+		response.close();
+		httpClient.close();
+
+		return "/beautyTip/list.jsp";
+	}
+
+	// title 검색
+	@RequestMapping(value = "showByTitle.do", method = RequestMethod.GET)
+	public String showByTitle(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
+
+		// findByTitle
+		String title = req.getParameter("title"); //검색어
+		String category = req.getParameter("category");
+		String url = Const.getOriginpath() + "beautyTip/find/title/" + title;// get
+
+		// apache lib
+		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
+
+		// HttpClient
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		// os에 붙음
+		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
+
+		// 상태코드확인
+		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		// 내용을 json으로 받는다(stream으로)
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+		// 상태체크해서 처리 해줘야 됨
+		// System.out.println(responseStatusCode);
+
+		// json(String) to object
+		// gson lib
+		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
+
+		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
+		};
+
+		// java.lang.reflect.type, import
+		Type type = typeToken.getType();
+
+		// 객체에 Date타입 필드가 있는 경우
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		List<BeautyTip> beautyTipList = gsonBuilder.create().fromJson(responseContent, type);
+
+		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
+
+		model.addAttribute("beautyTipList", beautyTipList);
+		model.addAttribute("category", category.toString());
+
+		response.close();
+		httpClient.close();
+
+		return "/beautyTip/list.jsp";
 	}
 }
