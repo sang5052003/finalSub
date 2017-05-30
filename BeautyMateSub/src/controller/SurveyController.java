@@ -55,7 +55,9 @@ public class SurveyController {
 	public String surveySkinTypeRegist(HttpServletRequest req, Model model)
 			throws ClientProtocolException, IOException {
 
-		String skinType = req.getParameter("skintType");
+
+		String skinType = req.getParameter("skinType");
+
 		int customerNo = 1;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
@@ -80,7 +82,7 @@ public class SurveyController {
 	}
 
 
-	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.GET)
+	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.POST)
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
