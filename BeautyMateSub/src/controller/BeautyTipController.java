@@ -144,6 +144,7 @@ public class BeautyTipController {
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
 	public String beautyTipList(BeautyTipCategory category, Model model) throws ClientProtocolException, IOException {
 
+		
 		// findAll
 		String url = Const.getOriginpath() + "beautyTip/find/category/" + category;// get
 
@@ -184,12 +185,10 @@ public class BeautyTipController {
 		model.addAttribute("beautyTipList", beautyTipList);
 		model.addAttribute("category", category.toString());
 		
-		
-
 		response.close();
 		httpClient.close();
 
-		return "/beautyTip/list.jsp";
+		return "/beautyTip/beautyTipList.jsp";
 	}
 
 	// 수정
@@ -386,7 +385,8 @@ public class BeautyTipController {
 		response.close();
 		httpClient.close();
 
-		return "/beautyTip/list.jsp";
+		return "/beautyTip/beautyTipList.jsp";
+//		return "/beautyTip/list.jsp";
 	}
 
 	// title 검색
@@ -438,6 +438,7 @@ public class BeautyTipController {
 		response.close();
 		httpClient.close();
 
-		return "/beautyTip/list.jsp";
+		return "/beautyTip/beautyTipList.jsp";
+		/*return "/beautyTip/list.jsp";*/
 	}
 }
