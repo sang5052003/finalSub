@@ -152,7 +152,6 @@ public class SurveyController {
 	}
 
 	@RequestMapping(value = "gradeRegist.do", method = RequestMethod.POST)
-
 	public String surveyGradeRegist(HttpServletRequest req, Model model, Recommend recommend)
 			throws ClientProtocolException, IOException {
 
