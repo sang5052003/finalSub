@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
@@ -57,30 +57,30 @@
 				</div>
 				<!-- /.box-header -->
 
-				<form role="form" action="modifyPage" method="post">
+				<form role="form" action="${ctx }/modify.do" method="post">
 
-					<input type='hidden' name='bno' value="${boardVO.bno}"> <input
-						type='hidden' name='page' value="${cri.page}"> <input
-						type='hidden' name='perPageNum' value="${cri.perPageNum}">
-					<input type='hidden' name='searchType' value="${cri.searchType}">
-					<input type='hidden' name='keyword' value="${cri.keyword}">
+					<input type='hidden' name='reviewNo' value="${review.reviewNo}">
+					<input type='hidden' name='page' value="${pager.page}"> <input
+						type='hidden' name='perPageNum' value="${pager.perPageNum}">
+					<input type='hidden' name='searchType' value="${pager.searchType}">
+					<input type='hidden' name='keyword' value="${pager.keyword}">
 
 				</form>
 
 				<div class="box-body">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Title</label> <input type="text"
-							name='title' class="form-control" value="${boardVO.title}"
+							name='title' class="form-control" value="${review.reviewTitle}"
 							readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Content</label>
 						<textarea class="form-control" name="content" rows="3"
-							readonly="readonly">${boardVO.content}</textarea>
+							readonly="readonly">${review.reviewContent}</textarea>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputEmail1">Writer</label> <input type="text"
-							name="writer" class="form-control" value="${boardVO.writer}"
+							name="writer" class="form-control" value="${review.customer.id}"
 							readonly="readonly">
 					</div>
 				</div>
@@ -117,7 +117,7 @@
 						class="form-control" type="text" placeholder="USER ID"
 						id="newReplyWriter"> <label for="exampleInputEmail1">Reply
 						Text</label> <input class="form-control" type="text"
-						placeholder="REPLY TEXT" id="newReplyText">
+						placeholder="REPLY TEXT" id="replyContent">
 
 				</div>
 				<!-- /.box-body -->
@@ -126,6 +126,20 @@
 						REPLY</button>
 				</div>
 			</div>
+
+			<c:forEach items="${review.replys }" var="reply" varStatus="status">
+				<li class="replyLi" data-rno=${reply.replyNo }><i
+					class="fa fa-comments bg-blue"></i>
+						<h3 class="timeline-header">
+							<strong>${reply.replyNo }</strong> replyer
+						</h3>
+						<div class="timeline-body">${reply.replyContent }</div>
+						<div class="timeline-footer">
+							<a class="btn btn-primary btn-xs" data-toggle="modal"
+								data-target="#modifyModal">Modify</a>
+						</div>
+					</li>
+			</c:forEach>
 
 
 			<!-- The time line -->
@@ -213,9 +227,9 @@
 
 	}
 
-	var bno = $
+	var reviewNo = $
 	{
-		boardVO.bno
+		review.reviewNo
 	};
 
 	var replyPage = 1;
@@ -274,30 +288,28 @@
 
 	$("#replyAddBtn").on("click", function() {
 
-		var replyerObj = $("#newReplyWriter");
-		var replytextObj = $("#newReplyText");
+		//var replyerObj = $("#newReplyWriter");
+		var replytextObj = $("#replyContent");
 		var replyer = replyerObj.val();
 		var replytext = replytextObj.val();
 
 		$.ajax({
 			type : 'post',
-			url : '/replies/',
+			url : 'http://localhost:8888/rest/',
 			headers : {
 				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"
 			},
 			dataType : 'text',
 			data : JSON.stringify({
-				bno : bno,
-				replyer : replyer,
-				replytext : replytext
+				reviewNo : reviewNo,
+				replyContent : replyContent
 			}),
 			success : function(result) {
 				console.log("result: " + result);
 				if (result == 'SUCCESS') {
 					alert("등록 되었습니다.");
 					replyPage = 1;
-					getPage("/replies/" + bno + "/" + replyPage);
+					getPage("http://localhost:8080/BeautyMate/review/detail.do?reviewNo="+reviewNo);
 					replyerObj.val("");
 					replytextObj.val("");
 				}
@@ -317,7 +329,7 @@
 	$("#replyModBtn").on("click", function() {
 
 		var rno = $(".modal-title").html();
-		var replytext = $("#replytext").val();
+		var replytext = $("#replyContent").val();
 
 		$.ajax({
 			type : 'put',
@@ -373,19 +385,19 @@
 		console.log(formObj);
 
 		$("#modifyBtn").on("click", function() {
-			formObj.attr("action", "/sboard/modifyPage");
+			formObj.attr("action", "modify.do");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
 
 		$("#removeBtn").on("click", function() {
-			formObj.attr("action", "/sboard/removePage");
+			formObj.attr("action", "remove.do");
 			formObj.submit();
 		});
 
 		$("#goListBtn ").on("click", function() {
 			formObj.attr("method", "get");
-			formObj.attr("action", "/sboard/list");
+			formObj.attr("action", "listpage.do");
 			formObj.submit();
 		});
 

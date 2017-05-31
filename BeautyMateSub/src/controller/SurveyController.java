@@ -51,12 +51,14 @@ public class SurveyController {
 		return "/survey/skinTypeRegistForm.jsp";
 	}
 
-	@RequestMapping(value = "skinTypeRegist.do", method = RequestMethod.GET)
+	@RequestMapping(value = "skinTypeRegist.do")
 	public String surveySkinTypeRegist(HttpServletRequest req, Model model)
 			throws ClientProtocolException, IOException {
 
-		String skinType = "Success";
-		int customerNo = 1;
+
+		String skinType = req.getParameter("skinType");
+
+		int customerNo = 123;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
 		HttpPost httpPost = new HttpPost(url);
@@ -80,12 +82,12 @@ public class SurveyController {
 	}
 
 
-	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.GET)
+	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.POST)
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
-
+//		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
 		
-		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
+		String url = Const.getOriginpath() + "survey/customerNo/" + 123; // get , 123=customerNo
 
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
@@ -124,13 +126,32 @@ public class SurveyController {
 
 	// 설문지 평점 등록
 	@RequestMapping(value = "gradeRegistForm.do", method = RequestMethod.GET)
-	public String surveyGradeRegistForm(HttpSession session) throws ClientProtocolException, IOException {
+	public String surveyGradeRegistForm(HttpSession session, Model model) throws ClientProtocolException, IOException {
+		
+		String url = Const.getOriginpath() + "cosmetic/findAll";
 
+		HttpGet httpGet = new HttpGet(url);
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		CloseableHttpResponse response = httpClient.execute(httpGet);
+
+		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+
+
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};	
+		Type type = typeToken.getType();
+		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
+		
+		response.close();
+
+		model.addAttribute("cosmetics", cosmetics);
+		
 		return "/survey/gradeRegistForm.jsp";
 	}
 
 	@RequestMapping(value = "gradeRegist.do", method = RequestMethod.POST)
-
 	public String surveyGradeRegist(HttpServletRequest req, Model model, Recommend recommend)
 			throws ClientProtocolException, IOException {
 
@@ -150,14 +171,14 @@ public class SurveyController {
 
 		int responseStatus = getResponseStatus(response);
 		String responseContent = getResponseContent(response);
-		System.out.println(responseStatus);
+//		System.out.println(responseStatus);
 
 		return "/survey/surveyResult.do";
 
 
 	}
 
-	@RequestMapping(value = "surveyResult.do")
+	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET)
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "recommend/list/customer/" + 1; // get

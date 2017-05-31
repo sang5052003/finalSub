@@ -13,7 +13,7 @@
 		
 		<div class="row form-btn">
 			<input type="submit" class="btn btn-large btn-warning" value="로그인">
-			<button class="btn btn-large btn-default">뷰티팁 등록</button>
+			<button class="btn btn-large btn-default">뷰티팁 수정</button>
 			<!-- <a ? -->
 		</div>
 	</form>
