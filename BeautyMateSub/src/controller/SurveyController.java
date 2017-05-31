@@ -178,10 +178,10 @@ public class SurveyController {
 
 	}
 
-	@RequestMapping(value = "surveyResult.do")
+	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET)
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 
-		String url = Const.getOriginpath() + "recommend/list/customer/" + 123; // get
+		String url = Const.getOriginpath() + "recommend/list/customer/" + 1; // get
 																				// ,
 																				// 1=customerNo
 

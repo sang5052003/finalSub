@@ -25,22 +25,31 @@
 	href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff"
 	rel="stylesheet">
 
-<link href="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/font-awesome/css/font-awesome.min.css"
+<link href="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.css"
 	rel="stylesheet">
-<link href="${ctx }/resources/plugins/selectbox/select_option1.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet"
-	media="screen">
-<link href="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/isotope/isotope.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/datepicker/datepicker.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css"
+<link href="${ctx }/resources/plugins/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="${ctx }/resources/plugins/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/selectbox/select_option1.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.css"
+	rel="stylesheet" media="screen">
+<link href="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/isotope/isotope.min.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/datepicker/datepicker.min.css"
+	rel="stylesheet">
+<link
+	href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css"
 	rel="stylesheet">
 
 <!-- CUSTOM CSS -->
 <link href="${ctx }/resources/css/style.css" rel="stylesheet">
-<link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
+<link href="${ctx }/resources/css/default.css" rel="stylesheet"
+	id="option_color">
 
 
 <!-- FAVICON -->
@@ -89,6 +98,14 @@
 div.stars {
 	width: 270px;
 	display: inline-block;
+}
+.floating {
+  position: fixed; 
+  right: 50%; 
+  top: 180px; 
+  margin-right: -720px;
+  text-align:center;
+  width: 120px;
 }
 
 input.star {
@@ -287,16 +304,42 @@ label.star:before {
 		<!-- PRODUCT SECTION -->
 		<section class="container-fluid clearfix productArea">
 			<div class="container">
-			
-			 <div class="panel panel-default cartInfo">
-                <div >
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="title" placeholder="Search..." aria-describedby="basic-addon221">
-                    <button class="btn btn-common btn-full-round btn-theme" name="searchName">Search...</button>
-                  </div>
-                </div>
-              </div>
-			<br>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="buttonPart">
+							<ul class="list-inline squareBtn">
+								<li class="li"><a href="javascript:categoryList('essence')"
+									class="btn btn-common btn-theme">Essence</a></li>
+								<li class="li"><a href="javascript:categoryList('mist')"
+									class="btn btn-common btn-theme">Mist</a></li>
+								<li class="li"><a href="javascript:categoryList('lotion')"
+									class="btn btn-common btn-theme">Lotion</a></li>
+								<li class="li"><a href="javascript:categoryList('faceOil')"
+									class="btn btn-common btn-theme">Face Oil</a></li>
+								<li class="li"><a href="javascript:categoryList('skin')"
+									class="btn btn-common btn-theme">Skin</a></li>
+								<li class="li"><a href="javascript:categoryList('cream')"
+									class="btn btn-common btn-theme">Cream</a></li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="panel panel-default cartInfo">
+					<div>
+						<div class="input-group">
+							<input type="text" class="form-control" name="title"
+								placeholder="Search..." aria-describedby="basic-addon221">
+							<button class="btn btn-common btn-full-round btn-theme"
+								name="searchName">Search...</button>
+						</div>
+					</div>
+				</div>
+				<br>
 				<div class="row" id="cosmeticList">
 					<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
 						<form action="">
@@ -330,7 +373,8 @@ label.star:before {
 										</div>
 										<input type="hidden" name="${cosmetics.cosmeticNo }"
 											value="${cosmetics.cosmeticNo }">
-										<button type="button" class="btn btn-common btn-full-round btn-theme"
+										<button type="button"
+											class="btn btn-common btn-full-round btn-theme"
 											onclicK="javascript:gradeReg(${cosmetics.cosmeticNo })"
 											name="gradeBtn">평가</button>
 									</div>
@@ -343,7 +387,8 @@ label.star:before {
 		</section>
 
 		<!-- FOOTER -->
-		<footer style="background-image: url(${ctx }/resources/img/home/footer-bg.jpg);">
+		<footer
+			style="background-image: url(${ctx }/resources/img/home/footer-bg.jpg);">
 			<!-- BACK TO TOP BUTTON -->
 			<a href="#pageTop" class="backToTop"><i class="fa fa-angle-up"
 				aria-hidden="true"></i></a>
@@ -530,18 +575,29 @@ label.star:before {
 		</div>
 	</div>
 
+	<div class="floating">
+		<form action="${ctx }/survey/surveyResult.do" method="get">
+		<button type="submit" class="btn btn-common btn-theme">평가 종료하기</button>
+		</form>
+	</div>
+	
 	<!-- JAVASCRIPTS -->
 	<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="${ctx }/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${ctx }/resources/plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
-	<script src="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.js"></script>
+	<script
+		src="${ctx }/resources/plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
+	<script
+		src="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.js"></script>
 	<script src="${ctx }/resources/plugins/isotope/isotope.min.js"></script>
-	<script src="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.js"></script>
+	<script
+		src="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.js"></script>
 	<script src="${ctx }/resources/plugins/isotope/isotope-triger.min.js"></script>
-	<script src="${ctx }/resources/plugins/smoothscroll/SmoothScroll.min.js"></script>
-	<script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+	<script
+		src="${ctx }/resources/plugins/smoothscroll/SmoothScroll.min.js"></script>
+	<script
+		src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
 	<script src="${ctx }/resources/js/custom.js"></script>
 
@@ -558,7 +614,8 @@ label.star:before {
 
 		var gradeReg;
 		var search;
-		
+		var categoryList;
+		var category;
 		$(document).ready(function() {
 			gradeReg = function(cosmeticNo){
 				var gradeStar = $('input:radio[name="star"]:checked').val();
@@ -591,6 +648,21 @@ label.star:before {
 				});
 			});
 			
+			categoryList = function(category){
+				$.ajax({
+					url:"http://localhost:8888/rest/cosmetic/findByCategory/"+category
+					,type:"get"
+					,dataType:"json"
+					//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+					,success:displayList
+					,error:errorCallback
+				});
+			};
+			
+			
+			
+			
+			
 			var displayList = function(resultData) {
 				var listHtml = "";
 				
@@ -608,16 +680,16 @@ label.star:before {
 					'id="star-'+cosmetic.cosmeticNo+'-5" type="radio"'+
 					'name="star" value="5" /> <label class="star star-5"'+
 					'for="star-'+cosmetic.cosmeticNo+'-5"></label> <input'+
-					'class="star star-4" id="star-'+cosmetic.cosmeticNo+'-4"'+
+					' class="star star-4" id="star-'+cosmetic.cosmeticNo+'-4"'+
 					'type="radio" name="star" value="4" /> <label'+
-					'class="star star-4" for="star-'+cosmetic.cosmeticNo+'-4"></label>'+
+					' class="star star-4" for="star-'+cosmetic.cosmeticNo+'-4"></label>'+
 					'<input class="star star-3"'+
 					'id="star-'+cosmetic.cosmeticNo+'-3" type="radio"'+
 					'name="star" value="3" /> <label class="star star-3"'+
 					'for="star-'+cosmetic.cosmeticNo+'-3"></label> <input'+
-					'class="star star-2" id="star-'+cosmetic.cosmeticNo+'-2"'+
+					' class="star star-2" id="star-'+cosmetic.cosmeticNo+'-2"'+
 					'type="radio" name="star" value="2" /> <label'+
-					'class="star star-2" for="star-'+cosmetic.cosmeticNo+'-2"></label>'+
+					' class="star star-2" for="star-'+cosmetic.cosmeticNo+'-2"></label>'+
 					'<input class="star star-1"'+
 					'id="star-'+cosmetic.cosmeticNo+'-1" type="radio"'+
 					'name="star" value="1" /> <label class="star star-1"'+
