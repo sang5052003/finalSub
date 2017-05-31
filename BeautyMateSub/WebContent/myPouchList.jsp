@@ -72,7 +72,7 @@ th {
 	position: relative;
 }
 
-input, section {
+#tab1,#tab2,#tab3, section {
 	clear: both;
 	padding-top: 10px;
 	display: none;
@@ -303,10 +303,13 @@ opacity
 	<div class="tab_container">
 
 		<input id="tab1" type="radio" name="tabs" onclick="check(0)">
-		<label for="tab1"><i class="fa fa-file-text-o"></i><span>내
+		<label for="tab1"><i class="fa fa-heart"></i><span>내
 				화장품</span></label> <input id="tab2" type="radio" name="tabs" onclick="check(1)">
-		<label for="tab2"><i class="fa fa-question-circle"></i><span>내
+		<label for="tab2"><i class="fa fa-file-text-o"></i><span>내
 				뷰티팁</span></label>
+				<input id="tab3" type="radio" name="tabs" onclick="check(2)">
+		<label for="tab3"><i class="fa fa-thumbs-o-up"></i><span>내
+				추천화장품</span></label>
 
 
 		<section id="content1" class="tab-content">
@@ -320,7 +323,9 @@ opacity
 										<div class="col-md-12">
 											<br> <br> <br> <br> <br>
 											<h1 class="text-center">내 화장품</h1>
-											<br> <br>
+											
+											<br>
+											<br>
 										</div>
 									</div>
 
@@ -348,6 +353,7 @@ opacity
 
 								<tbody>
 
+
 									<c:forEach items="${list }" var="cosmetic" varStatus="sts">
 
 										<tr>
@@ -355,15 +361,15 @@ opacity
 											<td>${cosmetic.brand }</td>
 											<td></td>
 											<td><a href="#">${cosmetic.cosmeticName }</a></td>
-											<td><form id="recruitDeleteForm"
-													action="${ctx }/myScrap/remove.do" method="get">
+											<td><form id="cosmeticDeleteForm"
+													action="${ctx }/myPouch/cosmeticClear.do" method="get">
 													<!-- <input name="recruitID" type="hidden" value="${recruit.id }">  -->
-													<input id="recruitNoId" name="recruitID" type="hidden"
+													<input id="cosmeticNo" name="cosmeticNo" type="hidden"
 														value="${cosmetic.cosmeticNo }"> <input
 														id="tabCheckedId" name="tabChecked" type="hidden"
 														value="100"> <input class="btn btn-xs btn-danger"
 														type="button" value="삭제"
-														onclick="recruitDeletFormFunc(${cosmetic.cosmeticNo })">
+														onclick="cosmeticDeletFormFunc(${cosmetic.cosmeticNo })">
 
 												</form></td>
 
@@ -430,16 +436,16 @@ opacity
 											<td class="ranking">${sts.count}</td>
 
 											<td><a href="#">${BeautyTip.beautyTipTitle }</a></td>
-											<td><form id="questionDeleteForm"
-													action="${ctx }/myQuestion/remove.do" method="get">
+											<td><form id="beautyTipDeleteForm"
+													action="${ctx }/myPouch/beautyTipClear.do" method="get">
 													<!-- <input name="recruitID" type="hidden" value="${recruit.id }">  -->
-													<input id="questionNoId" name="questionNo" type="hidden"
+													<input id="beautyTipNo" name="beautyTipNo" type="hidden"
 														value="${BeautyTip.beautyTipNo }"> <input
 														id="tabCheckedId" name="tabChecked" type="hidden"
 														value="100"> <input
 														class="btn btn-xs btn-danger btnPlay" type="button"
 														value="삭제"
-														onclick="questionDeletFormFunc(${BeautyTip.beautyTipNo })">
+														onclick="beautyTipDeletFormFunc(${BeautyTip.beautyTipNo })">
 
 												</form></td>
 
@@ -463,6 +469,85 @@ opacity
 				</div>
 			</div>
 		</section>
+		<section id="content3" class="tab-content">
+			<div class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="section">
+								<div class="container">
+									<div class="row">
+										<div class="col-md-12">
+											<br> <br> <br> <br> <br>
+											<h1 class="text-center">내 추천화장품</h1>
+											<br> <br>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="section text-center">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>No.</th>
+										<th>브랜드</th>
+										<th>화장품명
+										<th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody>
+
+
+									<c:forEach items="${rlist }" var="cosmetic" varStatus="sts">
+
+										<tr>
+											<td class="ranking">${sts.count}</td>
+											<td>${cosmetic.brand }</td>
+											<td></td>
+											<td><a href="#">${cosmetic.cosmeticName }</a></td>
+											<td><form id="cosmeticDeleteForm2"
+													action="${ctx }/myPouch/recommendClear.do" method="get">
+													<!-- <input name="recruitID" type="hidden" value="${recruit.id }">  -->
+													<input id="cosmeticNum" name="cosmeticNum" type="hidden"
+														value="${cosmetic.cosmeticNo }"> <input
+														id="tabCheckedId" name="tabChecked" type="hidden"
+														value="100"> <input class="btn btn-xs btn-danger"
+														type="button" value="삭제"
+														onclick="cosmeticDeletFormFunc(${cosmetic.cosmeticNo })">
+
+												</form></td>
+
+
+										</tr>
+
+
+									</c:forEach>
+
+
+
+								</tbody>
+
+							</table>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		
 
 
 	</div>
@@ -475,11 +560,14 @@ opacity
 			//체크 해제할 라디오버튼 불러오기
 	        var tab1 = document.getElementById("tab1");
 	        var tab2 = document.getElementById("tab2");
+	        var tab3 = document.getElementById("tab3");
 	        if("${tab }" == 0){
 	        	tab1.checked = true;
 	        }
-	        else{
+	        else if("${tab}" == 1){
 		        tab2.checked = true;
+	        }else{
+	        	tab3.checked = true;
 	        }
 		});
 		
@@ -487,28 +575,37 @@ opacity
 		var tab = 0;
 		function check(n) {
 			tab =  n;
+			
 		};
 		
 		
 		
-		//면접질문스크랩 form전송
-		function questionDeletFormFunc(n) {
+		//뷰티팁 form전송
+		function beautyTipDeletFormFunc(n) {
 			//each돌아서 삭제해야함
-			document.getElementById("questionNoId").value = n;
+			document.getElementById("beautyTipNo").value = n;
 			document.getElementById("tabCheckedId").value = tab;
-			document.getElementById("questionDeleteForm").submit();
+			document.getElementById("beautyTipDeleteForm").submit();
 		};
 		
 		
 		
 		
-		//채용정보 스크랩 form전송
-		function recruitDeletFormFunc(n) {
+		//화장품 스크랩 form전송
+		function cosmeticDeletFormFunc(n) {
 				
-				document.getElementById("recruitNoId").value = n;
+				document.getElementById("cosmeticNo").value = n;
 				document.getElementById("tabCheckedId").value = tab;
-				document.getElementById("recruitDeleteForm").submit();
+				document.getElementById("cosmeticDeleteForm").submit();
 		};
+		
+		//추천템 스크랩 form전송
+		function cosmeticDeletFormFunc(n) {
+			
+			document.getElementById("cosmeticNum").value = n;
+			document.getElementById("tabCheckedId").value = tab;
+			document.getElementById("cosmeticDeleteForm2").submit();
+	};
 		
 	</script>
 
