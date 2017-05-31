@@ -5,7 +5,8 @@
 <%@ page session="false"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 
-
+<head>
+<!-- Bootstrap 3.3.4 -->
 <link href="${ctx}/resources/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- Font Awesome Icons -->
@@ -23,18 +24,7 @@
          folder instead of downloading all of them to reduce the load. -->
 <link href="${ctx}/resources/dist/css/skins/_all-skins.min.css"
 	rel="stylesheet" type="text/css" />
-
-<!-- Bootstrap 3.3.2 JS -->
-<script src="${ctx}/resources/bootstrap/js/bootstrap.min.js"
-	type="text/javascript"></script>
-<!-- FastClick -->
-<script src='${ctx}/resources/plugins/fastclick/fastclick.min.js'></script>
-<!-- AdminLTE App -->
-<script src="${ctx}/resources/dist/js/app.min.js" type="text/javascript"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="${ctx}/resources/dist/js/demo.js" type="text/javascript"></script>
-
-
+</head>
 <script src="${ctx}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Main content -->
 <section class="content">
@@ -98,11 +88,11 @@
 						</tr>
 
 						<c:forEach items="${reviewList}" var="review">
-
+<%-- ${pageMaker.makeSearch(pageMaker.pager.page) } --%>
 							<tr>
 								<td>${review.reviewNo}</td>
 								<td><a
-									href='${ctx}/review/detail.do${pageMaker.makeSearch(pageMaker.pager.page) }&reviewNo=${review.reviewNo}'>
+									href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'>
 										${review.reviewTitle} </a></td>
 								<td>${review.customer.id}</td>
 								<td><span class="badge bg-red">**</span></td>
@@ -175,6 +165,12 @@
 <!-- /.content -->
 
 
+
+
+
+
+
+
 <script>
 	var result = '${msg}';
 
@@ -207,4 +203,15 @@
 
 			});
 </script>
+
+
+<!-- Bootstrap 3.3.2 JS -->
+<script src="${ctx}/resources/bootstrap/js/bootstrap.min.js"
+	type="text/javascript"></script>
+<!-- FastClick -->
+<script src='${ctx}/resources/plugins/fastclick/fastclick.min.js'></script>
+<!-- AdminLTE App -->
+<script src="${ctx}/resources/dist/js/app.min.js" type="text/javascript"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="${ctx}/resources/dist/js/demo.js" type="text/javascript"></script>
 
