@@ -6,8 +6,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 
 
-<link
-	href="${ctx}/resources/bootstrap/css/bootstrap.min.css"
+<link href="${ctx}/resources/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- Font Awesome Icons -->
 <link
@@ -18,34 +17,25 @@
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- Theme style -->
-<link
-	href="${ctx}/resources/dist/css/AdminLTE.min.css"
-	rel="stylesheet" type="text/css" />
+<link href="${ctx}/resources/dist/css/AdminLTE.min.css" rel="stylesheet"
+	type="text/css" />
 <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
-<link
-	href="${ctx}/resources/dist/css/skins/_all-skins.min.css"
+<link href="${ctx}/resources/dist/css/skins/_all-skins.min.css"
 	rel="stylesheet" type="text/css" />
 
 <!-- Bootstrap 3.3.2 JS -->
-<script
-	src="${ctx}/resources/bootstrap/js/bootstrap.min.js"
+<script src="${ctx}/resources/bootstrap/js/bootstrap.min.js"
 	type="text/javascript"></script>
 <!-- FastClick -->
-<script
-	src='${ctx}/resources/plugins/fastclick/fastclick.min.js'></script>
+<script src='${ctx}/resources/plugins/fastclick/fastclick.min.js'></script>
 <!-- AdminLTE App -->
-<script
-	src="${ctx}/resources/dist/js/app.min.js"
-	type="text/javascript"></script>
+<script src="${ctx}/resources/dist/js/app.min.js" type="text/javascript"></script>
 <!-- AdminLTE for demo purposes -->
-<script
-	src="${ctx}/resources/dist/js/demo.js"
-	type="text/javascript"></script>
+<script src="${ctx}/resources/dist/js/demo.js" type="text/javascript"></script>
 
 
-<script
-	src="${ctx}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="${ctx}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Main content -->
 <section class="content">
 	<div class="row">
@@ -72,18 +62,18 @@
 						<option value="c"
 							<c:out value="${pager.searchType eq 'c'?'selected':''}"/>>
 							Content</option>
-						<option value="w"
-							<c:out value="${pager.searchType eq 'w'?'selected':''}"/>>
-							Writer</option>
-						<option value="tc"
-							<c:out value="${pager.searchType eq 'tc'?'selected':''}"/>>
-							Title OR Content</option>
-						<option value="cw"
-							<c:out value="${pager.searchType eq 'cw'?'selected':''}"/>>
-							Content OR Writer</option>
-						<option value="tcw"
-							<c:out value="${pager.searchType eq 'tcw'?'selected':''}"/>>
-							Title OR Content OR Writer</option>
+						<!-- 						<option value="w" -->
+						<%-- 							<c:out value="${pager.searchType eq 'w'?'selected':''}"/>> --%>
+						<!-- 							Writer</option> -->
+						<!-- 						<option value="tc" -->
+						<%-- 							<c:out value="${pager.searchType eq 'tc'?'selected':''}"/>> --%>
+						<!-- 							Title OR Content</option> -->
+						<!-- 						<option value="cw" -->
+						<%-- 							<c:out value="${pager.searchType eq 'cw'?'selected':''}"/>> --%>
+						<!-- 							Content OR Writer</option> -->
+						<!-- 						<option value="tcw" -->
+						<%-- 							<c:out value="${pager.searchType eq 'tcw'?'selected':''}"/>> --%>
+						<!-- 							Title OR Content OR Writer</option> -->
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
 					<button id='searchBtn'>Search</button>
@@ -131,29 +121,43 @@
 						<ul class="pagination">
 
 							<c:if test="${pageMaker.prev}">
-								<li><a
-									href="listpage.do${pageMaker.makeSearch(pageMaker.startPage - 1) }">
-									&laquo;</a></li>
+								<c:choose>
+									<c:when test="${pager.keyword != null }">
+										<li><a
+											href="listsearch.do${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a
+											href="listpage.do${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+									</c:otherwise>
+								</c:choose>
 							</c:if>
 
 							<c:forEach begin="${pageMaker.startPage }"
 								end="${pageMaker.endPage }" var="idx">
 								<li
 									<c:out value="${pageMaker.pager.page == idx?'class =active':''}"/>>
-<%-- 									<c:choose> --%>
-<%-- 									<c:when test="${idx==1 }"> --%>
-										<a href="listpage.do${pageMaker.makeSearch(idx)}">${idx}</a>
-<%-- 									</c:when> --%>
-<%-- 									<c:otherwise> --%>
-<%-- 										<a href="listpage.do${pageMaker.makeSearch(idx*10 -9)}">${idx}</a> --%>
-<%-- 									</c:otherwise> --%>
-<%-- 									</c:choose> --%>
-								</li>
+									<c:choose>
+										<c:when test="${pager.keyword != null }">
+											<a href="listsearch.do${pageMaker.makeSearch(idx)}">${idx}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="listpage.do${pageMaker.makeSearch(idx)}">${idx}</a>
+										</c:otherwise>
+									</c:choose>
 							</c:forEach>
 
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><a
-									href="listpage.do${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+								<li><c:choose>
+										<c:when test="${pager.keyword != null }">
+											<li><a
+												href="listsearch.do${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+										</c:when>
+										<c:otherwise>
+											<li><a
+												href="listpage.do${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+										</c:otherwise>
+									</c:choose>
 							</c:if>
 
 						</ul>
@@ -187,7 +191,7 @@
 						"click",
 						function(event) {
 
-							self.location = "listpage.do"
+							self.location = "listsearch.do"
 									+ '${pageMaker.makeQuery(1)}'
 									+ "&searchType="
 									+ $("select option:selected").val()
