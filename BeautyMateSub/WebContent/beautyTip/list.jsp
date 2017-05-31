@@ -38,10 +38,9 @@
 							<td colspan="2">
 								<p class="txt">${beautyTip.beautyTipContent}</p>
 							</td>
-							<td colspan="2"><a
-								href="${pageContext.request.contextPath}/beautyTip/clear.do?beautyTipNo=${beautyTip.beautyTipNo }">
-									<button type="button" class="btn btn-default">삭제</button>
-							</a></td>
+							<td colspan="2">
+								<button type="button" onclick="javascript:delFunc(${beautyTip.beautyTipNo })" class="btn btn-default">삭제</button>
+							</td>
 						</tr>
 					</table>
 				</c:forEach>
@@ -55,11 +54,34 @@
 	</div>
 
 	<script type="text/javascript">
+	
+		
+	
+		var delFunc;
 		$(document).ready(function() {
 
+			delFunc = function(beautyTipNo){
+
+				/* "beautyTip/remove/" + removeNo */
+				/* /remove/ajax/{id}&{category} */
+				$.ajax({
+					url:"http://localhost:8888/rest/beautyTip/remove/ajax/" + beautyTipNo
+					,type:"get"
+					,dataType:"json"
+					//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+					,success:displayList
+					,error:errorCallback
+				});
+			}
+			
 			$(":button[name=authorBtn]").click(function(){
 				var authorId = $(":input[name=authorId]").val();
 				/* location.href="${pageContext.request.contextPath}/beautyTip/showByAuthor.do?authorId=" + authorId + "&category=${category }"; */
+				
+				//검색값 없는 경우
+				if(authorId == ""){
+					authorId = "admin";
+				}
 				
 				/* $.ajaxSetup({
 					crossDomain: true,
@@ -93,7 +115,14 @@
 			
 			$(":button[name=titleBtn]").click(function(){
 				var title = $(":input[name=title]").val();
+				
+				//"beautyTip/remove/" + removeNo
+				
 				//location.href="${pageContext.request.contextPath}/beautyTip/showByTitle.do?title=" + title + "&category=${category }";
+				if(title == ""){
+					title = "§"; //§ -> ㅁ5
+				}
+				
 				$.ajax({
 					url:"http://localhost:8888/rest/beautyTip/find/title/" + title
 					,type:"get"
@@ -111,19 +140,19 @@
 				$.each(resultData, function(index, beautyTip){
 					listHtml += '<table class="table" style="font-size:13px; padding:20px;">';
 					listHtml += '<tr>';
-					listHtml += '<td><strong>'+beautyTip.beautyTipNo+'</strong></td>';
+					listHtml += '<td><strong>' + beautyTip.beautyTipNo + '</strong></td>';
 					listHtml += '<td class="text-right">'+
-					'<a href="${pageContext.request.contextPath}/beautyTip/showDetail.do?beautyTipNo=' + beautyTip.beautyTipNo +
+					'<a href="${pageContext.request.contextPath}/beautyTip/showDetail.do?beautyTipNo=' + beautyTip.beautyTipNo + '"' +
 					' class="list-group-item hidden-xs">'+ beautyTip.beautyTipTitle + '</a>';
 					listHtml += '<td>';
 					listHtml += '<td colspan="2">';
 					listHtml += '<p class="txt">' + beautyTip.beautyTipContent + '</p>';
 					listHtml += '<td>';
 					
-					listHtml +=  '<td colspan="2"><a' + 
-					'href="${pageContext.request.contextPath}/beautyTip/clear.do?beautyTipNo='+beautyTip.beautyTipNo + '>' +
-						'<button type="button" class="btn btn-default">삭제</button>';
-					listHtml += '</a><td>';
+					listHtml +=  '<td colspan="2">' + 
+						'<button type="button" onclick="javascript:delFunc(' + beautyTip.beautyTipNo + ');"' + 'class="btn btn-default">삭제</button>';
+						
+					listHtml += '<td>';
 					listHtml += '</tr></table>';	
 				});
 				
