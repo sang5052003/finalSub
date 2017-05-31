@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <c:set var="ctx">${pageContext.request.contextPath }</c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-
   <!-- SITE TITTLE -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -230,12 +231,8 @@
                 <div class="panel-heading">Categories</div>
                 <div class="panel-body">
                   <ul class="list-unstyle categoryList">
-                    <li><a href="product-right-sidebar.html">Beauty</a></li>
-                    <li><a href="product-right-sidebar.html">Hair Cut</a></li>
-                    <li><a href="product-right-sidebar.html">Facial</a></li>
-                    <li><a href="product-right-sidebar.html">Massage</a></li>
-                    <li><a href="product-right-sidebar.html">Make up</a></li>
-                    <li><a href="product-right-sidebar.html">Waxing</a></li>
+                    <li><a href="product-right-sidebar.html">메이크업 정보</a></li>
+                    <li><a href="product-right-sidebar.html">세일 정보</a></li>
                   </ul>
                 </div>
               </div>
@@ -283,8 +280,22 @@
             </div>
           </div>
 
+<!-- blog list start -->
           <div class="col-sm-8 col-xs-12">
-
+          
+			<c:forEach var="beautyTip" items="${beautyTipList }">
+				<div class="blogPost">
+	              <img src="${beautyTip.image }" alt="Image Blog" class="img-responsive" width="770" height="400">
+	              <h2><a href="blog-single-right-sidebar.html">${beautyTip.beautyTipTitle }</a></h2>
+	              <p>${beautyTip.beautyTipContent } </p>
+	              <ul class="list-inline">
+	                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${beautyTip.customer.id }</a></li>
+	                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
+	                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> ${beautyTip.beautyTipReplys.size() } Comments</a></li>
+	              </ul>
+	            </div>
+			</c:forEach>
+			
             <div class="blogPost">
               <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
               <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
@@ -366,7 +377,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer style="background-image: url(img/home/footer-bg.jpg);">
+    <footer style="background-image: url(${ctx}/resources/img/home/footer-bg.jpg);">
       <!-- BACK TO TOP BUTTON -->
       <a href="#pageTop" class="backToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
       <!-- FOOTER INFO -->
@@ -520,17 +531,17 @@
 
   <!-- JAVASCRIPTS -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-  <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-  <script src="plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
-  <script src="plugins/owl-carousel/owl.carousel.min.js"></script>
-  <script src="plugins/isotope/isotope.min.js"></script>
-  <script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
-  <script src="plugins/isotope/isotope-triger.min.js"></script>
-  <script src="plugins/smoothscroll/SmoothScroll.min.js"></script>
-  <script src="plugins/datepicker/bootstrap-datepicker.min.js"></script>
-  <script src="plugins/syotimer/jquery.syotimer.min.js"></script>
-  <script src="js/custom.js"></script>
+  <script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <script src="${ctx }/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="${ctx }/resources/plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
+  <script src="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.js"></script>
+  <script src="${ctx }/resources/plugins/isotope/isotope.min.js"></script>
+  <script src="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.js"></script>
+  <script src="${ctx }/resources/plugins/isotope/isotope-triger.min.js"></script>
+  <script src="${ctx }/resources/plugins/smoothscroll/SmoothScroll.min.js"></script>
+  <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
+  <script src="${ctx }/resources/js/custom.js"></script>
 
   <script>
   	//paste this code under head tag or in a seperate js file.
