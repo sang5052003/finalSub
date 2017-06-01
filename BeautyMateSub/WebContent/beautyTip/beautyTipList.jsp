@@ -231,8 +231,8 @@
                 <div class="panel-heading">Categories</div>
                 <div class="panel-body">
                   <ul class="list-unstyle categoryList">
-                    <li><a href="product-right-sidebar.html">메이크업 정보</a></li>
-                    <li><a href="product-right-sidebar.html">세일 정보</a></li>
+                    <li><a href="#" id="makeUpInfoTab">메이크업 정보</a></li>
+                    <li><a href="#" id="saleInfoTab">세일 정보</a></li>
                   </ul>
                 </div>
               </div>
@@ -283,70 +283,20 @@
 <!-- blog list start -->
           <div class="col-sm-8 col-xs-12">
           
-			<c:forEach var="beautyTip" items="${beautyTipList }">
-				<div class="blogPost">
-	              <img src="${beautyTip.image }" alt="Image Blog" class="img-responsive" width="770" height="400">
-	              <h2><a href="blog-single-right-sidebar.html">${beautyTip.beautyTipTitle }</a></h2>
-	              <p>${beautyTip.beautyTipContent } </p>
-	              <ul class="list-inline">
-	                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${beautyTip.customer.id }</a></li>
-	                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-	                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> ${beautyTip.beautyTipReplys.size() } Comments</a></li>
-	              </ul>
-	            </div>
-			</c:forEach>
+          	<div id="post">
+				<c:forEach var="beautyTip" items="${beautyTipList }">
+					<div class="blogPost">
+		              <img src="${beautyTip.image }" alt="Image Blog" class="img-responsive" width="770" height="400">
+		              <h2><a href="blog-single-right-sidebar.html">${beautyTip.beautyTipTitle }</a></h2>
+		              <p>${beautyTip.beautyTipContent } </p>
+		              <ul class="list-inline">
+		                <li><i class="fa fa-user" aria-hidden="true"></i> ${beautyTip.customer.id }</li>
+		                <li><i class="fa fa-comments-o" aria-hidden="true"></i> ${beautyTip.beautyTipReplys.size() } Comments</li>
+		              </ul>
+		            </div>
+				</c:forEach>
+			</div>
 			
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-
             <div class="paginationCommon paginationOne">
               <nav aria-label="Page navigation">
                 <ul class="pagination">
@@ -551,6 +501,133 @@
   		$(".se-pre-con").fadeOut("slow");;
   	});
   </script>
+  
+  <script type="text/javascript">
+	
+		var delFunc;
+		$(document).ready(function() {
+
+			delFunc = function(beautyTipNo){
+
+				/* "beautyTip/remove/" + removeNo */
+				/* /remove/ajax/{id}&{category} */
+				$.ajax({
+					url:"http://localhost:8888/rest/beautyTip/remove/ajax/" + beautyTipNo
+					,type:"get"
+					,dataType:"json"
+					//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+					,success:displayList
+					,error:errorCallback
+				});
+			}
+			
+			//카테고리 검색
+			$("#makeUpInfoTab").click(function(){
+				
+				var cate = 'makeupInformation';
+					$.ajax({
+						url:"http://localhost:8888/rest/beautyTip/find/category/" + cate
+						,type:"get"
+						,dataType:"json"
+						//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+						,success:displayList
+						,error:errorCallback
+					});
+					
+			});
+			
+			$("#saleInfoTab").click(function(){
+				
+				var cate = 'saleInformation';
+					$.ajax({
+						url:"http://localhost:8888/rest/beautyTip/find/category/" + cate
+						,type:"get"
+						,dataType:"json"
+						//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+						,success:displayList
+						,error:errorCallback
+					});
+					
+			});
+			
+			
+			
+			$(":button[name=authorBtn]").click(function(){
+				var authorId = $(":input[name=authorId]").val();
+				/* location.href="${pageContext.request.contextPath}/beautyTip/showByAuthor.do?authorId=" + authorId + "&category=${category }"; */
+				
+				//검색값 없는 경우
+				if(authorId == ""){
+					authorId = "admin";
+				}
+				
+				/* $.ajaxSetup({
+					crossDomain: true,
+					beforeSend: function(xhr) {
+					xhr.setRequestHeader("Application-Client-ID", "hue");
+					xhr.setRequestHeader("Application-Uniqid", "12415322");
+					}
+					}); */
+
+					$.ajax({
+						url:"http://localhost:8888/rest/beautyTip/find/author/" + authorId
+						,type:"get"
+						,dataType:"json"
+						//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+						,success:displayList
+						,error:errorCallback
+					});
+					
+			});
+			
+			$(":button[name=titleBtn]").click(function(){
+				var title = $(":input[name=title]").val();
+				
+				//"beautyTip/remove/" + removeNo
+				
+				//location.href="${pageContext.request.contextPath}/beautyTip/showByTitle.do?title=" + title + "&category=${category }";
+				if(title == ""){
+					title = "§"; //§ -> ㅁ5
+				}
+				
+				$.ajax({
+					url:"http://localhost:8888/rest/beautyTip/find/title/" + title
+					,type:"get"
+					,dataType:"json"
+					//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+					,success:displayList
+					,error:errorCallback
+				});
+			});
+			
+			
+			var displayList = function(resultData) {
+	            
+				var listHtml = "";
+				
+				$.each(resultData, function(index, beautyTip){
+					listHtml += '<div class="blogPost">';
+					listHtml += '<img src=' + beautyTip.image + ' alt="Image Blog" class="img-responsive" width="770" height="400">';
+					listHtml += '<h2><a href="blog-single-right-sidebar.html">' + beautyTip.beautyTipTitle + '</a></h2>';
+					listHtml += '<p>' + beautyTip.beautyTipContent + '</p>';
+					listHtml += '<ul class="list-inline">';
+					listHtml += '<li><i class="fa fa-user" aria-hidden="true"></i>' + beautyTip.customer.id + '</li>';
+					listHtml += '<li><i class="fa fa-comments-o" aria-hidden="true"></i>' + beautyTip.replySize + ' Comments</li>';
+					listHtml += '</ul></div>';
+				});
+				
+				//div태그에다가 넣는 방식.. /div가 필요없다
+				$("#post").empty();
+				$("#post").append(listHtml);
+				/* $("#comment").val(""); */
+			};
+			
+			var errorCallback = function() {
+				alert("수행중 오류가 발생했습니다.");
+			};
+			
+		});/* end ready */
+	</script>
 
 </body>
 

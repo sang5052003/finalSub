@@ -91,6 +91,11 @@ public class BeautyTip {
 	public void setBeautyTipReplys(List<Reply> beautyTipReplys) {
 		this.beautyTipReplys = beautyTipReplys;
 	}
+	
+	public int getReplySize(){
+		if(this.beautyTipReplys == null) return 0;
+		return this.beautyTipReplys.size();
+	}
 
 	@Override
 	public String toString() {
