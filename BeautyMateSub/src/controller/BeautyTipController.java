@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import controller.utils.Const;
 import controller.utils.DateDeserializer;
@@ -77,8 +80,8 @@ public class BeautyTipController {
 
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
-
-		model.addAttribute("beautyTip", beautyTip); //이안에 이미 매퍼에서 받아온 댓글들이 들어있어야 함
+		model.addAttribute("beautyTip", beautyTip); // 이안에 이미 매퍼에서 받아온 댓글들이
+													// 들어있어야 함
 
 		//
 		response.close();
@@ -97,19 +100,31 @@ public class BeautyTipController {
 	}
 
 	@RequestMapping(value = "regist.do", method = RequestMethod.POST)
-	public String beautyTipRegist(BeautyTip beautyTip) throws ClientProtocolException, IOException {
+	public String beautyTipRegist(HttpServletRequest request)
+			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "beautyTip/insert";
 
+		BeautyTip beautyTip = upImg(request);
+
+		//System.out.println("===beautyTipRegist===");
+		//System.out.println(beautyTip.getImage());
+
 		//
-		beautyTip.setCustomer(new Customer(1)); //session에서
-		
-		
-		//form태그로 완성된 객체가 옴
+		//beautyTip.setCategory(BeautyTipCategory.makeupInformation); // 선택..s
+		// beautyTip.setImage("image");
+		//beautyTip.setVideo("vvv");
+
+		//
+		//beautyTip.setCustomer(new Customer(1)); // session에서
+
+		// form태그로 완성된 객체가 옴
 		// req, jsp에서 받아온 값으로 beautyTip객체 생성
-//		BeautyTip beautyTip = new BeautyTip(0, "cbeautyTipTitle", "cimage", "cbeautyTipContent", "cvideo",
-//				new Customer(1, "cid", "cpassword", "cname", "m", null, "email", null),
-//				BeautyTipCategory.makeupInformation, null);
+		// BeautyTip beautyTip = new BeautyTip(0, "cbeautyTipTitle", "cimage",
+		// "cbeautyTipContent", "cvideo",
+		// new Customer(1, "cid", "cpassword", "cname", "m", null, "email",
+		// null),
+		// BeautyTipCategory.makeupInformation, null);
 
 		//
 		HttpPost httpPost = new HttpPost(url);
@@ -135,16 +150,72 @@ public class BeautyTipController {
 		response.close();
 		httpClient.close();
 
-//		// 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
-//		String category = ;
-//		category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
+		// // 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
+		// String category = ;
+		// category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
 		return "redirect:/beautyTip/list.do?category=" + beautyTip.getCategory();
+	}
+
+	private BeautyTip upImg(HttpServletRequest request) {
+
+		String beautyTipTitle = null;
+		String beautyTipContent = null;
+		String imgStr = "";
+
+		//String imagePath = "c:\\yorizori";
+		//String imagePath = "http://localhost:8080/BeautyMate/resources/img/save";
+		String imagePath = "C:\\Users\\kosta\\git\\finalSub\\BeautyMateSub\\WebContent\\resources\\img\\save";
+		try {
+			MultipartRequest multi = new MultipartRequest(request, imagePath, 50 * 1024, "utf-8",
+					new DefaultFileRenamePolicy());
+
+			Enumeration<Object> params = multi.getParameterNames();
+
+			
+			while (params.hasMoreElements()) {
+				String name = (String) params.nextElement();
+				System.out.println("===name1===");
+				System.out.println(name);
+				if (name.equals("beautyTipTitle")) {
+					beautyTipTitle = multi.getParameter(name);
+				} else if (name.equals("beautyTipContent")) {
+					beautyTipContent = multi.getParameter(name);
+				}
+			}
+
+			Enumeration<Object> fileParams = multi.getFileNames();
+			while (fileParams.hasMoreElements()) {
+				String name = (String) fileParams.nextElement();
+				String value = multi.getFilesystemName(name);
+				imgStr += value;
+				//String contentType = multi.getContentType(name);
+				//imgStr += contentType;
+
+				System.out.println("===file===");
+				//System.out.println(name);
+				System.out.println(value);
+				//System.out.println(contentType);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//파일 저장 경로
+		String imgPath = "http://localhost:8080/BeautyMate/resources/img/save/";
+		imgPath += imgStr;
+		
+		//파일저장후 새로고침을 해야 됨...
+		
+		BeautyTip beautyTip = new BeautyTip(0, beautyTipTitle, imgPath, beautyTipContent, "vv", new Customer(1), BeautyTipCategory.makeupInformation, null);
+		
+		return beautyTip;
 	}
 
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
 	public String beautyTipList(BeautyTipCategory category, Model model) throws ClientProtocolException, IOException {
 
-		
 		// findAll
 		String url = Const.getOriginpath() + "beautyTip/find/category/" + category;// get
 
@@ -168,7 +239,6 @@ public class BeautyTipController {
 		// json(String) to object
 		// gson lib
 		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
-
 		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
 		};
 
@@ -184,7 +254,8 @@ public class BeautyTipController {
 
 		model.addAttribute("beautyTipList", beautyTipList);
 		model.addAttribute("category", category.toString());
-		
+		model.addAttribute("loginedId", "id2");
+
 		response.close();
 		httpClient.close();
 
@@ -252,7 +323,7 @@ public class BeautyTipController {
 		return beautyTip;
 	}
 
-	//form태그로 객체 가져오는 것...test필요
+	// form태그로 객체 가져오는 것...test필요
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
 	public String beautyTipEdit(HttpServletRequest req) throws ClientProtocolException, IOException {
 
@@ -326,7 +397,6 @@ public class BeautyTipController {
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
 
-
 		response.close();
 		httpClient.close();
 
@@ -386,7 +456,7 @@ public class BeautyTipController {
 		httpClient.close();
 
 		return "/beautyTip/beautyTipList.jsp";
-//		return "/beautyTip/list.jsp";
+		// return "/beautyTip/list.jsp";
 	}
 
 	// title 검색
@@ -394,7 +464,7 @@ public class BeautyTipController {
 	public String showByTitle(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 
 		// findByTitle
-		String title = req.getParameter("title"); //검색어
+		String title = req.getParameter("title"); // 검색어
 		String category = req.getParameter("category");
 		String url = Const.getOriginpath() + "beautyTip/find/title/" + title;// get
 
@@ -439,6 +509,6 @@ public class BeautyTipController {
 		httpClient.close();
 
 		return "/beautyTip/beautyTipList.jsp";
-		/*return "/beautyTip/list.jsp";*/
+		/* return "/beautyTip/list.jsp"; */
 	}
 }

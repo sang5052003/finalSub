@@ -18,5 +18,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kosta/Desktop/파일업로드용/commons-fileupload-1.3.2-bin/lib/commons-fileupload-1.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kosta/Desktop/파일업로드용/commons-io-2.5/commons-io-2.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kosta/Desktop/파일업로드용/cos-26Dec2008/lib/cos.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
