@@ -316,7 +316,7 @@ body.bodyColor .bb-fixed-header {
   transition: all 0.3s ease-in-out; }
   .navbar.bb-fixed-header .navbar-brand {
     top: 0;
-    width: 180px;
+    width: 0px;
     padding: 10px 40px; }
 
 .bb-fixed-header.navbar-default .navbar-nav > li > a {
@@ -1250,11 +1250,52 @@ textarea.form-control {
 
 @media (min-width: 768px) {
   .top-bar-right {
-    text-align: right; } }
+    text-align: center; } }
 
-.top-bar-right a, .top-bar-right span {
+#sel{
+
+    margin-left: 300px;
+}
+@media (min-width: 320px) {
+  #sel {
+     margin: 0 0 0 0px;
+     } }
+
+@media (min-width: 768px) {
+  #sel {
+       margin: 0 0 0 200px;
+     } }
+
+#search {
+   
+    margin-right: 10px;
+    width: 300px;
+}
+@media (min-width: 320px) {
+  #search {
+      width: 100px;
+     margin: 0 10 0 0;
+     } }
+
+@media (min-width: 768px) {
+  #search {
+      width: 300px;
+       margin: 0 10 0 0;
+     } }
+
+
+input,
+input::-webkit-input-placeholder {
+    font-size: 12px;
+  
+}
+
+option{
+   font-size: 10px;
+}
+.top-bar-right a, .top-bar-right span{
   color: rgba(255, 255, 255, 0.8);
-  line-height: 45px;
+  line-height: 25px;
   font-weight: 600; }
   .top-bar-right a i, .top-bar-right span i {
     margin-right: 10px; }
@@ -1580,7 +1621,8 @@ textarea.form-control {
   float: right;
   position: absolute;
   top: 16px;
-  right: 20px; }
+
+}
   @media (min-width: 480px) {
     .cart_btn {
       top: 16px;
@@ -1629,20 +1671,21 @@ textarea.form-control {
         font-size: 16px;
         color: #666666; }
   .cart_btn a {
-    color: #222222;
-    padding: 0 0 18px;
+    color: #ffffff;
+    padding: 10px 10px 10px;
     text-align: center;
     display: inline-block;
     position: relative; }
     @media (min-width: 768px) {
       .cart_btn a {
-        padding: 0 0 30px; } }
+        padding: 10px 10px 10px; } }
     .cart_btn a i {
       width: 40px;
       height: 40px;
       line-height: 40px;
       background-color: #eaeaea; }
     .cart_btn a span {
+      
       padding: 0;
       width: 19px;
       height: 19px;
