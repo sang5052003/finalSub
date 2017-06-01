@@ -15,7 +15,7 @@ public class IndexController {
 		//return "redirect:/cosmetic/test.do";
 		//return "redirect:/beautyTip/registForm.do";
 		//return "beautyTip/regist.do";
-		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.makeupInformation;
+		return "redirect:/review/listpage.do";
 		//return "redirect:/beautyTip/editForm.do?beautyTipNo=4";
 		//return "redirect:/beautyTip/clear.do?beautyTipNo=7";
 		//return "redirect:/beautyTip/showByAuthor.do?authorId=id&category=" + BeautyTipCategory.makeupInformation;

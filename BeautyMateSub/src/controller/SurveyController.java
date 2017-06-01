@@ -87,7 +87,7 @@ public class SurveyController {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
 		
-		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
+		String url = Const.getOriginpath() + "survey/customerNo/" + 123; // get , 123=customerNo
 
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
@@ -152,7 +152,6 @@ public class SurveyController {
 	}
 
 	@RequestMapping(value = "gradeRegist.do", method = RequestMethod.POST)
-
 	public String surveyGradeRegist(HttpServletRequest req, Model model, Recommend recommend)
 			throws ClientProtocolException, IOException {
 
@@ -179,7 +178,7 @@ public class SurveyController {
 
 	}
 
-	@RequestMapping(value = "surveyResult.do")
+	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET)
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "recommend/list/customer/" + 1; // get

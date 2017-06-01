@@ -5,6 +5,8 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>BeautyMateSub</display-name>
 
+
+
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
