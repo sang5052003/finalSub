@@ -65,7 +65,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
-		return "/review/list.jsp";
+		return "/review/reviewList.jsp";
 
 	}
 
@@ -221,7 +221,7 @@ public class ReviewController {
 
 		model.addAttribute("review", r);
 
-		return "/review/readPage.jsp";
+		return "/review/reviewDetail.jsp";
 	}
 
 	private Review jsonObject(String url) throws ClientProtocolException, IOException {

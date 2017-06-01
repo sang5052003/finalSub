@@ -2,29 +2,27 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="ctxx" value="${pageContext.request.contextPath }/resources/temp" />
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
-
-
 
 
 
 <head>
 <!-- Bootstrap 3.3.4 -->
-    <link href="${ctx}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="${ctxx}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="${ctx}/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="${ctxx}/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
-    <link href="${ctx}/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <link href="${ctxx}/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 </head>
-<script src="${ctx}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="${ctxx}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
 
 
 
@@ -44,10 +42,10 @@
 				<form role="form" action="${ctx }/modify.do" method="post">
 
 					<input type='hidden' name='reviewNo' value="${review.reviewNo}">
-					<input type='hidden' name='page' value="${pager.page}"> <input
-						type='hidden' name='perPageNum' value="${pager.perPageNum}">
-					<input type='hidden' name='searchType' value="${pager.searchType}">
-					<input type='hidden' name='keyword' value="${pager.keyword}">
+<%-- 					<input type='hidden' name='page' value="${pager.page}"> <input --%>
+<%-- 						type='hidden' name='perPageNum' value="${pager.perPageNum}"> --%>
+<%-- 					<input type='hidden' name='searchType' value="${pager.searchType}"> --%>
+<%-- 					<input type='hidden' name='keyword' value="${pager.keyword}"> --%>
 
 				</form>
 
@@ -98,7 +96,8 @@
 				</div>
 				<div class="box-body">
 					<label for="exampleInputEmail1">Writer</label> <input
-						class="form-control" type="text" placeholder="USER ID"
+						class="
+-control" type="text" placeholder="USER ID"
 						id="newReplyWriter"> <label for="exampleInputEmail1">Reply
 						Text</label> <input class="form-control" type="text"
 						placeholder="REPLY TEXT" id="replyContent" name ="replyContent">
@@ -386,13 +385,13 @@
 </script>
 
     <!-- Bootstrap 3.3.2 JS -->
-    <script src="${ctx}/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${ctxx}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- FastClick -->
-    <script src='${ctx}/resources/plugins/fastclick/fastclick.min.js'></script>
+    <script src='${ctxx}/plugins/fastclick/fastclick.min.js'></script>
     <!-- AdminLTE App -->
-    <script src="${ctx}/resources/dist/js/app.min.js" type="text/javascript"></script>
+    <script src="${ctxx}/dist/js/app.min.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="${ctx}/resources/dist/js/demo.js" type="text/javascript"></script>
+    <script src="${ctxx}/dist/js/demo.js" type="text/javascript"></script>
 
 
 

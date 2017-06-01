@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="ctx" value="${pageContext.request.contextPath }" />
+<html>
 <head>
-
-  <!-- SITE TITTLE -->
-  <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Beauty Mate</title>
@@ -15,23 +16,23 @@
   <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
 
   <!-- PLUGINS CSS STYLE -->
-<!--   <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"> -->
-<!--   <link href="plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-<!--   <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
-<!--   <link href="plugins/selectbox/select_option1.css" rel="stylesheet"> -->
-<!--   <link href="plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet" media="screen"> -->
-<!--   <link href="plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet"> -->
-<!--   <link href="plugins/isotope/isotope.min.css" rel="stylesheet"> -->
-<!--   <link href="plugins/datepicker/datepicker.min.css" rel="stylesheet"> -->
-<!--   <link href="plugins/bootstrapthumbnail/bootstrap-thumbnail.css" rel="stylesheet"> -->
+  <link href="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+  <link href="${ctx }/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${ctx }/resources/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="${ctx }/resources/plugins/selectbox/select_option1.css" rel="stylesheet">
+  <link href="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet" media="screen">
+  <link href="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet">
+  <link href="${ctx }/resources/plugins/isotope/isotope.min.css" rel="stylesheet">
+  <link href="${ctx }/resources/plugins/datepicker/datepicker.min.css" rel="stylesheet">
+  <link href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css" rel="stylesheet">
 
   <!-- CUSTOM CSS -->
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/default.css" rel="stylesheet" id="option_color">
+  <link href="${ctx }/resources/css/style.css" rel="stylesheet">
+  <link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
 
 
   <!-- FAVICON -->
-  <link href="img/favicon.png" rel="shortcut icon">
+  <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -102,7 +103,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo" ></a>
+            <a class="navbar-brand" href="index.html"><img src="${ctx }/resources/img/logo.png" alt="logo" ></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -147,16 +148,14 @@
               <div>
                 <table class="table">
                   <tbody>
-                    <tr>
+                  <c:forEach items="${reviewList}" var="review" varStatus="status">
+                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
+                    onmouseover="self.focus">
                       <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>title <br> <span>content</span></td>
+                      <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
                       <td><span class="price">writer</span></td>
                     </tr>
-                    <tr>
-                      <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>title <br> <span>content</span></td>
-                      <td><span class="price">writer</span></td>
-                    </tr>
+                    </c:forEach>
                   </tbody>
                 </table>
               </div>
@@ -188,26 +187,71 @@
             
   <!-- JAVASCRIPTS -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-  <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-  <script src="plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
-  <script src="plugins/owl-carousel/owl.carousel.min.js"></script>
-  <script src="plugins/isotope/isotope.min.js"></script>
-  <script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
-  <script src="plugins/isotope/isotope-triger.min.js"></script>
-  <script src="plugins/smoothscroll/SmoothScroll.min.js"></script>
-  <script src="plugins/datepicker/bootstrap-datepicker.min.js"></script>
-  <script src="plugins/syotimer/jquery.syotimer.min.js"></script>
-  <script src="js/custom.js"></script>
+  <script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <script src="${ctx }/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="${ctx }/resources/plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
+  <script src="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.js"></script>
+  <script src="${ctx }/resources/plugins/isotope/isotope.min.js"></script>
+  <script src="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.js"></script>
+  <script src="${ctx }/resources/plugins/isotope/isotope-triger.min.js"></script>
+  <script src="${ctx }/resources/plugins/smoothscroll/SmoothScroll.min.js"></script>
+  <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
+  <script src="${ctx }/resources/js/custom.js"></script>
 
   <script>
   	//paste this code under head tag or in a seperate js file.
   	// Wait for window load
   	$(window).load(function() {
   		// Animate loader off screen
-  		$(".se-pre-con").fadeOut("slow");;
+  		$(".se-pre-con").fadeOut("slow");
+  		
+  		$("tr").hover(
+  			function () {
+  				$(this).css("backgroundColor","#F6F6F6");	
+				
+			},
+  			function () {
+  				$(this).css("backgroundColor","#ffffff");		
+				
+			}
+  		)
+  		
   	});
   </script>
+  
+  <script>
+	var result = '${msg}';
+
+	if (result == 'SUCCESS') {
+		alert("처리가 완료되었습니다.");
+	}
+</script>
+
+<script>
+	$(document).ready(
+			function() {
+
+				$('#searchBtn').on(
+						"click",
+						function(event) {
+
+							self.location = "listsearch.do"
+									+ '${pageMaker.makeQuery(1)}'
+									+ "&searchType="
+									+ $("select option:selected").val()
+									+ "&keyword=" + $('#keywordInput').val();
+
+						});
+
+				$('#newBtn').on("click", function(evt) {
+
+					self.location = "register.do";
+
+				});
+
+			});
+</script>
 
 </body>
 
