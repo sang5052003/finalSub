@@ -2,15 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx">${pageContext.request.contextPath }</c:set>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
 <!-- SITE TITTLE -->
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product - Angel Beauty</title>
+<title>화장품 추천을 위한 평가</title>
 
 <!-- GOOGLE FONT -->
 <link
@@ -85,7 +86,7 @@
 	height: 100%;
 	z-index: 9999;
 	background:
-		url(${ctx }/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif)
+		url(plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif)
 		center no-repeat #fff;
 }
 </style>
@@ -144,6 +145,7 @@ label.star:before {
 	font-family: FontAwesome;
 }
 </style>
+
 </head>
 
 <body class="body-wrapper static">
@@ -189,7 +191,7 @@ label.star:before {
 							<li class=""><a href="index.html">Home</a></li>
 							<li class=" dropdown singleDrop"><a href="#"
 								class="dropdown-toggle" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="false">PickMeTem</a>
+								aria-haspopup="true" aria-expanded="false">Services</a>
 								<ul class="dropdown-menu dropdown-menu-left">
 									<li><a href="service.html">Services</a></li>
 									<li><a href="single-service.html">Single Services</a></li>
@@ -304,91 +306,102 @@ label.star:before {
 		<!-- PRODUCT SECTION -->
 		<section class="container-fluid clearfix productArea">
 			<div class="container">
-
 				<div class="row">
-					<div class="col-xs-12">
-						<div class="buttonPart">
-							<ul class="list-inline squareBtn">
-								<li class="li"><a href="javascript:categoryList('essence')"
-									class="btn btn-common btn-theme">Essence</a></li>
-								<li class="li"><a href="javascript:categoryList('mist')"
-									class="btn btn-common btn-theme">Mist</a></li>
-								<li class="li"><a href="javascript:categoryList('lotion')"
-									class="btn btn-common btn-theme">Lotion</a></li>
-								<li class="li"><a href="javascript:categoryList('faceOil')"
-									class="btn btn-common btn-theme">Face Oil</a></li>
-								<li class="li"><a href="javascript:categoryList('skin')"
-									class="btn btn-common btn-theme">Skin</a></li>
-								<li class="li"><a href="javascript:categoryList('cream')"
-									class="btn btn-common btn-theme">Cream</a></li>
-							</ul>
+					
+					<div class="col-sm-3 col-xs-12">
+						<div class="panel panel-default productSideBar">
+							<div class="panel-heading">categories</div>
+							<div class="panel-body">
+								<div
+									class="collapse navbar-collapse navbar-ex1-collapse navbar-side-collapse">
+									<ul class="nav navbar-nav productSide">
+										<li><a href="javascript:categoryList('essence')"
+											>Essence</a></li>
+										<li><a href="javascript:categoryList('mist')"
+											>Mist</a></li>
+										<li><a href="javascript:categoryList('lotion')"
+											>Lotion</a></li>
+										<li><a href="javascript:categoryList('faceOil')"
+											>Face Oil</a></li>
+										<li><a href="javascript:categoryList('skin')"
+											>Skin</a></li>
+										<li><a href="javascript:categoryList('cream')"
+											>Cream</a></li>
 
-						</div>
-					</div>
-				</div>
-
-
-
-				<div class="panel panel-default cartInfo">
-					<div>
-						<div class="input-group">
-							<input type="text" class="form-control" name="title"
-								placeholder="Search..." aria-describedby="basic-addon221">
-							<button class="btn btn-common btn-full-round btn-theme"
-								name="searchName">Search...</button>
-						</div>
-					</div>
-				</div>
-				<br>
-				<div class="row" id="cosmeticList">
-					<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
-						<form action="">
-							<div class="col-md-4 col-sm-6 col-xs-12">
-								<div class="produtSingle">
-									<div class="produtImage">
-										<img src="${cosmetics.img }" alt="Image Product"
-											class="img-responsive">
-									</div>
-									<div class="productCaption">
-										<h4>${cosmetics.cosmeticName }</h4>
-										<div class="stars">
-											<input class="star star-5"
-												id="star-${cosmetics.cosmeticNo }-5" type="radio"
-												name="star" value="5" /> <label class="star star-5"
-												for="star-${cosmetics.cosmeticNo }-5"></label> <input
-												class="star star-4" id="star-${cosmetics.cosmeticNo }-4"
-												type="radio" name="star" value="4" /> <label
-												class="star star-4" for="star-${cosmetics.cosmeticNo }-4"></label>
-											<input class="star star-3"
-												id="star-${cosmetics.cosmeticNo }-3" type="radio"
-												name="star" value="3" /> <label class="star star-3"
-												for="star-${cosmetics.cosmeticNo }-3"></label> <input
-												class="star star-2" id="star-${cosmetics.cosmeticNo }-2"
-												type="radio" name="star" value="2" /> <label
-												class="star star-2" for="star-${cosmetics.cosmeticNo }-2"></label>
-											<input class="star star-1"
-												id="star-${cosmetics.cosmeticNo }-1" type="radio"
-												name="star" value="1" /> <label class="star star-1"
-												for="star-${cosmetics.cosmeticNo }-1"></label>
-										</div>
-										<input type="hidden" name="${cosmetics.cosmeticNo }"
-											value="${cosmetics.cosmeticNo }">
-										<button type="button"
-											class="btn btn-common btn-full-round btn-theme"
-											onclicK="javascript:gradeReg(${cosmetics.cosmeticNo })"
-											name="gradeBtn">평가</button>
-									</div>
+									</ul>
 								</div>
 							</div>
-						</form>
-					</c:forEach>
+						</div>
+
+					</div>
+
+
+					<div class="col-sm-9 col-xs-12">
+						<div class="panel panel-default cartInfo">
+							<div>
+								<div class="input-group">
+									<input type="text" class="form-control" name="title"
+										placeholder="Search..." aria-describedby="basic-addon221">
+									<button class="btn btn-common btn-full-round btn-theme"
+										name="searchName">Search...</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="row" id="cosmeticList">
+								<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
+									<form action="">
+										<div class="col-md-4 col-sm-6 col-xs-12">
+											<div class="produtSingle">
+												<div class="produtImage">
+													<img src="${cosmetics.img }" alt="Image Product"
+														class="img-responsive">
+												</div>
+												<div class="productCaption">
+													<h5>${cosmetics.cosmeticName }</h5>
+													<div class="stars">
+														<input class="star star-5"
+															id="star-${cosmetics.cosmeticNo }-5" type="radio"
+															name="star" value="5" /> <label class="star star-5"
+															for="star-${cosmetics.cosmeticNo }-5"></label> <input
+															class="star star-4" id="star-${cosmetics.cosmeticNo }-4"
+															type="radio" name="star" value="4" /> <label
+															class="star star-4" for="star-${cosmetics.cosmeticNo }-4"></label>
+														<input class="star star-3"
+															id="star-${cosmetics.cosmeticNo }-3" type="radio"
+															name="star" value="3" /> <label class="star star-3"
+															for="star-${cosmetics.cosmeticNo }-3"></label> <input
+															class="star star-2" id="star-${cosmetics.cosmeticNo }-2"
+															type="radio" name="star" value="2" /> <label
+															class="star star-2" for="star-${cosmetics.cosmeticNo }-2"></label>
+														<input class="star star-1"
+															id="star-${cosmetics.cosmeticNo }-1" type="radio"
+															name="star" value="1" /> <label class="star star-1"
+															for="star-${cosmetics.cosmeticNo }-1"></label>
+													</div>
+													<input type="hidden" name="${cosmetics.cosmeticNo }"
+														value="${cosmetics.cosmeticNo }">
+													<button type="button"
+														class="btn btn-common btn-full-round btn-theme"
+														onclicK="javascript:gradeReg(${cosmetics.cosmeticNo })"
+														name="gradeBtn">평가</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</c:forEach>
+							</div>
+						</div>
+
+					</div>
+
 				</div>
 			</div>
 		</section>
 
 		<!-- FOOTER -->
-		<footer
-			style="background-image: url(${ctx }/resources/img/home/footer-bg.jpg);">
+		<footer style="background-image: url(img/home/footer-bg.jpg);">
 			<!-- BACK TO TOP BUTTON -->
 			<a href="#pageTop" class="backToTop"><i class="fa fa-angle-up"
 				aria-hidden="true"></i></a>
@@ -398,8 +411,8 @@ label.star:before {
 					<div class="row">
 						<div class="col-sm-3 col-xs-12">
 							<div class="footerText">
-								<a href="${ctx }/resources/index.html" class="footerLogo"><img
-									src="${ctx }/resources/img/logo-footer.png" alt="Footer Logo"></a>
+								<a href="index.html" class="footerLogo"><img
+									src="img/logo-footer.png" alt="Footer Logo"></a>
 								<p>Excepteur sint occaecat cupidatat non proident, sunt in
 									culpa officia.Lorem ipsum dolor sit amet.</p>
 								<p>consectetur adipisicing elit, sed do eiusmod tempor
@@ -431,15 +444,15 @@ label.star:before {
 							</div>
 							<div class="footerGallery row">
 								<div class="col-xs-4">
-									<a href="${ctx }/resources/gallery-v2.html"
+									<a href="gallery-v2.html"
 										style="background-image: url(http://placehold.it/75x75);"></a>
 								</div>
 								<div class="col-xs-4">
-									<a href="${ctx }/resources/gallery-v2.html"
+									<a href="gallery-v2.html"
 										style="background-image: url(http://placehold.it/75x75);"></a>
 								</div>
 								<div class="col-xs-4">
-									<a href="${ctx }/resources/gallery-v2.html"
+									<a href="gallery-v2.html"
 										style="background-image: url(http://placehold.it/75x75);"></a>
 								</div>
 								<div class="col-xs-4">
@@ -574,13 +587,13 @@ label.star:before {
 			</div>
 		</div>
 	</div>
-
 	<div class="floating">
 		<form action="${ctx }/survey/surveyResult.do" method="get">
-		<button type="submit" class="btn btn-common btn-theme">평가 종료하기</button>
+			<button type="submit" class="btn btn-common btn-theme">평가
+				종료하기</button>
 		</form>
 	</div>
-	
+
 	<!-- JAVASCRIPTS -->
 	<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -713,5 +726,6 @@ label.star:before {
 </body>
 
 </html>
+
 
 
