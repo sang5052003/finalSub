@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/common/common.jsp"%>
+<%@ include file="/common/common.jspf"%>
 <style>
 .no-js #loader {
 	display: none;
@@ -157,12 +157,13 @@
 </head>
 
 <body>
+<%@ include file="../common/header.jspf"%>
 
 	<section class="clearfix varietySection">
 		<div class="container">
 			<div class="secotionTitle">
 				<h2>
-					<span>Discover</span>Accrodions
+					<span>Beauty Mate</span>Bauman Skin Type
 				</h2>
 			</div>
 			<div class="row">
@@ -2360,9 +2361,10 @@
 								</table>
 							</div>
 							<!-- pt4 끝 -->
-						</div>
-						
-						<div align="center" style="text-align: center;">
+							
+							<hr>
+							<br>
+							<div align="center" style="text-align: center;">
 							<button type="submit" class="btn btn-common btn-full-round btn-theme"
 								onclick="tryCheckType();">
 								설문조사 응답 완료 <span style="font-size: 12px;">버튼 클릭 시 신청이
@@ -2371,6 +2373,9 @@
 							<input type="hidden" id="skinType" name="skinType" value="">
 							<input type="hidden" id="customerNo" name="customerNo" value="">
 						</div>
+						</div>
+						
+						
 					</div>
 
 				</div>
@@ -2380,7 +2385,7 @@
 	</div>
 
 
-
+<%@ include file="../common/footer.jspf"%>
 </body>
 
 </html>

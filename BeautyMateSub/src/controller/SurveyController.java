@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
 import org.apache.http.client.methods.HttpGet;
@@ -21,6 +23,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +61,7 @@ public class SurveyController {
 
 		String skinType = req.getParameter("skinType");
 
-		int customerNo = 123;
+		int customerNo = 1;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
 		HttpPost httpPost = new HttpPost(url);
@@ -82,13 +85,13 @@ public class SurveyController {
 	}
 
 
-	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.POST)
+	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.POST, produces="application/json; charset=UTF-8")
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
 		
-		String url = Const.getOriginpath() + "survey/customerNo/" + 123; // get , 123=customerNo
-
+		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
+		System.out.println(url);
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 
@@ -98,6 +101,7 @@ public class SurveyController {
 		// os에 붙음
 		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
 																		// 던짐
+		
 
 		// 상태코드확인
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
@@ -105,7 +109,7 @@ public class SurveyController {
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
 		// 상태체크해서 처리 해줘야 됨
-		System.out.println(responseStatusCode);
+//		System.out.println(responseStatusCode);
 
 		// json(String) to object
 		// gson lib
@@ -116,6 +120,33 @@ public class SurveyController {
 		// java.lang.reflect.type, import
 		Type type = typeToken.getType();
 		SkinType skinType = new Gson().fromJson(responseContent, type);
+		System.out.println(skinType.getBaumanType());
+		System.out.println(skinType.getRecommendedIngredient());
+//		
+//		String bt = skinType.getBaumanType();
+//		String ex = skinType.getExplanation();
+//		String ri = skinType.getRecommendedIngredient();
+//		String bi = skinType.getBannedIngredient();
+//		String rf = skinType.getRecommendedFood();
+//		String hb = skinType.getHabit();
+//		
+//		/*List<NameValuePair> list = new ArrayList<NameValuePair>();
+//		list.add(new BasicNameValuePair("baumanType", skinType.getBaumanType()));
+//		list.add(new BasicNameValuePair("explanation", skinType.getExplanation()));
+//		list.add(new BasicNameValuePair("recommendedIngredient", skinType.getRecommendedIngredient()));
+//		list.add(new BasicNameValuePair("bannedIngredient", skinType.getBannedIngredient()));
+//		list.add(new BasicNameValuePair("recommendedFood", skinType.getRecommendedFood()));
+//		list.add(new BasicNameValuePair("habit", skinType.getHabit()));
+//		httpPost.setEntity(new UrlEncodedFormEntity(list, "UTF-8"));
+//		*/
+//		SkinType skin = new SkinType();
+//		skin.setBaumanType(/*skinType.getBaumanType()*/bt);
+//		skin.setExplanation(/*skinType.getExplanation()*/ex);
+//		skin.setRecommendedIngredient(/*skinType.getRecommendedIngredient()*/ri);
+//		skin.setBannedIngredient(/*skinType.getBannedIngredient()*/bi);
+//		skin.setRecommendedFood(/*skinType.getRecommendedFood()*/rf);
+//		skin.setHabit(/*skinType.getHabit()*/hb);
+		
 		response.close();
 		
 		model.addAttribute("skinType", skinType);
@@ -179,10 +210,10 @@ public class SurveyController {
 
 	}
 
-	@RequestMapping(value = "surveyResult.do")
+	@RequestMapping(value = "surveyResult.do", produces="text/plain;charset=UTF-8")
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 
-		String url = Const.getOriginpath() + "recommend/list/customer/" + 123; // get
+		String url = Const.getOriginpath() + "recommend/list/customerNo/" + 1; // get
 																				// ,
 																				// 1=customerNo
 
@@ -214,7 +245,6 @@ public class SurveyController {
 		// java.lang.reflect.type, import
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
-
 		response.close();
 
 		model.addAttribute("cosmetics", cosmetics);
@@ -223,20 +253,11 @@ public class SurveyController {
 
 	}
 
-	// 설문지 삭제
-	@RequestMapping(value = "clear.do", method = RequestMethod.GET)
-	public String surveyClear(int surveyResultNo) {
-
-		// 찾아올 설문지 번호
-		int surveyNo = 0;
-
-		return "redirect:survey/survey.do?surveyNo=" + surveyNo;
-	}
-
 	// 픽미템 탭 누르면 나오는 페이지(설문을 했다면 skinTypeResult페이지가 나올것이다)
 	@RequestMapping(value = "survey.do", method = RequestMethod.GET)
 
 	public String survey(HttpServletRequest req, Model model) {
+		//커스터머 검색 후 그아이디에 스킨타입있는지확인후 그스킨타입으로 확인해야함 *****
 
 		String skinType = (String) req.getSession().getAttribute("skinType");
 
