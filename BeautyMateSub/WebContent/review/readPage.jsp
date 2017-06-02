@@ -42,10 +42,10 @@
 				<form role="form" action="${ctx }/modify.do" method="post">
 
 					<input type='hidden' name='reviewNo' value="${review.reviewNo}">
-<%-- 					<input type='hidden' name='page' value="${pager.page}"> <input --%>
-<%-- 						type='hidden' name='perPageNum' value="${pager.perPageNum}"> --%>
-<%-- 					<input type='hidden' name='searchType' value="${pager.searchType}"> --%>
-<%-- 					<input type='hidden' name='keyword' value="${pager.keyword}"> --%>
+					<input type='hidden' name='page' value="${pager.page}"> <input
+						type='hidden' name='perPageNum' value="${pager.perPageNum}">
+					<input type='hidden' name='searchType' value="${pager.searchType}">
+					<input type='hidden' name='keyword' value="${pager.keyword}">
 
 				</form>
 
