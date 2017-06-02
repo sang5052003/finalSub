@@ -1,55 +1,37 @@
 package controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-
 import org.apache.http.client.methods.HttpGet;
-
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 
 import controller.utils.Const;
 import controller.utils.HttpResponse;
 import domain.Cosmetic;
-import domain.Recommend;
 import domain.SkinType;
-import domain.Test;
-
 
 @Controller
 @RequestMapping("survey")
 public class SurveyController {
-	
+
 	private HttpResponse httpResponse;
 
 	// 설문지 등록
@@ -62,7 +44,6 @@ public class SurveyController {
 	@RequestMapping(value = "skinTypeRegist.do")
 	public String surveySkinTypeRegist(HttpServletRequest req, Model model)
 			throws ClientProtocolException, IOException {
-
 
 		String skinType = req.getParameter("skinType");
 
@@ -89,8 +70,7 @@ public class SurveyController {
 
 	}
 
-
-	@RequestMapping(value = "skinTypeResult.do", produces="application/json; charset=UTF-8")
+	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
@@ -107,7 +87,6 @@ public class SurveyController {
 		// 내용을 json으로 받는다(stream으로)
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 		// 상태체크해서 처리 해줘야 됨
-//		System.out.println(responseStatusCode);
 		// json(String) to object
 		// gson lib
 		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
@@ -137,7 +116,7 @@ public class SurveyController {
 //	    formEntity.setContentType("application/json");
 //	    formEntity.setContentEncoding("UTF-8");
 		response.close();
-		
+
 		model.addAttribute("skinType", skinType);
 
 		
@@ -148,7 +127,7 @@ public class SurveyController {
 	// 설문지 평점 등록
 	@RequestMapping(value = "gradeRegistForm.do", method = RequestMethod.GET)
 	public String surveyGradeRegistForm(HttpSession session, Model model) throws ClientProtocolException, IOException {
-		
+
 		String url = Const.getOriginpath() + "cosmetic/findAll";
 
 		HttpGet httpGet = new HttpGet(url);
@@ -159,83 +138,71 @@ public class SurveyController {
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
-
-
-		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};	
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
+		};
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
-		
+		List<String> cosmeticNames = new ArrayList<>();
+
+		for (int i = 0; i < cosmetics.size(); i++) {
+			cosmeticNames.add("'" + cosmetics.get(i).getCosmeticName() + "'");
+		}
 		response.close();
 
 		model.addAttribute("cosmetics", cosmetics);
-		
+		model.addAttribute("cosmeticNames", cosmeticNames);
 		return "/survey/gradeRegistForm.jsp";
 	}
 
-	@RequestMapping(value = "gradeRegist.do", method = RequestMethod.POST)
-	public String surveyGradeRegist(HttpServletRequest req, Model model, Recommend recommend)
-			throws ClientProtocolException, IOException {
-
-		recommend.setCustomerNo(1);
-		recommend.setCosmeticNo(Integer.parseInt(req.getParameter("cosmeticNo")));
-		recommend.setGrade(Integer.parseInt(req.getParameter("grade")));
-
-		String url = Const.getOriginpath() + "recommend/insert";
-
-		HttpPost httpPost = new HttpPost(url);
-		CloseableHttpClient httpClient = HttpClients.createDefault();
-
-		StringEntity entity = new StringEntity(new Gson().toJson(recommend));// 준비
-		httpPost.setEntity(entity);// 넣고
-		httpPost.setHeader("Content-type", "application/json");// 가는거 json이라고 명시
-		CloseableHttpResponse response = httpClient.execute(httpPost);
-
-		int responseStatus = getResponseStatus(response);
-		String responseContent = getResponseContent(response);
-//		System.out.println(responseStatus);
-
-		return "/survey/surveyResult.do";
-
-
-	}
 
 	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "recommend/list/customer/" + 1; // get, 1=customerNo
 
-		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 
-		// HttpClient
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		// os에 붙음
-		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
-																		// 던짐
+		CloseableHttpResponse response = httpClient.execute(httpGet); 
 
-		// 상태코드확인
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
-		// 내용을 json으로 받는다(stream으로)
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
-
-		// 상태체크해서 처리 해줘야 됨
-		System.out.println(responseStatusCode);
-
-		// json(String) to object
-		// gson lib
-		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
-
+		
 		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
 		};
-
-		// java.lang.reflect.type, import
+		
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 		response.close();
+		
+		
+//		추천값 (유사도)받기
+		String u = Const.getOriginpath() + "recommend/list/value/" + 1; 
 
+
+		HttpGet hGet = new HttpGet(u); // <-> HttpPost
+
+		// HttpClient
+		CloseableHttpClient hc = HttpClients.createDefault();
+
+		// os에 붙음
+		CloseableHttpResponse resp = hc.execute(hGet); // 예외 바깥으로
+		// 던짐
+
+		// 상태코드확인
+		int rsc = HttpResponse.getInstance().getResponseStatus(resp);
+		// 내용을 json으로 받는다(stream으로)
+		String rc = HttpResponse.getInstance().getResponseContent(resp);
+
+		TypeToken<int[]> tToken = new TypeToken<int[]>() {
+		};
+
+		Type t = tToken.getType();
+		int[] values = new Gson().fromJson(rc, t);
+		resp.close();
 		model.addAttribute("cosmetics", cosmetics);
-
+		model.addAttribute("values", values);
 		return "/survey/recommendResult.jsp";
 
 	}
@@ -244,7 +211,7 @@ public class SurveyController {
 	@RequestMapping(value = "survey.do", method = RequestMethod.GET)
 
 	public String survey(HttpServletRequest req, Model model) {
-		//커스터머 검색 후 그아이디에 스킨타입있는지확인후 그스킨타입으로 확인해야함 *****
+		// 커스터머 검색 후 그아이디에 스킨타입있는지확인후 그스킨타입으로 확인해야함 *****
 
 		String skinType = (String) req.getSession().getAttribute("skinType");
 
@@ -255,38 +222,4 @@ public class SurveyController {
 		}
 	}
 
-	private int getResponseStatus(CloseableHttpResponse response) {
-		return response.getStatusLine().getStatusCode();
-	}
-
-	private String getResponseContent(CloseableHttpResponse response) {
-		HttpEntity httpEntity = response.getEntity();
-		InputStream is = null;
-		StringBuilder contentBuilder = new StringBuilder();
-
-		try {
-			is = httpEntity.getContent();
-
-			byte[] contentBytes = new byte[1024];
-			while (true) {
-				int readCount = is.read(contentBytes);
-				if (readCount == -1) {
-					break;
-				}
-				contentBuilder.append(new String(contentBytes, 0, readCount));
-			}
-		} catch (UnsupportedOperationException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (is != null)
-					is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return contentBuilder.toString();
-	}
 }

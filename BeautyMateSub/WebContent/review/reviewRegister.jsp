@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="false"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
-<html>
+<!DOCTYPE html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Beauty Mate</title>
@@ -137,109 +138,73 @@
              
             </ul>
           </div>
-          
-          <br><br>
-          			 <div class="text-center">
-					<select name="searchType">
-						<option value="n"
-							<c:out value="${pager.searchType == null?'selected':''}"/>>
-							---</option>
-						<option value="t"
-							<c:out value="${pager.searchType eq 't'?'selected':''}"/>>
-							Title</option>
-						<option value="c"
-							<c:out value="${pager.searchType eq 'c'?'selected':''}"/>>
-							Content</option>
-					</select> <input type="text" name='keyword' id="keywordInput"
-						value='${pager.keyword }'>
-					<button id='searchBtn'>Search</button>
-					</div>
-          
-          
-            <div class="text-right">
-                <button class="btn btn-common btn-theme" id='newBtn'>리뷰작성</button>
+
+<!-- USER SECTION -->
+      <section class="clearfix userSection padding">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <ul class="list-inline squareBtn">
+                <li class="li"><a href="user-dashboard.html" class="btn btn-common">Account Dashboard</a></li>
+                <li class="li"><a href="user-profile.html" class="btn btn-common btn-theme">Profile</a></li>
+                <li class="li"><a href="address.html" class="btn btn-common">Address</a></li>
+                <li class="li"><a href="all-order.html" class="btn btn-common">All Orders</a></li>
+                <li class="li"><a href="wishlist.html" class="btn btn-common">Wishlist</a></li>
+              </ul>
             </div>
-            <br>
-           <div class="panel panel-default cartInfo">
-            <div class="panel-heading patternbg">Review</div>
-            <div class="panel-body tableArea">
-              <div>
-                <table class="table">
-                  <tbody>
-                  <c:forEach items="${reviewList}" var="review" varStatus="status">
-                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
-                    >
-                      <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">writer</span></td>
-                    </tr>
-                    </c:forEach>
-                  </tbody>
-                </table>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="innerWrapper">
+                <div class="orderBox  patternbg">
+                  리뷰작성
+                </div>
+                <div class="profile">
+                  <div class="row">
+                    <div class="col-md-2 col-sm-3 col-xs-12">
+                      <div class="thumbnail">
+                        <img src="http://placehold.it/270x270" 
+                        width="270px" height="270px" alt="profile-image">
+                        <div class="caption">
+                          <a href="#" class="btn btn-primary btn-block" role="button">Change Avatar</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-10 col-sm-9 col-xs-12">
+                        <form class="form-horizontal" role="form" method="post">
+                          <div class="form-group">
+                            <label for="" class="col-md-2 col-sm-3 control-label">Title</label>
+                            <div class="col-md-10 col-sm-9">
+                              <input type="text" class="form-control" id="" placeholder="title" name='reviewTitle'>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="" class="col-md-2 col-sm-3 control-label">Content</label>
+                            <div class="col-md-10 col-sm-9">
+                                <textarea class="form-control" id="" placeholder="content" name="reviewContent"></textarea>
+                            </div>
+                          </div>
+                          <div class="text-right">
+                           <button type="submit" class="btn btn-common btn-theme" >작성</button> 
+                           <a class="btn btn-common btn-theme" href="${ctx }/review/listpage.do">취소</a>
+                           
+                           </div>                                          
+                        </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+   
+
       
-<br><br><br>
-            <div class="paginationCommon paginationOne text-center ">
-              <nav aria-label="Page navigation">
-                <ul class="pagination">
-                
-                <c:if test="${pageMaker.prev}">
-								<c:choose>
-									<c:when test="${pager.keyword != null }">
-										<li><a
-											href="listsearch.do${pageMaker.makeSearch(pageMaker.startPage - 1) }" aria-label="Previous">
-											 <span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
-											 </a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li><a
-											href="listpage.do${pageMaker.makeSearch(pageMaker.startPage - 1) }" aria-label="Previous">
-											<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
-											</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-							</c:if>
-							
-							<c:forEach begin="${pageMaker.startPage }"
-								end="${pageMaker.endPage }" var="idx">
-								<li class="active"
-									<c:out value="${pageMaker.pager.page == idx?'class =active':''}"/>>
-									<c:choose>
-										<c:when test="${pager.keyword != null }">
-											<a href="listsearch.do${pageMaker.makeSearch(idx)}">${idx}</a>
-										</c:when>
-										<c:otherwise>
-											<a href="listpage.do${pageMaker.makeSearch(idx)}">${idx}</a>
-										</c:otherwise>
-									</c:choose>
-							</c:forEach>
-							
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><c:choose>
-										<c:when test="${pager.keyword != null }">
-											<li><a
-												href="listsearch.do${pageMaker.makeSearch(pageMaker.endPage +1) }" aria-label="Next">
-												<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-												</a>
-											</li>
-										</c:when>
-										<c:otherwise>
-											<li><a
-												href="listpage.do${pageMaker.makeSearch(pageMaker.endPage +1) }" aria-label="Next">
-												<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-												</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-							</c:if>												
-                </ul>
-              </nav>
-            </div>
-            
+
   <!-- JAVASCRIPTS -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -253,62 +218,17 @@
   <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
   <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
   <script src="${ctx }/resources/js/custom.js"></script>
-
-
-<script>
-	var result = '${msg}';
-
-	if (result == 'SUCCESS') {
-		alert("처리가 완료되었습니다.");
-	}
-</script>
-
-<script>
-	$(document).ready(
-			function() {
-
-				$('#searchBtn').on(
-						"click",
-						function(event) {
-
-							self.location = "listsearch.do"
-									+ '${pageMaker.makeQuery(1)}'
-									+ "&searchType="
-									+ $("select option:selected").val()
-									+ "&keyword=" + $('#keywordInput').val();
-
-						});
-
-				$('#newBtn').on("click", function(evt) {
-
-					self.location = "register.do";
-
-				});
-
-			});
-</script>
+  
+  
 
   <script>
   	//paste this code under head tag or in a seperate js file.
   	// Wait for window load
   	$(window).load(function() {
   		// Animate loader off screen
-  		$(".se-pre-con").fadeOut("slow");
-  		
-  		$("tr").hover(
-  			function () {
-  				$(this).css("backgroundColor","#F6F6F6");	
-				
-			},
-  			function () {
-  				$(this).css("backgroundColor","#ffffff");		
-				
-			}
-  		)
-  		
+  		$(".se-pre-con").fadeOut("slow");;
   	});
   </script>
-  
 
 </body>
 

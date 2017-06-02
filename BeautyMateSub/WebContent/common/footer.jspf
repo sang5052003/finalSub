@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <!-- FOOTER -->
-    <footer style="background-image: url(img/home/footer-bg.jpg);">
+    <footer style="background-image: url(${ctx }/resources/img/home/footer-bg.jpg);">
       <!-- BACK TO TOP BUTTON -->
       <a href="#pageTop" class="backToTop"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
       <!-- FOOTER INFO -->
       <div class="clearfix footerInfo">
         <div class="container">
-          
+
         </div>
       </div>
 

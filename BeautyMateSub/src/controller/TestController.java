@@ -43,7 +43,7 @@ public class TestController {
 		Customer c = new Customer();
 		c.setCustomerNo(1);
 		reply.setCustomer(c);
-		reply.setPostNo(10);
+//		reply.setPostNo(12);
 		System.out.println(reply.toString());
 		String url = Const.getOriginpath() + "reply/register";
 
