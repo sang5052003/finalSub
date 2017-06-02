@@ -8,66 +8,7 @@
       <!-- FOOTER INFO -->
       <div class="clearfix footerInfo">
         <div class="container">
-          <div class="row">
-            <div class="col-sm-3 col-xs-12">
-              <div class="footerText">
-                <a href="index.html" class="footerLogo"><img src="img/logo-footer.png" alt="Footer Logo"></a>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa officia.Lorem ipsum dolor sit amet.</p>
-                <p>consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              </div>
-            </div>
-            <div class="col-sm-3 col-xs-12 paddingLeft">
-              <div class="footerInfoTitle">
-                <h4>Useful Links</h4>
-              </div>
-              <div class="useLink">
-                <ul class="list-unstyled">
-                  <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Web Design</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>About Anzel Beauty Spa</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Mobile</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Why Anzel Beauty Spa</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Social Media</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-sm-3 col-xs-12">
-              <div class="footerInfoTitle">
-                <h4>Gallery</h4>
-              </div>
-              <div class="footerGallery row">
-                <div class="col-xs-4">
-                  <a href="gallery-v2.html" style="background-image: url(http://placehold.it/75x75);"></a>
-                </div>
-                <div class="col-xs-4">
-                  <a href="gallery-v2.html" style="background-image: url(http://placehold.it/75x75);"></a>
-                </div>
-                <div class="col-xs-4">
-                  <a href="gallery-v2.html" style="background-image: url(http://placehold.it/75x75);"></a>
-                </div>
-                <div class="col-xs-4">
-                  <a href="gallery-v2.html" style="background-image: url(http://placehold.it/75x75);"></a>
-                </div>
-                <div class="col-xs-4">
-                  <a href="gallery-v2.html" style="background-image: url(http://placehold.it/75x75);"></a>
-                </div>
-                <div class="col-xs-4">
-                  <a href="gallery-v2.html" style="background-image: url(http://placehold.it/75x75);"></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 col-xs-12">
-              <div class="footerInfoTitle">
-                <h4>Newsletters</h4>
-              </div>
-              <div class="footerText">
-                <p>Sign up for our mailing list to get latest updates and offers.</p>
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Email address" aria-describedby="basic-addon21">
-                  <button type="submit" class="input-group-addon" id="basic-addon21">Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
 

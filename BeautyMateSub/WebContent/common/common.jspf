@@ -41,11 +41,9 @@
 	href="${ctx}/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css"
 	rel="stylesheet">
 
-<!-- CUSTOM CSS -->
-<link href="${ctx}/resources/css/style.css" rel="stylesheet">
-
 <!-- FAVICON -->
 <link href="${ctx}/resources/img/favicon.png" rel="shortcut icon">
+
 
 <!-- JAVASCRIPTS -->
 	<script type="text/javascript"

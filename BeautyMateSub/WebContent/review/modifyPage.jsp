@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="ctx" value="${pageContext.request.contextPath }" />
+<c:set var="ctx" value="${pageContext.request.contextPath }/resources/temp" />
 <link
-	href="${ctx}/resources/bootstrap/css/bootstrap.min.css"
+	href="${ctx}/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- Font Awesome Icons -->
 <link
@@ -16,33 +16,33 @@
 	rel="stylesheet" type="text/css" />
 <!-- Theme style -->
 <link
-	href="${ctx}/resources/dist/css/AdminLTE.min.css"
+	href="${ctx}/dist/css/AdminLTE.min.css"
 	rel="stylesheet" type="text/css" />
 <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
 <link
-	href="${ctx}/resources/dist/css/skins/_all-skins.min.css"
+	href="${ctx}/dist/css/skins/_all-skins.min.css"
 	rel="stylesheet" type="text/css" />
 
 <!-- Bootstrap 3.3.2 JS -->
 <script
-	src="${ctx}/resources/bootstrap/js/bootstrap.min.js"
+	src="${ctx}/bootstrap/js/bootstrap.min.js"
 	type="text/javascript"></script>
 <!-- FastClick -->
 <script
-	src='${ctx}/resources/plugins/fastclick/fastclick.min.js'></script>
+	src='${ctx}/plugins/fastclick/fastclick.min.js'></script>
 <!-- AdminLTE App -->
 <script
-	src="${ctx}/resources/dist/js/app.min.js"
+	src="${ctx}/dist/js/app.min.js"
 	type="text/javascript"></script>
 <!-- AdminLTE for demo purposes -->
 <script
-	src="${ctx}/resources/dist/js/demo.js"
+	src="${ctx}/dist/js/demo.js"
 	type="text/javascript"></script>
 
 
 <script
-	src="${ctx}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	src="${ctx}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Main content -->
 <section class="content">
 	<div class="row">
