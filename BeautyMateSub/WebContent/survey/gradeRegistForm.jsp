@@ -20,7 +20,6 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
 <style>
 /* Paste this css to your style sheet file or under head tag */
 /* This only works with JavaScript,
@@ -48,6 +47,7 @@
 		center no-repeat #fff;
 }
 </style>
+<link rel="stylesheet" href="${ctx }/resources/css/style.css">
 <!--내가 쓰는 스크립트, 스타일시트  -->
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -164,49 +164,54 @@ label.star:before {
 						</div>
 					</div>
 					<div class="row" id="cosmeticList">
-						<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
-							<form action="">
-								<div class="col-md-4 col-sm-6 col-xs-12">
-									<div class="produtSingle">
-										<div class="produtImage">
-											<img src="${cosmetics.img }" alt="Image Product"
-												class="img-responsive">
-										</div>
-										<div class="productCaption">
-											<h6>${cosmetics.cosmeticName }</h6>
-											<div class="stars">
-												<input class="star star-5"
-													id="star-${cosmetics.cosmeticNo }-5" type="radio"
-													name="star" value="5" /> <label class="star star-5"
-													for="star-${cosmetics.cosmeticNo }-5"></label> <input
-													class="star star-4" id="star-${cosmetics.cosmeticNo }-4"
-													type="radio" name="star" value="4" /> <label
-													class="star star-4" for="star-${cosmetics.cosmeticNo }-4"></label>
-												<input class="star star-3"
-													id="star-${cosmetics.cosmeticNo }-3" type="radio"
-													name="star" value="3" /> <label class="star star-3"
-													for="star-${cosmetics.cosmeticNo }-3"></label> <input
-													class="star star-2" id="star-${cosmetics.cosmeticNo }-2"
-													type="radio" name="star" value="2" /> <label
-													class="star star-2" for="star-${cosmetics.cosmeticNo }-2"></label>
-												<input class="star star-1"
-													id="star-${cosmetics.cosmeticNo }-1" type="radio"
-													name="star" value="1" /> <label class="star star-1"
-													for="star-${cosmetics.cosmeticNo }-1"></label>
+						<ul id="myList">
+							<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
+								<li>
+									<form action="">
+										<div class="col-md-4 col-sm-6 col-xs-12">
+											<div class="produtSingle">
+												<div class="produtImage">
+													<img src="${cosmetics.img }" alt="Image Product"
+														class="img-responsive">
+												</div>
+												<div class="productCaption">
+													<h6>${cosmetics.cosmeticName }</h6>
+													<div class="stars">
+														<input class="star star-5"
+															id="star-${cosmetics.cosmeticNo }-5" type="radio"
+															name="star" value="5" /> <label class="star star-5"
+															for="star-${cosmetics.cosmeticNo }-5"></label> <input
+															class="star star-4" id="star-${cosmetics.cosmeticNo }-4"
+															type="radio" name="star" value="4" /> <label
+															class="star star-4" for="star-${cosmetics.cosmeticNo }-4"></label>
+														<input class="star star-3"
+															id="star-${cosmetics.cosmeticNo }-3" type="radio"
+															name="star" value="3" /> <label class="star star-3"
+															for="star-${cosmetics.cosmeticNo }-3"></label> <input
+															class="star star-2" id="star-${cosmetics.cosmeticNo }-2"
+															type="radio" name="star" value="2" /> <label
+															class="star star-2" for="star-${cosmetics.cosmeticNo }-2"></label>
+														<input class="star star-1"
+															id="star-${cosmetics.cosmeticNo }-1" type="radio"
+															name="star" value="1" /> <label class="star star-1"
+															for="star-${cosmetics.cosmeticNo }-1"></label>
+													</div>
+													<input type="hidden" name="${cosmetics.cosmeticNo }"
+														value="${cosmetics.cosmeticNo }">
+													<button type="button"
+														class="btn btn-common btn-full-round btn-theme"
+														onclick="javascript:gradeReg(${cosmetics.cosmeticNo })"
+														name="gradeBtn">평가</button>
+												</div>
 											</div>
-											<input type="hidden" name="${cosmetics.cosmeticNo }"
-												value="${cosmetics.cosmeticNo }">
-											<button type="button"
-												class="btn btn-common btn-full-round btn-theme"
-												onclick="javascript:gradeReg(${cosmetics.cosmeticNo })"
-												name="gradeBtn">평가</button>
 										</div>
-									</div>
-								</div>
-							</form>
 
-						</c:forEach>
-
+									</form>
+								</li>
+							</c:forEach>
+						</ul>
+						<div id="loadMore">Load more</div>
+						<div id="showLess">Show less</div>
 					</div>
 
 
@@ -260,15 +265,25 @@ label.star:before {
 		var categoryList;
 		var category;
 		var cosmeticNames = ${cosmeticNames};
-		
+		var size_li = $("#myList li").size();
+	    var x=3;
 		$(document).ready(function() {
+			
+			
+		    $('#myList li:lt('+x+')').show();
+		  /*   
+		    $('#loadMore').click(function () {
+		        x= (x+5 <= size_li) ? x+5 : size_li;
+		        $('#myList li:lt('+x+')').show();
+		    });
+		    $('#showLess').click(function () {
+		        x=(x-5<0) ? 3 : x-5;
+		        $('#myList li').not(':lt('+x+')').hide();
+		    }); */
 			
 			$('#title').autocomplete({
 				source: cosmeticNames
 			});
-			
-			
-			
 			
 			gradeReg = function(cosmeticNo){
 				var gradeStar = $('input:radio[name="star"]:checked').val();
@@ -311,6 +326,7 @@ label.star:before {
 			};
 			
 			viewAll = function(){
+				
 				$.ajax({
 					url:"http://localhost:8888/rest/cosmetic/findAll"
 					,type:"get"
@@ -319,10 +335,6 @@ label.star:before {
 					,error:errorCallback
 				});
 			};
-			
-			
-			
-			
 			
 			var displayList = function(resultData) {
 				var listHtml = "";
@@ -369,6 +381,8 @@ label.star:before {
 			}
 			
 		});
+		
+		 
 		
 	</script>
 </body>
