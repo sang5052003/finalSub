@@ -1,49 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="ctxx" value="${pageContext.request.contextPath }/resources/temp" />
+<c:set var="ctx" value="${pageContext.request.contextPath }" />
+
+
+
+<head>
+<!-- Bootstrap 3.3.4 -->
+    <link href="${ctxx}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="${ctxx}/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="${ctxx}/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+</head>
+<script src="${ctxx}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
-<link
-	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<!-- Font Awesome Icons -->
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css" />
-<!-- Ionicons -->
-<link
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
-	rel="stylesheet" type="text/css" />
-<!-- Theme style -->
-<link
-	href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.min.css"
-	rel="stylesheet" type="text/css" />
-<!-- AdminLTE Skins. Choose a skin from the css/skins 
-         folder instead of downloading all of them to reduce the load. -->
-<link
-	href="${pageContext.request.contextPath}/resources/dist/css/skins/_all-skins.min.css"
-	rel="stylesheet" type="text/css" />
-
-<!-- Bootstrap 3.3.2 JS -->
-<script
-	src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"
-	type="text/javascript"></script>
-<!-- FastClick -->
-<script
-	src='${pageContext.request.contextPath}/resources/plugins/fastclick/fastclick.min.js'></script>
-<!-- AdminLTE App -->
-<script
-	src="${pageContext.request.contextPath}/resources/dist/js/app.min.js"
-	type="text/javascript"></script>
-<!-- AdminLTE for demo purposes -->
-<script
-	src="${pageContext.request.contextPath}/resources/dist/js/demo.js"
-	type="text/javascript"></script>
 
 
-<script
-	src="${pageContext.request.contextPath}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 
 <!-- Main content -->
 <section class="content">
@@ -114,10 +96,11 @@
 				</div>
 				<div class="box-body">
 					<label for="exampleInputEmail1">Writer</label> <input
-						class="form-control" type="text" placeholder="USER ID"
+						class="
+-control" type="text" placeholder="USER ID"
 						id="newReplyWriter"> <label for="exampleInputEmail1">Reply
 						Text</label> <input class="form-control" type="text"
-						placeholder="REPLY TEXT" id="replyContent">
+						placeholder="REPLY TEXT" id="replyContent" name ="replyContent">
 
 				</div>
 				<!-- /.box-body -->
@@ -227,11 +210,8 @@
 
 	}
 
-	var reviewNo = $
-	{
-		review.reviewNo
-	};
-
+	var reviewNo = ${review.reviewNo};
+	
 	var replyPage = 1;
 
 	function getPage(pageInfo) {
@@ -290,18 +270,18 @@
 
 		//var replyerObj = $("#newReplyWriter");
 		var replytextObj = $("#replyContent");
-		var replyer = replyerObj.val();
-		var replytext = replytextObj.val();
+// 		var replyer = replyerObj.val();
+		var replyContent = replytextObj.val();
 
 		$.ajax({
 			type : 'post',
-			url : 'http://localhost:8888/rest/',
+			url : '/BeautyMate/replies/register',
 			headers : {
 				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "POST" 
 			},
 			dataType : 'text',
 			data : JSON.stringify({
-				reviewNo : reviewNo,
 				replyContent : replyContent
 			}),
 			success : function(result) {
@@ -309,8 +289,8 @@
 				if (result == 'SUCCESS') {
 					alert("등록 되었습니다.");
 					replyPage = 1;
-					getPage("http://localhost:8080/BeautyMate/review/detail.do?reviewNo="+reviewNo);
-					replyerObj.val("");
+					getPage("/BeautyMate/review/detail.do?reviewNo="+reviewNo);
+// 					replyerObj.val("");
 					replytextObj.val("");
 				}
 			}
@@ -404,6 +384,14 @@
 	});
 </script>
 
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="${ctxx}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='${ctxx}/plugins/fastclick/fastclick.min.js'></script>
+    <!-- AdminLTE App -->
+    <script src="${ctxx}/dist/js/app.min.js" type="text/javascript"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="${ctxx}/dist/js/demo.js" type="text/javascript"></script>
 
 
 

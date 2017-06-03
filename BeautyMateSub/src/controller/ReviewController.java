@@ -3,10 +3,12 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.Consts;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -20,12 +22,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import controller.utils.Const;
+import controller.utils.DateDeserializer;
 import controller.utils.HttpResponse;
 import domain.Cosmetic;
 import domain.Customer;
@@ -64,7 +69,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
-		return "/review/list.jsp";
+		return "/review/reviewList.jsp";
 
 	}
 
@@ -95,7 +100,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
-		return "/review/list.jsp";
+		return "/review/reviewList.jsp";
 
 	}
 
@@ -123,7 +128,7 @@ public class ReviewController {
 			// 로그인 페이지로
 		}
 
-		return "/review/register.jsp";
+		return "/review/reviewRegister.jsp";
 	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
@@ -159,7 +164,8 @@ public class ReviewController {
 
 		model.addAttribute("review", review);
 
-		return "/review/modifyPage.jsp";
+//		return "/review/modifyPage.jsp";
+		return "/review/reviewModify.jsp";
 	}
 
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
@@ -167,13 +173,14 @@ public class ReviewController {
 			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/modify";
-		int result = 0;
 
+		System.out.println(review.toString()+"^^");  
+		
 		jsonByObject(url, review);
 
-		if (result == 1) { // 성공
-			System.out.println(result);
-		}
+//		if (result == 1) { // 성공
+//			System.out.println(result);
+//		}
 
 		rttr.addAttribute("page", pager.getPage());
 		rttr.addAttribute("perPageNum", pager.getPerPageNum());
@@ -191,13 +198,17 @@ public class ReviewController {
 			throws ClientProtocolException, IOException {
 		String url = Const.getOriginpath() + "review/remove/reviewNo/" + reviewNo;
 		HttpPost httpPost = new HttpPost(url);
+		
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-
-		StringEntity entity = new StringEntity(new Gson().toJson(reviewNo));
+		CloseableHttpResponse response = httpClient.execute(httpPost);
+		
+		StringEntity entity = new StringEntity(new Gson().toJson(reviewNo),Consts.UTF_8);
+		
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json");
-		//CloseableHttpResponse response = httpClient.execute(httpPost);
 
+		response.close();
+		
 		rttr.addAttribute("page", pager.getPage());
 		rttr.addAttribute("perPageNum", pager.getPerPageNum());
 		rttr.addAttribute("searchType", pager.getSearchType());
@@ -220,7 +231,7 @@ public class ReviewController {
 
 		model.addAttribute("review", r);
 
-		return "/review/readPage.jsp";
+		return "/review/reviewDetail.jsp";
 	}
 
 	private Review jsonObject(String url) throws ClientProtocolException, IOException {
@@ -235,8 +246,10 @@ public class ReviewController {
 		TypeToken<Review> typeToken = new TypeToken<Review>() {
 		}; // 생성자없어서 {}
 		Type type = typeToken.getType(); // java.lang.reflect
-
-		Review review = new Gson().fromJson(responseCountent, type);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		Review review = gsonBuilder.create().fromJson(responseCountent, type);
 
 		response.close();
 
@@ -255,8 +268,16 @@ public class ReviewController {
 		TypeToken<List<Review>> typeToken = new TypeToken<List<Review>>() {
 		};
 		Type type = typeToken.getType();
-		List<Review> reviews = new Gson().fromJson(responseContent, type);
-
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		
+		List<Review> reviews = gsonBuilder.create().fromJson(responseContent, type);
+		
+		for(Review r : reviews){
+			System.out.println(r.toString());
+		}
+		
 		response.close();
 
 		return reviews;

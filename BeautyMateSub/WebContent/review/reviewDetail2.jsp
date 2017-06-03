@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
+<c:set var="ctxx" value="${pageContext.request.contextPath }/resources/temp" />
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Beauty Mate</title>
 
@@ -32,16 +32,16 @@
   <link href="${ctx }/resources/css/style.css" rel="stylesheet">
   <link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
 
-
   <!-- FAVICON -->
   <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+  
+  
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  
+  
+    
+    
 
 <style>
   /* Paste this css to your style sheet file or under head tag */
@@ -61,7 +61,6 @@
   </style>
 
 </head>
-
 <body class="body-wrapper static">
   <div class="se-pre-con"></div>
   <div class="main-wrapper">
@@ -137,109 +136,144 @@
              
             </ul>
           </div>
-          
-          <br><br>
-          		<div class="text-center">
-					<select name="searchType">
-						<option value="n"
-							<c:out value="${pager.searchType == null?'selected':''}"/>>
-							---</option>
-						<option value="t"
-							<c:out value="${pager.searchType eq 't'?'selected':''}"/>>
-							Title</option>
-						<option value="c"
-							<c:out value="${pager.searchType eq 'c'?'selected':''}"/>>
-							Content</option>
-					</select> <input type="text" name='keyword' id="keywordInput"
-						value='${pager.keyword }'>
-					<button id='searchBtn'>Search</button>
-				</div>
-          
-          
-            <div class="text-right">
-                <button class="btn btn-common btn-theme" id='newBtn'>리뷰작성</button>
+
+<!-- USER SECTION -->
+      <section class="clearfix userSection padding">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <ul class="list-inline squareBtn">
+                <li class="li"><a href="user-dashboard.html" class="btn btn-common">Account Dashboard</a></li>
+                <li class="li"><a href="user-profile.html" class="btn btn-common btn-theme">Profile</a></li>
+                <li class="li"><a href="address.html" class="btn btn-common">Address</a></li>
+                <li class="li"><a href="all-order.html" class="btn btn-common">All Orders</a></li>
+                <li class="li"><a href="wishlist.html" class="btn btn-common">Wishlist</a></li>
+              </ul>
             </div>
-            <br>
-           <div class="panel panel-default cartInfo">
-            <div class="panel-heading patternbg">Review</div>
-            <div class="panel-body tableArea">
-              <div>
-                <table class="table">
-                  <tbody>
-                  <c:forEach items="${reviewList}" var="review" varStatus="status">
-                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
-                    >
-                      <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">${review.customer.id }</span></td>
-                    </tr>
-                    </c:forEach>
-                  </tbody>
-                </table>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="innerWrapper">
+                <div class="orderBox  patternbg">
+                    리뷰
+                </div>
+                <div class="profile">
+                  <div class="row">
+                    <div class="col-md-2 col-sm-3 col-xs-12">
+                      <div class="thumbnail">
+                        <img src="http://www.dongkoo.com/uploads/product/%EB%8B%A5%ED%84%B0%EB%AA%A8%EB%8D%94%EB%82%98%ED%97%A4%EC%96%B4%ED%86%A0%EB%8B%89.png" 
+                        width="270px" height="270px" alt="profile-image">
+                        <div class="caption">
+                          <a href="#" class="btn btn-primary btn-block" role="button">Change Avatar</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-10 col-sm-9 col-xs-12">
+                        <form class="form-horizontal" action="${ctx}/review/remove.do" method="post">
+                          <div class="form-group">
+                            <label for="" class="col-md-2 col-sm-3 control-label">Title</label>
+                            <div class="col-md-10 col-sm-9">
+                              <input type="text" class="form-control" id="" placeholder="" readonly="readonly" value="${review.reviewTitle }">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="" class="col-md-2 col-sm-3 control-label">Content</label>
+                            <div class="col-md-10 col-sm-9">
+                                <textarea class="form-control" id="" placeholder="" readonly="readonly">${review.reviewContent }</textarea>
+                            </div>
+                          </div>
+                          <input type="hidden" name="reviewNo" value="${review.reviewNo }">
+                          <div class="text-right">
+                           <a class="btn btn-common btn-theme" href="${ctx}/review/modify.do?reviewNo=${review.reviewNo}" >수정</a>
+                           <button type="submit" class="btn btn-common btn-theme" id ="removeBtn">삭제</button> 
+                           <a class="btn btn-common btn-theme" href="${ctx }/review/listpage.do">리뷰목록</a>
+                           </div>                                          
+                        </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            </div>
+          </div>
+        </div>
+      </section>
+                    
       
-<br><br><br>
-            <div class="paginationCommon paginationOne text-center ">
-              <nav aria-label="Page navigation">
-                <ul class="pagination">
-                
-                <c:if test="${pageMaker.prev}">
-								<c:choose>
-									<c:when test="${pager.keyword != null }">
-										<li><a
-											href="listsearch.do${pageMaker.makeSearch(pageMaker.startPage - 1) }" aria-label="Previous">
-											 <span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
-											 </a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li><a
-											href="listpage.do${pageMaker.makeSearch(pageMaker.startPage - 1) }" aria-label="Previous">
-											<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
-											</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-							</c:if>
-							
-							<c:forEach begin="${pageMaker.startPage }"
-								end="${pageMaker.endPage }" var="idx">
-								<li class="active"
-									<c:out value="${pageMaker.pager.page == idx?'class =active':''}"/>>
-									<c:choose>
-										<c:when test="${pager.keyword != null }">
-											<a href="listsearch.do${pageMaker.makeSearch(idx)}">${idx}</a>
-										</c:when>
-										<c:otherwise>
-											<a href="listpage.do${pageMaker.makeSearch(idx)}">${idx}</a>
-										</c:otherwise>
-									</c:choose>
-							</c:forEach>
-							
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><c:choose>
-										<c:when test="${pager.keyword != null }">
-											<li><a
-												href="listsearch.do${pageMaker.makeSearch(pageMaker.endPage +1) }" aria-label="Next">
-												<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-												</a>
-											</li>
-										</c:when>
-										<c:otherwise>
-											<li><a
-												href="listpage.do${pageMaker.makeSearch(pageMaker.endPage +1) }" aria-label="Next">
-												<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-												</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-							</c:if>												
-                </ul>
-              </nav>
+      
+              <div class="row">
+          <div class="col-xs-12">
+            <div class="tabCommon tabOne singleTab">
+              <ul class="nav nav-tabs">
+              <div class="text-left">
+              <input type="button" class="btn btn-common btn-theme" value="리뷰(2)"> 
+              </div>
+              </ul>
+              <div class="tab-content patternbg">
+               <div id="reviews" class="tab-pane fade in active">
+					   
+					   
+			  <c:forEach items="${review.replys }" var="reply" varStatus="status">            
+                  <div class="blogCommnets">
+                    <div class="media">
+                      <a class="media-left" href="#">
+                        <img class="media-object" src="http://placehold.it/70x70" alt="Image">
+                      </a>
+                      <div class="media-body">
+                        <h4 class="media-heading">리뷰작성자</h4>
+                        <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>
+                        <p>${reply.replyContent }</p>
+                        <button class="btn btn-link">Reply</button>
+                        <div class="text-right">
+                         <button type="submit" class="btn btn-common btn-theme" id="replyModBtn">수정</button>
+                         <button type="submit" class="btn btn-common btn-gray" id="replyDelBtn">삭제</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  </c:forEach> 
+<!--                     <div class="media mediaMargin"> -->
+<!--                       <a class="media-left" href="#"> -->
+<!--                         <img class="media-object" src="http://placehold.it/70x70" alt="Image"> -->
+<!--                       </a> -->
+<!--                       <div class="media-body"> -->
+<!--                         <h4 class="media-heading">대댓글 제목</h4> -->
+<!--                         <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5> -->
+<!--                         <p>내용</p> -->
+<!--                         <button class="btn btn-link">Reply</button> -->
+                        
+<!--                       </div> -->
+                    </div>
+                  </div>
+                  <div class="commentsForm">
+                    <h3>leave a comment</h3>
+<!--                   <form action="" method="POST" role="form"> -->
+                      <div class="form-group">
+                        <textarea class="form-control" rows="3" placeholder="Type Your Comment"></textarea>
+                      </div>
+                      <div class="form-group form-half form-left">
+                        <input type="text" class="form-control" id="" placeholder="Name">
+                      </div>
+                      <div class="form-group form-half form-right">
+                        <input type="email" class="form-control" id="" placeholder="Email">
+                      </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-common btn-theme">댓글 작성</button>
+                    </div>
             </div>
-            
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+
+   
+     
+
   <!-- JAVASCRIPTS -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -253,40 +287,10 @@
   <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
   <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
   <script src="${ctx }/resources/js/custom.js"></script>
+	<script src="${ctxx}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
-
-<script>
-	var result = '${msg}';
-
-	if (result == 'SUCCESS') {
-		alert("처리가 완료되었습니다.");
-	}
-</script>
-
-<<script>
-	$(document).ready(
-			function() {
-
-				$('#searchBtn').on(
-						"click",
-						function(event) {
-
-							self.location = "listsearch.do"
-									+ '${pageMaker.makeQuery(1)}'
-									+ "&searchType="
-									+ $("select option:selected").val()
-									+ "&keyword=" + $('#keywordInput').val();
-
-						});
-
-				$('#newBtn').on("click", function(evt) {
-
-					self.location = "register.do";
-
-				});
-
-			});
-</script>
 
 
   <script>
@@ -296,21 +300,8 @@
   		// Animate loader off screen
   		$(".se-pre-con").fadeOut("slow");
   		
-  		$("tr").hover(
-  			function () {
-  				$(this).css("backgroundColor","#F6F6F6");	
-				
-			},
-  			function () {
-  				$(this).css("backgroundColor","#ffffff");		
-				
-			}
-  		)
-  		
   	});
   </script>
-  
-
 </body>
 
 </html>
