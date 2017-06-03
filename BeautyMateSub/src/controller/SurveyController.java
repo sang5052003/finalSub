@@ -190,7 +190,7 @@ public class SurveyController {
 
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 //		추천된 화장품 목록 받기
-		String url = Const.getOriginpath() + "recommend/list/customer/" + 1;
+		String url = Const.getOriginpath() + "recommend/list/customer/" + 2;
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -209,7 +209,7 @@ public class SurveyController {
 		
 		
 //		추천값 (유사도)받기
-		String u = Const.getOriginpath() + "recommend/list/value/" + 1; 
+		String u = Const.getOriginpath() + "recommend/list/value/" + 2; 
 
 
 		HttpGet hGet = new HttpGet(u); // <-> HttpPost
@@ -253,38 +253,5 @@ public class SurveyController {
 		}
 	}
 
-	private int getResponseStatus(CloseableHttpResponse response) {
-		return response.getStatusLine().getStatusCode();
-	}
-
-	private String getResponseContent(CloseableHttpResponse response) {
-		HttpEntity httpEntity = response.getEntity();
-		InputStream is = null;
-		StringBuilder contentBuilder = new StringBuilder();
-
-		try {
-			is = httpEntity.getContent();
-
-			byte[] contentBytes = new byte[1024];
-			while (true) {
-				int readCount = is.read(contentBytes);
-				if (readCount == -1) {
-					break;
-				}
-				contentBuilder.append(new String(contentBytes, 0, readCount));
-			}
-		} catch (UnsupportedOperationException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (is != null)
-					is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return contentBuilder.toString();
-	}
+	
 }

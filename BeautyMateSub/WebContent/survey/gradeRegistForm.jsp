@@ -198,7 +198,7 @@ label.star:before {
 												value="${cosmetics.cosmeticNo }">
 											<button type="button"
 												class="btn btn-common btn-full-round btn-theme"
-												onclicK="javascript:gradeReg(${cosmetics.cosmeticNo })"
+												onclick="javascript:gradeReg(${cosmetics.cosmeticNo })"
 												name="gradeBtn">평가</button>
 										</div>
 									</div>
@@ -335,7 +335,7 @@ label.star:before {
 					'<img src="'+cosmetic.img+'" alt="Image Product" class="img-responsive">'+
 					'</div>'+
 					'<div class="productCaption">'+
-					'<h4>'+cosmetic.cosmeticName+'</h4>'+
+					'<h6>'+cosmetic.cosmeticName+'</h6>'+
 					'<div class="stars">'+
 					'<input class="star star-5"'+
 					'id="star-'+cosmetic.cosmeticNo+'-5" type="radio"'+
