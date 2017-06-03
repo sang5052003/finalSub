@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
@@ -64,7 +65,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
-		return "/review/list.jsp";
+		return "/review/reviewList.jsp";
 
 	}
 
@@ -95,7 +96,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
-		return "/review/list.jsp";
+		return "/review/reviewList.jsp";
 
 	}
 
@@ -123,7 +124,7 @@ public class ReviewController {
 			// 로그인 페이지로
 		}
 
-		return "/review/register.jsp";
+		return "/review/reviewRegister.jsp";
 	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
@@ -159,7 +160,8 @@ public class ReviewController {
 
 		model.addAttribute("review", review);
 
-		return "/review/modifyPage.jsp";
+//		return "/review/modifyPage.jsp";
+		return "/review/reviewModify.jsp";
 	}
 
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
@@ -167,13 +169,14 @@ public class ReviewController {
 			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/modify";
-		int result = 0;
 
+		System.out.println(review.toString()+"^^");  
+		
 		jsonByObject(url, review);
 
-		if (result == 1) { // 성공
-			System.out.println(result);
-		}
+//		if (result == 1) { // 성공
+//			System.out.println(result);
+//		}
 
 		rttr.addAttribute("page", pager.getPage());
 		rttr.addAttribute("perPageNum", pager.getPerPageNum());
@@ -191,13 +194,17 @@ public class ReviewController {
 			throws ClientProtocolException, IOException {
 		String url = Const.getOriginpath() + "review/remove/reviewNo/" + reviewNo;
 		HttpPost httpPost = new HttpPost(url);
+		
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-
+		CloseableHttpResponse response = httpClient.execute(httpPost);
+		
 		StringEntity entity = new StringEntity(new Gson().toJson(reviewNo));
+		
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json");
-		//CloseableHttpResponse response = httpClient.execute(httpPost);
 
+		response.close();
+		
 		rttr.addAttribute("page", pager.getPage());
 		rttr.addAttribute("perPageNum", pager.getPerPageNum());
 		rttr.addAttribute("searchType", pager.getSearchType());
@@ -220,7 +227,7 @@ public class ReviewController {
 
 		model.addAttribute("review", r);
 
-		return "/review/readPage.jsp";
+		return "/review/reviewDetail.jsp";
 	}
 
 	private Review jsonObject(String url) throws ClientProtocolException, IOException {

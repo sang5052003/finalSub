@@ -38,11 +38,8 @@
   
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <script src="${ctxx}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-  	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  
+  
     
     
 
@@ -187,7 +184,7 @@
                                 <textarea class="form-control" id="" placeholder="" readonly="readonly">${review.reviewContent }</textarea>
                             </div>
                           </div>
-                          <input type="hidden" name="reviewNo" id="reviewNo"  value="${review.reviewNo }">
+                          <input type="hidden" name="reviewNo" value="${review.reviewNo }">
                           <div class="text-right">
                            <a class="btn btn-common btn-theme" href="${ctx}/review/modify.do?reviewNo=${review.reviewNo}" >수정</a>
                            <button type="submit" class="btn btn-common btn-theme" id ="removeBtn">삭제</button> 
@@ -210,7 +207,7 @@
             <div class="tabCommon tabOne singleTab">
               <ul class="nav nav-tabs">
               <div class="text-left">
-              <input type="button" class="btn btn-common btn-theme" value="Reply(2)"> 
+              <input type="button" class="btn btn-common btn-theme" value="리뷰(2)"> 
               </div>
               </ul>
               <div class="tab-content patternbg">
@@ -218,7 +215,6 @@
 					   
 					   
 			  <c:forEach items="${review.replys }" var="reply" varStatus="status">            
-                  <li class="replyLi" data-reply=${reply.replyNo }>
                   <div class="blogCommnets">
                     <div class="media">
                       <a class="media-left" href="#">
@@ -227,28 +223,15 @@
                       <div class="media-body">
                         <h4 class="media-heading">리뷰작성자</h4>
                         <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>
-                        <p class="timeline-body" >${reply.replyContent }</p>
+                        <p>${reply.replyContent }</p>
                         <button class="btn btn-link">Reply</button>
                         <div class="text-right">
-                        <input class="timeline-header" type="hidden" name ="${reply.replyNo }" id ="${reply.replyNo }" value="${reply.replyNo }"/>
-                        
-          
-<!--                          <FORM NAME="myForm" method=post action=""> -->
-<!-- 							<input type="button" class="glyphicon glyphicon-cog pull-right" style="padding:10px" VALUE="Textarea 추가" onclick="addBox(this.form)"/> -->
-<!-- 						</FORM> -->
-<!-- 						<input type="checkbox" data-toggle="toggle"   id="toggle-two" data-on="수정취소" data-off="수정" id="toggle-two"> -->
-						
-<!--                          <button type="submit" class="btn btn-common btn-theme" id="replyModBtn">수정</button> -->
-						<div class="timeline-footer">
-                         <a style="padding:10px" data-toggle="modal"
-								data-target="#modifyModal"><i class="fa fa-pencil"aria-hidden="true"></i></a>
-                         <a style="padding:10px" href="javascript:removeReply(${reply.replyNo});"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-						</div>
+                         <button type="submit" class="btn btn-common btn-theme" id="replyModBtn">수정</button>
+                         <button type="submit" class="btn btn-common btn-gray" id="replyDelBtn">삭제</button>
                           </div>
                       </div>
                     </div>
                   </div>
-            	</li>
                   </c:forEach> 
 <!--                     <div class="media mediaMargin"> -->
 <!--                       <a class="media-left" href="#"> -->
@@ -267,16 +250,16 @@
                     <h3>leave a comment</h3>
 <!--                   <form action="" method="POST" role="form"> -->
                       <div class="form-group">
-                        <textarea class="form-control" rows="3"  name ="replyContent" placeholder="Type Your Comment"></textarea>
+                        <textarea class="form-control" rows="3" placeholder="Type Your Comment"></textarea>
                       </div>
-<!--                       <div class="form-group form-half form-left"> -->
-<!--                         <input type="text" class="form-control" id="" placeholder="Name"> -->
-<!--                       </div> -->
-<!--                       <div class="form-group form-half form-right"> -->
-<!--                         <input type="email" class="form-control" id="" placeholder="Email"> -->
-<!--                       </div> -->
+                      <div class="form-group form-half form-left">
+                        <input type="text" class="form-control" id="" placeholder="Name">
+                      </div>
+                      <div class="form-group form-half form-right">
+                        <input type="email" class="form-control" id="" placeholder="Email">
+                      </div>
                     <div class="text-right">
-                        <button type="button" class="btn btn-common btn-theme" id="replyAddBtn">댓글 작성</button>
+                        <button type="submit" class="btn btn-common btn-theme">댓글 작성</button>
                     </div>
             </div>
                   
@@ -304,205 +287,9 @@
   <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
   <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
   <script src="${ctx }/resources/js/custom.js"></script>
-
-
-
-<script>
-//   $(function() {
-//     $('#toggle-two').bootstrapToggle({
-//       on: 'e',
-//       off: 'd'
-//     });
-//   })
-</script>
-
-
-<!-- Modal -->
-	<div id="modifyModal" class="modal modal-primary fade" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title"></h4>
-				</div>
-				<div class="modal-body" data-rno>
-					<p>
-						<input type="text" id="replyContent" class="form-control">
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-common btn-theme" id="replyModBtn">Modify</button>
-					<button type="button" class="btn btn-common btn-theme btn-dark" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-<script>
-$(".timeline").on("click", ".replyLi", function(event) {
-
-	var reply = $(this);
-
-	$("#replyContent").val(reply.find('.timeline-body').text());
-
-});
-
-
-
-</script>
-
-
-
-
-<SCRIPT>
-var count = 1; 
-var num = 1; 
-
-function addBox (x) {
-  if (document.all) {  // 인터넷 익스플로러 4.0 이상이면,
-    var Commentext = '<p><textarea NAME="Comment' + count++ + '" rows="5" cols="50" style="background-color:#F5F5F5">textarea '+num++ +'<\/textarea>';
-    x.insertAdjacentHTML('beforeEnd', Commentext)
-  }
-  else if (document.getElementById) {  // 넷스케이프 6.0 이상이면,
-    var newArea = document.createElement('textarea');
-    newArea.name = 'Comment' + count++;
-    newArea.rows = 5;
-    newArea.cols = 50;
-    x.appendChild(document.createElement('p'));
-    x.appendChild(newArea);
-  }
-  else if (document.layers) {  // 넷스케이프 4.0 이상이면,
-    var newLayer = new Layer (window.innerWidth);
-    var Commentext = '';
-    Commentext += '<html><body><form name="myForm">';
-    Commentext += '<textarea name="Comment" rows="5" cols="50" style="background-color:#F5F5F5">textarea '+num++ +'<\/textarea>';
-    Commentext += '<\/form><\/body><\/html>';
-    newLayer.document.write(Commentext);
-    newLayer.document.close();
-    newLayer.top = document.height;
-    document.height += newLayer.document.height;
-    newLayer.visibility = 'show';
-  }
- else {alert('네츠케이프와 익스플로러 4.0 이상에서만 사용할 수 있습니다')};
-}
-
-</SCRIPT>
-
-
-
-
-<script>
-
-var reviewNo = ${review.reviewNo};
-
-var replyPage = 1;
-
-$("#replyAddBtn").on("click", function() {
-
-	//var replyerObj = $("#newReplyWriter");
-	var replytextObj = $("#replyContent");
-	var reviewtextObj = $("#reviewNo");
-//		var replyer = replyerObj.val();
-	var postNo = reviewtextObj.val();
-	var replyContent = replytextObj.val();
-
-	$.ajax({
-		type : 'post',
-		url : '/BeautyMate/replies/register',
-		headers : {
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override": "POST" 
-		},
-		dataType : 'text',
-		data : JSON.stringify({
-			replyContent : replyContent,
-			postNo : postNo
-		}),
-		success : function(result) {
-			console.log("result: " + result);
-			if (result == 'SUCCESS') {
-				alert("등록 되었습니다.");
-				replyPage = 1;
-				getPage("/BeautyMate/review/detail.do?reviewNo="+reviewNo); // 바꿔야됨
-//					replyerObj.val("");
-				replytextObj.val("");
-			}
-		}
-	});
-});
-
-// var modifyReply = function(replyNo) {
-// 	$.ajax({
-// 		url:"/BeautyMate/replies/modify/" +replyNo,
-// 		type: 'get',
-// 		headers : {
-// 			"Content-Type" : "application/json",
-// 			"X-HTTP-Method-Override": "GET" 
-// 		},
-// 		dataType : 'text',
-// 		success : modify
-// 	});
-// };
-
-
-$("#replyModBtn").on("click", function() {
-
-	var rno = $(".modal-title").html();
-	var replyContent = $("#replyContent").val();
-
-	$.ajax({
-		type : 'post',
-		url : '/BeautyMate/replies/modify',
-		headers : {
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		data : JSON.stringify({
-			replyContent : replyContent
-		}),
-		dataType : 'text',
-		success : function(result) {
-			console.log("result: " + result);
-			if (result == 'SUCCESS') {
-				alert("수정 되었습니다.");
-				getPage("/BeautyMate/review/detail.do?reviewNo="+reviewNo); // 바꿔야됨
-			}
-		}
-	});
-});
-
-
-
-
-
-var removeReply = function(replyNo) {
-	$.ajax({
-		url:"/BeautyMate/replies/remove/"+replyNo
-		,type:"get"
-		,headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override": "GET" 
-		},
-		dataType : 'text',
-		success : function(result) {
-			
-			if (result == 'SUCCESS') {
-				alert("삭제 되었습니다.");
-				getPage("/BeautyMate/review/detail.do?reviewNo="+reviewNo); // 바꿔야됨
-			}
-		}
-	});
-};
-
-
-
-
-
-
-</script>
-
+	<script src="${ctxx}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 
 

@@ -6,6 +6,8 @@
 <html lang="en">
 <head>
 <%@ include file="common/common.jspf"%>
+<!-- CUSTOM CSS -->
+<link href="${ctx}/resources/css/style.css" rel="stylesheet">
 
 <!-- SITE TITTLE -->
 <meta charset="utf-8">
