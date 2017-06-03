@@ -299,7 +299,7 @@
 				<c:forEach var="beautyTip" items="${beautyTipList }">
 					<div class="blogPost">
 		              <img src="${beautyTip.image }" alt="Image Blog" class="img-responsive" width="770" height="400">
-		              <h2><a href="blog-single-right-sidebar.html">${beautyTip.beautyTipTitle }</a></h2>
+		              <h2><a href="${ctx }/beautyTip/showDetail.do?beautyTipNo=${beautyTip.beautyTipNo }">${beautyTip.beautyTipTitle }</a></h2>
 		              <p>${beautyTip.beautyTipContent } </p>
 		              <ul class="list-inline">
 		                <li><i class="fa fa-user" aria-hidden="true"></i> ${beautyTip.customer.id }</li>

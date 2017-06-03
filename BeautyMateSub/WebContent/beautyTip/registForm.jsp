@@ -25,22 +25,31 @@
 	href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff"
 	rel="stylesheet">
 
-<link href="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/font-awesome/css/font-awesome.min.css"
+<link href="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.css"
 	rel="stylesheet">
-<link href="${ctx }/resources/plugins/selectbox/select_option1.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet"
-	media="screen">
-<link href="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/isotope/isotope.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/datepicker/datepicker.min.css" rel="stylesheet">
-<link href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css"
+<link href="${ctx }/resources/plugins/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="${ctx }/resources/plugins/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/selectbox/select_option1.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.css"
+	rel="stylesheet" media="screen">
+<link href="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/isotope/isotope.min.css"
+	rel="stylesheet">
+<link href="${ctx }/resources/plugins/datepicker/datepicker.min.css"
+	rel="stylesheet">
+<link
+	href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css"
 	rel="stylesheet">
 
 <!-- CUSTOM CSS -->
 <link href="${ctx }/resources/css/style.css" rel="stylesheet">
-<link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
+<link href="${ctx }/resources/css/default.css" rel="stylesheet"
+	id="option_color">
 
 
 <!-- FAVICON -->
@@ -234,49 +243,79 @@
 		<!-- USER SECTION -->
 		<section class="clearfix userSection padding">
 		<div class="container">
-			
+
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="innerWrapper">
 						<div class="orderBox  patternbg">profile</div>
 						<div class="profile">
-							
-									<div class="thumbnail">
-										<img src="http://placehold.it/1280x700" width="700" id="img" alt="profile-image">
-										<div class="caption">
-											
-											<!-- <a href="#" class="btn btn-primary btn-block" role="button">Change
-												Avatar</a> -->
-										</div>
-									</div>
-								<div class="row">
-								<div class="col-md-10 col-sm-9 col-xs-12">
-									<form action="${ctx }/beautyTip/regist.do" method="post" enctype="multipart/form-data" class="form-horizontal">
-										<div class="form-group">
-											<label for="" class="col-md-2 col-sm-3 control-label">제목</label>
-											<div class="col-md-10 col-sm-9">
-												<input type="text" name="beautyTipTitle" class="form-control" placeholder="">
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="" class="col-md-2 col-sm-3 control-label">내용</label>
-											<div class="col-md-10 col-sm-9">
-												<textarea rows="20" name="beautyTipContent" cols="20" class="form-control">
-												</textarea>
-											</div>
-										</div>
-										<input type="file" id="getImgFile" name="imgFileName" accept="image/*">
-										<div class="form-group">
-											<div class="row">
-												<div class="col-md-4 col-md-offset-1 col-sm-3">
-													<input type="file" class="btn btn-primary btn-block" name="" value="video">
+
+
+							<div class="row">
+								<div class="">
+									<form action="${ctx }/beautyTip/regist.do" method="post"
+										enctype="multipart/form-data" class="form-horizontal">
+										<div class="row">
+											<div class="form-group">
+												<label for="" class="col-md-2 col-sm-3 control-label">제목</label>
+												<div class="col-md-8 col-sm-7">
+													<input type="text" name="beautyTipTitle"
+														class="form-control" placeholder="">
 												</div>
-												<div class="col-md-4 col-md-offset-3 col-sm-3 col-sm-offset-3 ">
+												<label for="" class="col-md-2 col-sm-3 control-label"></label>
+											</div>
+										<div class="myFormGroup" name="form-groupName">
+											<div class="form-group">
+												<center>
+													<img src="http://placehold.it/1280x700" width="700"
+														height="400" align="middle" id="imgId" name="img" alt="profile-image">
+												</center>
+											</div>
+											<div class="form-group">
+												<p class="col-md-2 col-sm-3" align="right">사진
+												<div class="col-md-8 col-sm-7">
+													<input type="file" id="getImgFile" name="imgFileName" accept="image/*" >
+												</div>
+											</div>
+										
+											<div class="form-group">
+												<label for="" class="col-md-2 col-sm-3 control-label">내용</label>
+												<div class="col-md-8 col-sm-7">
+													<textarea cols="0" rows="0" name="beautyTipContent"  class="form-control">
+													</textarea>
+												</div>
+											</div>
+										</div>
+										
+											<div class="form-group" name="lastForm">
+												<label for="" class="col-md-2 col-sm-3 control-label"></label>
+													<div class="col-md-4 col-sm-3">
+														<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">Add INFO</a>
+													</div>
+												<label for="" class="col-md-2 col-sm-3 control-label"></label>
+											</div>
+										
+										
+										<br><br><br><br><br><br>
+										
+										<div class="form-group">
+											<p class="col-md-2 col-sm-3" align="right">영상
+												<div class="col-md-4 col-sm-3">
+													<input type="file" name="vFileName" value="video" accept="video/*">
+												</div>
+											<label for="" class="col-md-2 col-sm-3 control-label"></label>
+										</div>
+										
+										<div class="form-group">
+										<label for="" class="col-md-2 col-sm-3 control-label"></label>
+											<div class="col-md-4 col-sm-3">
 													<!-- <input type="hidden" id="inputImg" name="image" value="" > -->
-													<input type="submit" class="btn btn-primary btn-block" value="SAVE INFO">
-												</div>
+												<input type="submit" class="btn btn-primary btn-block" value="SAVE INFO">
 											</div>
+										<label for="" class="col-md-2 col-sm-3 control-label"></label>
 										</div>
+										
+										</div> <!-- end row -->
 									</form>
 								</div>
 							</div>
@@ -499,27 +538,113 @@
 	
 	<script type="text/javascript">
 	
-		var imgFile = document.querySelector('#getImgFile');
+		var lastIdx = 0;
+		var addTags;
+		var removeTags;
+		
+		//var imgFile = $("#getImgFile");
+		var imgFile = document.querySelector("#getImgFile"); //why?
 	
 		$(document).ready(function() {
 
 			//선택한 이미지 보여주기
 			imgFile.onchange = function(){
-				var fileList = imgFile.files;
+			
+			var fileList=imgFile.files;
+			var reader = new FileReader();
+			reader.readAsDataURL(fileList[0]);
 				
-				var reader = new FileReader();
-				reader.readAsDataURL(fileList[0]);
+			reader.onload = function(){
+				var img=$("#imgId"); //name으로 변경
+				img.attr("src", reader.result);
+				var	width=img.width();
+				var	height=img.height();
+				if(width > 400){
+					img.width(400);	
+				}
 				
-				reader.onload = function(){
-					document.querySelector('#img').src = reader.result;
-					
-					//$("#inputImg").val(reader.result);
+				//img.height(height/2);
+				//document.querySelector('#img').src=reader.result;
 				};
-				
 			};
 			
-		});/* end ready */
-	</script>
+	/* 		<div class="form-group">
+			<center>
+				<img src="http://placehold.it/1280x700" width="700"
+					height="400" align="middle" id="img" alt="profile-image">
+			</center>
+		</div>
+		<div class="form-group">
+			<p class="col-md-2 col-sm-3" align="right">사진
+			<div class="col-md-8 col-sm-7">
+				<input type="file" id="getImgFile" name="imgFileName" accept="image/*" >
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label for="" class="col-md-2 col-sm-3 control-label">내용</label>
+			<div class="col-md-8 col-sm-7">
+				<textarea cols="0" rows="0" name="beautyTipContent"  class="form-control">
+				</textarea>
+			</div>
+		</div> */
+			
+			
+			addTags = function(){
+				
+				var tag = 
+					'<div class="myFormGroup" name="form-groupName">' + 
+					'<div class="form-group">' + 
+					'<center><img src="http://placehold.it/1280x700" width="700" height="400" align="middle" name="img" alt="profile-image"></center></div>' +
+					'<div class="form-group">' + 
+					'<p class="col-md-2 col-sm-3" align="right">사진' +
+					'<div class="col-md-8 col-sm-7">' +
+					'<input type="file" id="getImgFile" name="imgFileName" accept="image/*" ></div></div>' + 
+					
+					'<div class="form-group">' +
+					'<label for="" class="col-md-2 col-sm-3 control-label">내용</label>' +
+					'<div class="col-md-8 col-sm-7">' +
+					'<textarea cols="0" rows="0" name="beautyTipContent"  class="form-control">' + 
+					'</textarea></div></div></div>' +
+				
+					'<div class="form-group" name="lastForm">' +
+					'<label for="" class="col-md-2 col-sm-3 control-label"></label>' +
+					'<div class="col-md-4 col-sm-3">' +
+					'<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">Add INFO</a>' +
+					'</div>' +
+					'<label for="" class="col-md-2 col-sm-3 control-label"></label>' +
+					'</div>';
+					
+					$(".form-group[name=lastForm]").each(function(idx){
+						
+						var aTag = $(this).find("a");
+						aTag.attr("href", "javascript:removeTags()");
+						aTag.removeClass("btn btn-common btn-full-round btn-theme").addClass("btn btn-common btn-full-round btn-dark");
+						if(idx == lastIdx){
+							$(this).after(tag);
+						}
+						
+					});
+				
+				lastIdx++;
+			};
+			
+			removeTags = function(){
+				lastIdx--;
+				$(".form-group[name=lastForm]").eq(lastIdx - 1).remove();
+				$(".myFormGroup").eq(lastIdx - 1).remove();
+				//
+				if(lastIdx == 0){
+					var aTag = $(".form-group[name=lastForm]").find("a");
+					aTag.attr("href", "javascript:addTags()");
+					aTag.removeClass("btn btn-common btn-full-round btn-dark").addClass("btn btn-common btn-full-round btn-theme");
+				}
+			};
+			
+		});/* endready */
+		
+		</script>
+	
 
 </body>
 

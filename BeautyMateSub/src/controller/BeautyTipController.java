@@ -105,18 +105,16 @@ public class BeautyTipController {
 
 		String url = Const.getOriginpath() + "beautyTip/insert";
 
+		//이미지, 제목, 컨텐츠 셋팅..
 		BeautyTip beautyTip = upImg(request);
-
-		//System.out.println("===beautyTipRegist===");
-		//System.out.println(beautyTip.getImage());
+		//beautyTip.setVideo(this.upVideo(request));
 
 		//
-		//beautyTip.setCategory(BeautyTipCategory.makeupInformation); // 선택..s
-		// beautyTip.setImage("image");
+		beautyTip.setCategory(BeautyTipCategory.makeupInformation); // 선택..s
 		//beautyTip.setVideo("vvv");
-
+		
 		//
-		//beautyTip.setCustomer(new Customer(1)); // session에서
+		beautyTip.setCustomer(new Customer(1)); // session에서
 
 		// form태그로 완성된 객체가 옴
 		// req, jsp에서 받아온 값으로 beautyTip객체 생성
@@ -161,21 +159,27 @@ public class BeautyTipController {
 		String beautyTipTitle = null;
 		String beautyTipContent = null;
 		String imgStr = "";
+		String vStr = "";
 
 		//String imagePath = "c:\\yorizori";
 		//String imagePath = "http://localhost:8080/BeautyMate/resources/img/save";
-		String imagePath = "C:\\Users\\kosta\\git\\finalSub\\BeautyMateSub\\WebContent\\resources\\img\\save";
+		//C:\\Users\\kosta\\workSpace(final)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\BeautyMateSub\\resources\\img\\save
+		//String imagePath = "C:\\Users\\kosta\\git\\finalSub\\BeautyMateSub\\WebContent\\resources\\img\\save";
+		
+		//이클립스에서 새로고침해야 반영되는 이유
+		//이클립스가 소스변겨잉 감지 되면 자동으로 톰캣 배포 경로로 소스를 복사(배포) -> 배포경로에서 소스 실행
+		//실제 톰캣 배포 경로..
+		String savePath = "C:\\Users\\kosta\\workSpace(final)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\BeautyMateSub\\resources\\img\\save";
+		int fileSize = 50 * 1024 * 1024; //50mb 
 		try {
-			MultipartRequest multi = new MultipartRequest(request, imagePath, 50 * 1024, "utf-8",
+			MultipartRequest multi = new MultipartRequest(request, savePath, fileSize, "utf-8",
 					new DefaultFileRenamePolicy());
 
+			
 			Enumeration<Object> params = multi.getParameterNames();
 
-			
 			while (params.hasMoreElements()) {
 				String name = (String) params.nextElement();
-				System.out.println("===name1===");
-				System.out.println(name);
 				if (name.equals("beautyTipTitle")) {
 					beautyTipTitle = multi.getParameter(name);
 				} else if (name.equals("beautyTipContent")) {
@@ -183,18 +187,21 @@ public class BeautyTipController {
 				}
 			}
 
+			int fileIdx = 0;
 			Enumeration<Object> fileParams = multi.getFileNames();
 			while (fileParams.hasMoreElements()) {
 				String name = (String) fileParams.nextElement();
 				String value = multi.getFilesystemName(name);
-				imgStr += value;
+				if(fileIdx++ == 0){
+					imgStr = value;
+				}
+				else{
+					vStr = value;
+				}
+				
 				//String contentType = multi.getContentType(name);
 				//imgStr += contentType;
 
-				System.out.println("===file===");
-				//System.out.println(name);
-				System.out.println(value);
-				//System.out.println(contentType);
 			}
 
 		} catch (IOException e) {
@@ -202,15 +209,58 @@ public class BeautyTipController {
 			e.printStackTrace();
 		}
 		
-		//파일 저장 경로
-		String imgPath = "http://localhost:8080/BeautyMate/resources/img/save/";
-		imgPath += imgStr;
+		//불러올 경로(db저장 경로)
+		String loadPath = "http://localhost:8080/BeautyMate/resources/img/save/";
+		//파일이름붙이기..(중복된 파일이름의 경우 자동으로 1, 2, 3..의 숫자를 붙여준다.
+		String imgPath = loadPath + imgStr;
+		String vPath = loadPath + vStr;
 		
-		//파일저장후 새로고침을 해야 됨...
 		
-		BeautyTip beautyTip = new BeautyTip(0, beautyTipTitle, imgPath, beautyTipContent, "vv", new Customer(1), BeautyTipCategory.makeupInformation, null);
+		//
+		BeautyTip beautyTip = new BeautyTip();//0, beautyTipTitle, imgPath, beautyTipContent, "vv", new Customer(1), BeautyTipCategory.makeupInformation, null);
+		beautyTip.setBeautyTipNo(0);
+		beautyTip.setBeautyTipContent(beautyTipContent);
+		beautyTip.setBeautyTipTitle(beautyTipTitle);
+		beautyTip.setImage(imgPath);
+		beautyTip.setVideo(vPath);
 		
 		return beautyTip;
+	}
+	
+	private String upVideo(HttpServletRequest request) {
+
+		String video = "";
+		
+		//이클립스에서 새로고침해야 반영되는 이유
+		//이클립스가 소스변겨잉 감지 되면 자동으로 톰캣 배포 경로로 소스를 복사(배포) -> 배포경로에서 소스 실행
+		//실제 톰캣 배포 경로..
+		String vSavePath = "C:\\Users\\kosta\\workSpace(final)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\BeautyMateSub\\resources\\video";
+		int vFileSize = 10 * 1024 * 1024; //10mb 
+		try {
+			MultipartRequest multi = new MultipartRequest(request, vSavePath, vFileSize, "utf-8",
+					new DefaultFileRenamePolicy());
+
+			Enumeration<Object> fileParams = multi.getFileNames();
+			while (fileParams.hasMoreElements()) {
+				String name = (String) fileParams.nextElement();
+				String value = multi.getFilesystemName(name);
+				video = value;
+				//String contentType = multi.getContentType(name);
+
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//불러올 경로(db저장 경로)
+		String vPath = "http://localhost:8080/BeautyMate/resources/video/";
+		//파일이름붙이기..(중복된 파일이름의 경우 자동으로 1, 2, 3..의 숫자를 붙여준다.
+		vPath += video;
+		
+		//
+		return vPath;
 	}
 
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
