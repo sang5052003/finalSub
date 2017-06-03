@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
@@ -41,6 +42,8 @@ import domain.Customer;
 @RequestMapping("beautyTip")
 public class BeautyTipController {
 
+	private final String loadPath = "http://localhost:8080/BeautyMate/resources/img/save/"; //불러오는 곳에..
+	
 	@RequestMapping(value = "showDetail.do", method = RequestMethod.GET)
 	public String beautyTipShowDetail(int beautyTipNo, Model model) throws ClientProtocolException, IOException {
 
@@ -159,6 +162,7 @@ public class BeautyTipController {
 		String beautyTipTitle = null;
 		String beautyTipContent = null;
 		String imgStr = "";
+		List<String> imgStrList = new ArrayList<>();
 		String vStr = "";
 
 		//String imagePath = "c:\\yorizori";
@@ -192,12 +196,22 @@ public class BeautyTipController {
 			while (fileParams.hasMoreElements()) {
 				String name = (String) fileParams.nextElement();
 				String value = multi.getFilesystemName(name);
-				if(fileIdx++ == 0){
+				String contentType = multi.getContentType(name);
+				
+				System.out.println(contentType);
+				
+				if(contentType.equals("image/jpg") || contentType.equals("image/png")){
+					imgStrList.add(value);
+				}else{ // video/mp4
+					vStr = value;
+				}
+				
+				/*if(fileIdx++ == 0){
 					imgStr = value;
 				}
 				else{
 					vStr = value;
-				}
+				}*/
 				
 				//String contentType = multi.getContentType(name);
 				//imgStr += contentType;
@@ -210,9 +224,18 @@ public class BeautyTipController {
 		}
 		
 		//불러올 경로(db저장 경로)
-		String loadPath = "http://localhost:8080/BeautyMate/resources/img/save/";
+		//String loadPath = "http://localhost:8080/BeautyMate/resources/img/save/"; //불러오는 곳에..
 		//파일이름붙이기..(중복된 파일이름의 경우 자동으로 1, 2, 3..의 숫자를 붙여준다.
-		String imgPath = loadPath + imgStr;
+		String imgPath = "";
+		for(String s : imgStrList){
+			System.out.println(s);
+			
+			imgPath += s + "§"; //구분자, ㅁ4
+		}
+		imgPath = imgPath.substring(0, imgPath.length() - 1);
+		
+		System.out.println(imgPath);
+		
 		String vPath = loadPath + vStr;
 		
 		
@@ -305,6 +328,7 @@ public class BeautyTipController {
 		model.addAttribute("beautyTipList", beautyTipList);
 		model.addAttribute("category", category.toString());
 		model.addAttribute("loginedId", "id2");
+		model.addAttribute("loadPath", loadPath);
 
 		response.close();
 		httpClient.close();

@@ -47,6 +47,24 @@ public class BeautyTip {
 	public String getImage() {
 		return image;
 	}
+	
+	public String getFirstImage() {
+		
+		String[] arr = this.split(image);
+		
+		if(arr == null) return "";
+		
+		return this.split(image)[0];
+	}
+	
+	private String[] split(String image){
+		
+		if(image == null) return null;
+		
+		String[] arr = image.split("§");
+		
+		return arr;
+	}
 
 	public void setImage(String image) {
 		this.image = image;

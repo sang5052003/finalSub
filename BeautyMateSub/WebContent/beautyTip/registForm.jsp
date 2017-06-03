@@ -268,13 +268,13 @@
 											<div class="form-group">
 												<center>
 													<img src="http://placehold.it/1280x700" width="700"
-														height="400" align="middle" id="imgId" name="img" alt="profile-image">
+														height="400" align="middle" id="imgId0" name="img" class="showImgClass" alt="profile-image">
 												</center>
 											</div>
 											<div class="form-group">
 												<p class="col-md-2 col-sm-3" align="right">사진
 												<div class="col-md-8 col-sm-7">
-													<input type="file" id="getImgFile" name="imgFileName" accept="image/*" >
+													<input type="file" id="getImgFile0" class="imgFileClass" name="imgFileName" accept="image/*" onchange="javascript:imgOn(this, 0)" >
 												</div>
 											</div>
 										
@@ -538,19 +538,77 @@
 	
 	<script type="text/javascript">
 	
-		var lastIdx = 0;
+		
+		var imgOn;
+	
 		var addTags;
 		var removeTags;
 		
 		//var imgFile = $("#getImgFile");
-		var imgFile = document.querySelector("#getImgFile"); //why?
+		//var imgFile = document.querySelector("#getImgFile"); //why?
+		//var imgFile = document.querySelectorAll(".imgFileClass");
 	
+		var getImgId = "imgId";
+		var getImgIdIdx = 0;
+		
+		var imgId = getImgId + getImgIdIdx;
+		
+		var imgIdArr = ["#" + imgId];
+		
 		$(document).ready(function() {
 
-			//선택한 이미지 보여주기
-			imgFile.onchange = function(){
+			imgOn = function(fis, i){
+				
+				var fileList = fis.files;
+				var reader = new FileReader();
+				reader.readAsDataURL(fileList[0]);
+					
+				reader.onload = function(){
+					var img=$(imgIdArr[i]); //
+					
+					img.attr("src", reader.result);
+					var	width=img.width();
+					var	height=img.height();
+					if(width > 400){
+						img.width(400);	
+					}
+					
+					//img.height(height/2);
+					//document.querySelector('#img').src=reader.result;
+					};
+			};
 			
-			var fileList=imgFile.files;
+			
+			/* $(document).on("change", imgFileArr[0], function(){
+				
+				console.log("change - " + 0);
+				console.log("i - " + curIdx);
+				
+				var fileList = imgFileArr[0].files;
+				var reader = new FileReader();
+				reader.readAsDataURL(fileList[0]);
+					
+				reader.onload = function(){
+					var img=$(imgIdArr[0]); //name으로 변경
+					img.attr("src", reader.result);
+					var	width=img.width();
+					var	height=img.height();
+					if(width > 400){
+						img.width(400);	
+					}
+					
+					//img.height(height/2);
+					//document.querySelector('#img').src=reader.result;
+					};
+			}); */
+			
+			//
+			
+						
+			//선택한 이미지 보여주기
+			/* imgFile[i].onchange = function(){
+			
+			var fileList=imgFile[i].files;
 			var reader = new FileReader();
 			reader.readAsDataURL(fileList[0]);
 				
@@ -566,7 +624,9 @@
 				//img.height(height/2);
 				//document.querySelector('#img').src=reader.result;
 				};
-			};
+			}; */
+			
+			
 			
 	/* 		<div class="form-group">
 			<center>
@@ -592,14 +652,20 @@
 			
 			addTags = function(){
 				
+				//마지막에 추가 함..
+				var len = $(".form-group[name=lastForm]").length;
+				//var lastIdx = len - 1;
+				
+				imgId = getImgId + len;
+			
 				var tag = 
 					'<div class="myFormGroup" name="form-groupName">' + 
 					'<div class="form-group">' + 
-					'<center><img src="http://placehold.it/1280x700" width="700" height="400" align="middle" name="img" alt="profile-image"></center></div>' +
+					'<center><img src="http://placehold.it/1280x700" width="700" height="400" align="middle" id=' + imgId + ' name="img" class="showImgClass" alt="profile-image"></center></div>' +
 					'<div class="form-group">' + 
 					'<p class="col-md-2 col-sm-3" align="right">사진' +
 					'<div class="col-md-8 col-sm-7">' +
-					'<input type="file" id="getImgFile" name="imgFileName" accept="image/*" ></div></div>' + 
+					'<input type="file" class="imgFileClass" name="imgFileName" accept="image/*" onchange="javascript:imgOn(this, ' + len + ')" ></div></div>' + 
 					
 					'<div class="form-group">' +
 					'<label for="" class="col-md-2 col-sm-3 control-label">내용</label>' +
@@ -615,30 +681,64 @@
 					'<label for="" class="col-md-2 col-sm-3 control-label"></label>' +
 					'</div>';
 					
+					//
 					$(".form-group[name=lastForm]").each(function(idx){
 						
 						var aTag = $(this).find("a");
-						aTag.attr("href", "javascript:removeTags()");
+						aTag.attr("href", "javascript:removeTags(" + (idx + 1) + ")");
 						aTag.removeClass("btn btn-common btn-full-round btn-theme").addClass("btn btn-common btn-full-round btn-dark");
-						if(idx == lastIdx){
+						if(idx == len - 1){
 							$(this).after(tag);
+							
+							//디버그용
+							$(this).next().find("textarea").val("idx : " + (idx + 1));
 						}
 						
 					});
 				
-				lastIdx++;
+				
+				//#getImgFile0
+				imgId = "#" + imgId;
+				imgIdArr.push(imgId);
 			};
 			
-			removeTags = function(){
-				lastIdx--;
-				$(".form-group[name=lastForm]").eq(lastIdx - 1).remove();
-				$(".myFormGroup").eq(lastIdx - 1).remove();
+			removeTags = function(idx){
+				
+				/* $(".form-group[name=lastForm]").eq(idx).fadeout("slow");
+				$(".myFormGroup").eq(idx).fadeout("slow"); */
+				
+				$(".form-group[name=lastForm]").eq(idx).remove();
+				$(".myFormGroup").eq(idx).remove();
 				//
-				if(lastIdx == 0){
+				var len = $(".form-group[name=lastForm]").length;
+				
+				//정렬
+				$(".imgFileClass").each(function(i){
+					$(this).attr("onchange", "javascript:imgOn(this, " + i + ")");
+					
+				});
+				
+				imgIdArr.splice(0, imgIdArr.length);
+				$(".showImgClass").each(function(i){
+					var name = "#" + getImgId + i;
+					imgIdArr.push(name);
+					$(this).attr("id", getImgId + i);
+				});
+				
+				//마지막 것
+				$(".form-group[name=lastForm]").eq(len - 1).find("a")
+				.attr("href", "javascript:addTags()")
+				.removeClass("btn btn-common btn-full-round btn-dark").addClass("btn btn-common btn-full-round btn-theme");
+				
+				//하나만 남으면(원래 있던거..)
+				if(len == 1){
+					
 					var aTag = $(".form-group[name=lastForm]").find("a");
 					aTag.attr("href", "javascript:addTags()");
 					aTag.removeClass("btn btn-common btn-full-round btn-dark").addClass("btn btn-common btn-full-round btn-theme");
 				}
+				
+				//imgIdArr.splice(idx, 1);
 			};
 			
 		});/* endready */

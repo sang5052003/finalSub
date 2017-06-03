@@ -298,7 +298,7 @@
           	<div id="post">
 				<c:forEach var="beautyTip" items="${beautyTipList }">
 					<div class="blogPost">
-		              <img src="${beautyTip.image }" alt="Image Blog" class="img-responsive" width="770" height="400">
+		              <img src="${loadPath}${beautyTip.firstImage }" alt="Image Blog" class="img-responsive" width="770" height="400">
 		              <h2><a href="${ctx }/beautyTip/showDetail.do?beautyTipNo=${beautyTip.beautyTipNo }">${beautyTip.beautyTipTitle }</a></h2>
 		              <p>${beautyTip.beautyTipContent } </p>
 		              <ul class="list-inline">
@@ -618,11 +618,11 @@
 				
 				//로그인 아이디 검사(삭제버튼 활성)
 				var loginId = "${loginedId}";
-				
+				var loadPath = "${loadPath}";
 				
 				$.each(resultData, function(index, beautyTip){
 					listHtml += '<div class="blogPost">';
-					listHtml += '<img src=' + beautyTip.image + ' alt="Image Blog" class="img-responsive" width="770" height="400">';
+					listHtml += '<img src=' + loadPath + beautyTip.firstImage + ' alt="Image Blog" class="img-responsive" width="770" height="400">';
 					listHtml += '<h2><a href="blog-single-right-sidebar.html">' + beautyTip.beautyTipTitle + '</a></h2>';
 					listHtml += '<p>' + beautyTip.beautyTipContent + '</p>';
 					listHtml += '<ul class="list-inline">';
