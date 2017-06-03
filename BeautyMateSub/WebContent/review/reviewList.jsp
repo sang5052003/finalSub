@@ -139,7 +139,7 @@
           </div>
           
           <br><br>
-          			 <div class="text-center">
+          		<div class="text-center">
 					<select name="searchType">
 						<option value="n"
 							<c:out value="${pager.searchType == null?'selected':''}"/>>
@@ -153,7 +153,7 @@
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
 					<button id='searchBtn'>Search</button>
-					</div>
+				</div>
           
           
             <div class="text-right">
@@ -171,7 +171,7 @@
                     >
                       <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
                       <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">writer</span></td>
+                      <td><span class="price">${review.customer.id }</span></td>
                     </tr>
                     </c:forEach>
                   </tbody>
@@ -263,7 +263,7 @@
 	}
 </script>
 
-<script>
+<<script>
 	$(document).ready(
 			function() {
 
@@ -287,6 +287,7 @@
 
 			});
 </script>
+
 
   <script>
   	//paste this code under head tag or in a seperate js file.
