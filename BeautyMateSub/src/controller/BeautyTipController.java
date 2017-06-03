@@ -2,12 +2,14 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.Consts;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -15,6 +17,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.HTTP;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,7 +59,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("showDetail concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -75,7 +77,6 @@ public class BeautyTipController {
 
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
-		System.out.println(beautyTip);
 
 		model.addAttribute("beautyTip", beautyTip); //이안에 이미 매퍼에서 받아온 댓글들이 들어있어야 함
 
@@ -100,6 +101,10 @@ public class BeautyTipController {
 
 		String url = Const.getOriginpath() + "beautyTip/insert";
 
+		//
+		beautyTip.setCustomer(new Customer(1)); //session에서
+		
+		
 		//form태그로 완성된 객체가 옴
 		// req, jsp에서 받아온 값으로 beautyTip객체 생성
 //		BeautyTip beautyTip = new BeautyTip(0, "cbeautyTipTitle", "cimage", "cbeautyTipContent", "cvideo",
@@ -112,7 +117,7 @@ public class BeautyTipController {
 
 		// form(데이터) 집어넣어서 보내기
 		// user객체를 json으로..
-		StringEntity entity = new StringEntity(new Gson().toJson(beautyTip)); // throw
+		StringEntity entity = new StringEntity(new Gson().toJson(beautyTip), Consts.UTF_8); // throw
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json"); // data가
 																// json이다(os에
@@ -125,7 +130,6 @@ public class BeautyTipController {
 		// System.out.println(responseStatus);
 
 		// true/false
-		System.out.println("regist resp : " + responseContent);
 
 		//
 		response.close();
@@ -140,6 +144,7 @@ public class BeautyTipController {
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
 	public String beautyTipList(BeautyTipCategory category, Model model) throws ClientProtocolException, IOException {
 
+		
 		// findAll
 		String url = Const.getOriginpath() + "beautyTip/find/category/" + category;// get
 
@@ -159,7 +164,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("list concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -180,11 +184,11 @@ public class BeautyTipController {
 
 		model.addAttribute("beautyTipList", beautyTipList);
 		model.addAttribute("category", category.toString());
-
+		
 		response.close();
 		httpClient.close();
 
-		return "/beautyTip/list.jsp";
+		return "/beautyTip/beautyTipList.jsp";
 	}
 
 	// 수정
@@ -223,7 +227,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("getSrcForEdit concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -287,7 +290,6 @@ public class BeautyTipController {
 		// System.out.println(responseStatus);
 
 		// true/false
-		System.out.println("edit resp : " + responseContent);
 
 		//
 		response.close();
@@ -324,7 +326,6 @@ public class BeautyTipController {
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
 
-		System.out.println("remove : " + responseContent);
 
 		response.close();
 		httpClient.close();
@@ -360,7 +361,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("showByAuthor concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -385,7 +385,8 @@ public class BeautyTipController {
 		response.close();
 		httpClient.close();
 
-		return "/beautyTip/list.jsp";
+		return "/beautyTip/beautyTipList.jsp";
+//		return "/beautyTip/list.jsp";
 	}
 
 	// title 검색
@@ -413,7 +414,6 @@ public class BeautyTipController {
 
 		// 상태체크해서 처리 해줘야 됨
 		// System.out.println(responseStatusCode);
-		System.out.println("showByTitle concon" + responseContent);
 
 		// json(String) to object
 		// gson lib
@@ -438,6 +438,7 @@ public class BeautyTipController {
 		response.close();
 		httpClient.close();
 
-		return "/beautyTip/list.jsp";
+		return "/beautyTip/beautyTipList.jsp";
+		/*return "/beautyTip/list.jsp";*/
 	}
 }

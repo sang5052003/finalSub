@@ -30,7 +30,7 @@ import domain.Reply;
 public class ReplyController {
 
 	// 리뷰 댓글 추가
-
+	
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	public String replyRegist(Reply reply) throws ClientProtocolException, IOException {
 
@@ -129,6 +129,7 @@ public class ReplyController {
 		String url = Const.getOriginpath() + "beautyTip/reply/insert";
 		String result = jsonByObjectWithStr(url, reply);
 
+		System.out.println("beautyTipReplyRegist==="); 
 		System.out.println(result); // true/false
 
 		return "redirect:/beautyTip/showDetail.do?beautyTipNo=" + reply.getPostNo();

@@ -16,7 +16,7 @@ public class Cosmetic {
 	private int averageGrade;
 	
 	public Cosmetic(){}
-	
+
 	public Cosmetic(int cosmeticNo, String cosmeticName, String volume, int cost, String img, String brand,
 			CosmeticCategory category, String ingredients, List<Review> reviews, int averageGrade) {
 		super();
@@ -121,9 +121,6 @@ public class Cosmetic {
 	
 	
 	
-	
-	
-	
-	
+
 
 }

@@ -10,9 +10,16 @@
 	<p>registForm Page
 	<form action="${pageContext.request.contextPath}/beautyTip/regist.do"
 		method="post" class="form-signin">
+		<div class="col-lg-10">
+			<input type="text" class="form-control" name="beautyTipTitle">title
+			<input type="text" class="form-control" name="image">image
+			<input type="text" class="form-control" name="beautyTipContent">contents
+			<input type="text" class="form-control" name="video">video
+			<input type="text" class="form-control" name="category">category
+		</div>
 		<div class="row form-btn">
-			<input type="submit" class="btn btn-large btn-warning" value="로그인">
-			<button class="btn btn-large btn-default">뷰티팁 수정</button>
+			<input type="submit" class="btn btn-large btn-warning" value="등록">
+			<button class="btn btn-large btn-default">뷰티팁 등록</button>
 			<!-- <a ? -->
 		</div>
 	</form>
