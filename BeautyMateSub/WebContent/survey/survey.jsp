@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/common/common.jsp"%>
+<%@ include file="/common/common.jspf"%>
+<!-- CUSTOM CSS -->
+<link href="${ctx}/resources/css/stylejun.css" rel="stylesheet">
+
 <style>
 .no-js #loader {
 	display: none;
@@ -29,6 +32,12 @@
 		url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif)
 		center no-repeat #fff;
 }
+a{
+	
+	fornt-weight:bold;
+	font-size: 20px;
+} 
+
 </style>
 <script type="text/javascript">
 	function tryCheckType() {
@@ -157,12 +166,13 @@
 </head>
 
 <body>
+<%@ include file="../common/header.jspf"%>
 
 	<section class="clearfix varietySection">
 		<div class="container">
 			<div class="secotionTitle">
 				<h2>
-					<span>Discover</span>Accrodions
+					<span>Beauty Mate</span>Bauman Skin Type
 				</h2>
 			</div>
 			<div class="row">
@@ -224,13 +234,13 @@
 							<!-- pt1 시작 -->
 							<div id="pt1tab" class="tab-pane fade in active">
 								<h4>Part.1 지성 (Oily)vs건성(Dry)</h4>
-								<h2>피지 생성 및 수분 측정</h2>
+								<h3>피지 생성 및 수분 측정</h3>
 								<table>
 									<tbody>
 										<!-- -----1---- -->
 										<tr>
 											<td style="font-weight: bold;"><a href="javascript:;"
-												id="pt_01tab">1. 세안 이후에 보습제, 자외선 차단제. 색조화장품, 파우더 혹은 다른
+												id="pt_01tab" >1. 세안 이후에 보습제, 자외선 차단제. 색조화장품, 파우더 혹은 다른
 													제품을 바르지 않고 2~3시간 후에 밝은 조명 아래에서 거울을 보았을 때, 당신의 이마와 양 볼의 느낌이나
 													외양은? </a></td>
 										</tr>
@@ -2360,9 +2370,10 @@
 								</table>
 							</div>
 							<!-- pt4 끝 -->
-						</div>
-						
-						<div align="center" style="text-align: center;">
+							
+							<hr>
+							<br>
+							<div align="center" style="text-align: center;">
 							<button type="submit" class="btn btn-common btn-full-round btn-theme"
 								onclick="tryCheckType();">
 								설문조사 응답 완료 <span style="font-size: 12px;">버튼 클릭 시 신청이
@@ -2371,6 +2382,9 @@
 							<input type="hidden" id="skinType" name="skinType" value="">
 							<input type="hidden" id="customerNo" name="customerNo" value="">
 						</div>
+						</div>
+						
+						
 					</div>
 
 				</div>
@@ -2380,7 +2394,7 @@
 	</div>
 
 
-
+<%@ include file="../common/footer.jspf"%>
 </body>
 
 </html>

@@ -2,6 +2,8 @@ package domain;
 
 import java.util.List;
 
+import org.apache.http.message.BasicNameValuePair;
+
 
 public class SkinType {
 	
@@ -20,8 +22,8 @@ public class SkinType {
 		return baumanType;
 	}
 
-	public void setBaumanType(String baumanType) {
-		this.baumanType = baumanType;
+	public void setBaumanType(String basicNameValuePair) {
+		this.baumanType = basicNameValuePair;
 	}
 
 	public String getExplanation() {
