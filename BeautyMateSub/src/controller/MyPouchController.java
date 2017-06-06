@@ -106,7 +106,7 @@ public class MyPouchController {
 		model.addAttribute("list", list);
 		model.addAttribute("blist", blist);
 		model.addAttribute("rlist", rlist);
-		return "/myPouchList.jsp";
+		return "/pouch/myPouchList.jsp";
 	}
 	
 	@RequestMapping(value = "cosmeticClear.do", method = RequestMethod.GET)

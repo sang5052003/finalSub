@@ -36,13 +36,23 @@
 
   <!-- FAVICON -->
   <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
+  
+  
+<!--       Bootstrap 3.3.4 -->
+<%--     <link href="${ctx}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --%>
+<!--     Font Awesome Icons -->
+<!--     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
+<!--     Ionicons -->
+<!--     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" /> -->
+<!--     Theme style -->
+<%--     <link href="${ctx}/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
+<!--     AdminLTE Skins. Choose a skin from the css/skins 
+<!--          folder instead of downloading all of them to reduce the load. --> -->
+<%--     <link href="${ctx}/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+      
+      
+ <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
 
 <style>
   /* Paste this css to your style sheet file or under head tag */
@@ -60,6 +70,21 @@
   	background: url(plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
   }
   </style>
+  
+  <style>
+.fileDrop {
+	width: 100%;
+	height: 100px;
+	border: 1px dotted blue;
+	
+}
+
+small {
+	margin-left: 3px;
+	font-weight: bold;
+	color: gray;
+}
+</style>
 
 </head>
 
@@ -171,7 +196,7 @@
                       </div>
                     </div>
                     <div class="col-md-10 col-sm-9 col-xs-12">
-                        <form class="form-horizontal" role="form" method="post">
+                        <form id='registerForm'  class="form-horizontal" role="form" method="post">
                           <div class="form-group">
                             <label for="" class="col-md-2 col-sm-3 control-label">Title</label>
                             <div class="col-md-10 col-sm-9">
@@ -183,6 +208,28 @@
                             <div class="col-md-10 col-sm-9">
                                 <textarea class="form-control" id="" placeholder="content" name="reviewContent"></textarea>
                             </div>
+                            
+						</div>
+<!-- 						<div class='fileDrop'></div> -->
+
+<!-- 						<div class='uploadedList'></div> -->
+				
+				
+						<div class="form-group">
+								<label for="exampleInputEmail1">File DROP Here</label>
+							<div class="fileDrop"></div>
+						</div>
+						
+						
+		
+		<div>
+			<hr>
+		</div>
+
+		<ul class="mailbox-attachments clearfix uploadedList">
+		</ul>
+		
+                            
                           </div>
                           <div class="text-right">
                            <button type="submit" class="btn btn-common btn-theme" >작성</button> 
@@ -198,7 +245,214 @@
           </div>
         </div>
       </section>
+      
+      
+      
+      <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script>
+// 		$(".fileDrop").on("dragenter dragover", function(event) {
+// 			event.preventDefault();
+// 		});
 
+// 		$(".fileDrop").on("drop", function(event){
+// 			event.preventDefault();
+			
+// 			var files = event.originalEvent.dataTransfer.files;
+			
+// 			var file = files[0];
+
+// 			console.log(file);
+			
+// 			var formData = new FormData();
+			
+// 			formData.append("file", file);
+			
+// 			$.ajax({
+// 				  url: '${ctx}/uploadAjax',
+// 				  data: formData,
+// 				  dataType:'text',
+// 				  processData: false,
+// 				  contentType: false,
+// 				  type: 'POST',
+// 				  success: function(data){
+					  
+// 					  alert(data);
+					  
+// 					  var str ="";
+					  
+// 					  if(checkImageType(data)){
+// 						  str ="<div><a href=${ctx}/displayFile?fileName="+getImageLink(data)+">"
+// 								  +"<img src='${ctx}/displayFile?fileName="+data+"'/>"
+// 								  +"</a><small data-src="+data+">X</small></div>";
+// 					  }else{
+// 						  str = "<div><a href='${ctx}/displayFile?fileName="+data+"'>" 
+// 								  + getOriginalName(data)+"</a>"
+// 								  +"<small data-src="+data+">X</small></div></div>";
+// 					  }
+					  
+// 					  $(".uploadedList").append(str);
+// 				  }
+// 				});	
+// 		});
+
+
+// 		$(".uploadedList").on("click", "small", function(event){
+			
+// 				 var that = $(this);
+			
+// 			   $.ajax({
+// 				   url:"${ctx}/deleteFile",
+// 				   type:"post",
+// 				   data: {fileName:$(this).attr("data-src")},
+// 				   dataType:"text",
+// 				   success:function(result){
+// 					   if(result == 'deleted'){
+// 						   that.parent("div").remove();
+// 					   }
+// 				   }
+// 			   });
+// 		});
+		
+		
+
+// function getOriginalName(fileName){	
+
+// 	if(checkImageType(fileName)){
+// 		return;
+// 	}
+	
+// 	var idx = fileName.indexOf("_") + 1 ;
+// 	return fileName.substr(idx);
+	
+// }
+
+
+// function getImageLink(fileName){
+	
+// 	if(!checkImageType(fileName)){
+// 		return;
+// 	}
+// 	var front = fileName.substr(0,12);
+// 	var end = fileName.substr(14);
+	
+// 	return front + end;
+	
+// }
+
+		
+
+// 	function checkImageType(fileName){
+		
+// 		var pattern = /jpg|gif|png|jpeg/i;
+		
+// 		return fileName.match(pattern);
+		
+// 	}
+		
+		
+	</script>
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="${ctx }/resources/js/upload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+
+<script id="template" type="text/x-handlebars-template">
+<li>
+  <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
+  <div class="mailbox-attachment-info">
+	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+	<small data-src="${ctx}{{fullName}}"><i class="fa fa-fw fa-remove"></i></small>
+	</span>
+  </div>
+</li>                
+</script> 
+<a ></a>
+
+<script>
+
+
+
+var template = Handlebars.compile($("#template").html());
+
+$(".fileDrop").on("dragenter dragover", function(event){
+	event.preventDefault();
+});
+
+
+$(".fileDrop").on("drop", function(event){
+	event.preventDefault();
+	
+	var files = event.originalEvent.dataTransfer.files;
+	
+	var file = files[0];
+
+	var formData = new FormData();
+	
+	formData.append("file", file);	
+	
+	
+	$.ajax({
+		  url: '${ctx}/uploadAjax',
+		  data: formData,
+		  dataType:'text',
+		  processData: false,
+		  contentType: false,
+		  type: 'POST',
+		  success: function(data){
+			  
+			  var fileInfo = getFileInfo(data);
+			  
+			  var html = template(fileInfo);
+			  
+			  $(".uploadedList").append(html);
+		  }
+		});	
+});
+
+
+$("#registerForm").submit(function(event){
+	event.preventDefault();
+	
+	var that = $(this);
+	
+	var str ="";
+	$(".uploadedList .delbtn").each(function(index){
+		 str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
+	});
+	
+	that.append(str);
+
+	that.get(0).submit();
+});
+
+
+$(".uploadedList").on("click", "small", function(event){
+	
+	 var that = $(this);
+
+  $.ajax({
+	   url:"${ctx}/deleteFile",
+	   type:"post",
+	   data: {fileName:$(this).attr("data-src")},
+	   dataType:"text",
+	   success:function(result){
+		   if(result == 'deleted'){
+			   that.parent("div").remove();
+		   }
+	   }
+  });
+});
+
+</script>
 
 
    
