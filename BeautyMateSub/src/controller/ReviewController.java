@@ -144,10 +144,10 @@ public class ReviewController {
 		// Customer customer = (Customer)session.getAttribute("loginCustomer");
 		// review.setCustomer(customer);
 		jsonByObject(url, review);
+		
+		
+		
 
-		// if (result == 1) { // 성공
-		// System.out.println(result);
-		// }
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redirect:/review/listpage.do"; // 리뷰 목록

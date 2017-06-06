@@ -56,6 +56,9 @@
 <!-- FAVICON -->
 <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
 
+
+      <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
+
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -207,7 +210,13 @@
 												</div>
 												<div class="col-md-10 col-sm-9 col-xs-12">
 													<form class="form-horizontal"
-														action="modify.do" method="post" role="form">
+														action="${ctx }/review/modify.do" method="post" role="form">
+														
+															<input type='hidden' name='page' value="${pager.page}"> 
+															<input type='hidden' name='perPageNum' value="${pager.perPageNum}">
+															<input type='hidden' name='searchType' value="${pager.searchType}">
+															<input type='hidden' name='keyword' value="${pager.keyword}">
+														
 														<div class="form-group">
 															<label for="" class="col-md-2 col-sm-3 control-label">Title</label>
 															<div class="col-md-10 col-sm-9">
@@ -225,13 +234,17 @@
 															
 															<input type="hidden" name="reviewNo" value="${review.reviewNo }">
 														</div>
+														
+														</form>
 														<div class="text-right">
 															<button type="submit" id="modify" class="btn btn-common btn-theme">수정
 															</button>
-															<a class="btn btn-common btn-theme"
-																href="${ctx }/review/listpage.do">취소</a>
+															<button type="submit" id="back" class="btn btn-common btn-theme">취소
+															</button>
+															
+<!-- 															<a class="btn btn-common btn-theme" -->
+<%-- 																href="${ctx }/review/listpage.do">취소</a> --%>
 														</div>
-													</form>
 												</div>
 											</div>
 										</div>
@@ -284,6 +297,17 @@
 													function() {
 														formObj.submit();
 													});
+											
+											$("#back").on("click",
+													function() {
+												
+												self.location = "${ctx}/review/listpage.do?page=${pager.page}&perPageNum=${pager.perPageNum}"
+													+ "&searchType=${pager.searchType}&keyword=${pager.keyword}";
+					
+													});
+											
+											
+											
 										});
 					</script>
 
