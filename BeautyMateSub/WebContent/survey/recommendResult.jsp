@@ -194,8 +194,8 @@
 							<div class="col-md-4 col-sm-6 col-xs-12">
 								<div class="produtSingle">
 									<div class="produtImage">
-										<img src="${cosmetics.img }" alt="Image Product"
-											class="img-responsive">
+										<a href="${ctx}/cosmetic/showByNo.do?cosmeticNo=${cosmetics.cosmeticNo}"><img src="${cosmetics.img }" alt="Image Product"
+											class="img-responsive"></a>
 									</div>
 									<div class="productCaption">
 										<h4>${cosmetics.cosmeticName }</h4>
