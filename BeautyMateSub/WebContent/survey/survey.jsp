@@ -30,7 +30,6 @@
         <!-- FAVICON -->
         <link href="${ctx}/resources/img/favicon.png" rel="shortcut icon">
         <!-- CUSTOM CSS -->
-        <link href="${ctx}/resources/css/default.css" rel="stylesheet" id="option_color">
         <link href="${ctx}/resources/css/stylejun.css" rel="stylesheet">
 
                 <style>
@@ -222,9 +221,9 @@
                     };
                 </script>
                 <script>
-                    function fn() {
-                        window.location.href = "#qu2_5";
-                        alert('클릭 됐을껄?');
+                    
+                function fn() {
+                	document.getElementById('goqu').onclick = true;
                     }
                 </script>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -1940,7 +1939,7 @@
                                         <div id="checkAlertDiv" role="alert" class="alert1 alert-danger alert-common1" style="filter:alpha(opacity=50); display:none;"><span style="font-size: 20px;">Warning!  </span>
                                             <input id="checkAlert" name="checkAlert" value="" style="background-color:transparent;font-size: 15px;border: none; border-right: 0px; border-top: 0px; boder-left: 0px; width:70%; boder-bottom: 0px; readonly: true;"> 
                                             <a href="" id="tabpt" data-toggle="tab" onclick="fn();">설문 수정하기</a> 
-                                            <a type="hidden" href="" id="goqu" data-toggle="tab"></a> </div>
+                                            <a href="" id="goqu" data-toggle="tab">aaaaaaaa</a> </div>
                                         <br>
                                         <div align="center" style="text-align: center;">
                                             <button type="submit" class="btn btn-common btn-full-round btn-theme" onclick="tryCheckType();"> 설문조사 응답 완료

@@ -60,10 +60,25 @@ a {
 	text-decoration: none;
 	outline: none;
 }
-
-th {
-	text-align: center;
+.table{
+margin-top:10px;
 }
+th {
+
+      border: none;
+      background-color: #ec5598;
+      padding: 0;
+      height: 50px;
+      vertical-align: middle;
+      text-align: left;
+      font-size: 14px;
+      color: #ffffff;
+      padding: 10px 10px 10px 10px;
+     
+      border-bottom: none;
+      text-align: center; 
+}
+
 /*Fun begins*/
 .tab_container {
 	width: 90%;
@@ -117,11 +132,11 @@ label {
 
 .tab_container [id^="tab"]:checked+label {
 	background: #fff;
-	box-shadow: inset 0 3px #0CE;
+	box-shadow: inset 0 3px #ec5598;
 }
 
 .tab_container [id^="tab"]:checked+label .fa {
-	color: #0CE;
+	color: #ec5598;
 }
 
 label .fa {
@@ -313,28 +328,7 @@ opacity
 
 
 		<section id="content1" class="tab-content">
-			<div class="section">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="section">
-								<div class="container">
-									<div class="row">
-										<div class="col-md-12">
-											<br> <br> <br> <br> <br>
-											<h1 class="text-center">내 화장품</h1>
-											
-											<br>
-											<br>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 
 			<div class="section text-center">
 				<div class="container">
@@ -345,12 +339,10 @@ opacity
 									<tr>
 										<th>No.</th>
 										<th>브랜드</th>
-										<th>화장품명
-										<th>
+										<th>화장품명</th>
 										<th></th>
 									</tr>
 								</thead>
-
 								<tbody>
 
 
@@ -359,7 +351,7 @@ opacity
 										<tr>
 											<td class="ranking">${sts.count}</td>
 											<td>${cosmetic.brand }</td>
-											<td></td>
+											
 											<td><a href="#">${cosmetic.cosmeticName }</a></td>
 											<td><form id="cosmeticDeleteForm"
 													action="${ctx }/myPouch/cosmeticClear.do" method="get">
@@ -393,26 +385,7 @@ opacity
 		</section>
 
 		<section id="content2" class="tab-content">
-			<div class="section">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="section">
-								<div class="container">
-									<div class="row">
-										<div class="col-md-12">
-											<br> <br> <br> <br> <br>
-											<h1 class="text-center">내 뷰티팁</h1>
-											<br> <br>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 
 			<div class="section text-center">
 				<div class="container">
@@ -470,27 +443,7 @@ opacity
 			</div>
 		</section>
 		<section id="content3" class="tab-content">
-			<div class="section">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="section">
-								<div class="container">
-									<div class="row">
-										<div class="col-md-12">
-											<br> <br> <br> <br> <br>
-											<h1 class="text-center">내 추천화장품</h1>
-											<br> <br>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
+			
 			<div class="section text-center">
 				<div class="container">
 					<div class="row">
@@ -500,21 +453,17 @@ opacity
 									<tr>
 										<th>No.</th>
 										<th>브랜드</th>
-										<th>화장품명
-										<th>
+										<th>화장품명</th>
 										<th></th>
 									</tr>
 								</thead>
-
 								<tbody>
-
 
 									<c:forEach items="${rlist }" var="cosmetic" varStatus="sts">
 
 										<tr>
 											<td class="ranking">${sts.count}</td>
 											<td>${cosmetic.brand }</td>
-											<td></td>
 											<td><a href="#">${cosmetic.cosmeticName }</a></td>
 											<td><form id="cosmeticDeleteForm2"
 													action="${ctx }/myPouch/recommendClear.do" method="get">
@@ -524,7 +473,7 @@ opacity
 														id="tabCheckedId" name="tabChecked" type="hidden"
 														value="100"> <input class="btn btn-xs btn-danger"
 														type="button" value="삭제"
-														onclick="cosmeticDeletFormFunc(${cosmetic.cosmeticNo })">
+														onclick="cosmeticDeletFormFunc2(${cosmetic.cosmeticNo })">
 
 												</form></td>
 
@@ -600,7 +549,7 @@ opacity
 		};
 		
 		//추천템 스크랩 form전송
-		function cosmeticDeletFormFunc(n) {
+		function cosmeticDeletFormFunc2(n) {
 			
 			document.getElementById("cosmeticNum").value = n;
 			document.getElementById("tabCheckedId").value = tab;
