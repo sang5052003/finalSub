@@ -67,7 +67,7 @@
   	width: 100%;
   	height: 100%;
   	z-index: 9999;
-  	background: url(plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+  	background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
   }
   </style>
   
@@ -370,7 +370,7 @@ small {
   <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
   <div class="mailbox-attachment-info">
 	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-	<small data-src="${ctx}{{fullName}}"><i class="fa fa-fw fa-remove"></i></small>
+	<a data-src="{{fullName}}"><i class="fa fa-fw fa-remove"></i></a>
 	</span>
   </div>
 </li>                
@@ -435,7 +435,7 @@ $("#registerForm").submit(function(event){
 });
 
 
-$(".uploadedList").on("click", "small", function(event){
+$(".uploadedList").on("click", "a", function(event){
 	
 	 var that = $(this);
 
@@ -446,7 +446,7 @@ $(".uploadedList").on("click", "small", function(event){
 	   dataType:"text",
 	   success:function(result){
 		   if(result == 'deleted'){
-			   that.parent("div").remove();
+			   that.closest("li").remove();
 		   }
 	   }
   });

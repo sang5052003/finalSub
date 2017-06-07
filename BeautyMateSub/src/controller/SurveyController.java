@@ -75,7 +75,7 @@ public class SurveyController {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
 		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
-		System.out.println(url);
+//		System.out.println(url);
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 		// HttpClient
@@ -96,7 +96,7 @@ public class SurveyController {
 		
 		
 		SkinType skinType = new Gson().fromJson(responseContent, type);
-		System.out.println(skinType);
+//		System.out.println(skinType);
 //		List<NameValuePair> list = new ArrayList<NameValuePair>();
 //		SkinType skin = new SkinType();
 //		skin.setBaumanType(skinType.getBaumanType());

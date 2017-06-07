@@ -45,7 +45,7 @@ public class ReviewController {
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
 	public String showReviewPage(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
-		
+		System.out.println(pager.toString()+"1");
 		pager.setSearchType(null);
 		pager.setKeyword(null); // 초기화
 		
@@ -69,6 +69,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
+		System.out.println(pager.toString()+"2");
 		return "/review/reviewList.jsp";
 
 	}
@@ -77,6 +78,8 @@ public class ReviewController {
 	@RequestMapping(value = "listsearch.do", method = RequestMethod.GET)
 	public String showReviewSearch(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
+		
+		System.out.println(pager.toString()+"3");
 
 		if (pager.getKeyword() == null || pager.getKeyword().trim() == "") {
 			return "redirect:/review/listpage.do";
@@ -85,8 +88,6 @@ public class ReviewController {
 		String url = Const.getOriginpath() + "review/listsearch/pagStart/" + pager.getPagStart() + "/pagEnd/"
 				+ pager.getPagEnd() + "/searchType/" + pager.getSearchType() + "/keyword/" + pager.getKeyword();
 
-		System.out.println(url);
-		System.out.println(pager.toString() + "!!");
 
 		List<Review> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
@@ -120,7 +121,7 @@ public class ReviewController {
 
 	}
 
-	// 리뷰 등록
+	// 리뷰 등록 폼
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String reviewRegist(HttpSession session) {
 
@@ -131,6 +132,7 @@ public class ReviewController {
 		return "/review/reviewRegister.jsp";
 	}
 
+	// 리뷰 등록
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	public String reviewRegist(Review review, HttpSession session, RedirectAttributes rttr)
 			throws ClientProtocolException, IOException {
@@ -177,10 +179,6 @@ public class ReviewController {
 		System.out.println(review.toString()+"^^");  
 		
 		jsonByObject(url, review);
-
-//		if (result == 1) { // 성공
-//			System.out.println(result);
-//		}
 
 		rttr.addAttribute("page", pager.getPage());
 		rttr.addAttribute("perPageNum", pager.getPerPageNum());
@@ -229,6 +227,8 @@ public class ReviewController {
 
 		Review r = jsonObject(url);
 
+		System.out.println(r.toString());
+		
 		model.addAttribute("review", r);
 
 		return "/review/reviewDetail.jsp";
