@@ -42,8 +42,6 @@ import domain.Customer;
 @RequestMapping("beautyTip")
 public class BeautyTipController {
 
-	private final String loadPath = "http://localhost:8080/BeautyMate/resources/img/save/"; //불러오는 곳에..
-	
 	@RequestMapping(value = "showDetail.do", method = RequestMethod.GET)
 	public String beautyTipShowDetail(int beautyTipNo, Model model) throws ClientProtocolException, IOException {
 
@@ -85,6 +83,7 @@ public class BeautyTipController {
 
 		model.addAttribute("beautyTip", beautyTip); // 이안에 이미 매퍼에서 받아온 댓글들이
 													// 들어있어야 함
+		model.addAttribute("loadPath", Const.getLoadpath()); //이미지 불러올 경로
 
 		//
 		response.close();
@@ -161,6 +160,7 @@ public class BeautyTipController {
 
 		String beautyTipTitle = null;
 		String beautyTipContent = null;
+		List<String> contentList = new ArrayList<>();
 		String imgStr = "";
 		List<String> imgStrList = new ArrayList<>();
 		String vStr = "";
@@ -180,42 +180,45 @@ public class BeautyTipController {
 					new DefaultFileRenamePolicy());
 
 			
-			Enumeration<Object> params = multi.getParameterNames();
+			
 
-			while (params.hasMoreElements()) {
-				String name = (String) params.nextElement();
-				if (name.equals("beautyTipTitle")) {
-					beautyTipTitle = multi.getParameter(name);
-				} else if (name.equals("beautyTipContent")) {
-					beautyTipContent = multi.getParameter(name);
-				}
-			}
-
-			int fileIdx = 0;
 			Enumeration<Object> fileParams = multi.getFileNames();
 			while (fileParams.hasMoreElements()) {
 				String name = (String) fileParams.nextElement();
 				String value = multi.getFilesystemName(name);
 				String contentType = multi.getContentType(name);
 				
+				System.out.println("===이미지 정보===");
 				System.out.println(contentType);
+				System.out.println(name);
+				System.out.println(value);
+				//imgFileName0
 				
-				if(contentType.equals("image/jpg") || contentType.equals("image/png")){
+				//순서가 ..맨앞에것을 맨뒤로 보내고 컨텐츠처럼 뒤집으면 됨..why?
+				if(contentType.equals("image/jpeg") || contentType.equals("image/png")){
 					imgStrList.add(value);
 				}else{ // video/mp4
 					vStr = value;
 				}
 				
-				/*if(fileIdx++ == 0){
-					imgStr = value;
-				}
-				else{
-					vStr = value;
-				}*/
-				
-				//String contentType = multi.getContentType(name);
-				//imgStr += contentType;
+			}
+			
+			//int contentCount = imgStrList.size(); //지정된 이미지 갯수로 컨텐츠 갯수를 알 수 있다.
+			//
+			Enumeration<Object> params = multi.getParameterNames();
 
+			while (params.hasMoreElements()) {
+				String name = (String) params.nextElement();
+				if (name.equals("beautyTipTitle")) {
+					beautyTipTitle = multi.getParameter(name);
+				}
+				else { //타이틀이 아니면 모두 내용
+					beautyTipContent = multi.getParameter(name);
+					contentList.add(beautyTipContent);
+				}
+					/*else if (name.equals("beautyTipContent")) {
+					beautyTipContent = multi.getParameter(name);
+				}*/
 			}
 
 		} catch (IOException e) {
@@ -226,18 +229,23 @@ public class BeautyTipController {
 		//불러올 경로(db저장 경로)
 		//String loadPath = "http://localhost:8080/BeautyMate/resources/img/save/"; //불러오는 곳에..
 		//파일이름붙이기..(중복된 파일이름의 경우 자동으로 1, 2, 3..의 숫자를 붙여준다.
-		String imgPath = "";
-		for(String s : imgStrList){
-			System.out.println(s);
-			
-			imgPath += s + "§"; //구분자, ㅁ4
+		
+		String imgPath = imgStrList.get(0) + "§"; //첫번째만 정상으로 넣고 나머지는 뒤집어서..
+		for(int i = imgStrList.size() - 1; i > 0; i--){
+			imgPath += imgStrList.get(i) + "§"; //구분자, ㅁ5
 		}
 		imgPath = imgPath.substring(0, imgPath.length() - 1);
 		
-		System.out.println(imgPath);
+		//System.out.println(imgPath);
 		
-		String vPath = loadPath + vStr;
+		String vPath = Const.getLoadpath() + vStr;
 		
+		//컨텐츠 구분자 추가(컨텐츠는 거꾸로 추가 되어서 순서 맞추려고 for문 씀)
+		beautyTipContent = "";
+		for(int i = contentList.size() - 1; i >= 0 ; i--){
+			beautyTipContent += contentList.get(i) + "§"; //구분자, ㅁ5
+		}
+		beautyTipContent = beautyTipContent.substring(0, beautyTipContent.length() - 1); //마지막 구분자 삭제
 		
 		//
 		BeautyTip beautyTip = new BeautyTip();//0, beautyTipTitle, imgPath, beautyTipContent, "vv", new Customer(1), BeautyTipCategory.makeupInformation, null);
@@ -327,8 +335,8 @@ public class BeautyTipController {
 
 		model.addAttribute("beautyTipList", beautyTipList);
 		model.addAttribute("category", category.toString());
-		model.addAttribute("loginedId", "id2");
-		model.addAttribute("loadPath", loadPath);
+		model.addAttribute("loginedId", "id");
+		model.addAttribute("loadPath", Const.getLoadpath()); //이미지 불러올 경로
 
 		response.close();
 		httpClient.close();
@@ -476,7 +484,7 @@ public class BeautyTipController {
 
 		// req -> 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
 		String category = req.getParameter("category");
-		category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
+		//category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
 		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.valueOf(category);
 	}
 

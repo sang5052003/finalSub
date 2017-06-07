@@ -52,19 +52,42 @@ public class BeautyTip {
 		
 		String[] arr = this.split(image);
 		
-		if(arr == null) return "";
+		if(arr == null) return image;
 		
 		return this.split(image)[0];
 	}
 	
-	private String[] split(String image){
+	public String getFirstContent(){
 		
-		if(image == null) return null;
+		String[] arr = this.split(beautyTipContent);
 		
-		String[] arr = image.split("§");
+		if(arr == null) return beautyTipContent;
+		
+		return this.split(beautyTipContent)[0];
+	}
+	
+	private String[] split(String str){
+		
+		if(str == null) return null;
+		
+		String[] arr = str.split("§");
 		
 		return arr;
 	}
+	
+	public String[] getImgArr(){
+		return this.split(image);
+	}
+	
+	public String[] getContentArr(){
+		return this.split(beautyTipContent);
+	}
+	
+	public int getFileCount(){
+		String[] arr = this.split(image);
+		return arr.length;
+	}
+	
 
 	public void setImage(String image) {
 		this.image = image;

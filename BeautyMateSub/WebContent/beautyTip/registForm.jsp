@@ -274,14 +274,14 @@
 											<div class="form-group">
 												<p class="col-md-2 col-sm-3" align="right">사진
 												<div class="col-md-8 col-sm-7">
-													<input type="file" id="getImgFile0" class="imgFileClass" name="imgFileName" accept="image/*" onchange="javascript:imgOn(this, 0)" >
+													<input type="file" id="getImgFile0" class="imgFileClass" name="imgFileName0" accept="image/*" onchange="javascript:imgOn(this, 0)" >
 												</div>
 											</div>
 										
 											<div class="form-group">
 												<label for="" class="col-md-2 col-sm-3 control-label">내용</label>
 												<div class="col-md-8 col-sm-7">
-													<textarea cols="0" rows="0" name="beautyTipContent"  class="form-control">
+													<textarea cols="0" rows="0" name="beautyTipContent0"  class="form-control">
 													</textarea>
 												</div>
 											</div>
@@ -290,7 +290,7 @@
 											<div class="form-group" name="lastForm">
 												<label for="" class="col-md-2 col-sm-3 control-label"></label>
 													<div class="col-md-4 col-sm-3">
-														<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">Add INFO</a>
+														<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">정보 추가</a>
 													</div>
 												<label for="" class="col-md-2 col-sm-3 control-label"></label>
 											</div>
@@ -657,6 +657,8 @@
 				//var lastIdx = len - 1;
 				
 				imgId = getImgId + len;
+				var imgFileName = "imgFileName" + len; //변하는 이미지 파일이름
+				var beautyTipContent = "beautyTipContent" + len; //여러개의 콘텐츠를 저장하기 위해서 변하는 이름 지정
 			
 				var tag = 
 					'<div class="myFormGroup" name="form-groupName">' + 
@@ -665,18 +667,18 @@
 					'<div class="form-group">' + 
 					'<p class="col-md-2 col-sm-3" align="right">사진' +
 					'<div class="col-md-8 col-sm-7">' +
-					'<input type="file" class="imgFileClass" name="imgFileName" accept="image/*" onchange="javascript:imgOn(this, ' + len + ')" ></div></div>' + 
+					'<input type="file" class="imgFileClass" name=' + imgFileName + ' accept="image/*" onchange="javascript:imgOn(this, ' + len + ')" ></div></div>' + 
 					
 					'<div class="form-group">' +
 					'<label for="" class="col-md-2 col-sm-3 control-label">내용</label>' +
 					'<div class="col-md-8 col-sm-7">' +
-					'<textarea cols="0" rows="0" name="beautyTipContent"  class="form-control">' + 
+					'<textarea cols="0" rows="0" name=' + beautyTipContent + ' class="form-control">' + 
 					'</textarea></div></div></div>' +
 				
 					'<div class="form-group" name="lastForm">' +
 					'<label for="" class="col-md-2 col-sm-3 control-label"></label>' +
 					'<div class="col-md-4 col-sm-3">' +
-					'<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">Add INFO</a>' +
+					'<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">정보 추가</a>' +
 					'</div>' +
 					'<label for="" class="col-md-2 col-sm-3 control-label"></label>' +
 					'</div>';
@@ -687,6 +689,7 @@
 						var aTag = $(this).find("a");
 						aTag.attr("href", "javascript:removeTags(" + (idx + 1) + ")");
 						aTag.removeClass("btn btn-common btn-full-round btn-theme").addClass("btn btn-common btn-full-round btn-dark");
+						aTag.text("정보 삭제");
 						if(idx == len - 1){
 							$(this).after(tag);
 							
@@ -728,7 +731,8 @@
 				//마지막 것
 				$(".form-group[name=lastForm]").eq(len - 1).find("a")
 				.attr("href", "javascript:addTags()")
-				.removeClass("btn btn-common btn-full-round btn-dark").addClass("btn btn-common btn-full-round btn-theme");
+				.removeClass("btn btn-common btn-full-round btn-dark").addClass("btn btn-common btn-full-round btn-theme")
+				.text("정보 추가");
 				
 				//하나만 남으면(원래 있던거..)
 				if(len == 1){
@@ -736,6 +740,7 @@
 					var aTag = $(".form-group[name=lastForm]").find("a");
 					aTag.attr("href", "javascript:addTags()");
 					aTag.removeClass("btn btn-common btn-full-round btn-dark").addClass("btn btn-common btn-full-round btn-theme");
+					aTag.text("정보 추가");
 				}
 				
 				//imgIdArr.splice(idx, 1);
