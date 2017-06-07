@@ -31,6 +31,7 @@
         <link href="${ctx}/resources/img/favicon.png" rel="shortcut icon">
         <!-- CUSTOM CSS -->
         <link href="${ctx}/resources/css/stylejun.css" rel="stylesheet">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
 
                 <style>
                     .no-js #loader {
@@ -82,8 +83,8 @@
                     }
                 </style>
                 <script type="text/javascript">
-                    function tryCheckType() {
-                        var ptStr1, ptStr2, ptStr3, ptStr4;
+                     function tryCheckType() {
+                    	/* var ptStr1, ptStr2, ptStr3, ptStr4;
                         var skinType = null;
                         var checked_index = 0;
                         var checked_value = 0;
@@ -206,9 +207,9 @@
                         }
                         else {
                             ptStr4 = 'T';
-                        }
-                        //skinType = 'ORNT';
-                        skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
+                        }   */
+                        skinType = 'ORNT';
+                        //skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
                         document.getElementById('skinType').value = skinType;
                         /* alert(skinType); */
                         commitSkinType();
@@ -220,11 +221,31 @@
                         }
                     };
                 </script>
-                <script>
+                <script type="text/javascript">
+                 function fn() {
+                	gotab();
+                	goqu();
+                    };
+                function gotab(){
+                	var hr = document.getElementById('tabpt').href;
+                	window.location.href = hr;
+                };
+                function goqu() {
+                	var qu = document.getElementById('goqu').href;
+                	window.location.href = qu;
+                    };  
                     
-                function fn() {
-                	document.getElementById('goqu').onclick = true;
-                    }
+                   /*  $(function(){
+                $("#tabpt").click(function () { 
+                	var hr = document.getElementById('tabpt').href;
+                	window.location.href = hr;
+                	var qu = document.getElementById('goqu').href;
+                	$("#goqu").trigger('click') 
+                	});
+                    });  */
+                    
+                  
+
                 </script>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
                 <title>설문으로 알아보는 바우만 타입</title>
@@ -1938,8 +1959,8 @@
                                         <hr>
                                         <div id="checkAlertDiv" role="alert" class="alert1 alert-danger alert-common1" style="filter:alpha(opacity=50); display:none;"><span style="font-size: 20px;">Warning!  </span>
                                             <input id="checkAlert" name="checkAlert" value="" style="background-color:transparent;font-size: 15px;border: none; border-right: 0px; border-top: 0px; boder-left: 0px; width:70%; boder-bottom: 0px; readonly: true;"> 
-                                            <a href="" id="tabpt" data-toggle="tab" onclick="fn();">설문 수정하기</a> 
-                                            <a href="" id="goqu" data-toggle="tab">aaaaaaaa</a> </div>
+                                            <a href="" id="tabpt" class="tabpt" data-toggle="tab" onclick="fn()">설문 수정하기</a> 
+                                            <a type="hidden" href="" id="goqu" class="goqu" data-toggle="tab"></a> </div>
                                         <br>
                                         <div align="center" style="text-align: center;">
                                             <button type="submit" class="btn btn-common btn-full-round btn-theme" onclick="tryCheckType();"> 설문조사 응답 완료

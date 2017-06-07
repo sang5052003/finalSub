@@ -27,8 +27,8 @@
         <!-- FAVICON -->
         <link href="${ctx}/resources/img/favicon.png" rel="shortcut icon">
         <!-- CUSTOM CSS -->
-        <link href="${ctx}/resources/css/default.css" rel="stylesheet" id="option_color">
         <link href="${ctx}/resources/css/stylejun.css" rel="stylesheet">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
         <style>
             .no-js #loader {
                 display: none;
@@ -48,7 +48,7 @@
                 width: 100%;
                 height: 100%;
                 z-index: 9999;
-                background: url(${ctx}/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+                background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
             }
         </style>
         <script type="text/javascript">
