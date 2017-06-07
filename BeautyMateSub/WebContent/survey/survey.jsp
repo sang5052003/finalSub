@@ -68,14 +68,14 @@
                     }
                     
                     .se-pre-con {
-                        position: fixed;
-                        left: 0px;
-                        top: 0px;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 9999;
-                        background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
-                    }
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+            }
                     
                     a {
                         fornt-weight: bold;
@@ -84,7 +84,7 @@
                 </style>
                 <script type="text/javascript">
                      function tryCheckType() {
-                    	/* var ptStr1, ptStr2, ptStr3, ptStr4;
+                    	 /* var ptStr1, ptStr2, ptStr3, ptStr4;
                         var skinType = null;
                         var checked_index = 0;
                         var checked_value = 0;
@@ -207,7 +207,7 @@
                         }
                         else {
                             ptStr4 = 'T';
-                        }   */
+                        }    */
                         skinType = 'ORNT';
                         //skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
                         document.getElementById('skinType').value = skinType;
