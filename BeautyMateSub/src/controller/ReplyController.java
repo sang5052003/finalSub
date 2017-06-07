@@ -37,6 +37,7 @@ public class ReplyController {
 		String url = Const.getOriginpath() + "reply/register";
 		int result = 0;
 		result = jsonByObject(url, reply);
+		
 
 		if (result == 1) { // 성공
 			System.out.println(result);
