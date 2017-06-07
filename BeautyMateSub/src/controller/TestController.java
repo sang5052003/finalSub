@@ -31,10 +31,21 @@ import controller.utils.Const;
 import controller.utils.HttpResponse;
 import domain.Customer;
 import domain.Reply;
+import domain.Review;
 
 @RestController
 @RequestMapping("/replies")
 public class TestController {
+	
+	
+//	@RequestMapping(value = "/review/reviewNo/{reviewNo}")
+//	public ResponseEntity<Review> review(@PathVariable("reviewNo") int reviewNo){
+//		
+//		String url = Const.getOriginpath() + 
+//		
+//	}
+	
+	
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody Reply reply) throws ClientProtocolException, IOException { // 등록
@@ -43,7 +54,7 @@ public class TestController {
 		Customer c = new Customer();
 		c.setCustomerNo(1);
 		reply.setCustomer(c);
-//		reply.setPostNo(12);
+		reply.setPostNo(1);
 		System.out.println(reply.toString());
 		String url = Const.getOriginpath() + "reply/register";
 
@@ -69,9 +80,9 @@ public class TestController {
 
 	// 리스트
 	@RequestMapping(value = "/all/{reviewNo}", method = RequestMethod.GET)
-	public ResponseEntity<List<Reply>> list(@PathVariable("reviewNo") int reviewNo)
+	public ResponseEntity<Review> reviewReply(@PathVariable("reviewNo") int reviewNo)
 			throws ClientProtocolException, IOException {
-		String url = Const.getOriginpath() + "reply/list/reviewNo/" + reviewNo;
+		String url = Const.getOriginpath() + "review/reviewNo/" + reviewNo;
 
 		HttpGet httpGet = new HttpGet(url);
 
@@ -80,16 +91,16 @@ public class TestController {
 
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
-		TypeToken<List<Reply>> typeToken = new TypeToken<List<Reply>>() {
+		TypeToken<Review> typeToken = new TypeToken<Review>() {
 		};
 
 		Type type = typeToken.getType();
 
-		ResponseEntity<List<Reply>> entity = null;
+		ResponseEntity<Review> entity = null;
 
-		List<Reply> reply = new Gson().fromJson(responseContent, type);
+		Review review = new Gson().fromJson(responseContent, type);
 		try {
-			entity = new ResponseEntity<>(reply, HttpStatus.OK);
+			entity = new ResponseEntity<>(review,HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,6 +108,32 @@ public class TestController {
 		}
 
 		return entity;
+//		String url = Const.getOriginpath() + "reply/list/reviewNo/" + reviewNo;
+//		
+//		HttpGet httpGet = new HttpGet(url);
+//		
+//		CloseableHttpClient httpClient = HttpClients.createDefault();
+//		CloseableHttpResponse response = httpClient.execute(httpGet);
+//		
+//		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+//		
+//		TypeToken<List<Reply>> typeToken = new TypeToken<List<Reply>>() {
+//		};
+//		
+//		Type type = typeToken.getType();
+//		
+//		ResponseEntity<List<Reply>> entity = null;
+//		
+//		List<Reply> reply = new Gson().fromJson(responseContent, type);
+//		try {
+//			entity = new ResponseEntity<>(reply, HttpStatus.OK);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		return entity;
 	}
 
 	@RequestMapping(value = "/modify/{replyNo}", method = RequestMethod.GET) // 수정
@@ -144,7 +181,7 @@ public class TestController {
 		return entity;
 	}
 
-	@RequestMapping(value = "remove/{replyNo}", method = RequestMethod.GET) // 삭제
+	@RequestMapping(value = "remove/{replyNo}", method = RequestMethod.DELETE) // 삭제
 	public ResponseEntity<String> remove(@PathVariable("replyNo") int replyNo)
 			throws ClientProtocolException, IOException {
 		String url = Const.getOriginpath() + "reply/remove/replyNo/" + replyNo;
@@ -153,8 +190,6 @@ public class TestController {
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		CloseableHttpResponse response = httpClient.execute(httpDel);
-
-		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
 		ResponseEntity<String> entity = null;
 		try {

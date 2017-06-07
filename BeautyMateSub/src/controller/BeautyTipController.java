@@ -74,7 +74,6 @@ public class BeautyTipController {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
 		BeautyTip beautyTip = gsonBuilder.create().fromJson(responseContent, type);
-
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
 
