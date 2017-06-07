@@ -3,10 +3,12 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.Consts;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -20,12 +22,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import controller.utils.Const;
+import controller.utils.DateDeserializer;
 import controller.utils.HttpResponse;
 import domain.Cosmetic;
 import domain.Customer;
@@ -40,74 +45,63 @@ public class ReviewController {
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
 	public String showReviewPage(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
-		String url = Const.getOriginpath() + "review/listpage/pagStart/" + pager.getPagStart() +"/pagEnd/"+pager.getPagEnd();
+		System.out.println(pager.toString()+"1");
+		pager.setSearchType(null);
+		pager.setKeyword(null); // 초기화
 		
-		System.out.println(pager.toString()+"!!");
+		String url = Const.getOriginpath() + "review/listpage/pagStart/" + pager.getPagStart() + "/pagEnd/"
+				+ pager.getPagEnd();
+
+		System.out.println(url);
+		System.out.println(pager.toString() + "!!");
 
 		List<Review> list = jsonByList(url);
-
-		// for (Review r : list) {
-		// System.out.println(r.toString());
-		// }
-
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPager(pager);
-		pageMaker.setTotalCount(list.get(0).getListCount()); // 전체 개수를 가지고 온다.
+		if (list.size() == 0) {
+			pageMaker.setTotalCount(0);
+		} else {
+			pageMaker.setTotalCount(list.get(0).getListCount()); // 전체 개수를
+		}
+		// 온다.
+		// index, size 0 일시 예외처리
 
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
-		return "/review/list.jsp";
-
-	}
-	// @RequestMapping(value ="/readPage.do", method = RequestMethod.GET)
-	// public String read()
-
-	// 리뷰 리스트
-	@RequestMapping(value = "list.do", method = RequestMethod.GET)
-	public String showReviewList(Model model) throws ClientProtocolException, IOException {
-		String url = Const.getOriginpath() + "review/list";
-
-		List<Review> list = jsonByList(url);
-
-		for (Review r : list) {
-			System.out.println(r.toString());
-		}
-		model.addAttribute("reviewList", list);
-
-		return "/review/list.jsp";
+		System.out.println(pager.toString()+"2");
+		return "/review/reviewList.jsp";
 
 	}
 
-	// 리뷰 이름검색
-	@RequestMapping(value = "titleSearch.do", method = RequestMethod.GET)
-	public String showReviewTitle(String reviewTitle, Model model) throws ClientProtocolException, IOException {
-		String url = Const.getOriginpath() + "review/reviewTitle" + reviewTitle;
+	// 검색
+	@RequestMapping(value = "listsearch.do", method = RequestMethod.GET)
+	public String showReviewSearch(@ModelAttribute("pager") SearchPager pager, Model model)
+			throws ClientProtocolException, IOException {
+		
+		System.out.println(pager.toString()+"3");
+
+		if (pager.getKeyword() == null || pager.getKeyword().trim() == "") {
+			return "redirect:/review/listpage.do";
+		}
+
+		String url = Const.getOriginpath() + "review/listsearch/pagStart/" + pager.getPagStart() + "/pagEnd/"
+				+ pager.getPagEnd() + "/searchType/" + pager.getSearchType() + "/keyword/" + pager.getKeyword();
+
 
 		List<Review> list = jsonByList(url);
-
-		for (Review r : list) {
-			System.out.println(r.toString());
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPager(pager);
+		if (list.size() == 0) {
+			pageMaker.setTotalCount(0);
+		} else {
+			pageMaker.setTotalCount(list.get(0).getListCount()); // 전체 개수를
 		}
+
+		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
-		return "/review/list.jsp";
-
-	}
-
-	// 리뷰 내용검색
-	@RequestMapping(value = "contentSearch.do", method = RequestMethod.GET)
-	public String showReviewContent(String reviewContent, Model model) throws ClientProtocolException, IOException {
-		String url = Const.getOriginpath() + "review/reviewContent" + reviewContent;
-
-		List<Review> list = jsonByList(url);
-
-		for (Review r : list) {
-			System.out.println(r.toString());
-		}
-		model.addAttribute("reviewList", list);
-
-		return "/review/list.jsp";
+		return "/review/reviewList.jsp";
 
 	}
 
@@ -127,7 +121,7 @@ public class ReviewController {
 
 	}
 
-	// 리뷰 등록
+	// 리뷰 등록 폼
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String reviewRegist(HttpSession session) {
 
@@ -135,11 +129,13 @@ public class ReviewController {
 			// 로그인 페이지로
 		}
 
-		return "/review/register.jsp";
+		return "/review/reviewRegister.jsp";
 	}
 
+	// 리뷰 등록
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public String reviewRegist(Review review, HttpSession session,RedirectAttributes rttr) throws ClientProtocolException, IOException {
+	public String reviewRegist(Review review, HttpSession session, RedirectAttributes rttr)
+			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/register";
 
@@ -150,47 +146,46 @@ public class ReviewController {
 		// Customer customer = (Customer)session.getAttribute("loginCustomer");
 		// review.setCustomer(customer);
 		jsonByObject(url, review);
-
-//		if (result == 1) { // 성공
-//			System.out.println(result);
-//		}
-		rttr.addFlashAttribute("msg","SUCCESS");
 		
+		
+		
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
 		return "redirect:/review/listpage.do"; // 리뷰 목록
 	}
 
 	// 리뷰 수정
 	@RequestMapping(value = "modify.do", method = RequestMethod.GET)
-	public String reviewModify(int reviewNo, @ModelAttribute("pager") SearchPager pager, Model model) throws ClientProtocolException, IOException {
+	public String reviewModify(int reviewNo, @ModelAttribute("pager") SearchPager pager, Model model)
+			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/modify/reviewNo/" + reviewNo;
 		System.out.println(url);
 		Review review = jsonObject(url);
-		
-		model.addAttribute("review",review);
 
+		model.addAttribute("review", review);
 
-		return "/review/modifyPage.jsp";
+//		return "/review/modifyPage.jsp";
+		return "/review/reviewModify.jsp";
 	}
 
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
-	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr) throws ClientProtocolException, IOException {
+	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr)
+			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/modify";
-		int result = 0;
+
+		System.out.println(review.toString()+"^^");  
 		
 		jsonByObject(url, review);
 
-		if (result == 1) { // 성공
-			System.out.println(result);
-		}
-		
 		rttr.addAttribute("page", pager.getPage());
-	    rttr.addAttribute("perPageNum", pager.getPerPageNum());
-	    rttr.addAttribute("searchType", pager.getSearchType());
-	    rttr.addAttribute("keyword", pager.getKeyword());
+		rttr.addAttribute("perPageNum", pager.getPerPageNum());
+		rttr.addAttribute("searchType", pager.getSearchType());
+		rttr.addAttribute("keyword", pager.getKeyword());
 
-	    rttr.addFlashAttribute("msg", "SUCCESS");
+		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redirect:/review/listpage.do"; // 리뷰 상세
 	}
@@ -199,32 +194,19 @@ public class ReviewController {
 	@RequestMapping(value = "remove.do", method = RequestMethod.POST)
 	public String reviewRemove(@RequestParam("reviewNo") int reviewNo, SearchPager pager, RedirectAttributes rttr)
 			throws ClientProtocolException, IOException {
-		String url = Const.getOriginpath() + "review/remove/reviewNo/" + reviewNo;	
+		String url = Const.getOriginpath() + "review/remove/reviewNo/" + reviewNo;
 		HttpPost httpPost = new HttpPost(url);
+		
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-
-		StringEntity entity = new StringEntity(new Gson().toJson(reviewNo));
-		httpPost.setEntity(entity);
-		httpPost.setHeader("Content-type", "application/json");
 		CloseableHttpResponse response = httpClient.execute(httpPost);
 		
+		StringEntity entity = new StringEntity(new Gson().toJson(reviewNo),Consts.UTF_8);
 		
-//		CloseableHttpClient httpClient = HttpClients.createDefault();
-//		CloseableHttpResponse response = httpClient.execute(httpGet); // url 날라감
+		httpPost.setEntity(entity);
+		httpPost.setHeader("Content-type", "application/json");
 
-//		String responseContent = HttpResponse.getInstance().getResponseContent(response);
-//
-//		TypeToken<Integer> typeToken = new TypeToken<Integer>() {
-//		};
-//
-//		Type type = typeToken.getType();
-//
-//		int result = new Gson().fromJson(responseContent, type);
-//
-//		if (result == 1) {// 성공
-//			System.out.println(result);
-//		}
-
+		response.close();
+		
 		rttr.addAttribute("page", pager.getPage());
 		rttr.addAttribute("perPageNum", pager.getPerPageNum());
 		rttr.addAttribute("searchType", pager.getSearchType());
@@ -244,15 +226,16 @@ public class ReviewController {
 		String url = Const.getOriginpath() + "review/reviewNo/" + reviewNo;
 
 		Review r = jsonObject(url);
-		
 
+		System.out.println(r.toString());
+		
 		model.addAttribute("review", r);
 
-		return "/review/readPage.jsp";
+		return "/review/reviewDetail.jsp";
 	}
 
 	private Review jsonObject(String url) throws ClientProtocolException, IOException {
-		
+
 		HttpGet httpGet = new HttpGet(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		CloseableHttpResponse response = httpClient.execute(httpGet); // url 날라감
@@ -263,8 +246,10 @@ public class ReviewController {
 		TypeToken<Review> typeToken = new TypeToken<Review>() {
 		}; // 생성자없어서 {}
 		Type type = typeToken.getType(); // java.lang.reflect
-
-		Review review = new Gson().fromJson(responseCountent, type);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		Review review = gsonBuilder.create().fromJson(responseCountent, type);
 
 		response.close();
 
@@ -283,8 +268,16 @@ public class ReviewController {
 		TypeToken<List<Review>> typeToken = new TypeToken<List<Review>>() {
 		};
 		Type type = typeToken.getType();
-		List<Review> reviews = new Gson().fromJson(responseContent, type);
-
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		
+		List<Review> reviews = gsonBuilder.create().fromJson(responseContent, type);
+		
+		for(Review r : reviews){
+			System.out.println(r.toString());
+		}
+		
 		response.close();
 
 		return reviews;
@@ -296,21 +289,13 @@ public class ReviewController {
 		HttpPost httpPost = new HttpPost(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		StringEntity entity = new StringEntity(new Gson().toJson(review),StandardCharsets.UTF_8);
+		StringEntity entity = new StringEntity(new Gson().toJson(review), StandardCharsets.UTF_8);
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json");
 		CloseableHttpResponse response = httpClient.execute(httpPost);
 
-//		String responseContent = HttpResponse.getInstance().getResponseContent(response);
-//
-//		TypeToken<Integer> typeToken = new TypeToken<Integer>() {
-//		};
-
-//		Type type = typeToken.getType();
-		//int result = new Gson().fromJson(responseContent, type);
 
 		response.close();
-
 
 	}
 

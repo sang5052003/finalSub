@@ -40,7 +40,7 @@ public class HttpResponse {
 		try {
 			is = httpEntity.getContent();
 
-			byte[] contentBytes = new byte[1024];
+			byte[] contentBytes = new byte[1024*3];
 
 			while (true) {
 				int readCount = is.read(contentBytes);
