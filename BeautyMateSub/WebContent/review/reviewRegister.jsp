@@ -545,7 +545,7 @@ label.star:before {
 						
 						$(":input[name=searchName]").click(function(){
 							var name = $(":input[name=cosmeticName]").val();
-							 
+							 console.log(name);
 							
 							$.ajax({
 								url:"http://localhost:8888/rest/cosmetic/findByTitle/"+name
