@@ -5,13 +5,8 @@
 <%@ page session="false"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
+<html lang="en">
 
-<<<<<<< HEAD
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Beauty Mate</title>
-=======
 <head> 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +14,6 @@
   
   
   <title>Beauty Mate</title>
->>>>>>> refs/remotes/origin/0608JM1538
 
 <!-- GOOGLE FONT -->
 <link
@@ -75,12 +69,8 @@
 <!--     Theme style -->
 <%--     <link href="${ctx}/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
 <!--     AdminLTE Skins. Choose a skin from the css/skins 
-<<<<<<< HEAD
 <!--          folder instead of downloading all of them to reduce the load. -->
--->
-=======
 <!--          folder instead of downloading all of them to reduce the load. --> 
->>>>>>> refs/remotes/origin/0608JM1538
 <%--     <link href="${ctx}/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
 
 
@@ -206,132 +196,11 @@ label.star:before {
 
   <div class="se-pre-con"></div>
   <div class="main-wrapper">
-    <!-- HEADER -->
-    
-    
-    <header id="pageTop" class="header">
-
-			<!-- TOP INFO BAR -->
-			<div class="top-info-bar">
-
-
-     <!-- NAVBAR -->
-      <nav id="menuBar" class="navbar navbar-default lightHeader" role="navigation">
-        <div class="container">
-
-
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
-          </div>
-
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li class="active">
-                <a href="${ctx}/index.jsp">HOME</a>
-              </li>
-                <li class=" dropdown singleDrop">
-                <a href="${ctx}/survey/survey.do">PICKMETEM</a>
-               
-              </li>
-              <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RANKING</a>
-               
-              </li>
-              <li class=" dropdown megaDropMenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REVIEW</a>
-               
-              </li>
-              <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BeautyTip</a>
-                
-              </li>
-              <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY Pouch</a>
-                
-              </li>
-             
-            </ul>
-          </div>
-
-
-
-						</ul>
-
-					</div>
-
-				</div>
-			</div>
-
-			<!-- NAVBAR -->
-			<nav id="menuBar" class="navbar navbar-default lightHeader"
-				role="navigation">
-				<div class="container">
-
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target=".navbar-ex1-collapse">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="index.html"><img
-							src="${ctx }/resources/img/logo.png" alt="logo"></a>
-					</div>
-				</div>
-				</nav>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="index.html">HOME</a></li>
-						<li class=" dropdown singleDrop"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">PICKMETEM</a></li>
-						<li class=" dropdown singleDrop"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">RANKING</a></li>
-						<li class=" dropdown megaDropMenu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">REVIEW</a></li>
-						<li class=" dropdown singleDrop"><a href="javascript:void(0)"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">BeautyTip</a></li>
-						<li class=" dropdown singleDrop"><a href="javascript:void(0)"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">MY Pouch</a></li>
-
-					</ul>
-				</div>
-
+	<%@ include file="../common/header.jspf"%>
 				<!-- USER SECTION -->
 				<section class="clearfix userSection padding">
 					<div class="container">
-						<div class="row">
-							<div class="col-xs-12">
-								<ul class="list-inline squareBtn">
-									<li class="li"><a href="user-dashboard.html"
-										class="btn btn-common">Account Dashboard</a></li>
-									<li class="li"><a href="user-profile.html"
-										class="btn btn-common btn-theme">Profile</a></li>
-									<li class="li"><a href="address.html"
-										class="btn btn-common">Address</a></li>
-									<li class="li"><a href="all-order.html"
-										class="btn btn-common">All Orders</a></li>
-									<li class="li"><a href="wishlist.html"
-										class="btn btn-common">Wishlist</a></li>
-								</ul>
-							</div>
-						</div>
+						
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="innerWrapper">
@@ -545,7 +414,7 @@ label.star:before {
 						
 						$(":input[name=searchName]").click(function(){
 							var name = $(":input[name=cosmeticName]").val();
-							 console.log(name);
+							 console.log(name)
 							
 							$.ajax({
 								url:"http://localhost:8888/rest/cosmetic/findByTitle/"+name

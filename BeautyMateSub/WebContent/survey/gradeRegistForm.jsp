@@ -53,6 +53,7 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style type="text/css">
 div.stars {
 	width: 270px;
@@ -303,7 +304,8 @@ label.star:before {
 			};
 			var successCallback = function(data){
 				console.log(data);
-				if(data=='true'){
+				var tr = data;
+				if(tr==true){
 					
 				alert("평가 완료");
 				}else{

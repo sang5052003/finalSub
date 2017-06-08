@@ -182,11 +182,11 @@
 				<div class="panel panel-default cartInfo">
 					<div>
 						<div class="input-group">
-							<h1>화장품 추천 결과</h1>
+							<h1 style="background-color:#ec5598;color:#FFFFFF">화장품 추천 결과</h1>
 
 						</div>
 					</div>
-					<h3>추천하는 화장품 목록입니다.</h3>
+					<h3 class="active">회원님과 취향이 비슷한 회원들이 어떤 화장품을 좋게 평가했는지를 기반으로 상품을 추천하는 화장품 목록입니다.</h3>
 				</div>
 				<br>
 				<div class="row" id="cosmeticList">
@@ -210,10 +210,10 @@
 										</div>
 										<div class="skillbar clearfix "
 											data-percent="${values[sts.index]  }%">
-											<div class="skillbar-title" style="background: #FF5AFF;">
+											<div class="skillbar-title" style="background: #ec5598;">
 												<span>추천율</span>
 											</div>
-											<div class="skillbar-bar" style="background: #FF5AFF;"></div>
+											<div class="skillbar-bar" style="background: #ec5598;"></div>
 											<div class="skill-bar-percent">${values[sts.index]  }%</div>
 										</div>
 									</div>
