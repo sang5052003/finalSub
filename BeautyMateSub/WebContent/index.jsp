@@ -61,7 +61,7 @@
 
 				<!-- Slide One -->
 				<div class="slide slideResize slide1"
-					style="background-image: url(../img/home/1.jpg);">
+					style="background-image: url(${ctx}/resources/img/home/1.jpg);">
 					<div class="container">
 						<div class="slide-inner1 common-inner">
 							<span class="h1 from-bottom">Beauty Mate</span><br> <span
@@ -77,10 +77,10 @@
 
 				<!-- Slide Three -->
 				<div class="slide slideResize slide2"
-					style="background-image: url(../img/home/2.jpg);">
+					style="background-image: url(${ctx}/resources/img/home/2.jpg);">
 					<div class="container">
 						<div class="common-inner slide-inner3">
-							<img src="img/favicon.png" alt="Logo Icon" class="img-responsive">
+							<img src="${ctx}/resources/img/favicon.png" alt="Logo Icon" class="img-responsive">
 							<span class="h1 from-bottom">Beauty Mate</span><br> <span
 								class="h4 from-bottom">당신에게 맞는 화장품을 찾아보세요!</span><br> <a
 								target="_blank" href="#"

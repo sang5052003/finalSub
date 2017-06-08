@@ -48,7 +48,7 @@
 	
 	
 	
-<!-- 	<!-- Bootstrap 3.3.4 --> -->
+<!-- 	<!-- Bootstrap 3.3.4 --> 
 <%--     <link href="${ctx }/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --%>
 <!--     Font Awesome Icons -->
 <!--     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
@@ -57,7 +57,7 @@
 <!--     Theme style -->
 <%--     <link href="${ctx }/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
 <!--     AdminLTE Skins. Choose a skin from the css/skins 
-<!--          folder instead of downloading all of them to reduce the load. --> -->
+<!--          folder instead of downloading all of them to reduce the load. --> 
 <%--     <link href="${ctx }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
 	
 	
@@ -79,7 +79,7 @@
   	width: 100%;
   	height: 100%;
   	z-index: 9999;
-  	background: url(plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+  	background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
   }
   </style>
 
@@ -255,8 +255,8 @@
                       <div class="media-body">
                         <h4 class="media-heading">리뷰작성자</h4>
                         <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>
-                        <p class="timeline-body" >${reply.replyContent }</p>
-                        <button class="btn btn-link">Reply</button>
+                        <p class="timeline-body" id="${reply.replyNo}">${reply.replyContent }</p>
+<!--                         <button class="btn btn-link">Reply</button> -->
                         <div class="text-right">
                         <input class="timeline-header" type="hidden" name ="${reply.replyNo }" id ="${reply.replyNo }" value="${reply.replyNo }"/>
                         
@@ -268,8 +268,7 @@
 						
 <!--                          <button type="submit" class="btn btn-common btn-theme" id="replyModBtn">수정</button> -->
 						<div class="timeline-footer">
-                         <a style="padding:10px" data-toggle="modal"
-								data-target="#modifyModal"><i class="fa fa-pencil"aria-hidden="true"></i></a>
+                         <a style="padding:10px" href="javascript:modifyReply(${reply.replyNo});"><i class="fa fa-pencil"aria-hidden="true"></i></a>
                          <a style="padding:10px" href="javascript:removeReply(${reply.replyNo});"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 <!--                          <button type="button" id='replyRemoveBtn'><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
 						</div>
@@ -335,107 +334,9 @@
   <script src="${ctx }/resources/js/custom.js"></script>
 
 
-
-<script>
-//   $(function() {
-//     $('#toggle-two').bootstrapToggle({
-//       on: 'e',
-//       off: 'd'
-//     });
-//   })
-</script>
-
-
-
-
-<SCRIPT>
-// var count = 1; 
-// var num = 1; 
-
-// function addBox (x) {
-//   if (document.all) {  // 인터넷 익스플로러 4.0 이상이면,
-//     var Commentext = '<p><textarea NAME="Comment' + count++ + '" rows="5" cols="50" style="background-color:#F5F5F5">textarea '+num++ +'<\/textarea>';
-//     x.insertAdjacentHTML('beforeEnd', Commentext)
-//   }
-//   else if (document.getElementById) {  // 넷스케이프 6.0 이상이면,
-//     var newArea = document.createElement('textarea');
-//     newArea.name = 'Comment' + count++;
-//     newArea.rows = 5;
-//     newArea.cols = 50;
-//     x.appendChild(document.createElement('p'));
-//     x.appendChild(newArea);
-//   }
-//   else if (document.layers) {  // 넷스케이프 4.0 이상이면,
-//     var newLayer = new Layer (window.innerWidth);
-//     var Commentext = '';
-//     Commentext += '<html><body><form name="myForm">';
-//     Commentext += '<textarea name="Comment" rows="5" cols="50" style="background-color:#F5F5F5">textarea '+num++ +'<\/textarea>';
-//     Commentext += '<\/form><\/body><\/html>';
-//     newLayer.document.write(Commentext);
-//     newLayer.document.close();
-//     newLayer.top = document.height;
-//     document.height += newLayer.document.height;
-//     newLayer.visibility = 'show';
-//   }
-//  else {alert('네츠케이프와 익스플로러 4.0 이상에서만 사용할 수 있습니다')};
-// }
-
-</SCRIPT>
-
-
-
-
 <script>
 
-
-
-// var modifyReply = function(replyNo) {
-// 	$.ajax({
-// 		url:"/BeautyMate/replies/modify/" +replyNo,
-// 		type: 'get',
-// 		headers : {
-// 			"Content-Type" : "application/json",
-// 			"X-HTTP-Method-Override": "GET" 
-// 		},
-// 		dataType : 'text',
-// 		success : modify
-// 	});
-// };
-
-
-// $("#replyModBtn").on("click", function() {
-
-// 	var rno = $(".modal-title").html();
-// 	var replyContent = $("#replyContent").val();
-
-// 	$.ajax({
-// 		type : 'post',
-// 		url : '/BeautyMate/replies/modify',
-// 		headers : {
-// 			"Content-Type" : "application/json",
-// 			"X-HTTP-Method-Override" : "POST"
-// 		},
-// 		data : JSON.stringify({
-// 			replyContent : replyContent
-// 		}),
-// 		dataType : 'text',
-// 		success : function(result) {
-// 			console.log("result: " + result);
-// 			if (result == 'SUCCESS') {
-// 				alert("수정 되었습니다.");
-// 				getPage("/BeautyMate/review/detail.do?reviewNo="+reviewNo); // 바꿔야됨
-// 			}
-// 		}
-// 	});
-// });
-
-
-</script>
-
-
-<script>
-
-    var reviewNo = $("#reviewNo").val();
+    var postNo = ${review.reviewNo};
 
 	$("#replyAddBtn").on("click", function() {
 		
@@ -450,7 +351,7 @@
 			,dataType : 'text'
 			,data: JSON.stringify({
 				replyContent : $("#replyContent").val(), 
-				postId : $("#reviewNo").val()
+				postNo : postNo
 			})
 			,success : displayReply
 			,error : errorCallback
@@ -471,22 +372,58 @@
 			error : errorCallback
 		});
 	};
-
 	
 	
+	var modifyReply = function(replyNo) {
+		$.ajax({
+			url : "${ctx}/replies/modify/" + replyNo	
+			,type : "get"
+			,headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "GET" 
+			},
+			dataType : 'text',
+			success : function(result) {
+				var reply = JSON.parse(result);
+				
+				var modifyHtml = "";
+				modifyHtml += '<textarea rows="5" cols="60" id ="'+ reply.replyNo + "area" +'">'+ reply.replyContent +'</textarea>';
+				modifyHtml += '<a href="javascript:replyModify('+ reply.replyNo +');">수정</a>';
+				$("#"+replyNo).empty();
+				$("#"+replyNo).append(modifyHtml);
+				
+			},
+			error : errorCallback
+		
+		});
+	};
 	
 	
-	var errorCallback = function() {
-		alert("수행중 오류 발생");
-	}
-	
+	var replyModify = function(replyNo) {
+		$.ajax({
+			url : "${ctx}/replies/modify"
+			,type : 'post'
+			,headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "POST" 
+			},
+			dataType : 'text',
+			data: JSON.stringify({
+				replyNo : replyNo,
+				replyContent : $("#"+replyNo+"area").val(), 
+				postNo : postNo
+			}),
+			success : displayReply
+			,error : errorCallback
+		});
+	};
 	
 	var displayReply = function(resultData) {
 		
 		
 		$.ajax({
 			
-			url: '${ctx}/replies/all/'+reviewNo
+			url: '${ctx}/replies/all/'+postNo
 			,type: 'get'
 			,dataType: "json"
 			,success : function(data) {
@@ -497,12 +434,11 @@
 					replyHtml += '<img class="media-object" src="http://placehold.it/70x70" alt="Image"></a>1';
 					replyHtml += '<div class="media-body"> <h4 class="media-heading">리뷰작성자</h4>';
 					replyHtml += '<h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>';
-					replyHtml += '<p class="timeline-body" >'+ reply.replyContent+'</p>';
-					replyHtml += '<button class="btn btn-link">Reply</button>';
+					replyHtml += '<p class="timeline-body" id="'+ reply.replyNo +'">'+ reply.replyContent+'</p>';
+// 					replyHtml += '<button class="btn btn-link">Reply</button>';
 					replyHtml += '<div class="text-right">';
-//		 			replyHtml += '<input class="timeline-header" type="hidden" name ="${reply.replyNo }" id ="${reply.replyNo }" value="${reply.replyNo }"/>';
 					replyHtml += '<div class="timeline-footer">';
-					replyHtml += '<a style="padding:10px" data-toggle="modal" data-target="#modifyModal"><i class="fa fa-pencil"aria-hidden="true"></i></a>';
+					replyHtml += '<a style="padding:10px" href="javascript:modifyReply('+reply.replyNo +');"><i class="fa fa-pencil"aria-hidden="true"></i></a>';
 					replyHtml += '<a style="padding:10px" href="javascript:removeReply('+reply.replyNo +');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
 					replyHtml += '</div></div></div></div></div>';
 				});
@@ -512,11 +448,13 @@
 				$("#replyContent").val("");
 				
 			}
-			
-			
 		});
 		
 	}	
+	
+	var errorCallback = function() {
+		alert("수행중 오류 발생");
+	}
 		
 </script>
 
@@ -550,10 +488,7 @@ $(document).ready(function() {
 
 
   <script>
-  	//paste this code under head tag or in a seperate js file.
-  	// Wait for window load
   	$(window).load(function() {
-  		// Animate loader off screen
   		$(".se-pre-con").fadeOut("slow");
   		
   	});

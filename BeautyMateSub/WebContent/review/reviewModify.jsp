@@ -89,7 +89,7 @@
 	height: 100%;
 	z-index: 9999;
 	background:
-		url(plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif)
+		url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif)
 		center no-repeat #fff;
 }
 </style>

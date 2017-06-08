@@ -1,11 +1,13 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -67,7 +70,7 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public String customerJoin(Customer customer) throws ClientProtocolException, IOException, ParseException {
+	public String customerJoin(Customer customer,RedirectAttributes rttr)throws ClientProtocolException, IOException, ParseException {
 		// SimpleDateFormat new_format = new SimpleDateFormat("yyyy-MM-dd");
 
 		String url = Const.getOriginpath() + "customer/insert";
@@ -97,7 +100,7 @@ public class CustomerController {
 
 		StringEntity entity = new StringEntity(gson.toJson(customer));
 		System.out.println(gson.toJson(customer));
-		
+
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json");
 		CloseableHttpResponse response = httpClient.execute(httpPost);
@@ -110,9 +113,11 @@ public class CustomerController {
 
 		response.close();
 
-		if (responseContent == "1") {
-			return "redirect:customer/joinForm.do";
-		}
+//		if (responseContent == "1") {
+			rttr.addFlashAttribute("msg", "SUCCESS");
+
+//			return "redirect:/customer/joinForm.do"; 
+//		}
 		return "/customer/customerForm.jsp";
 	}
 }

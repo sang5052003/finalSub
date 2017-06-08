@@ -47,7 +47,7 @@ public class SurveyController {
 
 		String skinType = req.getParameter("skinType");
 
-		int customerNo = 1;
+		int customerNo = 2;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
 		HttpPost httpPost = new HttpPost(url);
@@ -74,7 +74,7 @@ public class SurveyController {
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
-		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
+		String url = Const.getOriginpath() + "survey/customerNo/" + 2; // get , 1=customerNo
 //		System.out.println(url);
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost

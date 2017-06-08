@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import controller.utils.HttpResponse;
 import domain.Cosmetic;
 import domain.Customer;
 import domain.PageMaker;
+import domain.Recommend;
 import domain.Review;
 import domain.SearchPager;
 
@@ -45,7 +47,7 @@ public class ReviewController {
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
 	public String showReviewPage(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
-		
+		System.out.println(pager.toString()+"1");
 		pager.setSearchType(null);
 		pager.setKeyword(null); // 초기화
 		
@@ -69,6 +71,7 @@ public class ReviewController {
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
 
+		System.out.println(pager.toString()+"2");
 		return "/review/reviewList.jsp";
 
 	}
@@ -77,6 +80,8 @@ public class ReviewController {
 	@RequestMapping(value = "listsearch.do", method = RequestMethod.GET)
 	public String showReviewSearch(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
+		
+		System.out.println(pager.toString()+"3");
 
 		if (pager.getKeyword() == null || pager.getKeyword().trim() == "") {
 			return "redirect:/review/listpage.do";
@@ -85,8 +90,6 @@ public class ReviewController {
 		String url = Const.getOriginpath() + "review/listsearch/pagStart/" + pager.getPagStart() + "/pagEnd/"
 				+ pager.getPagEnd() + "/searchType/" + pager.getSearchType() + "/keyword/" + pager.getKeyword();
 
-		System.out.println(url);
-		System.out.println(pager.toString() + "!!");
 
 		List<Review> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
@@ -120,26 +123,59 @@ public class ReviewController {
 
 	}
 
-	// 리뷰 등록
+	// 리뷰 등록 폼
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
-	public String reviewRegist(HttpSession session) {
+	public String reviewRegist(HttpSession session, Model model) throws IOException {
 
 		if (session.getAttribute("loginCustomer") == null) {
 			// 로그인 페이지로
 		}
+		String url = Const.getOriginpath() + "cosmetic/findAll";
+
+		HttpGet httpGet = new HttpGet(url);
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		CloseableHttpResponse response = httpClient.execute(httpGet);
+
+		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
+		};
+		Type type = typeToken.getType();
+		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
+		List<String> cosmeticNames = new ArrayList<>();
+
+		for (int i = 0; i < cosmetics.size(); i++) {
+			cosmeticNames.add("'" + cosmetics.get(i).getCosmeticName() + "'");
+		}
+		response.close();
+
+		model.addAttribute("cosmetics", cosmetics);
+		model.addAttribute("cosmeticNames", cosmeticNames);
+		
 
 		return "/review/reviewRegister.jsp";
 	}
 
+	// 리뷰 등록
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public String reviewRegist(Review review, HttpSession session, RedirectAttributes rttr)
+	public String reviewRegist(Review review, HttpSession session, RedirectAttributes rttr,@RequestParam("cosmeticNo")int cosmeticNo, @RequestParam("grade")int grade)
 			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/register";
 
 		review.setImage("");
 		review.setCustomer(new Customer());
-		review.setCosmetic(new Cosmetic());
+		Cosmetic cosmetic = new Cosmetic();
+		cosmetic.setCosmeticNo(cosmeticNo);
+		review.setCosmetic(cosmetic);
+		Recommend recommend = new Recommend();
+		recommend.setCosmeticNo(cosmeticNo);
+		recommend.setGrade(grade);
+		recommend.setCustomerNo(2);
+		
+		review.setRecommend(recommend);
 		System.out.println(review.toString());
 		// Customer customer = (Customer)session.getAttribute("loginCustomer");
 		// review.setCustomer(customer);
@@ -177,10 +213,6 @@ public class ReviewController {
 		System.out.println(review.toString()+"^^");  
 		
 		jsonByObject(url, review);
-
-//		if (result == 1) { // 성공
-//			System.out.println(result);
-//		}
 
 		rttr.addAttribute("page", pager.getPage());
 		rttr.addAttribute("perPageNum", pager.getPerPageNum());
@@ -229,6 +261,8 @@ public class ReviewController {
 
 		Review r = jsonObject(url);
 
+		System.out.println(r.toString());
+		
 		model.addAttribute("review", r);
 
 		return "/review/reviewDetail.jsp";

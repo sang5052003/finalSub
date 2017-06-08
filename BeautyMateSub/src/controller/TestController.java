@@ -54,8 +54,9 @@ public class TestController {
 		Customer c = new Customer();
 		c.setCustomerNo(1);
 		reply.setCustomer(c);
-		reply.setPostNo(1);
 		System.out.println(reply.toString());
+		
+		
 		String url = Const.getOriginpath() + "reply/register";
 
 		HttpPost httpPost = new HttpPost(url);
@@ -137,14 +138,29 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/modify/{replyNo}", method = RequestMethod.GET) // 수정
-	public ResponseEntity<Reply> update(@PathVariable("reviewNo") int reviewNo, @RequestBody Reply reply)
+	public ResponseEntity<Reply> update(@PathVariable("replyNo")int replyNo)
 			throws ClientProtocolException, IOException {
+		
+		
+		String url = Const.getOriginpath() + "reply/replyNo/"+replyNo;
+		
+		HttpGet httpGet = new HttpGet(url);
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		CloseableHttpResponse response = httpClient.execute(httpGet);
 
-		reply.setPostNo(reviewNo);
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+		
+		TypeToken<Reply> typeToken = new TypeToken<Reply>() {
+		};
+
+		Type type = typeToken.getType();
+
+		
 		ResponseEntity<Reply> entity = null;
+		
+		Reply reply = new Gson().fromJson(responseContent, type);
 
 		try {
-			reply.setPostNo(reviewNo);
 
 			entity = new ResponseEntity<>(reply, HttpStatus.OK);
 		} catch (Exception e) {
@@ -155,11 +171,12 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST) // 수정
-	public ResponseEntity<String> updatePost(@PathVariable("reviewNo") int reviewNo, @RequestBody Reply reply)
+	public ResponseEntity<String> updatePost(@RequestBody Reply reply)
 			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "reply/modify";
 
+//		System.out.println(reply.toString()+"******");
 		HttpPost httpPost = new HttpPost(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
