@@ -29,7 +29,7 @@
   <link href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css" rel="stylesheet">
 
   <!-- CUSTOM CSS -->
-  <link href="${ctx }/resources/css/style.css" rel="stylesheet">
+  <link href="${ctx }/resources/css/styleJ.css" rel="stylesheet">
   <link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
 
 
@@ -152,6 +152,7 @@
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
 					<button  type="button" id='searchBtn'>Search</button>
+					
 
 				</div>
           
@@ -165,16 +166,29 @@
             <div class="panel-body tableArea">
               <div>
                 <table class="table">
+	                <tbody>
+	                	<c:forEach items="${reviewList}" var="review" varStatus="status">
+	                    <tr>  
+<%-- 	                     ${review.cosmetic.img} --%>
+	                      <td><div class="cartImage"><img src="${review.cosmetic.img}" style="width:100px;height:100px" alt="Image cart"></div></td>
+	                      <td style="text-align:left;">${review.cosmetic.category}<br><span>${review.cosmetic.brand}</span><br><span>${review.cosmetic.cosmeticName}</span>
+	                      <br><span>${review.cosmetic.volume} / ${review.cosmetic.cost}</span></td>
+	                      <td style="width:0px"></td>
+	                    </tr>
+	                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'">
+	                        <td colspan="3" style="text-align:left;"><i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+	                        (${review.recommend.grade })
+	                         <br><span><strong>${review.reviewTitle}</strong></span><br><span>${review.reviewContent}</span><br><br>
+	                           <div class="cartImage" style="float:left; margin-right:5px;"><img src="http://placehold.it/100x105" alt="Image cart">
+	                           </div>
+	                           </td>                         
+	                    </tr>
+	                    <tr>
+	                        <td colspan="3" style="text-align:left;">${review.customer.id } <br><span>날짜</span> </td>
+	                        
+	                    </tr>
+	                    </c:forEach>
                   <tbody>
-                  <c:forEach items="${reviewList}" var="review" varStatus="status">
-                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
-                    >
-                      <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">${review.customer.id }</span></td>
-                    </tr>
-                    </c:forEach>
-                  </tbody>
                 </table>
               </div>
             </div>

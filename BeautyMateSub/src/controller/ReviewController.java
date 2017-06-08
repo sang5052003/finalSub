@@ -49,15 +49,12 @@ public class ReviewController {
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
 	public String showReviewPage(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
-		System.out.println(pager.toString()+"1");
 		pager.setSearchType(null);
 		pager.setKeyword(null); // 초기화
 		
 		String url = Const.getOriginpath() + "review/listpage/pagStart/" + pager.getPagStart() + "/pagEnd/"
 				+ pager.getPagEnd();
 
-//		System.out.println(url);
-//		System.out.println(pager.toString() + "!!");
 
 		List<Review> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
@@ -78,6 +75,7 @@ public class ReviewController {
 
 	}
 	
+	// 이미지 가져와서 넣어 주기
 	@RequestMapping(value = "/getAttach/{reviewNo}")
 	@ResponseBody
 	public List<String> getAttach(@PathVariable("reviewNo")int reviewNo) throws Exception{
@@ -96,7 +94,6 @@ public class ReviewController {
 		}
 		return list;
 	}
-	
 	
 	
 
@@ -198,7 +195,7 @@ public class ReviewController {
 		recommend.setCustomerNo(2);
 		
 		review.setRecommend(recommend);
-		System.out.println(review.toString());
+//		System.out.println(review.toString());
 		
 		String image="";
 		int count =0;
@@ -211,7 +208,6 @@ public class ReviewController {
 		}
 		
 		review.setImage(image);
-		System.out.println(image);
 		
 		
 		System.out.println(review.toString()+"asdas");
@@ -219,9 +215,6 @@ public class ReviewController {
 		// review.setCustomer(customer);
 		jsonByObject(url, review);
 		
-		
-		
-
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redirect:/review/listpage.do"; // 리뷰 목록
