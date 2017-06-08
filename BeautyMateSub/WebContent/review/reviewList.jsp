@@ -165,6 +165,28 @@
             <div class="panel-body tableArea">
               <div>
                 <table class="table">
+	                <tbody>
+	                	<c:forEach items="${reviewList}" var="review" varStatus="status">
+	                    <tr>
+	                      <td style="width:50px"><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
+	                      <td >카테고리<br><span>회사이름</span><br><span>제품명</span><br><span>용량 / 가격</span></td>
+	                      <td style="width:0px"></td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="3" style="text-align:left;">평점 <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+	                         <br><span>사용후기후기후기후기후힉</span><br>                      <br>
+	                           <div class="cartImage" style="float:left; margin-right:5px;"><img src="http://placehold.it/100x105" alt="Image cart">
+	                           </div>
+	                           <div class="cartImage" style="float:left; margin-right:5px;"><img src="http://placehold.it/100x105" alt="Image cart">
+	                           </div>
+	                           </td>                         
+	                    </tr>
+	                    <tr>
+	                        <td style="text-align:left;">사용자 <br><span>날짜</span> </td>
+	                        
+	                    </tr>
+	                    </c:forEach>
+                
                   <tbody>
                   <c:forEach items="${reviewList}" var="review" varStatus="status">
                     <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
