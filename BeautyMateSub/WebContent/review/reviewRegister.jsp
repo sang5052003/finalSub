@@ -6,20 +6,11 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 
-<<<<<<< HEAD
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Beauty Mate</title>
-=======
 <head> 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  
-  <title>Beauty Mate</title>
->>>>>>> refs/remotes/origin/0608JM1538
 
 <!-- GOOGLE FONT -->
 <link
@@ -64,24 +55,6 @@
 
 <!-- FAVICON -->
 <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
-
-
-<!--       Bootstrap 3.3.4 -->
-<%--     <link href="${ctx}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --%>
-<!--     Font Awesome Icons -->
-<!--     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
-<!--     Ionicons -->
-<!--     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" /> -->
-<!--     Theme style -->
-<%--     <link href="${ctx}/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
-<!--     AdminLTE Skins. Choose a skin from the css/skins 
-<<<<<<< HEAD
-<!--          folder instead of downloading all of them to reduce the load. -->
--->
-=======
-<!--          folder instead of downloading all of them to reduce the load. --> 
->>>>>>> refs/remotes/origin/0608JM1538
-<%--     <link href="${ctx}/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
 
 
 
@@ -203,22 +176,41 @@ label.star:before {
 </head>
 
 <body class="body-wrapper static">
-
   <div class="se-pre-con"></div>
   <div class="main-wrapper">
     <!-- HEADER -->
     
-    
+<%--     <%@ include file="../common/header.jspf"%> --%>
     <header id="pageTop" class="header">
 
-			<!-- TOP INFO BAR -->
-			<div class="top-info-bar">
+      <!-- TOP INFO BAR -->
+      <div class="top-info-bar">
+          
+        <div class="container">
+            
+          <div class="top-bar-right">
+            <ul class="list-inline">
+                <li><select id="sel">
+                          <option value="0"></option>
+                          <option value="1">브랜드</option>
+                          <option value="2">제품</option>
+                         
+                        </select></li>
+                <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
+                  <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
+                <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
+                 
+                
+            </ul>
+              
+          </div>
+           
+        </div>
+      </div>
 
-
-     <!-- NAVBAR -->
+    <!-- NAVBAR -->
       <nav id="menuBar" class="navbar navbar-default lightHeader" role="navigation">
         <div class="container">
-
 
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -230,7 +222,6 @@ label.star:before {
             </button>
             <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
           </div>
-
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -261,57 +252,6 @@ label.star:before {
              
             </ul>
           </div>
-
-
-
-						</ul>
-
-					</div>
-
-				</div>
-			</div>
-
-			<!-- NAVBAR -->
-			<nav id="menuBar" class="navbar navbar-default lightHeader"
-				role="navigation">
-				<div class="container">
-
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target=".navbar-ex1-collapse">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="index.html"><img
-							src="${ctx }/resources/img/logo.png" alt="logo"></a>
-					</div>
-				</div>
-				</nav>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="index.html">HOME</a></li>
-						<li class=" dropdown singleDrop"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">PICKMETEM</a></li>
-						<li class=" dropdown singleDrop"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">RANKING</a></li>
-						<li class=" dropdown megaDropMenu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">REVIEW</a></li>
-						<li class=" dropdown singleDrop"><a href="javascript:void(0)"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">BeautyTip</a></li>
-						<li class=" dropdown singleDrop"><a href="javascript:void(0)"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false">MY Pouch</a></li>
-
-					</ul>
-				</div>
 
 				<!-- USER SECTION -->
 				<section class="clearfix userSection padding">
@@ -438,100 +378,6 @@ label.star:before {
 
 
 				<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-				<script>
-					// 		$(".fileDrop").on("dragenter dragover", function(event) {
-					// 			event.preventDefault();
-					// 		});
-
-					// 		$(".fileDrop").on("drop", function(event){
-					// 			event.preventDefault();
-
-					// 			var files = event.originalEvent.dataTransfer.files;
-
-					// 			var file = files[0];
-
-					// 			console.log(file);
-
-					// 			var formData = new FormData();
-
-					// 			formData.append("file", file);
-
-					// 			$.ajax({
-					// 				  url: '${ctx}/uploadAjax',
-					// 				  data: formData,
-					// 				  dataType:'text',
-					// 				  processData: false,
-					// 				  contentType: false,
-					// 				  type: 'POST',
-					// 				  success: function(data){
-
-					// 					  alert(data);
-
-					// 					  var str ="";
-
-					// 					  if(checkImageType(data)){
-					// 						  str ="<div><a href=${ctx}/displayFile?fileName="+getImageLink(data)+">"
-					// 								  +"<img src='${ctx}/displayFile?fileName="+data+"'/>"
-					// 								  +"</a><small data-src="+data+">X</small></div>";
-					// 					  }else{
-					// 						  str = "<div><a href='${ctx}/displayFile?fileName="+data+"'>" 
-					// 								  + getOriginalName(data)+"</a>"
-					// 								  +"<small data-src="+data+">X</small></div></div>";
-					// 					  }
-
-					// 					  $(".uploadedList").append(str);
-					// 				  }
-					// 				});	
-					// 		});
-
-					// 		$(".uploadedList").on("click", "small", function(event){
-
-					// 				 var that = $(this);
-
-					// 			   $.ajax({
-					// 				   url:"${ctx}/deleteFile",
-					// 				   type:"post",
-					// 				   data: {fileName:$(this).attr("data-src")},
-					// 				   dataType:"text",
-					// 				   success:function(result){
-					// 					   if(result == 'deleted'){
-					// 						   that.parent("div").remove();
-					// 					   }
-					// 				   }
-					// 			   });
-					// 		});
-
-					// function getOriginalName(fileName){	
-
-					// 	if(checkImageType(fileName)){
-					// 		return;
-					// 	}
-
-					// 	var idx = fileName.indexOf("_") + 1 ;
-					// 	return fileName.substr(idx);
-
-					// }
-
-					// function getImageLink(fileName){
-
-					// 	if(!checkImageType(fileName)){
-					// 		return;
-					// 	}
-					// 	var front = fileName.substr(0,12);
-					// 	var end = fileName.substr(14);
-
-					// 	return front + end;
-
-					// }
-
-					// 	function checkImageType(fileName){
-
-					// 		var pattern = /jpg|gif|png|jpeg/i;
-
-					// 		return fileName.match(pattern);
-
-					// 	}
-				</script>
 				<script type="text/javascript">
 					var cosmeticNames = ${cosmeticNames};
 					
@@ -582,11 +428,6 @@ label.star:before {
 					
 					
 				</script>
-
-
-
-
-
 
 
 
@@ -691,89 +532,6 @@ $(".uploadedList").on("click", "a", function(event){
 });
 
 </script>
-				<a></a>
-
-				<script>
-					var template = Handlebars.compile($("#template").html());
-
-					$(".fileDrop").on("dragenter dragover", function(event) {
-						event.preventDefault();
-					});
-
-					$(".fileDrop").on("drop", function(event) {
-						event.preventDefault();
-
-						var files = event.originalEvent.dataTransfer.files;
-
-						var file = files[0];
-
-						var formData = new FormData();
-
-						formData.append("file", file);
-
-						$.ajax({
-							url : '${ctx}/uploadAjax',
-							data : formData,
-							dataType : 'text',
-							processData : false,
-							contentType : false,
-							type : 'POST',
-							success : function(data) {
-
-								var fileInfo = getFileInfo(data);
-
-								var html = template(fileInfo);
-
-								$(".uploadedList").append(html);
-							}
-						});
-					});
-
-// 					$("#registerForm")
-// 							.submit(
-// 									function(event) {
-// 										event.preventDefault();
-
-// 										var that = $(this);
-
-// 										var str = "";
-// 										$(".uploadedList .delbtn")
-// 												.each(
-// 														function(index) {
-// 															str += "<input type='hidden' name='files["
-// 																	+ index
-// 																	+ "]' value='"
-// 																	+ $(this)
-// 																			.attr(
-// 																					"href")
-// 																	+ "'> ";
-// 														});
-
-// 										that.append(str);
-
-// 										that.get(0).submit();
-// 									});
-
-					$(".uploadedList").on("click", "a", function(event) {
-
-						var that = $(this);
-
-						$.ajax({
-							url : "${ctx}/deleteFile",
-							type : "post",
-							data : {
-								fileName : $(this).attr("data-src")
-							},
-							dataType : "text",
-							success : function(result) {
-								if (result == 'deleted') {
-									that.closest("li").remove();
-								}
-							}
-						});
-					});
-				</script>
-
 
 
 
