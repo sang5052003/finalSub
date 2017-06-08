@@ -422,19 +422,14 @@ label.css-label {
 	<script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
 	<script src="${ctx }/resources/js/custom.js"></script>
 
+
+
 	<script type="text/javascript">
 		//paste this code under head tag or in a seperate js file.
 		// Wait for window load
 		$(window).load(function() {
 			// Animate loader off screen
 			$(".se-pre-con").fadeOut("slow");
-			
-			var result = '${msg}';
-
-			if (result == 'SUCCESS') {
-				alert("처리가 완료되었습니다.");
-			}
-			
 			
 		});
 		

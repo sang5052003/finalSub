@@ -48,22 +48,43 @@
 	
 	
 	
-<!-- 	<!-- Bootstrap 3.3.4 --> 
-<%--     <link href="${ctx }/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --%>
-<!--     Font Awesome Icons -->
-<!--     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
-<!--     Ionicons -->
-<!--     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" /> -->
-<!--     Theme style -->
-<%--     <link href="${ctx }/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
-<!--     AdminLTE Skins. Choose a skin from the css/skins 
-<!--          folder instead of downloading all of them to reduce the load. --> 
-<%--     <link href="${ctx }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
-	
-	
     
       <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
   
+<style type="text/css">
+    .popup {position: absolute;}
+    .back { background-color: gray; opacity:0.5; width: 100%; height: 300%; overflow:hidden;  z-index:1101;}
+    .front { 
+       z-index:1110; opacity:1; boarder:1px; margin: auto; 
+      }
+     .show{
+       position:relative;
+       max-width: 1200px; 
+       max-height: 800px; 
+       overflow: auto;       
+     } 
+     
+     #imglist { 
+	     list-style:none;
+	     margin-left : 165px; 
+	     padding:0; 
+	     
+ 	} 
+
+	#imgli { 
+     margin: 0 0 0 0; 
+     padding: 0 0 0 0;
+     border : 0;
+     float: left;
+ 	} 
+  	
+    </style>
+
+    <div class='popup back' style="display:none;"></div>
+    <div id="popup_front" class='popup front' style="display:none;">
+     <img id="popup_img">
+    </div>    
+    
     
 
 <style>
@@ -88,6 +109,8 @@
   <div class="se-pre-con"></div>
   <div class="main-wrapper">
     <!-- HEADER -->
+    
+<%--     <%@ include file="../common/header.jspf"%> --%>
     <header id="pageTop" class="header">
 
       <!-- TOP INFO BAR -->
@@ -115,7 +138,7 @@
         </div>
       </div>
 
-      <!-- NAVBAR -->
+    <!-- NAVBAR -->
       <nav id="menuBar" class="navbar navbar-default lightHeader" role="navigation">
         <div class="container">
 
@@ -127,17 +150,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="${ctx }/resources/img/logo.png" alt="logo" ></a>
+            <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="active">
-                <a href="index.html">HOME</a>
+                <a href="${ctx}/index.jsp">HOME</a>
               </li>
                 <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PICKMETEM</a>
+                <a href="${ctx}/survey/survey.do">PICKMETEM</a>
                
               </li>
               <li class=" dropdown singleDrop">
@@ -159,7 +182,7 @@
              
             </ul>
           </div>
-
+          
 <!-- USER SECTION -->
       <section class="clearfix userSection padding">
         <div class="container">
@@ -219,6 +242,10 @@
                             </div>
                           </div>
                           <br>
+                          
+                          	
+					<ul class="mailbox-attachments clearfix uploadedList" id="imglist" ></ul>
+                          
                           <div class="text-right">
 									<button type="submit" class="btn btn-common btn-theme" id="modifyBtn">수정</button>
 									<button type="submit" class="btn btn-common btn-theme" id="removeBtn">삭제</button>
@@ -256,17 +283,13 @@
                         <h4 class="media-heading">리뷰작성자</h4>
                         <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>
                         <p class="timeline-body" id="${reply.replyNo}">${reply.replyContent }</p>
-<!--                         <button class="btn btn-link">Reply</button> -->
                         <div class="text-right">
                         <input class="timeline-header" type="hidden" name ="${reply.replyNo }" id ="${reply.replyNo }" value="${reply.replyNo }"/>
                         
           
-<!--                          <FORM NAME="myForm" method=post action=""> -->
-<!-- 							<input type="button" class="glyphicon glyphicon-cog pull-right" style="padding:10px" VALUE="Textarea 추가" onclick="addBox(this.form)"/> -->
-<!-- 						</FORM> -->
-<!-- 						<input type="checkbox" data-toggle="toggle"   id="toggle-two" data-on="수정취소" data-off="수정" id="toggle-two"> -->
-						
-<!--                          <button type="submit" class="btn btn-common btn-theme" id="replyModBtn">수정</button> -->
+					
+				
+							
 						<div class="timeline-footer">
                          <a style="padding:10px" href="javascript:modifyReply(${reply.replyNo});"><i class="fa fa-pencil"aria-hidden="true"></i></a>
                          <a style="padding:10px" href="javascript:removeReply(${reply.replyNo});"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -332,6 +355,21 @@
   <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
   <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
   <script src="${ctx }/resources/js/custom.js"></script>
+
+
+<script type="text/javascript" src="${ctx }/resources/js/upload.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<script id="templateAttach" type="text/x-handlebars-template">
+<li id='imgli' data-src='${ctx}{{fullName}}'>
+  <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
+  <div class="mailbox-attachment-info">
+	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+	</span>
+  </div>
+</li>                
+</script>  
+
 
 
 <script>
@@ -484,6 +522,48 @@ $(document).ready(function() {
 	});
 
 });
+
+var template = Handlebars.compile($("#templateAttach").html());
+
+$.getJSON("${ctx}/review/getAttach/"+postNo,function(list){
+	$(list).each(function(){
+		
+		var fileInfo = getFileInfo(this);
+		console.log(fileInfo);
+		var html = template(fileInfo);
+		console.log(html);
+		
+		 $(".uploadedList").append(html);
+		
+	});
+});
+
+
+
+$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event){
+	
+	var fileLink = $(this).attr("href");
+	
+	if(checkImageType(fileLink)){
+		
+		event.preventDefault();
+				
+		var imgTag = $("#popup_img");
+		imgTag.attr("src", fileLink);
+		
+				
+		$(".popup").show('slow');
+		imgTag.addClass("show");		
+	}	
+});
+
+$("#popup_img").on("click", function(){
+	
+	$(".popup").hide('slow');
+	
+});	
+
+
 </script>
 
 

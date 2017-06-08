@@ -38,14 +38,6 @@ import domain.Review;
 public class TestController {
 	
 	
-//	@RequestMapping(value = "/review/reviewNo/{reviewNo}")
-//	public ResponseEntity<Review> review(@PathVariable("reviewNo") int reviewNo){
-//		
-//		String url = Const.getOriginpath() + 
-//		
-//	}
-	
-	
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody Reply reply) throws ClientProtocolException, IOException { // 등록
@@ -109,32 +101,6 @@ public class TestController {
 		}
 
 		return entity;
-//		String url = Const.getOriginpath() + "reply/list/reviewNo/" + reviewNo;
-//		
-//		HttpGet httpGet = new HttpGet(url);
-//		
-//		CloseableHttpClient httpClient = HttpClients.createDefault();
-//		CloseableHttpResponse response = httpClient.execute(httpGet);
-//		
-//		String responseContent = HttpResponse.getInstance().getResponseContent(response);
-//		
-//		TypeToken<List<Reply>> typeToken = new TypeToken<List<Reply>>() {
-//		};
-//		
-//		Type type = typeToken.getType();
-//		
-//		ResponseEntity<List<Reply>> entity = null;
-//		
-//		List<Reply> reply = new Gson().fromJson(responseContent, type);
-//		try {
-//			entity = new ResponseEntity<>(reply, HttpStatus.OK);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		return entity;
 	}
 
 	@RequestMapping(value = "/modify/{replyNo}", method = RequestMethod.GET) // 수정

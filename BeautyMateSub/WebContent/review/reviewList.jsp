@@ -6,9 +6,9 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+<!--   <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
   <title>Beauty Mate</title>
 
   <!-- GOOGLE FONT -->
@@ -59,7 +59,8 @@
   <div class="se-pre-con"></div>
   <div class="main-wrapper">
     <!-- HEADER -->
-    <header id="pageTop" class="header">
+<%--     <%@ include file="../common/header.jspf"%> --%>
+              <header id="pageTop" class="header">
 
       <!-- TOP INFO BAR -->
       <div class="top-info-bar">
@@ -98,17 +99,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="${ctx }/resources/img/logo.png" alt="logo" ></a>
+            <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="active">
-                <a href="index.html">HOME</a>
+                <a href="${ctx}/index.jsp">HOME</a>
               </li>
                 <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PICKMETEM</a>
+                <a href="${ctx}/survey/survey.do">PICKMETEM</a>
                
               </li>
               <li class=" dropdown singleDrop">
@@ -130,6 +131,8 @@
              
             </ul>
           </div>
+          
+          
           
           <br><br>
           
@@ -260,7 +263,7 @@
 	}
 </script>
 
-<<script>
+<script>
 	$(document).ready(
 			function() {
 

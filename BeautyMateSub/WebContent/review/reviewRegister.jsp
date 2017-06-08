@@ -5,11 +5,13 @@
 <%@ page session="false"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
-<head>
 
+<head> 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
   <title>Beauty Mate</title>
 
   <!-- GOOGLE FONT -->
@@ -47,7 +49,7 @@
 <!--     Theme style -->
 <%--     <link href="${ctx}/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
 <!--     AdminLTE Skins. Choose a skin from the css/skins 
-<!--          folder instead of downloading all of them to reduce the load. --> -->
+<!--          folder instead of downloading all of them to reduce the load. --> 
 <%--     <link href="${ctx}/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
 
       
@@ -84,6 +86,22 @@ small {
 	font-weight: bold;
 	color: gray;
 }
+
+    #uplist { 
+	     list-style:none;
+	     margin-left : 0px; 
+	     padding:0; 
+	     
+ 	} 
+
+	#imgli { 
+     margin: 0 0 0 0; 
+     padding: 0 0 0 0;
+     border : 0;
+     float: left;
+ 	} 
+
+
 </style>
 
 </head>
@@ -92,6 +110,8 @@ small {
   <div class="se-pre-con"></div>
   <div class="main-wrapper">
     <!-- HEADER -->
+    
+    
     <header id="pageTop" class="header">
 
       <!-- TOP INFO BAR -->
@@ -119,7 +139,7 @@ small {
         </div>
       </div>
 
-      <!-- NAVBAR -->
+     <!-- NAVBAR -->
       <nav id="menuBar" class="navbar navbar-default lightHeader" role="navigation">
         <div class="container">
 
@@ -131,17 +151,17 @@ small {
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="${ctx }/resources/img/logo.png" alt="logo" ></a>
+            <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="active">
-                <a href="index.html">HOME</a>
+                <a href="${ctx}/index.jsp">HOME</a>
               </li>
                 <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PICKMETEM</a>
+                <a href="${ctx}/survey/survey.do">PICKMETEM</a>
                
               </li>
               <li class=" dropdown singleDrop">
@@ -163,6 +183,7 @@ small {
              
             </ul>
           </div>
+
 
 <!-- USER SECTION -->
       <section class="clearfix userSection padding">
@@ -210,13 +231,10 @@ small {
                             </div>
                             
 						</div>
-<!-- 						<div class='fileDrop'></div> -->
-
-<!-- 						<div class='uploadedList'></div> -->
 				
 				
 						<div class="form-group">
-								<label for="exampleInputEmail1">File DROP Here</label>
+								<label for="exampleInputEmail1">File Upload</label>
 							<div class="fileDrop"></div>
 						</div>
 						
@@ -226,7 +244,7 @@ small {
 			<hr>
 		</div>
 
-		<ul class="mailbox-attachments clearfix uploadedList">
+		<ul class="mailbox-attachments clearfix uploadedList" id="uplist">
 		</ul>
 		
                             
@@ -249,108 +267,6 @@ small {
       
       
       <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script>
-// 		$(".fileDrop").on("dragenter dragover", function(event) {
-// 			event.preventDefault();
-// 		});
-
-// 		$(".fileDrop").on("drop", function(event){
-// 			event.preventDefault();
-			
-// 			var files = event.originalEvent.dataTransfer.files;
-			
-// 			var file = files[0];
-
-// 			console.log(file);
-			
-// 			var formData = new FormData();
-			
-// 			formData.append("file", file);
-			
-// 			$.ajax({
-// 				  url: '${ctx}/uploadAjax',
-// 				  data: formData,
-// 				  dataType:'text',
-// 				  processData: false,
-// 				  contentType: false,
-// 				  type: 'POST',
-// 				  success: function(data){
-					  
-// 					  alert(data);
-					  
-// 					  var str ="";
-					  
-// 					  if(checkImageType(data)){
-// 						  str ="<div><a href=${ctx}/displayFile?fileName="+getImageLink(data)+">"
-// 								  +"<img src='${ctx}/displayFile?fileName="+data+"'/>"
-// 								  +"</a><small data-src="+data+">X</small></div>";
-// 					  }else{
-// 						  str = "<div><a href='${ctx}/displayFile?fileName="+data+"'>" 
-// 								  + getOriginalName(data)+"</a>"
-// 								  +"<small data-src="+data+">X</small></div></div>";
-// 					  }
-					  
-// 					  $(".uploadedList").append(str);
-// 				  }
-// 				});	
-// 		});
-
-
-// 		$(".uploadedList").on("click", "small", function(event){
-			
-// 				 var that = $(this);
-			
-// 			   $.ajax({
-// 				   url:"${ctx}/deleteFile",
-// 				   type:"post",
-// 				   data: {fileName:$(this).attr("data-src")},
-// 				   dataType:"text",
-// 				   success:function(result){
-// 					   if(result == 'deleted'){
-// 						   that.parent("div").remove();
-// 					   }
-// 				   }
-// 			   });
-// 		});
-		
-		
-
-// function getOriginalName(fileName){	
-
-// 	if(checkImageType(fileName)){
-// 		return;
-// 	}
-	
-// 	var idx = fileName.indexOf("_") + 1 ;
-// 	return fileName.substr(idx);
-	
-// }
-
-
-// function getImageLink(fileName){
-	
-// 	if(!checkImageType(fileName)){
-// 		return;
-// 	}
-// 	var front = fileName.substr(0,12);
-// 	var end = fileName.substr(14);
-	
-// 	return front + end;
-	
-// }
-
-		
-
-// 	function checkImageType(fileName){
-		
-// 		var pattern = /jpg|gif|png|jpeg/i;
-		
-// 		return fileName.match(pattern);
-		
-// 	}
-		
-		
-	</script>
 
 
 
@@ -363,20 +279,21 @@ small {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
-
+<%-- <a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a> --%>
 
 <script id="template" type="text/x-handlebars-template">
-<li>
+<li id='imgli'>
   <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
   <div class="mailbox-attachment-info">
 	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-	<a data-src="{{fullName}}"><i class="fa fa-fw fa-remove"></i></a>
+	<a href="{{fullName}}" 
+     class="btn btn-default btn-xs pull-right delbtn"></a>
+	<a data-src="{{fullName}}" ><i class="fa fa-fw fa-remove"></i></a> 
 	</span>
   </div>
 </li>                
 </script> 
-<a ></a>
-
+<!-- 	<a data-src="{{fullName}}" ><i class="fa fa-fw fa-remove"></i></a> -->
 <script>
 
 
@@ -412,6 +329,10 @@ $(".fileDrop").on("drop", function(event){
 			  var fileInfo = getFileInfo(data);
 			  
 			  var html = template(fileInfo);
+			  
+// 			  console.log(fileInfo);
+// 			  console.log(html);
+			  
 			  
 			  $(".uploadedList").append(html);
 		  }
@@ -472,6 +393,7 @@ $(".uploadedList").on("click", "a", function(event){
   <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
   <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
   <script src="${ctx }/resources/js/custom.js"></script>
+  
   
   
 
