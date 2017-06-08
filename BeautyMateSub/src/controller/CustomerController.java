@@ -116,8 +116,8 @@ public class CustomerController {
 //		if (responseContent == "1") {
 			rttr.addFlashAttribute("msg", "SUCCESS");
 
-//			return "redirect:/customer/joinForm.do"; 
+			return "redirect:/customer/joinForm.do"; 
 //		}
-		return "/customer/customerForm.jsp";
+//		return "/customer/customerForm.jsp";
 	}
 }

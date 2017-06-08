@@ -5,12 +5,21 @@
 <%@ page session="false"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
-<head>
 
+<<<<<<< HEAD
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Beauty Mate</title>
+=======
+<head> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <title>Beauty Mate</title>
+>>>>>>> refs/remotes/origin/0608JM1538
 
 <!-- GOOGLE FONT -->
 <link
@@ -66,8 +75,12 @@
 <!--     Theme style -->
 <%--     <link href="${ctx}/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
 <!--     AdminLTE Skins. Choose a skin from the css/skins 
+<<<<<<< HEAD
 <!--          folder instead of downloading all of them to reduce the load. -->
 -->
+=======
+<!--          folder instead of downloading all of them to reduce the load. --> 
+>>>>>>> refs/remotes/origin/0608JM1538
 <%--     <link href="${ctx}/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
 
 
@@ -114,6 +127,22 @@ small {
 	font-weight: bold;
 	color: gray;
 }
+
+    #uplist { 
+	     list-style:none;
+	     margin-left : 0px; 
+	     padding:0; 
+	     
+ 	} 
+
+	#imgli { 
+     margin: 0 0 0 0; 
+     padding: 0 0 0 0;
+     border : 0;
+     float: left;
+ 	} 
+
+
 </style>
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -174,31 +203,65 @@ label.star:before {
 </head>
 
 <body class="body-wrapper static">
-	<div class="se-pre-con"></div>
-	<div class="main-wrapper">
-		<!-- HEADER -->
-		<header id="pageTop" class="header">
+
+  <div class="se-pre-con"></div>
+  <div class="main-wrapper">
+    <!-- HEADER -->
+    
+    
+    <header id="pageTop" class="header">
 
 			<!-- TOP INFO BAR -->
 			<div class="top-info-bar">
 
-				<div class="container">
 
-					<div class="top-bar-right">
-						<ul class="list-inline">
-							<li><select id="sel">
-									<option value="0"></option>
-									<option value="1">브랜드</option>
-									<option value="2">제품</option>
+     <!-- NAVBAR -->
+      <nav id="menuBar" class="navbar navbar-default lightHeader" role="navigation">
+        <div class="container">
 
-							</select></li>
-							<li><input id="search" type="text" placeholder="화장품을 검색해보세요">
-								<a target="_blank" href="#"
-								class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
-							<li><a id="login" target="_blank" href="#"
-								class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
-							<li><a id="login" target="_blank" href="#"
-								class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
+
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
+          </div>
+
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active">
+                <a href="${ctx}/index.jsp">HOME</a>
+              </li>
+                <li class=" dropdown singleDrop">
+                <a href="${ctx}/survey/survey.do">PICKMETEM</a>
+               
+              </li>
+              <li class=" dropdown singleDrop">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RANKING</a>
+               
+              </li>
+              <li class=" dropdown megaDropMenu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REVIEW</a>
+               
+              </li>
+              <li class=" dropdown singleDrop">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BeautyTip</a>
+                
+              </li>
+              <li class=" dropdown singleDrop">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY Pouch</a>
+                
+              </li>
+             
+            </ul>
+          </div>
+
 
 
 						</ul>
@@ -341,7 +404,7 @@ label.star:before {
 
 
 													<div class="form-group">
-														<label for="exampleInputEmail1">File DROP Here</label>
+														<label for="exampleInputEmail1">File Upload</label>
 														<div class="fileDrop"></div>
 													</div>
 
@@ -367,6 +430,7 @@ label.star:before {
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</section>
@@ -498,6 +562,7 @@ label.star:before {
 						});
 						
 						
+
 						var displayList = function(resultData) {
 							var listHtml = "";
 							
@@ -525,22 +590,106 @@ label.star:before {
 
 
 
+
 				<script type="text/javascript" src="${ctx }/resources/js/upload.js"></script>
 				<script
 					src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 				<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
+<%-- <a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a> --%>
 
-
-				<script id="template" type="text/x-handlebars-template">
-<li>
+<script id="template" type="text/x-handlebars-template">
+<li id='imgli'>
   <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
   <div class="mailbox-attachment-info">
 	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-	<a data-src="{{fullName}}"><i class="fa fa-fw fa-remove"></i></a>
+	<a href="{{fullName}}" 
+     class="btn btn-default btn-xs pull-right delbtn"></a>
+	<a data-src="{{fullName}}" ><i class="fa fa-fw fa-remove"></i></a> 
 	</span>
   </div>
 </li>                
+</script> 
+<!-- 	<a data-src="{{fullName}}" ><i class="fa fa-fw fa-remove"></i></a> -->
+<script>
+
+
+
+var template = Handlebars.compile($("#template").html());
+
+$(".fileDrop").on("dragenter dragover", function(event){
+	event.preventDefault();
+});
+
+
+$(".fileDrop").on("drop", function(event){
+	event.preventDefault();
+	
+	var files = event.originalEvent.dataTransfer.files;
+	
+	var file = files[0];
+
+	var formData = new FormData();
+	
+	formData.append("file", file);	
+	
+	
+	$.ajax({
+		  url: '${ctx}/uploadAjax',
+		  data: formData,
+		  dataType:'text',
+		  processData: false,
+		  contentType: false,
+		  type: 'POST',
+		  success: function(data){
+			  
+			  var fileInfo = getFileInfo(data);
+			  
+			  var html = template(fileInfo);
+			  
+// 			  console.log(fileInfo);
+// 			  console.log(html);
+			  
+			  
+			  $(".uploadedList").append(html);
+		  }
+		});	
+});
+
+
+$("#registerForm").submit(function(event){
+	event.preventDefault();
+	
+	var that = $(this);
+	
+	var str ="";
+	$(".uploadedList .delbtn").each(function(index){
+		 str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
+	});
+	
+	that.append(str);
+
+	that.get(0).submit();
+});
+
+
+$(".uploadedList").on("click", "a", function(event){
+	
+	 var that = $(this);
+
+  $.ajax({
+	   url:"${ctx}/deleteFile",
+	   type:"post",
+	   data: {fileName:$(this).attr("data-src")},
+	   dataType:"text",
+	   success:function(result){
+		   if(result == 'deleted'){
+			   that.closest("li").remove();
+		   }
+	   }
+  });
+});
+
 </script>
 				<a></a>
 
@@ -628,6 +777,22 @@ label.star:before {
 
 
 
+  <!-- JAVASCRIPTS -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <script src="${ctx }/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="${ctx }/resources/plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
+  <script src="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.js"></script>
+  <script src="${ctx }/resources/plugins/isotope/isotope.min.js"></script>
+  <script src="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.js"></script>
+  <script src="${ctx }/resources/plugins/isotope/isotope-triger.min.js"></script>
+  <script src="${ctx }/resources/plugins/smoothscroll/SmoothScroll.min.js"></script>
+  <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
+  <script src="${ctx }/resources/js/custom.js"></script>
+  
+  
+  
 
 
 				<!-- JAVASCRIPTS -->

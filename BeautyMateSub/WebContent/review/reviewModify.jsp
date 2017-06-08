@@ -59,17 +59,8 @@
 
       <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
 <style>
-/* Paste this css to your style sheet file or under head tag */
-/* This only works with JavaScript,
-  if it's not present, don't show loader */
 .no-js #loader {
 	display: none;
 }
@@ -100,78 +91,79 @@
 	<div class="se-pre-con"></div>
 	<div class="main-wrapper">
 		<!-- HEADER -->
-		<header id="pageTop" class="header">
+<%-- 		<%@ include file="../common/header.jspf"%> --%>
+		    <header id="pageTop" class="header">
 
-			<!-- TOP INFO BAR -->
-			<div class="top-info-bar">
+      <!-- TOP INFO BAR -->
+      <div class="top-info-bar">
+          
+        <div class="container">
+            
+          <div class="top-bar-right">
+            <ul class="list-inline">
+                <li><select id="sel">
+                          <option value="0"></option>
+                          <option value="1">브랜드</option>
+                          <option value="2">제품</option>
+                         
+                        </select></li>
+                <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
+                  <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
+                <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
+                 
+                
+            </ul>
+              
+          </div>
+           
+        </div>
+      </div>
 
-				<div class="container">
+      <!-- NAVBAR -->
+      <nav id="menuBar" class="navbar navbar-default lightHeader" role="navigation">
+        <div class="container">
 
-					<div class="top-bar-right">
-						<ul class="list-inline">
-							<li><select id="sel">
-									<option value="0"></option>
-									<option value="1">브랜드</option>
-									<option value="2">제품</option>
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
+          </div>
 
-							</select></li>
-							<li><input id="search" type="text" placeholder="화장품을 검색해보세요">
-								<a target="_blank" href="#"
-								class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
-							<li><a id="login" target="_blank" href="#"
-								class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
-							<li><a id="login" target="_blank" href="#"
-								class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
-
-
-						</ul>
-
-					</div>
-
-				</div>
-			</div>
-
-			<!-- NAVBAR -->
-			<nav id="menuBar" class="navbar navbar-default lightHeader"
-				role="navigation">
-				<div class="container">
-
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target=".navbar-ex1-collapse">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="index.html"><img
-							src="${ctx }/resources/img/logo.png" alt="logo"></a>
-					</div>
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse navbar-ex1-collapse">
-						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="index.html">HOME</a></li>
-							<li class=" dropdown singleDrop"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="false">PICKMETEM</a></li>
-							<li class=" dropdown singleDrop"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="false">RANKING</a></li>
-							<li class=" dropdown megaDropMenu"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="false">REVIEW</a></li>
-							<li class=" dropdown singleDrop"><a
-								href="javascript:void(0)" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">BeautyTip</a></li>
-							<li class=" dropdown singleDrop"><a
-								href="javascript:void(0)" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">MY Pouch</a></li>
-
-						</ul>
-					</div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active">
+                <a href="${ctx}/index.jsp">HOME</a>
+              </li>
+                <li class=" dropdown singleDrop">
+                <a href="${ctx}/survey/survey.do">PICKMETEM</a>
+               
+              </li>
+              <li class=" dropdown singleDrop">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RANKING</a>
+               
+              </li>
+              <li class=" dropdown megaDropMenu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REVIEW</a>
+               
+              </li>
+              <li class=" dropdown singleDrop">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BeautyTip</a>
+                
+              </li>
+              <li class=" dropdown singleDrop">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY Pouch</a>
+                
+              </li>
+             
+            </ul>
+          </div>
+		
 
 					<!-- USER SECTION -->
 					<section class="clearfix userSection padding">

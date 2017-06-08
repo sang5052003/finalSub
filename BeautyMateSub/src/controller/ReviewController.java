@@ -20,9 +20,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,8 +56,8 @@ public class ReviewController {
 		String url = Const.getOriginpath() + "review/listpage/pagStart/" + pager.getPagStart() + "/pagEnd/"
 				+ pager.getPagEnd();
 
-		System.out.println(url);
-		System.out.println(pager.toString() + "!!");
+//		System.out.println(url);
+//		System.out.println(pager.toString() + "!!");
 
 		List<Review> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
@@ -75,13 +77,34 @@ public class ReviewController {
 		return "/review/reviewList.jsp";
 
 	}
+	
+	@RequestMapping(value = "/getAttach/{reviewNo}")
+	@ResponseBody
+	public List<String> getAttach(@PathVariable("reviewNo")int reviewNo) throws Exception{
+		String url = Const.getOriginpath() + "review/reviewNo/" + reviewNo;
+		
+		Review r = jsonObject(url);
+		
+		List<String> list = new ArrayList<>();
+		String image = r.getImage();
+		String [] images = image.split(",");
+		for(String s : images){
+			list.add(s);
+		}
+		for(String s : list){
+			System.out.println(s);
+		}
+		return list;
+	}
+	
+	
+	
 
 	// 검색
 	@RequestMapping(value = "listsearch.do", method = RequestMethod.GET)
 	public String showReviewSearch(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
 		
-		System.out.println(pager.toString()+"3");
 
 		if (pager.getKeyword() == null || pager.getKeyword().trim() == "") {
 			return "redirect:/review/listpage.do";
@@ -165,7 +188,6 @@ public class ReviewController {
 
 		String url = Const.getOriginpath() + "review/register";
 
-		review.setImage("");
 		review.setCustomer(new Customer());
 		Cosmetic cosmetic = new Cosmetic();
 		cosmetic.setCosmeticNo(cosmeticNo);
@@ -177,6 +199,22 @@ public class ReviewController {
 		
 		review.setRecommend(recommend);
 		System.out.println(review.toString());
+		
+		String image="";
+		int count =0;
+		
+		for(String s : review.getFiles()){ // image가 칼럼 하나에 다 넣기
+			count++;
+			image += s;
+		if(count != review.getFiles().length)
+			image +=",";
+		}
+		
+		review.setImage(image);
+		System.out.println(image);
+		
+		
+		System.out.println(review.toString()+"asdas");
 		// Customer customer = (Customer)session.getAttribute("loginCustomer");
 		// review.setCustomer(customer);
 		jsonByObject(url, review);
