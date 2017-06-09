@@ -41,7 +41,7 @@
                 top: 0;
             }
             
-            .se-pre-con {
+             .se-pre-con {
                 position: fixed;
                 left: 0px;
                 top: 0px;

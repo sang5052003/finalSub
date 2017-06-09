@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,7 @@ public class SurveyController {
 
 		String skinType = req.getParameter("skinType");
 
-		int customerNo = 1;
+		int customerNo = 2;
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
 		HttpPost httpPost = new HttpPost(url);
@@ -96,25 +97,6 @@ public class SurveyController {
 		
 		
 		SkinType skinType = new Gson().fromJson(responseContent, type);
-//		System.out.println(skinType);
-//		List<NameValuePair> list = new ArrayList<NameValuePair>();
-//		SkinType skin = new SkinType();
-//		skin.setBaumanType(skinType.getBaumanType());
-//		skin.setExplanation(skinType.getExplanation());
-//		skin.setRecommendedIngredient(skinType.getRecommendedFood());
-//		skin.setBannedIngredient(skinType.getBannedIngredient());
-//		skin.setRecommendedFood(skinType.getRecommendedFood());
-//		skin.setHabit(skinType.getHabit());
-		
-//		list.add(new BasicNameValuePair("baumanType", skinType.getBaumanType().toString()));
-//		list.add(new BasicNameValuePair("explanation", skinType.getExplanation().toString()));
-//		list.add(new BasicNameValuePair("recommendedIngredient", skinType.getRecommendedIngredient().toString()));
-//		list.add(new BasicNameValuePair("bannedIngredient", skinType.getBannedIngredient().toString()));
-//		list.add(new BasicNameValuePair("recommendedFood", skinType.getRecommendedFood().toString()));
-//		list.add(new BasicNameValuePair("habit", skinType.getHabit().toString()));
-//		UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity();
-//	    formEntity.setContentType("application/json");
-//	    formEntity.setContentEncoding("UTF-8");
 		response.close();
 
 		model.addAttribute("skinType", skinType);
@@ -151,6 +133,7 @@ public class SurveyController {
 
 		model.addAttribute("cosmetics", cosmetics);
 		model.addAttribute("cosmeticNames", cosmeticNames);
+		
 		return "/survey/gradeRegistForm.jsp";
 	}
 
@@ -192,17 +175,109 @@ public class SurveyController {
 
 		// 상태코드확인
 		int rsc = HttpResponse.getInstance().getResponseStatus(resp);
-		// 내용을 json으로 받는다(stream으로)
 		String rc = HttpResponse.getInstance().getResponseContent(resp);
-
-		TypeToken<int[]> tToken = new TypeToken<int[]>() {
-		};
+		TypeToken<int[]> tToken = new TypeToken<int[]>() {};
 
 		Type t = tToken.getType();
 		int[] values = new Gson().fromJson(rc, t);
 		resp.close();
 		model.addAttribute("cosmetics", cosmetics);
 		model.addAttribute("values", values);
+		
+		
+		url = Const.getOriginpath() + "survey/customerNo/" + 2; 
+		httpGet = new HttpGet(url); 
+		httpClient = HttpClients.createDefault();
+		response = httpClient.execute(httpGet); 
+		responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		responseContent = HttpResponse.getInstance().getResponseContent(response);
+		TypeToken<SkinType> skinTypeToken = new TypeToken<SkinType>() {};
+		Type skintype = skinTypeToken.getType();
+		SkinType skinType = new Gson().fromJson(responseContent, skintype);
+		response.close();
+		
+		String cusRecoIngre = skinType.getRecommendedIngredient();
+		String[] splitCusRecoIngre = cusRecoIngre.split(",");
+		
+		String cusBanIngre = skinType.getBannedIngredient();
+		String[] splitCusBanIngre = cusBanIngre.split(",");
+		int cosNo = 0;
+		String cosReco = null;
+		String cosBan = null;
+		for (Cosmetic c :cosmetics) {
+			String recoIngre = c.getIngredients();
+			cosNo = c.getCosmeticNo();
+			String[] splitRecoIngre = recoIngre.split("·");
+			List<String> recoList = new ArrayList<>();
+			List<String> banList = new ArrayList<>();
+			
+			for (String scrifromXml : splitCusRecoIngre) {
+				for (String sri : splitRecoIngre) {
+					
+					String xmldata = scrifromXml;
+					String dbdata = sri;
+					
+					xmldata = xmldata.toString().replaceAll(" ","");// 공백
+					xmldata = xmldata.toString().replaceAll("\\p{Z}",""); // 공백  
+					xmldata = xmldata.toString().replaceAll("\t","");// 탭
+					xmldata = xmldata.toString().replaceAll("\n","");//엔터 
+					
+					dbdata = dbdata.toString().replaceAll(" ","");
+					dbdata = dbdata.toString().replaceAll("\\p{Z}",""); 
+					dbdata = dbdata.toString().replaceAll("\t","");
+					dbdata = dbdata.toString().replaceAll("\n","");
+					
+					//테스트
+//					System.out.println(dbdata);
+//					System.out.println(xmldata);
+//					boolean torf = dbdata.equals(xmldata);
+//					System.out.println(torf);
+					
+					if (dbdata.toString().equals(xmldata.toString())) {
+						recoList.add(xmldata);
+						String[] simpleArray = new String[ recoList.size() ];
+						recoList.toArray( simpleArray );
+						if(cosReco == null){
+							cosReco = Arrays.toString(simpleArray);
+						}else{
+							cosReco = cosReco +Arrays.toString(simpleArray);
+						}
+						recoList.clear();
+						model.addAttribute("recoList_"+cosNo, cosReco);
+					}
+				}
+			}
+			for (String scbifromXml : splitCusBanIngre) {
+				for (String sri : splitRecoIngre) {
+					
+					String xmldata = scbifromXml;
+					String dbdata = sri;
+					
+					xmldata = xmldata.toString().replaceAll(" ","");// 공백
+					xmldata = xmldata.toString().replaceAll("\\p{Z}",""); // 공백  
+					xmldata = xmldata.toString().replaceAll("\t","");// 탭
+					xmldata = xmldata.toString().replaceAll("\n","");//엔터 
+					
+					dbdata = dbdata.toString().replaceAll(" ","");
+					dbdata = dbdata.toString().replaceAll("\\p{Z}",""); 
+					dbdata = dbdata.toString().replaceAll("\t","");
+					dbdata = dbdata.toString().replaceAll("\n","");
+					
+					if (dbdata.toString().equals(xmldata.toString())) {
+						banList.add(xmldata);
+						String[] simpleArray = new String[ banList.size() ];
+						banList.toArray( simpleArray );
+						if(cosBan == null){
+							cosBan = Arrays.toString(simpleArray);
+						}else{
+							cosBan = cosBan +Arrays.toString(simpleArray);
+						}
+						banList.clear();
+						model.addAttribute("banList_" + cosNo, cosBan);
+					}
+				}
+			}
+		}
 		return "/survey/recommendResult.jsp";
 
 	}

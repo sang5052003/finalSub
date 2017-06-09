@@ -300,9 +300,16 @@ label.star:before {
 			var errorCallback = function() {
 				alert("수행중 오류가 발생했습니다.");
 			};
-			var successCallback = function(){
+			var successCallback = function(data){
+				console.log(data);
+				var tr = data;
+				if (tr == true){
 				alert("평가 완료");
-			};
+				}else {
+					alert("이미 평가한 항목입니다 ")
+				}
+				
+				};
 			
 			$(":input[name=searchName]").click(function(){
 				var name = $(":input[name=title]").val();
