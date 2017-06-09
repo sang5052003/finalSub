@@ -84,7 +84,7 @@
                 </style>
                 <script type="text/javascript">
                      function tryCheckType() {
-                    	/* var ptStr1, ptStr2, ptStr3, ptStr4;
+                    	 var ptStr1, ptStr2, ptStr3, ptStr4;
                         var skinType = null;
                         var checked_index = 0;
                         var checked_value = 0;
@@ -207,9 +207,9 @@
                         }
                         else {
                             ptStr4 = 'T';
-                        }   */
-                        skinType = 'ORNT';
-                        //skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
+                        }   
+                        //skinType = 'ORNT';
+                        skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
                         document.getElementById('skinType').value = skinType;
                         /* alert(skinType); */
                         commitSkinType();
