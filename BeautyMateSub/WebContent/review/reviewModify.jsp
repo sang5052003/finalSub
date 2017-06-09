@@ -84,6 +84,61 @@
 		center no-repeat #fff;
 }
 </style>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style type="text/css">
+div.stars {
+	width: 270px;
+	display: inline-block;
+}
+
+.floating {
+	position: fixed;
+	right: 50%;
+	top: 180px;
+	margin-right: -720px;
+	text-align: center;
+	width: 120px;
+}
+
+input.star {
+	display: none;
+}
+
+label.star {
+	float: right;
+	padding: 10px;
+	font-size: 36px;
+	color: #444;
+	transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+	content: '\f005';
+	color: #FD4;
+	transition: all .25s;
+}
+
+input.star-5:checked ~ label.star:before {
+	color: #FE7;
+	text-shadow: 0 0 20px #952;
+}
+
+input.star-1:checked ~ label.star:before {
+	color: #F62;
+}
+
+label.star:hover {
+	transform: rotate(-15deg) scale(1.3);
+}
+
+label.star:before {
+	content: '\f006';
+	font-family: FontAwesome;
+}
+</style>
 
 </head>
 
@@ -189,20 +244,18 @@
 									<div class="innerWrapper">
 										<div class="orderBox  patternbg">리뷰수정</div>
 										<div class="profile">
+										<form class="form-horizontal"
+														action="${ctx }/review/modify.do" method="post" role="form">
 											<div class="row">
 												<div class="col-md-2 col-sm-3 col-xs-12">
 													<div class="thumbnail">
-														<img src="http://placehold.it/270x270" width="270px"
-															height="270px" alt="profile-image">
-														<div class="caption">
-															<a href="#" class="btn btn-primary btn-block"
-																role="button">Change Avatar</a>
-														</div>
+														<img src="${review.cosmetic.img }" width="270px"
+															height="270px" alt="profile-image" >
+														
 													</div>
 												</div>
 												<div class="col-md-10 col-sm-9 col-xs-12">
-													<form class="form-horizontal"
-														action="${ctx }/review/modify.do" method="post" role="form">
+													
 														
 															<input type='hidden' name='page' value="${pager.page}"> 
 															<input type='hidden' name='perPageNum' value="${pager.perPageNum}">
@@ -216,6 +269,39 @@
 																	name='reviewTitle' placeholder=""
 																	value="${review.reviewTitle}">
 															</div>
+															<div class="panel panel-default cartInfo">
+															<div class="input-group">
+																<label for="" class="col-md-2 col-sm-3 control-label">Cosmetic</label>
+																<div class="col-md-10 col-sm-9">
+																	<input type="text" class="form-control"
+																		name="cosmeticName" id="cosmeticName"
+																		value="${review.cosmetic.cosmeticName }"
+																		aria-describedby="basic-addon221"></input>
+																	
+																</div>
+																<div class="stars">
+														<input class="star star-5"
+															id="star-5" type="radio"
+															name="star" value="5" /> <label class="star star-5"
+															for="star-5"></label> <input
+															class="star star-4" id="star-4"
+															type="radio" name="star" value="4" /> <label
+															class="star star-4" for="star-4"></label>
+														<input class="star star-3"
+															id="star-3" type="radio"
+															name="star" value="3" /> <label class="star star-3"
+															for="star-3"></label> <input
+															class="star star-2" id="star-2"
+															type="radio" name="star" value="2" /> <label
+															class="star star-2" for="star-2"></label>
+														<input class="star star-1"
+															id="star-1" type="radio"
+															name="star" value="1" /> <label class="star star-1"
+															for="star-1"></label>
+													</div>
+													<input type="hidden" id="grade" name="grade" value="" >
+															</div>
+														</div>
 														</div>
 														<div class="form-group">
 															<label for="" class="col-md-2 col-sm-3 control-label">Content</label>
@@ -225,9 +311,12 @@
 															</div>
 															
 															<input type="hidden" name="reviewNo" value="${review.reviewNo }">
+															<input type="hidden" value="${review.cosmetic.cosmeticNo }" name="cosmetic.cosmeticNo">
+															<input type="hidden" value="${review.recommend.recommendNo }" name= "recommend.recommendNo">
+															<input type="hidden" value="${review.recommend.cosmeticNo }" name= "recommend.cosmeticNo">
 														</div>
 														
-														</form>
+														
 														<div class="text-right">
 															<button type="submit" id="modify" class="btn btn-common btn-theme">수정
 															</button>
@@ -239,6 +328,7 @@
 														</div>
 												</div>
 											</div>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -274,6 +364,22 @@
 					<script
 						src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
 					<script src="${ctx }/resources/js/custom.js"></script>
+					
+					<script type="text/javascript">
+					var gradeStar; 
+					
+					$(document).ready(function() {
+						
+						$(":input[name=reviewContent]").keydown(function(){
+							gradeStar = $('input:radio[name="star"]:checked').val();
+							
+							document.getElementById("grade").value = gradeStar;
+							console.log(gradeStar);
+						});
+					});
+					
+					
+				</script>
 
 					<script>
 						$(document)
@@ -297,6 +403,8 @@
 													+ "&searchType=${pager.searchType}&keyword=${pager.keyword}";
 					
 													});
+											
+											
 											
 											
 											

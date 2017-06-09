@@ -206,7 +206,7 @@
 									</div>
 									<div>
 										<div class="finalCart">
-											<a href="http://localhost:8888/rest/myPouch/customerNo/${customerNo }/recommend/insert/cosmeticNo/${cosmetics.cosmeticNo}" class="btn btn-primary"></i>★ My Pouch</a>
+											<a href="http://localhost:8888/rest/myPouch/customerNo/${customerNo }/recommend/insert/cosmeticNo/${cosmetics.cosmeticNo}" class="btn btn-primary"><i>★ My Pouch</i></a>
 										</div>
 										<div class="skillbar clearfix "
 											data-percent="${values[sts.index]  }%">

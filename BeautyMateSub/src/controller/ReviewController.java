@@ -157,7 +157,6 @@ public class ReviewController {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		CloseableHttpResponse response = httpClient.execute(httpGet);
 
-		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
 		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
@@ -230,15 +229,16 @@ public class ReviewController {
 		Review review = jsonObject(url);
 
 		model.addAttribute("review", review);
-
 //		return "/review/modifyPage.jsp";
 		return "/review/reviewModify.jsp";
 	}
 
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
-	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr)
+	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr, @RequestParam("grade")int grade)
 			throws ClientProtocolException, IOException {
-
+		System.out.println(review);
+		Recommend recommend = review.getRecommend();
+		recommend.setGrade(grade);
 		String url = Const.getOriginpath() + "review/modify";
 
 		System.out.println(review.toString()+"^^");  
