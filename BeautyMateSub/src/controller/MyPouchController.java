@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -29,24 +30,38 @@ import domain.Cosmetic;
 @RequestMapping("myPouch")
 public class MyPouchController {
 	
-	private final String customerID ="kim";
+	//private final int customerNo =1;
+
 	
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
-	public String pouchShowAll(HttpServletRequest request,Model model) throws ClientProtocolException, IOException {
+	public String pouchShowAll(HttpServletRequest req,Model model) throws ClientProtocolException, IOException {
 		
+		String loginUser = null;
+		int customerNo = -1;
+		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
+		System.out.println(session);
+		if (session != null) {
+			loginUser = (String)session.getAttribute("loginedCustomer");
+			customerNo = (int)session.getAttribute("customerNo");
+			System.out.println(customerNo);
+			//request.setAttribute("loginUser", loginUser);
+		}
+		else{
+			return "/customer/customerForm.jsp";
+		}
 		//처음 파우치 접근 시 실행
 //		HttpSession session = request.getSession(false); // false세션정보 없으면 만들지 않음
 //		if (session != null) {
-//			customerID = (String)session.getAttribute("customerID");
-//			request.setAttribute("customerID", customerID);
-//			return customerID;
+//			customerNo = (String)session.getAttribute("customerNo");
+//			request.setAttribute("customerNo", customerNo);
+//			return customerNo;
 //		}
 //		else{
 //			return "redirect:list"; //로그인 페이지로
 //		}
 	
 		//**** COSMETIC /BEAUTYTIP / ITEM 한번에 ****
-		String url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/cosmetic/find";
+		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/cosmetic/find";
 		HttpGet httpGet = new HttpGet(url); 
  
 		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -64,7 +79,7 @@ public class MyPouchController {
 		List<Cosmetic> list = new Gson().fromJson(responseContent, type);
 		
 		/////////////////////////////////////////////////////////////////////////////////////
-		url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/beauty/find";
+		url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/beauty/find";
 		httpGet = new HttpGet(url); 
  
 		httpClient = HttpClients.createDefault();
@@ -82,7 +97,7 @@ public class MyPouchController {
 		List<BeautyTip> blist = new Gson().fromJson(responseContent, type);
 		///////////////////////////////////////////////////////////////////////////////////
 		
-		url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/recommend/find";
+		url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/recommend/find";
 		httpGet = new HttpGet(url); 
  
 		httpClient = HttpClients.createDefault();
@@ -112,10 +127,20 @@ public class MyPouchController {
 	@RequestMapping(value = "cosmeticClear.do", method = RequestMethod.GET)
 	public String cosmeticClear(HttpServletRequest req) throws ClientProtocolException, IOException {
 
+		String loginUser = null;
+		int customerNo = -1;
+		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
+		if (session != null) {
+			loginUser = (String)session.getAttribute("loginedCustomer");
+			customerNo = (int)session.getAttribute("customerNo");
+			//request.setAttribute("loginUser", loginUser);
+		}
+		else{
+			return "/customer/customerForm.jsp";
+		}
 		// remove
 		int removeNo = Integer.parseInt(req.getParameter("cosmeticNo"));
-		String url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/cosmetic/remove/cosmeticNo/"+removeNo;// get
-
+		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/cosmetic/remove/cosmeticNo/"+removeNo;// get
 
 		HttpGet httpGet = new HttpGet(url);
 
@@ -136,9 +161,20 @@ public class MyPouchController {
 	@RequestMapping(value = "beautyTipClear.do", method = RequestMethod.GET)
 	public String beautyTipClear(HttpServletRequest req,RedirectAttributes redirectAttributes) throws ClientProtocolException, IOException {
 
+		String loginUser = null;
+		int customerNo = -1;
+		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
+		if (session != null) {
+			loginUser = (String)session.getAttribute("loginedCustomer");
+			customerNo = (int)session.getAttribute("customerNo");
+			//request.setAttribute("loginUser", loginUser);
+		}
+		else{
+			return "/customer/customerForm.jsp";
+		}
 		// remove
 		int removeNo = Integer.parseInt(req.getParameter("beautyTipNo"));
-		String url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/beauty/remove/beautyTipId/"+removeNo;// get
+		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/beauty/remove/beautyTipId/"+removeNo;// get
 
 
 		HttpGet httpGet = new HttpGet(url);
@@ -151,8 +187,7 @@ public class MyPouchController {
 
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
-		String tab = req.getParameter("tabChecked");
-		redirectAttributes.addFlashAttribute("tab", tab);
+		redirectAttributes.addFlashAttribute("tab", "1");
 		response.close();
 
 		return "redirect:/myPouch/list.do";
@@ -161,9 +196,20 @@ public class MyPouchController {
 	@RequestMapping(value = "recommendClear.do", method = RequestMethod.GET)
 	public String recommendClear(HttpServletRequest req,RedirectAttributes redirectAttributes) throws ClientProtocolException, IOException {
 
+		String loginUser = null;
+		int customerNo = -1;
+		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
+		if (session != null) {
+			loginUser = (String)session.getAttribute("loginedCustomer");
+			customerNo = (int)session.getAttribute("customerNo");
+			//request.setAttribute("loginUser", loginUser);
+		}
+		else{
+			return "/customer/customerForm.jsp";
+		}
 		// remove
 		int removeNo = Integer.parseInt(req.getParameter("cosmeticNum"));
-		String url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/recommend/remove/cosmeticNo/"+removeNo;// get
+		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/recommend/remove/cosmeticNo/"+removeNo;// get
 
 
 		HttpGet httpGet = new HttpGet(url);
@@ -177,6 +223,7 @@ public class MyPouchController {
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
 		String tab = req.getParameter("tabChecked");
+		
 		redirectAttributes.addFlashAttribute("tab", tab);
 		response.close();
 
@@ -187,7 +234,7 @@ public class MyPouchController {
 //	public String pouchCosmeticShowName(String cosmeticName,Model model) throws ClientProtocolException, IOException {
 //		
 //
-//		String url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/cosmetic/find/cosmeticName/"+cosmeticName;
+//		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/cosmetic/find/cosmeticName/"+cosmeticName;
 //		HttpGet httpGet = new HttpGet(url); 
 // 
 //		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -218,7 +265,7 @@ public class MyPouchController {
 //	public String pouchBeautyTipShowName(HttpServletRequest req,String beautyTipTitle,Model model) throws ClientProtocolException, IOException {
 //		
 //
-//		String url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/beauty/find/beautyTipTitle/"+beautyTipTitle;
+//		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/beauty/find/beautyTipTitle/"+beautyTipTitle;
 //		HttpGet httpGet = new HttpGet(url); 
 // 
 //		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -247,7 +294,7 @@ public class MyPouchController {
 //	public String pouchRecommendCosmeticShowName(String cosmeticName,Model model) throws ClientProtocolException, IOException {
 //		
 //
-//		String url = Const.getOriginpath() + "myPouch/customerID/"+customerID+"/recommend/find/cosmeticName/"+cosmeticName;
+//		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/recommend/find/cosmeticName/"+cosmeticName;
 //		HttpGet httpGet = new HttpGet(url); 
 // 
 //		CloseableHttpClient httpClient = HttpClients.createDefault();

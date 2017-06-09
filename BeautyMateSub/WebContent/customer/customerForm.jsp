@@ -143,18 +143,18 @@ label.css-label {
 								log in your <span>account</span>
 							</div>
 							<div class="panel-body">
-								<form>
+								<form method="post" action="login.do">
 									<div class="form-group">
 										<i class="fa fa-info-circle" aria-hidden="true"></i> <input
-											type="text" class="form-control" id="id" placeholder="ID">
+											name="id" type="text" class="form-control" id="id" placeholder="ID">
 									</div>
 									<div class="form-group">
-										<i class="fa fa-lock" aria-hidden="true"></i> <input
+										<i class="fa fa-lock" aria-hidden="true"></i> <input name="password"
 											type="password" class="form-control" id="pwd"
 											placeholder="Password">
 									</div>
 									<div class="checkbox">
-										<label><input type="checkbox"> Remember me</label>
+										<label><input id="idSaveCheck" type="checkbox"> Remember me</label>
 									</div>
 									<button type="submit" class="btn btn-primary btn-block">Log
 										In</button>
@@ -168,7 +168,7 @@ label.css-label {
 								Create an <span>account</span>
 							</div>
 							<div class="panel-body">
-								<form id="submitForm" method="post" action="register.do">
+								<form method="post" action="register.do">
 									<div class="form-group">
 										<i class="fa fa-user" aria-hidden="true"></i> <input
 											type="text" class="form-control" name="name" id="fullname"
@@ -178,6 +178,7 @@ label.css-label {
 										<i class="fa fa-info-circle" aria-hidden="true"></i> <input
 											type="text" class="form-control" name="id" id="id1"
 											placeholder="ID">
+											<div class="id_err"></div>
 									</div>
 									<div class="form-group">
 										<i class="fa fa-lock" aria-hidden="true"></i> <input
@@ -429,16 +430,92 @@ label.css-label {
 			// Animate loader off screen
 			$(".se-pre-con").fadeOut("slow");
 			
-			var result = '${msg}';
-
-			if (result == 'SUCCESS') {
-				alert("처리가 완료되었습니다.");
-			}
-			
 			
 		});
 		
+		var result = '${msg}';
+
+		if (result == 'SUCCESS') {
+			alert("가입 완료");
+		}
+		if(result=='FAIL'){
+			alert("가입 실패")
+		}
+		if(result=='LOGINFAIL'){
+			alert("로그인 실패")
+		}
+		(function($) {
+		    $.fn.err_border = function() {
+		        $(this).css("border", "2px solid red");
+		    }
+		    
+		    $.fn.focus_border = function() {
+		        $(this).focus(function() {
+		            $(this).css("border", "2px solid #0080ff");
+		        })
+		    }
+		    
+		    $.fn.valid_border = function() {
+		        $(this).css("border", "2px solid #1DDB16");
+		    }
+		    
+		    $.fn.bad_inform = function(message) {
+		        $(this).css({
+		            display: "block",
+		            color: "red"
+		        }).text(message);
+		    }
+		    
+		    $.fn.valid_inform = function(message) {
+		        $(this).css({
+		            display: "block",
+		            color: "#008000"
+		        }).text(message);
+		    }
+		})(jQuery)
+
+
+		$(document).ready(function() {
+			
+			
+		    $("#id1").focus_border();
+		    $("#id1").blur(function() {
+		        var id = $(this).val();
+		        var len = id.length;
+		        var regex = /^[A-Za-z0-9]{2,14}$/;
+		        
+		        $(this).err_border();
+		        
+		        $.ajax({
+		            type: "POST",
+		            url: "http://localhost:8888/rest/customer/findId/id/"+id,
+		            dataType: "json",
+		            contentType: "application/json;charset=UTF-8",
+		            context: this,
+		            data :id,
+		            success: function(data) {
+		                if(data == 0) 
+		                    $('.id_err').bad_inform("이미 사용중인 아이디입니다.");
+		                else{$(this).valid_border();
+	                    $('.id_err').valid_inform("사용가능한 아이디입니다.");}
+		                	
+		            },
+		            error: function () {
+		            	
+		                if(len == 0) $('.id_err').bad_inform("아이디를 입력하세요.");
+		                else if(len < 2) $('.id_err').bad_inform("아이디는 2자 이상만 사용가능합니다.");
+		                else if(!regex.test(id)) $('.id_err').bad_inform("사용할 수 없는 문자가 있습니다. (영 소,대문자 숫자만 사용 가능)");
+		                else {
+		                    $(this).valid_border();
+		                    $('.id_err').valid_inform("사용가능한 아이디입니다.");
+		                }
+		            }
+		        })
+		    })
+		})
 		
+
+
 		
 	</script>
 	
