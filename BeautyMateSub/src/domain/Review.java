@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Review {
@@ -13,10 +15,19 @@ public class Review {
 	private Cosmetic cosmetic;
 	private Recommend recommend;
 	private Integer listCount; // 전체개수를 알아오기 위해
+//	private Date regdate;
 	
 	private String[] files;
 	
 	
+	
+//	public Date getRegdate() {
+//		return regdate;
+//	}
+//
+//	public void setRegdate(Date regdate) {
+//		this.regdate = regdate;
+//	}
 
 	public String[] getFiles() {
 		return files;
@@ -122,7 +133,18 @@ public class Review {
 	public String toString() {
 		return "Review [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
 				+ ", image=" + image + ", replys=" + replys + ", customer=" + customer + ", cosmetic=" + cosmetic
-				+ ", recommend=" + recommend + "]";
+				+ ", recommend=" + recommend + ", listCount=" + listCount + ", files=" + Arrays.toString(files) + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Review [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
+//				+ ", image=" + image + ", replys=" + replys + ", customer=" + customer + ", cosmetic=" + cosmetic
+//				+ ", recommend=" + recommend + ", listCount=" + listCount + ", regdate=" + regdate + ", files="
+//				+ Arrays.toString(files) + "]";
+//	}
+	
+
+	
 
 }

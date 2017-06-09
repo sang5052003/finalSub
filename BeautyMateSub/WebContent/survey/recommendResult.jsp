@@ -92,77 +92,78 @@
 </style>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
 .skillbar {
-  font-family: 'Open Sans', 'sans-serif';
-	position:relative;
-	display:block;
-	margin-bottom:15px;
-	width:100%;
-	background:#eee;
-	height:35px;
-	border-radius:3px;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	-webkit-transition:0.4s linear;
-	-moz-transition:0.4s linear;
-	-ms-transition:0.4s linear;
-	-o-transition:0.4s linear;
-	transition:0.4s linear;
-	-webkit-transition-property:width, background-color;
-	-moz-transition-property:width, background-color;
-	-ms-transition-property:width, background-color;
-	-o-transition-property:width, background-color;
-	transition-property:width, background-color;
+	font-family: 'Open Sans', 'sans-serif';
+	position: relative;
+	display: block;
+	margin-bottom: 15px;
+	width: 100%;
+	background: #eee;
+	height: 35px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-webkit-transition: 0.4s linear;
+	-moz-transition: 0.4s linear;
+	-ms-transition: 0.4s linear;
+	-o-transition: 0.4s linear;
+	transition: 0.4s linear;
+	-webkit-transition-property: width, background-color;
+	-moz-transition-property: width, background-color;
+	-ms-transition-property: width, background-color;
+	-o-transition-property: width, background-color;
+	transition-property: width, background-color;
 }
 
 .skillbar-title {
-	position:absolute;
-	top:0;
-	left:0;
-	font-weight:bold;
-	font-size:13px;
-	color:#fff;
-	background:#6adcfa;
-	-webkit-border-top-left-radius:3px;
-	-webkit-border-bottom-left-radius:4px;
-	-moz-border-radius-topleft:3px;
-	-moz-border-radius-bottomleft:3px;
-	border-top-left-radius:3px;
-	border-bottom-left-radius:3px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-weight: bold;
+	font-size: 13px;
+	color: #fff;
+	background: #6adcfa;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
 }
 
 .skillbar-title span {
-	display:block;
-	background:rgba(0, 0, 0, 0.1);
-	padding:0 20px;
-	height:35px;
-	line-height:35px;
-	-webkit-border-top-left-radius:3px;
-	-webkit-border-bottom-left-radius:3px;
-	-moz-border-radius-topleft:3px;
-	-moz-border-radius-bottomleft:3px;
-	border-top-left-radius:3px;
-	border-bottom-left-radius:3px;
+	display: block;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 0 20px;
+	height: 35px;
+	line-height: 35px;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
 }
 
 .skillbar-bar {
-	height:35px;
-	width:0px;
-	background:#6adcfa;
-	border-radius:3px;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
+	height: 35px;
+	width: 0px;
+	background: #6adcfa;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
 
 .skill-bar-percent {
-	position:absolute;
-	right:10px;
-	top:0;
-	font-size:11px;
-	height:35px;
-	line-height:35px;
-	color:#444;
-	color:rgba(0, 0, 0, 0.4);
+	position: absolute;
+	right: 10px;
+	top: 0;
+	font-size: 11px;
+	height: 35px;
+	line-height: 35px;
+	color: #444;
+	color: rgba(0, 0, 0, 0.4);
 }
 </style>
 
@@ -181,32 +182,38 @@
 				<div class="panel panel-default cartInfo">
 					<div>
 						<div class="input-group">
-							<h1>화장품 추천 결과</h1>
+							<h1 style="background-color:#ec5598;color:#FFFFFF">화장품 추천 결과</h1>
 
 						</div>
 					</div>
-					<h3>추천하는 화장품 목록입니다.</h3>
+					<h3 class="active">회원님과 취향이 비슷한 회원들이 어떤 화장품을 좋게 평가했는지를 기반으로 상품을 추천하는 화장품 목록입니다.</h3>
 				</div>
 				<br>
 				<div class="row" id="cosmeticList">
-					<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts" >
+					<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
 						<form action="">
 							<div class="col-md-4 col-sm-6 col-xs-12">
 								<div class="produtSingle">
 									<div class="produtImage">
-										<img src="${cosmetics.img }" alt="Image Product"
-											class="img-responsive">
+										<a
+											href="${ctx}/cosmetic/showByNo.do?cosmeticNo=${cosmetics.cosmeticNo}"><img
+											src="${cosmetics.img }" alt="Image Product"
+											class="img-responsive"></a>
 									</div>
 									<div class="productCaption">
 										<h4>${cosmetics.cosmeticName }</h4>
 
 									</div>
 									<div>
-										<div class="skillbar clearfix " data-percent="${values[sts.index]  }%">
-											<div class="skillbar-title" style="background: #88cd2a;">
+										<div class="finalCart">
+											<a href="http://localhost:8888/rest/myPouch/customerNo/${customerNo }/recommend/insert/cosmeticNo/${cosmetics.cosmeticNo}" class="btn btn-primary"><i>★ My Pouch</i></a>
+										</div>
+										<div class="skillbar clearfix "
+											data-percent="${values[sts.index]  }%">
+											<div class="skillbar-title" style="background: #ec5598;">
 												<span>추천율</span>
 											</div>
-											<div class="skillbar-bar" style="background: #88cd2a;"></div>
+											<div class="skillbar-bar" style="background: #ec5598;"></div>
 											<div class="skill-bar-percent">${values[sts.index]  }%</div>
 										</div>
 									</div>
@@ -247,12 +254,12 @@
 				$(".se-pre-con").fadeOut("slow");
 				;
 			});
-			
-			$(document).ready(function(){
-				jQuery('.skillbar').each(function(){
+
+			$(document).ready(function() {
+				jQuery('.skillbar').each(function() {
 					jQuery(this).find('.skillbar-bar').animate({
-						width:jQuery(this).attr('data-percent')
-					},2000);
+						width : jQuery(this).attr('data-percent')
+					}, 2000);
 				});
 			});
 		</script>

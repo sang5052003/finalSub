@@ -114,6 +114,12 @@ public class CustomerController {
 			return "redirect:/customer/joinForm.do";
 		}
 
+<<<<<<< HEAD
+=======
+			return "redirect:/customer/joinForm.do"; 
+//		}
+//		return "/customer/customerForm.jsp";
+>>>>>>> refs/remotes/origin/0609Choi1225
 	}
 	
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)

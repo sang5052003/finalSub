@@ -53,6 +53,7 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style type="text/css">
 div.stars {
 	width: 270px;
@@ -129,7 +130,7 @@ label.star:before {
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="filter-container isotopeFilters">
-							<h5 style="color: #ec5598">최소 15개 이상의 화장품을 추천하셔야 정확한 추천을 받을
+							<h5 style="color: #ec5598">최소 15개 이상의 화장품을 평가하셔야 정확한 추천을 받을
 								수 있습니다.</h5>
 							<br>
 							<ul class="list-inline filter">
@@ -259,7 +260,7 @@ label.star:before {
   </script>
 	<!--내가 쓰는 스크립트  -->
 	<script type="text/javascript">
-
+		var data;
 		var gradeReg;
 		var search;
 		var categoryList;
@@ -288,8 +289,9 @@ label.star:before {
 			gradeReg = function(cosmeticNo){
 				var gradeStar = $('input:radio[name="star"]:checked').val();
 				console.log(gradeStar);
+				console.log(cosmeticNo);
 				$.ajax({
-						url:"http://localhost:8888/rest/recommend/insert/customerNo/"+1+"/cosmeticNo/"+cosmeticNo+"/grade/"+gradeStar
+						url:"http://localhost:8888/rest/recommend/insert/customerNo/"+2+"/cosmeticNo/"+cosmeticNo+"/grade/"+gradeStar	//1은 customerNO
 						,type:"get"
 						,dataType:"json"
 						,success:successCallback
@@ -300,8 +302,15 @@ label.star:before {
 			var errorCallback = function() {
 				alert("수행중 오류가 발생했습니다.");
 			};
-			var successCallback = function(){
+			var successCallback = function(data){
+				console.log(data);
+				var tr = data;
+				if(tr==true){
+					
 				alert("평가 완료");
+				}else{
+					alert("이미 평가한 항목입니다.")
+				}
 			};
 			
 			$(":input[name=searchName]").click(function(){

@@ -87,6 +87,8 @@ public class CosmeticController {
 	public String cosmeticRegist(Cosmetic cosmetic) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "cosmetic/insert";
+		
+		System.out.println(url);
 
 		System.out.println(cosmetic.toString());
 		
@@ -105,9 +107,11 @@ public class CosmeticController {
 		System.out.println("concon" + responseContent);
 		
 		response.close();
+		
+		
 
 		if(responseContent == "1"){
-			return "redirect:cosmetic/showAll.do";
+			return "redirect:showAll.do";
 		}
 			return "/cosmetic/registerForm.jsp";
 	}

@@ -6,9 +6,9 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
+<!--   <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
   <title>Beauty Mate</title>
 
   <!-- GOOGLE FONT -->
@@ -29,7 +29,7 @@
   <link href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css" rel="stylesheet">
 
   <!-- CUSTOM CSS -->
-  <link href="${ctx }/resources/css/style.css" rel="stylesheet">
+  <link href="${ctx }/resources/css/styleJ.css" rel="stylesheet">
   <link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
 
 
@@ -59,7 +59,8 @@
   <div class="se-pre-con"></div>
   <div class="main-wrapper">
     <!-- HEADER -->
-    <header id="pageTop" class="header">
+<%--     <%@ include file="../common/header.jspf"%> --%>
+              <header id="pageTop" class="header">
 
       <!-- TOP INFO BAR -->
       <div class="top-info-bar">
@@ -98,17 +99,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img src="${ctx }/resources/img/logo.png" alt="logo" ></a>
+            <a class="navbar-brand" href="${ctx}/index.jsp"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="active">
-                <a href="index.html">HOME</a>
+                <a href="${ctx}/index.jsp">HOME</a>
               </li>
                 <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PICKMETEM</a>
+                <a href="${ctx}/survey/survey.do">PICKMETEM</a>
                
               </li>
               <li class=" dropdown singleDrop">
@@ -131,6 +132,8 @@
             </ul>
           </div>
           
+          
+          
           <br><br>
           
           
@@ -149,6 +152,7 @@
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
 					<button  type="button" id='searchBtn'>Search</button>
+					
 
 				</div>
           
@@ -162,16 +166,34 @@
             <div class="panel-body tableArea">
               <div>
                 <table class="table">
+	                <tbody>
+	                	<c:forEach items="${reviewList}" var="review" varStatus="status">
+	                    <tr>  
+<%-- 	                     ${review.cosmetic.img} --%>
+	                      <td><div class="cartImage"><img src="${review.cosmetic.img}" style="width:100px;height:100px" alt="Image cart"></div></td>
+	                      <td style="text-align:left;">${review.cosmetic.category}<br><span>${review.cosmetic.brand}</span><br><span>${review.cosmetic.cosmeticName}</span>
+	                      <br><span>${review.cosmetic.volume} / ${review.cosmetic.cost}</span></td>
+	                      <td style="width:0px"></td>
+	                    </tr>
+	                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'">
+	                        <td colspan="3" style="text-align:left;">
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star-o" aria-hidden="true"></i>
+	                        (${review.recommend.grade })
+	                         <br><span><strong>${review.reviewTitle}</strong></span><br><span>${review.reviewContent}</span><br><br>
+	                           <div class="cartImage" style="float:left; margin-right:5px;"><img src="http://placehold.it/100x105" alt="Image cart">
+	                           </div>
+	                           </td>                         
+	                    </tr>
+	                    <tr>
+	                        <td colspan="3" style="text-align:left;">${review.customer.id } <br><span>날짜</span> </td>
+	                        
+	                    </tr>
+	                    </c:forEach>
                   <tbody>
-                  <c:forEach items="${reviewList}" var="review" varStatus="status">
-                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
-                    >
-                      <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">${review.customer.id }</span></td>
-                    </tr>
-                    </c:forEach>
-                  </tbody>
                 </table>
               </div>
             </div>
@@ -260,7 +282,7 @@
 	}
 </script>
 
-<<script>
+<script>
 	$(document).ready(
 			function() {
 
