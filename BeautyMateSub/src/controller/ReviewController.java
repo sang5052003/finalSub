@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,6 +38,7 @@ import controller.utils.HttpResponse;
 import domain.Cosmetic;
 import domain.Customer;
 import domain.PageMaker;
+import domain.Recommend;
 import domain.Review;
 import domain.SearchPager;
 
@@ -45,15 +49,12 @@ public class ReviewController {
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
 	public String showReviewPage(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
-		System.out.println(pager.toString()+"1");
 		pager.setSearchType(null);
 		pager.setKeyword(null); // 초기화
 		
 		String url = Const.getOriginpath() + "review/listpage/pagStart/" + pager.getPagStart() + "/pagEnd/"
 				+ pager.getPagEnd();
 
-		System.out.println(url);
-		System.out.println(pager.toString() + "!!");
 
 		List<Review> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
@@ -73,13 +74,34 @@ public class ReviewController {
 		return "/review/reviewList.jsp";
 
 	}
+	
+	// 이미지 가져와서 넣어 주기
+	@RequestMapping(value = "/getAttach/{reviewNo}")
+	@ResponseBody
+	public List<String> getAttach(@PathVariable("reviewNo")int reviewNo) throws Exception{
+		String url = Const.getOriginpath() + "review/reviewNo/" + reviewNo;
+		
+		Review r = jsonObject(url);
+		
+		List<String> list = new ArrayList<>();
+		String image = r.getImage();
+		String [] images = image.split(",");
+		for(String s : images){
+			list.add(s);
+		}
+		for(String s : list){
+			System.out.println(s);
+		}
+		return list;
+	}
+	
+	
 
 	// 검색
 	@RequestMapping(value = "listsearch.do", method = RequestMethod.GET)
 	public String showReviewSearch(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
 		
-		System.out.println(pager.toString()+"3");
 
 		if (pager.getKeyword() == null || pager.getKeyword().trim() == "") {
 			return "redirect:/review/listpage.do";
@@ -123,33 +145,75 @@ public class ReviewController {
 
 	// 리뷰 등록 폼
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
-	public String reviewRegist(HttpSession session) {
+	public String reviewRegist(HttpSession session, Model model) throws IOException {
 
 		if (session.getAttribute("loginCustomer") == null) {
 			// 로그인 페이지로
 		}
+		String url = Const.getOriginpath() + "cosmetic/findAll";
+
+		HttpGet httpGet = new HttpGet(url);
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		CloseableHttpResponse response = httpClient.execute(httpGet);
+
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
+		};
+		Type type = typeToken.getType();
+		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
+		List<String> cosmeticNames = new ArrayList<>();
+
+		for (int i = 0; i < cosmetics.size(); i++) {
+			cosmeticNames.add("'" + cosmetics.get(i).getCosmeticName() + "'");
+		}
+		response.close();
+
+		model.addAttribute("cosmetics", cosmetics);
+		model.addAttribute("cosmeticNames", cosmeticNames);
+		
 
 		return "/review/reviewRegister.jsp";
 	}
 
 	// 리뷰 등록
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public String reviewRegist(Review review, HttpSession session, RedirectAttributes rttr)
+	public String reviewRegist(Review review, HttpSession session, RedirectAttributes rttr,@RequestParam("cosmeticNo")int cosmeticNo, @RequestParam("grade")int grade)
 			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/register";
 
-		review.setImage("");
 		review.setCustomer(new Customer());
-		review.setCosmetic(new Cosmetic());
-		System.out.println(review.toString());
+		Cosmetic cosmetic = new Cosmetic();
+		cosmetic.setCosmeticNo(cosmeticNo);
+		review.setCosmetic(cosmetic);
+		Recommend recommend = new Recommend();
+		recommend.setCosmeticNo(cosmeticNo);
+		recommend.setGrade(grade);
+		recommend.setCustomerNo(2);
+		
+		review.setRecommend(recommend);
+//		System.out.println(review.toString());
+		
+		String image="";
+		int count =0;
+		
+		for(String s : review.getFiles()){ // image가 칼럼 하나에 다 넣기
+			count++;
+			image += s;
+		if(count != review.getFiles().length)
+			image +=",";
+		}
+		
+		review.setImage(image);
+		
+		
+		System.out.println(review.toString()+"asdas");
 		// Customer customer = (Customer)session.getAttribute("loginCustomer");
 		// review.setCustomer(customer);
 		jsonByObject(url, review);
 		
-		
-		
-
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redirect:/review/listpage.do"; // 리뷰 목록
@@ -165,15 +229,16 @@ public class ReviewController {
 		Review review = jsonObject(url);
 
 		model.addAttribute("review", review);
-
 //		return "/review/modifyPage.jsp";
 		return "/review/reviewModify.jsp";
 	}
 
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
-	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr)
+	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr, @RequestParam("grade")int grade)
 			throws ClientProtocolException, IOException {
-
+		System.out.println(review);
+		Recommend recommend = review.getRecommend();
+		recommend.setGrade(grade);
 		String url = Const.getOriginpath() + "review/modify";
 
 		System.out.println(review.toString()+"^^");  

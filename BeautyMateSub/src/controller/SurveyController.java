@@ -75,7 +75,7 @@ public class SurveyController {
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
-		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
+		String url = Const.getOriginpath() + "survey/customerNo/" + 2; // get , 1=customerNo
 //		System.out.println(url);
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
@@ -141,7 +141,7 @@ public class SurveyController {
 	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 //		추천된 화장품 목록 받기
-		String url = Const.getOriginpath() + "recommend/list/customer/" + 2;
+		String url = Const.getOriginpath() + "recommend/list/customer/" + 2;	//customerNo
 
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 
@@ -161,19 +161,16 @@ public class SurveyController {
 		
 		
 //		추천값 (유사도)받기
-		String u = Const.getOriginpath() + "recommend/list/value/" + 2; 
+		String u = Const.getOriginpath() + "recommend/list/value/" + 2; 		//customerNo
 
 
 		HttpGet hGet = new HttpGet(u); // <-> HttpPost
 
-		// HttpClient
 		CloseableHttpClient hc = HttpClients.createDefault();
 
-		// os에 붙음
 		CloseableHttpResponse resp = hc.execute(hGet); // 예외 바깥으로
 		// 던짐
 
-		// 상태코드확인
 		int rsc = HttpResponse.getInstance().getResponseStatus(resp);
 		String rc = HttpResponse.getInstance().getResponseContent(resp);
 		TypeToken<int[]> tToken = new TypeToken<int[]>() {};
@@ -289,7 +286,7 @@ public class SurveyController {
 		// 커스터머 검색 후 그아이디에 스킨타입있는지확인후 그스킨타입으로 확인해야함 *****
 
 		String skinType = (String) req.getSession().getAttribute("skinType");
-
+ 
 		if (skinType != null) {
 			return "/survey/skinTypeResult.do";
 		} else {
