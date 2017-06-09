@@ -158,7 +158,7 @@ public class SurveyController {
 	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
 //		추천된 화장품 목록 받기
-		String url = Const.getOriginpath() + "recommend/list/customer/" + 3;	//customerNo
+		String url = Const.getOriginpath() + "recommend/list/customer/" + 2;	//customerNo
 
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 

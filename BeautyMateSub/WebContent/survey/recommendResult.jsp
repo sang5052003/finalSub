@@ -199,6 +199,7 @@
 											href="${ctx}/cosmetic/showByNo.do?cosmeticNo=${cosmetics.cosmeticNo}"><img
 											src="${cosmetics.img }" alt="Image Product"
 											class="img-responsive"></a>
+											<input type="hidden" value="${cosmetics.cosmeticNo }" name="cosmeticNo">
 									</div>
 									<div class="productCaption">
 										<h4>${cosmetics.cosmeticName }</h4>
@@ -206,7 +207,7 @@
 									</div>
 									<div>
 										<div class="finalCart">
-											<a href="http://localhost:8888/rest/myPouch/customerNo/${customerNo }/recommend/insert/cosmeticNo/${cosmetics.cosmeticNo}" class="btn btn-primary"><i>★ My Pouch</i></a>
+											<input type="button" class="btn btn-common btn-theme" name="pouchBtn" style="width:50%" onclick="javascript:insertPouch(${cosmetics.cosmeticNo})" value="★ My Pouch" >
 										</div>
 										<div class="skillbar clearfix "
 											data-percent="${values[sts.index]  }%">
@@ -254,13 +255,33 @@
 				$(".se-pre-con").fadeOut("slow");
 				;
 			});
-
+			
+			var insertPouch;
 			$(document).ready(function() {
 				jQuery('.skillbar').each(function() {
 					jQuery(this).find('.skillbar-bar').animate({
 						width : jQuery(this).attr('data-percent')
 					}, 2000);
 				});
+				
+				insertPouch = function(cosmeticNo){
+					console.log(cosmeticNo);
+					$.ajax({
+						url:"http://localhost:8888/rest/myPouch/customerNo/2/recommend/insert/cosmeticNo/"+cosmeticNo
+						,type:"get"
+						,dataType:"json"
+						,success:successCallback
+						,error:errorCallback
+					});
+				};
+				
+				var errorCallback = function() {
+					alert("수행중 오류가 발생했습니다.");
+				};
+				var successCallback = function(){
+					alert("파우치에 등록 되었습니다.");
+				};
+				
 			});
 		</script>
 </body>
