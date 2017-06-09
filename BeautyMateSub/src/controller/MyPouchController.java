@@ -30,17 +30,17 @@ import domain.Cosmetic;
 @RequestMapping("myPouch")
 public class MyPouchController {
 	
-	//private final int customerNo =1;
-
+	private static int customerNo =-1;
+	
 	
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
 	public String pouchShowAll(HttpServletRequest req,Model model) throws ClientProtocolException, IOException {
 		
 		String loginUser = null;
-		int customerNo = -1;
+		
 		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
 		System.out.println(session);
-		if (session != null) {
+		if (session != null && session.getAttribute("loginedCustomer") != null) {
 			loginUser = (String)session.getAttribute("loginedCustomer");
 			customerNo = (int)session.getAttribute("customerNo");
 			System.out.println(customerNo);
@@ -127,17 +127,7 @@ public class MyPouchController {
 	@RequestMapping(value = "cosmeticClear.do", method = RequestMethod.GET)
 	public String cosmeticClear(HttpServletRequest req) throws ClientProtocolException, IOException {
 
-		String loginUser = null;
-		int customerNo = -1;
-		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
-		if (session != null) {
-			loginUser = (String)session.getAttribute("loginedCustomer");
-			customerNo = (int)session.getAttribute("customerNo");
-			//request.setAttribute("loginUser", loginUser);
-		}
-		else{
-			return "/customer/customerForm.jsp";
-		}
+		
 		// remove
 		int removeNo = Integer.parseInt(req.getParameter("cosmeticNo"));
 		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/cosmetic/remove/cosmeticNo/"+removeNo;// get
@@ -161,17 +151,7 @@ public class MyPouchController {
 	@RequestMapping(value = "beautyTipClear.do", method = RequestMethod.GET)
 	public String beautyTipClear(HttpServletRequest req,RedirectAttributes redirectAttributes) throws ClientProtocolException, IOException {
 
-		String loginUser = null;
-		int customerNo = -1;
-		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
-		if (session != null) {
-			loginUser = (String)session.getAttribute("loginedCustomer");
-			customerNo = (int)session.getAttribute("customerNo");
-			//request.setAttribute("loginUser", loginUser);
-		}
-		else{
-			return "/customer/customerForm.jsp";
-		}
+		
 		// remove
 		int removeNo = Integer.parseInt(req.getParameter("beautyTipNo"));
 		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/beauty/remove/beautyTipId/"+removeNo;// get
@@ -196,17 +176,7 @@ public class MyPouchController {
 	@RequestMapping(value = "recommendClear.do", method = RequestMethod.GET)
 	public String recommendClear(HttpServletRequest req,RedirectAttributes redirectAttributes) throws ClientProtocolException, IOException {
 
-		String loginUser = null;
-		int customerNo = -1;
-		HttpSession session = req.getSession(false); // false세션정보 없으면 만들지 않음
-		if (session != null) {
-			loginUser = (String)session.getAttribute("loginedCustomer");
-			customerNo = (int)session.getAttribute("customerNo");
-			//request.setAttribute("loginUser", loginUser);
-		}
-		else{
-			return "/customer/customerForm.jsp";
-		}
+	
 		// remove
 		int removeNo = Integer.parseInt(req.getParameter("cosmeticNum"));
 		String url = Const.getOriginpath() + "myPouch/customerNo/"+customerNo+"/recommend/remove/cosmeticNo/"+removeNo;// get
