@@ -176,7 +176,12 @@
 	                      <td style="width:0px"></td>
 	                    </tr>
 	                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'">
-	                        <td colspan="3" style="text-align:left;"><i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i>
+	                        <td colspan="3" style="text-align:left;">
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <i class="fa fa-star-o" aria-hidden="true"></i>
 	                        (${review.recommend.grade })
 	                         <br><span><strong>${review.reviewTitle}</strong></span><br><span>${review.reviewContent}</span><br><br>
 	                           <div class="cartImage" style="float:left; margin-right:5px;"><img src="http://placehold.it/100x105" alt="Image cart">
