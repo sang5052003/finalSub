@@ -67,15 +67,15 @@
                         top: 0;
                     }
                     
-                    .se-pre-con {
-                        position: fixed;
-                        left: 0px;
-                        top: 0px;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 9999;
-                        background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
-                    }
+                   .se-pre-con {
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 9999;
+                background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+            }
                     
                     a {
                         fornt-weight: bold;
@@ -84,7 +84,7 @@
                 </style>
                 <script type="text/javascript">
                      function tryCheckType() {
-                    	 var ptStr1, ptStr2, ptStr3, ptStr4;
+                    	 /* var ptStr1, ptStr2, ptStr3, ptStr4;
                         var skinType = null;
                         var checked_index = 0;
                         var checked_value = 0;
@@ -207,9 +207,9 @@
                         }
                         else {
                             ptStr4 = 'T';
-                        }   
-                        //skinType = 'ORNT';
-                        skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
+                        }  */
+                        skinType = 'ORNT';
+                        //skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
                         document.getElementById('skinType').value = skinType;
                         /* alert(skinType); */
                         commitSkinType();
@@ -685,7 +685,7 @@
                                                     <!-- -----4---- -->
                                                     <tr>
                                                         <td style="font-weight: bold;"><div id=pt2_qu4><a href="javascript:;" id="pt_04tab2">4. 14K 금이 아닌 장신구를 착용할 경우에 피부 발진이 자주
-													발생합니까?</a></td>
+													발생합니까?</a></div></td>
                                                     </tr>
                                                     <tr>
                                                         <td style="padding: 0px 2px 5px 10px;">
@@ -1959,8 +1959,9 @@
                                         <hr>
                                         <div id="checkAlertDiv" role="alert" class="alert1 alert-danger alert-common1" style="filter:alpha(opacity=50); display:none;"><span style="font-size: 20px;">Warning!  </span>
                                             <input id="checkAlert" name="checkAlert" value="" style="background-color:transparent;font-size: 15px;border: none; border-right: 0px; border-top: 0px; boder-left: 0px; width:70%; boder-bottom: 0px; readonly: true;"> 
-                                            <a href="" id="tabpt" class="tabpt" data-toggle="tab" onclick="fn()">설문 수정하기</a> 
-                                            <a type="hidden" href="" id="goqu" class="goqu" data-toggle="tab"></a> </div>
+                                            <div style="text-align:right"><a href="" id="tabpt" class="tabpt" data-toggle="tab" onclick="fn()">설문 수정하기</a></div> 
+                                            <a type="hidden" href="" id="goqu" class="goqu" data-toggle="tab"></a> 
+                                            <div style="text-align:right"><a>(현제 다른 탭을 진행중이시라면 "설문 수정하기"를 두번 눌러주세요)</a></div></div>
                                         <br>
                                         <div align="center" style="text-align: center;">
                                             <button type="submit" class="btn btn-common btn-full-round btn-theme" onclick="tryCheckType();"> 설문조사 응답 완료

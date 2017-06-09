@@ -276,7 +276,7 @@ label.star:before {
 																	<input type="text" class="form-control"
 																		name="cosmeticName" id="cosmeticName"
 																		value="${review.cosmetic.cosmeticName }"
-																		aria-describedby="basic-addon221"></input>
+																		aria-describedby="basic-addon221" readonly="readonly"></input>
 																	
 																</div>
 																<div class="stars">

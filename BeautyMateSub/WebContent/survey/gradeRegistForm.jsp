@@ -291,7 +291,7 @@ label.star:before {
 				console.log(gradeStar);
 				console.log(cosmeticNo);
 				$.ajax({
-						url:"http://localhost:8888/rest/recommend/insert/customerNo/"+2+"/cosmeticNo/"+cosmeticNo+"/grade/"+gradeStar	//1은 customerNO
+						url:"http://localhost:8888/rest/recommend/insert/customerNo/"+${customerNo}+"/cosmeticNo/"+cosmeticNo+"/grade/"+gradeStar 
 						,type:"get"
 						,dataType:"json"
 						,success:successCallback

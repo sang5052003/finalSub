@@ -9,7 +9,7 @@ public class Customer {
 	private String password;
 	private String name;
 	private String gender;
-	
+	 
 	private Date birth;
 	private String email;
 	private String skinType;

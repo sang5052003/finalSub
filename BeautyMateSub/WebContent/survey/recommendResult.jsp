@@ -1,7 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <c:set var="ctx">${pageContext.request.contextPath }</c:set>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +64,7 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
 
 <style>
 /* Paste this css to your style sheet file or under head tag */
@@ -218,13 +221,71 @@
 											<div class="skill-bar-percent">${values[sts.index]  }%</div>
 										</div>
 									</div>
-								</div>
-							</div>
+									
+									
+                        <div class="row">
+                            
+                                    <div class="collapse navbar-collapse navbar-ex1-collapse content-collapse">
+                                        <ul class="nav navbar-nav collapse-nav">
+                                            
+                                            <li class=""><a class="collapsed" href="javascript:;" data-toggle="collapse" data-target="#collapse_${cosmetics.cosmeticNo}" aria-expanded="false">고객님의 피부타입과 <br><span style="color:black;font:bold 1.2em/1em Georgia, serif;font-size:3;">"${cosmetics.cosmeticName }"</span>의 <br>성분비교 결과<i
+										class="fa fa-plus"></i></a>
+                                                <div id="collapse_${cosmetics.cosmeticNo}" class="collapseItem collapse" aria-expanded="false" style="height: 0px;">
+                                                    <div class="collapse-inner">
+                                                        <span style="color:black;font:bold 1.2em/1em Georgia, serif;font-size:3;">추천 성분 결과 :</span>
+                                                        <c:set var="getReco" value="recoList_${cosmetics.cosmeticNo }"/>
+                                                        <c:set var="reco" value="${requestScope[getReco]}" />
+<c:choose>
+    <c:when test="${empty reco}">
+        고객님의 스킨타입에따른 <span style="color:green;font:bold 1.2em/1em Georgia, serif;font-size:3;">추천성분</span>과 본 화장품의 성분과 일치하는 성분이 없습니다.
+    </c:when>
+    <c:otherwise>
+       <span style="color:green;font:italic bold 1.5em/1em Georgia, serif;font-size:5;">${reco }</span> 이런 성분이 <span style="color:green;font:bold 1.2em/1em Georgia, serif;font-size:3;">추천 성분</span>과 일치합니다.
+    </c:otherwise>
+</c:choose>                     
+<br>
+                                                        <span style="color:black;font:bold 1.2em/1em Georgia, serif;font-size:3;">비추천 성분 결과 :</span>
+                                                        <c:set var="getBan" value="banList_${cosmetics.cosmeticNo }"/>
+                                                        <c:set var="ban" value="${requestScope[getBan]}" />
+<c:choose>
+    <c:when test="${empty ban}">
+        고객님의 스킨타입에따른 <span style="color:red;font:bold 1.2em/1em Georgia, serif;font-size:3;">비추천성분</span>과 본 화장품의 성분과 일치하는 성분이없습니다.
+    </c:when>
+    <c:otherwise>
+    선택에 신중해주세요  <span style="color:red;font:italic bold 1.5em/1em Georgia, serif;font-size:5;">${ban }</span> 이런 성분이 <span style="color:red;font:bold 1.2em/1em Georgia, serif;font-size:3;">비추천 성분</span>과 일치합니다.
+    </c:otherwise>
+</c:choose>  
+                                                         </div>
+                                                </div>
+                                            </li>
+                                            
+                                            
+                                        </ul>
+                                    </div>
+                                
+                        </div>
+                        <br>
+                        </div>
+                </div>
+									
+								
 						</form>
 					</c:forEach>
 				</div>
 			</div>
 		</section>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		</div>
 		<%@ include file="../common/footer.jspf"%>
 		<!-- JAVASCRIPTS -->
 		<script type="text/javascript"
@@ -267,7 +328,7 @@
 				insertPouch = function(cosmeticNo){
 					console.log(cosmeticNo);
 					$.ajax({
-						url:"http://localhost:8888/rest/myPouch/customerNo/2/recommend/insert/cosmeticNo/"+cosmeticNo
+						url:"http://localhost:8888/rest/myPouch/customerNo/"+${customerNo}+"/recommend/insert/cosmeticNo/"+cosmeticNo
 						,type:"get"
 						,dataType:"json"
 						,success:successCallback
@@ -283,7 +344,10 @@
 				};
 				
 			});
+		
 		</script>
+		
+		
 </body>
 
 </html>
