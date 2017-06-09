@@ -113,15 +113,8 @@ public class CustomerController {
 			rttr.addFlashAttribute("msg", "FAIL");
 			return "redirect:/customer/joinForm.do";
 		}
-
-<<<<<<< HEAD
-=======
-			return "redirect:/customer/joinForm.do"; 
-//		}
-//		return "/customer/customerForm.jsp";
->>>>>>> refs/remotes/origin/0609Choi1225
 	}
-	
+
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public String customerLogin(Customer customer,HttpServletRequest request,RedirectAttributes rttr) throws ClientProtocolException, IOException {
 
