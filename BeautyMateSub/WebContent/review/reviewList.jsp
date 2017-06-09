@@ -151,7 +151,7 @@
 							Content</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
-					<button  type="button" id='searchBtn'>Search</button>
+					<button  type="button" id='searchBtn'><i class="fa fa-search" aria-hidden="true"></i></button>
 					
 
 				</div>
@@ -177,19 +177,23 @@
 	                    </tr>
 	                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'">
 	                        <td colspan="3" style="text-align:left;">
-	                        <i class="fa fa-star" aria-hidden="true"></i> 
-	                        <i class="fa fa-star" aria-hidden="true"></i> 
-	                        <i class="fa fa-star" aria-hidden="true"></i> 
-	                        <i class="fa fa-star" aria-hidden="true"></i> 
+	                        <c:forEach begin="1" end="${review.recommend.grade}" step="1" varStatus="status">
+		                        <i class="fa fa-star" aria-hidden="true" style="color: #FFE400"></i> 		                     
+	                        </c:forEach>
+	                        <c:forEach begin="1" end="${5 - review.recommend.grade}" step="1" varStatus="status">
 	                        <i class="fa fa-star-o" aria-hidden="true"></i>
-	                        (${review.recommend.grade })
+	                        </c:forEach>
+	                        (${review.recommend.grade})
 	                         <br><span><strong>${review.reviewTitle}</strong></span><br><span>${review.reviewContent}</span><br><br>
-	                           <div class="cartImage" style="float:left; margin-right:5px;"><img src="http://placehold.it/100x105" alt="Image cart">
+	                         	<c:forEach items="${review.files }" var="file">
+	                           <div class="cartImage" style="float:left; margin-right:5px;">
+	                           <img src="${ctx }/displayFile?fileName=${file}" style="width:100px;height:100px" alt="Image cart">
 	                           </div>
+	                           </c:forEach>
 	                           </td>                         
 	                    </tr>
 	                    <tr>
-	                        <td colspan="3" style="text-align:left;">${review.customer.id } <br><span>날짜</span> </td>
+	                        <td colspan="3" style="text-align:left;"><i class="fa fa-user-o" aria-hidden="true"></i> ${review.customer.id } <br><span>날짜</span> </td>
 	                        
 	                    </tr>
 	                    </c:forEach>

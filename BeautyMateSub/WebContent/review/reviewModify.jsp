@@ -320,11 +320,11 @@ label.star:before {
 														<div class="text-right">
 															<button type="submit" id="modify" class="btn btn-common btn-theme">수정
 															</button>
-															<button type="submit" id="back" class="btn btn-common btn-theme">취소
-															</button>
+														<a class="btn btn-common btn-theme" href="${ctx }/review/listpage.do">취소</a>
+<!-- 															<button type="submit" id="back" class="btn btn-common btn-theme">취소 -->
+<!-- 															</button> -->
 															
-<!-- 															<a class="btn btn-common btn-theme" -->
-<%-- 																href="${ctx }/review/listpage.do">취소</a> --%>
+
 														</div>
 												</div>
 											</div>

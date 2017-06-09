@@ -56,17 +56,21 @@
     .back { background-color: gray; opacity:0.5; width: 100%; height: 300%; overflow:hidden;  z-index:1101;}
     .front { 
        z-index:1110; opacity:1; boarder:1px; margin: auto; 
+       	top: 25%;
+       	left:32%;
+     	width: 50%; 
+     	height: 50%; 
       }
      .show{
        position:relative;
-       max-width: 1200px; 
-       max-height: 800px; 
+       max-width: 1600px; 
+       max-height: 1000px; 
        overflow: auto;       
      } 
      
      #imglist { 
 	     list-style:none;
-	     margin-left : 165px; 
+	     margin-left : 10px; 
 	     padding:0; 
 	     
  	} 
@@ -183,40 +187,7 @@
             </ul>
           </div>
           
-<!-- USER SECTION -->
-      <section class="clearfix userSection padding">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <ul class="list-inline squareBtn">
-                <li class="li"><a href="user-dashboard.html" class="btn btn-common">Account Dashboard</a></li>
-                <li class="li"><a href="user-profile.html" class="btn btn-common btn-theme">Profile</a></li>
-                <li class="li"><a href="address.html" class="btn btn-common">Address</a></li>
-                <li class="li"><a href="all-order.html" class="btn btn-common">All Orders</a></li>
-                <li class="li"><a href="wishlist.html" class="btn btn-common">Wishlist</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="innerWrapper">
-                <div class="orderBox  patternbg">
-                    리뷰
-                </div>
-                <div class="profile">
-                  <div class="row">
-                    <div class="col-md-2 col-sm-3 col-xs-12">
-                      <div class="thumbnail">
-                        <img src="http://www.dongkoo.com/uploads/product/%EB%8B%A5%ED%84%B0%EB%AA%A8%EB%8D%94%EB%82%98%ED%97%A4%EC%96%B4%ED%86%A0%EB%8B%89.png" 
-                        width="270px" height="270px" alt="profile-image">
-                        <div class="caption">
-                          <a href="#" class="btn btn-primary btn-block" role="button">Change Avatar</a>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    
-                   	<form role="form" action="${ctx }/review/modify.do" method="post">
+                	<form role="form" action="${ctx }/review/modify.do" method="post">
 
 					<input type='hidden' name='reviewNo' id='reviewNo' value="${review.reviewNo}">
 					<input type='hidden' name='page' value="${pager.page}"> <input
@@ -225,24 +196,51 @@
 					<input type='hidden' name='keyword' value="${pager.keyword}">
 
 					</form>
+          
+          
+          <br><br>
+<!-- USER SECTION -->   
+   	<section class="clearfix userSection padding">
+   	<div class="row">
+<!--             <div class="col-xs-12"> -->
+<!--               <ul class="list-inline squareBtn"> -->
+	<div class="panel panel-default cartInfo">
+            <div class="panel-heading patternbg">Review</div>
+            <div class="panel-body tableArea">
+              <div>
+              <table class="table">
+                  <tbody>
+                    <tr>
+                      <td><div class="cartImage"><img src="${review.cosmetic.img}" style="width:100px;height:100px" alt="profile-image"></div></td>
+                      <td style="text-align:left;">${review.cosmetic.category}<br><span>${review.cosmetic.brand}</span><br><span>${review.cosmetic.cosmeticName}</span>
+                      <br><span>${review.cosmetic.volume} / ${review.cosmetic.cost}</span></td>
+                      <td style="width:0px"></td>
+                    </tr>
+                    <tr>
+                       <td colspan="3" style="text-align:left;"><i class="fa fa-user-o" aria-hidden="true"></i> ${review.customer.id } <br><span>날짜</span> </td>             
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align:left;">
+                        <c:forEach begin="1" end="${review.recommend.grade}" step="1" varStatus="status">
+		                        <i class="fa fa-star" aria-hidden="true" style="color: #FFE400"></i> 		                     
+	                        </c:forEach>
+	                        <c:forEach begin="1" end="${5 - review.recommend.grade}" step="1" varStatus="status">
+	                        <i class="fa fa-star-o" aria-hidden="true"></i>
+	                        </c:forEach>
+	                        (${review.recommend.grade})
+                         <br><span><strong>${review.reviewTitle}</strong></span><br><span>${review.reviewContent}</span><br><br>
+<%--                            <c:forEach items="${review.files }" var="file"> --%>
+<!-- 	                           <div class="cartImage" style="float:left; margin-right:5px;"> -->
+<%-- 	                           <img src="${ctx }/displayFile?fileName=${file}" style="width:100px;height:100px" alt="Image cart"> --%>
+<!-- 	                           </div> -->
+<%-- 	                           </c:forEach> --%>
+                           </td>                         
+                    </tr>
+                  </tbody>
+                </table>
+					
+					
                     
-                    
-                    
-                    <div class="col-md-10 col-sm-9 col-xs-12">
-                          <div class="form-group">
-                            <label for="" class="col-md-2 col-sm-3 control-label">Title</label>
-                            <div class="col-md-10 col-sm-9">
-                              <input type="text" class="form-control" id="" placeholder="" readonly="readonly" value="${review.reviewTitle }">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="" class="col-md-2 col-sm-3 control-label">Content</label>
-                            <div class="col-md-10 col-sm-9">
-                                <textarea class="form-control" id="" placeholder="" readonly="readonly">${review.reviewContent }</textarea>
-                            </div>
-                          </div>
-                          <br>
-                          
                           	
 					<ul class="mailbox-attachments clearfix uploadedList" id="imglist" ></ul>
                           
@@ -254,29 +252,22 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-                    
-      
-      
-          <div class="row">
-          <div class="col-xs-12">
-            <div class="tabCommon tabOne singleTab">
-              <ul class="nav nav-tabs">
-              <div class="text-left">
-              <input type="button" class="btn btn-common btn-theme" value="Reply(2)"> 
-              </div>
-              </ul>
-              <div class="tab-content patternbg">            
+                </div>
+			</section>
+     
+<!--           <div class="row"> -->
+<!--           <div class="col-xs-12"> -->
+<!--             <div class="tabCommon tabOne singleTab"> -->
+              <input type="button" id="replyCount"  class="btn btn-common btn-theme" value="Reply(${review.replys.size() })"> 
+<!--               </div> -->
+<!--               <div class="tab-content patternbg">             -->
                <div id="reviews" class="tab-pane fade in active">			   			   
-			  <c:forEach items="${review.replys }" var="reply" varStatus="status">            
-<%--                   <li class="" data-reply=${reply.replyNo }> --%>
-                  <div class="blogCommnets">
+			  <c:forEach items="${review.replys }" var="reply" varStatus="status">     
+			  	       
+                  <div class="blogCommnets" >
                     <div class="media	">
                       <a class="media-left" href="#">
+                      	<i class="fa fa-user-o" aria-hidden="true"></i>
                         <img class="media-object" src="http://placehold.it/70x70" alt="Image">
                       </a>
                       <div class="media-body">
@@ -285,21 +276,18 @@
                         <p class="timeline-body" id="${reply.replyNo}">${reply.replyContent }</p>
                         <div class="text-right">
                         <input class="timeline-header" type="hidden" name ="${reply.replyNo }" id ="${reply.replyNo }" value="${reply.replyNo }"/>
-                        
-          
-					
-				
+                           
 							
 						<div class="timeline-footer">
                          <a style="padding:10px" href="javascript:modifyReply(${reply.replyNo});"><i class="fa fa-pencil"aria-hidden="true"></i></a>
                          <a style="padding:10px" href="javascript:removeReply(${reply.replyNo});"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-<!--                          <button type="button" id='replyRemoveBtn'><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
+						</div>
 						</div>
                           </div>
                       </div>
                     </div>
-                  </div>
-                  </c:forEach> 
+                  </c:forEach>
+                  </div> 
 <!--                     <div class="media mediaMargin"> -->
 <!--                       <a class="media-left" href="#"> -->
 <!--                         <img class="media-object" src="http://placehold.it/70x70" alt="Image"> -->
@@ -311,8 +299,11 @@
 <!--                         <button class="btn btn-link">Reply</button> -->
                         
 <!--                       </div> -->
-                    </div>
-                  </div>
+                    
+                  
+                  <br><br>
+                   <div class="row">
+          <div class="col-xs-12">
                   <div class="commentsForm">
                     <h3>leave a comment</h3>
 <!--                   <form action="" method="POST" role="form"> -->
@@ -330,14 +321,11 @@
                         <button type="button" class="btn btn-common btn-theme" id="replyAddBtn">댓글 작성</button>
                     </div>
             </div>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
+         </div>    
+      
+             </div>
+             </div>   
+                <br><br>
 
    
      
@@ -363,8 +351,8 @@
 <script id="templateAttach" type="text/x-handlebars-template">
 <li id='imgli' data-src='${ctx}{{fullName}}'>
   <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
-  <div class="mailbox-attachment-info">
-	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+  <div class="mailbox-attachment-info" style="text-align:center">
+	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name" >{{fileName}}</a>
 	</span>
   </div>
 </li>                
@@ -484,6 +472,8 @@
 				$("#reviews").empty();
 				$("#reviews").append(replyHtml);
 				$("#replyContent").val("");
+				console.log(data.replys.length);
+				$("#replyCount").val("Reply("+data.replys.length +")");
 				
 			}
 		});
@@ -570,6 +560,17 @@ $("#popup_img").on("click", function(){
   <script>
   	$(window).load(function() {
   		$(".se-pre-con").fadeOut("slow");
+  		
+  		$("tr").hover(
+  	  			function () {
+  	  				$(this).css("backgroundColor","#F6F6F6");	
+  					
+  				},
+  	  			function () {
+  	  				$(this).css("backgroundColor","#ffffff");		
+  					
+  				}
+  	  		)
   		
   	});
   </script>
