@@ -8,7 +8,7 @@ public class Reply {
 	private String replyContent;
 	private Customer customer;
 	private int postNo;
-//	private Date regdate;
+//	private Date regdate; 
 	
 	public Reply() {}
 

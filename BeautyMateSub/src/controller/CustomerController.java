@@ -54,6 +54,8 @@ public class CustomerController {
 		sdf.setLenient(true);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
 	}
+	
+	
 
 	@RequestMapping(value = "joinForm.do", method = RequestMethod.GET)
 	public String cosmeticShowRegisterForm() {
