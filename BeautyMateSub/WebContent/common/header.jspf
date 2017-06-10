@@ -24,7 +24,7 @@
                   <li>
                   <c:choose>
 	<c:when test="${loginedCustomer eq null}">
-		 <a id="login" target="_self" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN/JOIN</a>
+		 <a id="login" target="_self" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN / JOIN</a>
 	</c:when>
 	<c:otherwise>
 		<a href="${ctx}/customer/logout.do">LOGOUT</a>

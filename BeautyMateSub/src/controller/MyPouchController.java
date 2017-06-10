@@ -47,7 +47,7 @@ public class MyPouchController {
 			//request.setAttribute("loginUser", loginUser);
 		}
 		else{
-			return "/customer/customerForm.jsp";
+			return "redirect:/customer/joinForm.do";
 		}
 		//처음 파우치 접근 시 실행
 //		HttpSession session = request.getSession(false); // false세션정보 없으면 만들지 않음
