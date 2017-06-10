@@ -551,6 +551,7 @@
 				});
 			};
 			
+			///catePage/pagStart/{pagStart}/pagEnd/{pagEnd}/category/{category}
 			//카테고리 검색(탭)
 			$("#makeUpInfoTab").click(function(){
 				
@@ -558,13 +559,13 @@
 				var pagStart = 1;
 				var pagEnd = 3;
 				var vUrl = "http://localhost:8888/rest/beautyTip/";
-				vUrl += "listpage/pagStart/" + pagStart + "/pagEnd/" + pagEnd + "/category/" + cate;
+				vUrl += "catePage/pagStart/" + pagStart + "/pagEnd/" + pagEnd + "/category/" + cate;
 					$.ajax({
 						url:vUrl
 						,type:"get"
 						,dataType:"json"
 						//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
-						,success:displayList
+						,success:displayListWithPage
 						,error:errorCallback
 					});
 					
@@ -648,7 +649,7 @@
 				
 
 				
-				$.each(resultData, function(index, beautyTip){
+				$.each(resultData.beautyTipList, function(index, beautyTip){
 					
 					
 					listHtml += '<div class="blogPost">';
@@ -672,6 +673,48 @@
 				$("#post").append(listHtml);
 				/* $("#comment").val(""); */
 				
+				/////
+				var pageMaker = resultData.pageMaker;
+				listHtml = "";
+    			var prev = pageMaker.prev;
+    			var next = pageMaker.next;
+    			//var listUrl = "";
+    			
+    				/* if(prev == true){
+    				
+    					listHtml += '<li><a href="listpage.do${pageMaker.makeQueryForBeautyTip(pageMaker.startPage - 1, beautyTipList.get(0).category) }" aria-label="Previous">';
+    					listHtml += '<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>';
+    					listHtml += '</a></li>';
+    				}  */
+    			
+    			
+    				var len = pageMaker.endPage;
+    				console.log(len);
+    				for(var idx = 0; idx < len; idx++){
+    					
+    					if(idx == pageMaker.pager.page){
+    						listHtml += '<li class="active">';	
+    					}
+    					else{
+    						listHtml += '<li class="">';
+    					}
+    					listHtml += '<a href="listpage.do?pagStart=' + (idx + 1) + '&pagEnd=' + len + '&category=' + cate + '">' + (idx + 1) + '</a></li>';
+    				}
+    			
+    				var endPage = pageMaker.endPage;
+    				console.log(endPage);
+    				console.log(next);
+    			 	 if(next == true){
+    			 		 console.log("dkdkdk");
+    			 		listHtml +=
+    			 		'<li>' +
+    			 		'<a href="" aria-label="Next">' +
+    			 		'<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>' + 
+    			 		'</a></li>';
+    			 	 }
+    				
+    			$("#pageDiv").empty();
+    			$("#pageDiv").append(listHtml);
 				
 			};
 			
