@@ -5,7 +5,7 @@ public class Recommend {
 	private int recommendNo;
 	private int cosmeticNo;
 	private int grade;
-	private int customerNo; 
+	private int customerNo;
 	
 	
 	public Recommend(){}
