@@ -42,8 +42,6 @@ import domain.BeautyTipCategory;
 import domain.BeautyTipPager;
 import domain.Customer;
 import domain.PageMaker;
-import domain.Review;
-import domain.SearchPager;
 
 @Controller
 @RequestMapping("beautyTip")
@@ -86,7 +84,6 @@ public class BeautyTipController {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
 		BeautyTip beautyTip = gsonBuilder.create().fromJson(responseContent, type);
-
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
 		model.addAttribute("beautyTip", beautyTip); // 이안에 이미 매퍼에서 받아온 댓글들이

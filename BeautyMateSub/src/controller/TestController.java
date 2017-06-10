@@ -41,6 +41,8 @@ import domain.Review;
 @RestController
 @RequestMapping("/replies")
 public class TestController {
+	
+	
 
 	// @RequestMapping(value = "/review/reviewNo/{reviewNo}")
 	// public ResponseEntity<Review> review(@PathVariable("reviewNo") int
@@ -58,7 +60,6 @@ public class TestController {
 		c.setCustomerNo(1);
 		reply.setCustomer(c);
 		System.out.println(reply.toString());
-
 		String url = Const.getOriginpath() + "reply/register";
 
 		HttpPost httpPost = new HttpPost(url);
@@ -103,7 +104,7 @@ public class TestController {
 
 		Review review = new Gson().fromJson(responseContent, type);
 		try {
-			entity = new ResponseEntity<>(review, HttpStatus.OK);
+			entity = new ResponseEntity<>(review,HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,24 +143,27 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/modify/{replyNo}", method = RequestMethod.GET) // 수정
-	public ResponseEntity<Reply> update(@PathVariable("replyNo") int replyNo)
+	public ResponseEntity<Reply> update(@PathVariable("replyNo")int replyNo)
 			throws ClientProtocolException, IOException {
-
-		String url = Const.getOriginpath() + "reply/replyNo/" + replyNo;
-
+		
+		
+		String url = Const.getOriginpath() + "reply/replyNo/"+replyNo;
+		
 		HttpGet httpGet = new HttpGet(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		CloseableHttpResponse response = httpClient.execute(httpGet);
 
-		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+		
 		TypeToken<Reply> typeToken = new TypeToken<Reply>() {
 		};
 
 		Type type = typeToken.getType();
 
+		
 		ResponseEntity<Reply> entity = null;
-
+		
 		Reply reply = new Gson().fromJson(responseContent, type);
 
 		try {
@@ -173,11 +177,11 @@ public class TestController {
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST) // 수정
-	public ResponseEntity<String> updatePost(@RequestBody Reply reply) throws ClientProtocolException, IOException {
+	public ResponseEntity<String> updatePost(@RequestBody Reply reply)
+			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "reply/modify";
 
-		// System.out.println(reply.toString()+"******");
 		HttpPost httpPost = new HttpPost(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 

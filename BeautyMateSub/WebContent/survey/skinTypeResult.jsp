@@ -41,7 +41,11 @@
                 top: 0;
             }
             
+<<<<<<< HEAD
             .se-pre-con {
+=======
+             .se-pre-con {
+>>>>>>> refs/remotes/origin/0609JM1758
                 position: fixed;
                 left: 0px;
                 top: 0px;

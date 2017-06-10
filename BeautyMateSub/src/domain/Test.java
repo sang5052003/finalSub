@@ -1,5 +1,5 @@
 package domain;
-
+ 
 public class Test {
 	//
 	private int id;

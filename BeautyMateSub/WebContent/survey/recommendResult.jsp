@@ -1,7 +1,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <c:set var="ctx">${pageContext.request.contextPath }</c:set>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +64,7 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
 
 <style>
 /* Paste this css to your style sheet file or under head tag */
@@ -92,77 +95,78 @@
 </style>
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
 .skillbar {
-  font-family: 'Open Sans', 'sans-serif';
-	position:relative;
-	display:block;
-	margin-bottom:15px;
-	width:100%;
-	background:#eee;
-	height:35px;
-	border-radius:3px;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	-webkit-transition:0.4s linear;
-	-moz-transition:0.4s linear;
-	-ms-transition:0.4s linear;
-	-o-transition:0.4s linear;
-	transition:0.4s linear;
-	-webkit-transition-property:width, background-color;
-	-moz-transition-property:width, background-color;
-	-ms-transition-property:width, background-color;
-	-o-transition-property:width, background-color;
-	transition-property:width, background-color;
+	font-family: 'Open Sans', 'sans-serif';
+	position: relative;
+	display: block;
+	margin-bottom: 15px;
+	width: 100%;
+	background: #eee;
+	height: 35px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-webkit-transition: 0.4s linear;
+	-moz-transition: 0.4s linear;
+	-ms-transition: 0.4s linear;
+	-o-transition: 0.4s linear;
+	transition: 0.4s linear;
+	-webkit-transition-property: width, background-color;
+	-moz-transition-property: width, background-color;
+	-ms-transition-property: width, background-color;
+	-o-transition-property: width, background-color;
+	transition-property: width, background-color;
 }
 
 .skillbar-title {
-	position:absolute;
-	top:0;
-	left:0;
-	font-weight:bold;
-	font-size:13px;
-	color:#fff;
-	background:#6adcfa;
-	-webkit-border-top-left-radius:3px;
-	-webkit-border-bottom-left-radius:4px;
-	-moz-border-radius-topleft:3px;
-	-moz-border-radius-bottomleft:3px;
-	border-top-left-radius:3px;
-	border-bottom-left-radius:3px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-weight: bold;
+	font-size: 13px;
+	color: #fff;
+	background: #6adcfa;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
 }
 
 .skillbar-title span {
-	display:block;
-	background:rgba(0, 0, 0, 0.1);
-	padding:0 20px;
-	height:35px;
-	line-height:35px;
-	-webkit-border-top-left-radius:3px;
-	-webkit-border-bottom-left-radius:3px;
-	-moz-border-radius-topleft:3px;
-	-moz-border-radius-bottomleft:3px;
-	border-top-left-radius:3px;
-	border-bottom-left-radius:3px;
+	display: block;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 0 20px;
+	height: 35px;
+	line-height: 35px;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
 }
 
 .skillbar-bar {
-	height:35px;
-	width:0px;
-	background:#6adcfa;
-	border-radius:3px;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
+	height: 35px;
+	width: 0px;
+	background: #6adcfa;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
 
 .skill-bar-percent {
-	position:absolute;
-	right:10px;
-	top:0;
-	font-size:11px;
-	height:35px;
-	line-height:35px;
-	color:#444;
-	color:rgba(0, 0, 0, 0.4);
+	position: absolute;
+	right: 10px;
+	top: 0;
+	font-size: 11px;
+	height: 35px;
+	line-height: 35px;
+	color: #444;
+	color: rgba(0, 0, 0, 0.4);
 }
 </style>
 
@@ -181,42 +185,107 @@
 				<div class="panel panel-default cartInfo">
 					<div>
 						<div class="input-group">
-							<h1>화장품 추천 결과</h1>
+							<h1 style="background-color:#ec5598;color:#FFFFFF">화장품 추천 결과</h1>
 
 						</div>
 					</div>
-					<h3>추천하는 화장품 목록입니다.</h3>
+					<h3 class="active">회원님과 취향이 비슷한 회원들이 어떤 화장품을 좋게 평가했는지를 기반으로 상품을 추천하는 화장품 목록입니다.</h3>
 				</div>
 				<br>
 				<div class="row" id="cosmeticList">
-					<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts" >
+					<c:forEach items="${cosmetics}" var="cosmetics" varStatus="sts">
 						<form action="">
 							<div class="col-md-4 col-sm-6 col-xs-12">
 								<div class="produtSingle">
 									<div class="produtImage">
-										<img src="${cosmetics.img }" alt="Image Product"
-											class="img-responsive">
+										<a
+											href="${ctx}/cosmetic/showByNo.do?cosmeticNo=${cosmetics.cosmeticNo}"><img
+											src="${cosmetics.img }" alt="Image Product"
+											class="img-responsive"></a>
+											<input type="hidden" value="${cosmetics.cosmeticNo }" name="cosmeticNo">
 									</div>
 									<div class="productCaption">
 										<h4>${cosmetics.cosmeticName }</h4>
 
 									</div>
 									<div>
-										<div class="skillbar clearfix " data-percent="${values[sts.index]  }%">
-											<div class="skillbar-title" style="background: #88cd2a;">
+										<div class="finalCart">
+											<input type="button" class="btn btn-common btn-theme" name="pouchBtn" style="width:50%" onclick="javascript:insertPouch(${cosmetics.cosmeticNo})" value="★ My Pouch" >
+										</div>
+										<div class="skillbar clearfix "
+											data-percent="${values[sts.index]  }%">
+											<div class="skillbar-title" style="background: #ec5598;">
 												<span>추천율</span>
 											</div>
-											<div class="skillbar-bar" style="background: #88cd2a;"></div>
+											<div class="skillbar-bar" style="background: #ec5598;"></div>
 											<div class="skill-bar-percent">${values[sts.index]  }%</div>
 										</div>
 									</div>
-								</div>
-							</div>
+									
+									
+                        <div class="row">
+                            
+                                    <div class="collapse navbar-collapse navbar-ex1-collapse content-collapse">
+                                        <ul class="nav navbar-nav collapse-nav">
+                                            
+                                            <li class=""><a class="collapsed" href="javascript:;" data-toggle="collapse" data-target="#collapse_${cosmetics.cosmeticNo}" aria-expanded="false">고객님의 피부타입과 <br><span style="color:black;font:bold 1.2em/1em Georgia, serif;font-size:3;">"${cosmetics.cosmeticName }"</span>의 <br>성분비교 결과<i
+										class="fa fa-plus"></i></a>
+                                                <div id="collapse_${cosmetics.cosmeticNo}" class="collapseItem collapse" aria-expanded="false" style="height: 0px;">
+                                                    <div class="collapse-inner">
+                                                        <span style="color:black;font:bold 1.2em/1em Georgia, serif;font-size:3;">추천 성분 결과 :</span>
+                                                        <c:set var="getReco" value="recoList_${cosmetics.cosmeticNo }"/>
+                                                        <c:set var="reco" value="${requestScope[getReco]}" />
+<c:choose>
+    <c:when test="${empty reco}">
+        고객님의 스킨타입에따른 <span style="color:green;font:bold 1.2em/1em Georgia, serif;font-size:3;">추천성분</span>과 본 화장품의 성분과 일치하는 성분이 없습니다.
+    </c:when>
+    <c:otherwise>
+       <span style="color:green;font:italic bold 1.5em/1em Georgia, serif;font-size:5;">${reco }</span> 이런 성분이 <span style="color:green;font:bold 1.2em/1em Georgia, serif;font-size:3;">추천 성분</span>과 일치합니다.
+    </c:otherwise>
+</c:choose>                     
+<br>
+                                                        <span style="color:black;font:bold 1.2em/1em Georgia, serif;font-size:3;">비추천 성분 결과 :</span>
+                                                        <c:set var="getBan" value="banList_${cosmetics.cosmeticNo }"/>
+                                                        <c:set var="ban" value="${requestScope[getBan]}" />
+<c:choose>
+    <c:when test="${empty ban}">
+        고객님의 스킨타입에따른 <span style="color:red;font:bold 1.2em/1em Georgia, serif;font-size:3;">비추천성분</span>과 본 화장품의 성분과 일치하는 성분이없습니다.
+    </c:when>
+    <c:otherwise>
+    선택에 신중해주세요  <span style="color:red;font:italic bold 1.5em/1em Georgia, serif;font-size:5;">${ban }</span> 이런 성분이 <span style="color:red;font:bold 1.2em/1em Georgia, serif;font-size:3;">비추천 성분</span>과 일치합니다.
+    </c:otherwise>
+</c:choose>  
+                                                         </div>
+                                                </div>
+                                            </li>
+                                            
+                                            
+                                        </ul>
+                                    </div>
+                                
+                        </div>
+                        <br>
+                        </div>
+                </div>
+									
+								
 						</form>
 					</c:forEach>
 				</div>
 			</div>
 		</section>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		</div>
 		<%@ include file="../common/footer.jspf"%>
 		<!-- JAVASCRIPTS -->
 		<script type="text/javascript"
@@ -248,14 +317,37 @@
 				;
 			});
 			
-			$(document).ready(function(){
-				jQuery('.skillbar').each(function(){
+			var insertPouch;
+			$(document).ready(function() {
+				jQuery('.skillbar').each(function() {
 					jQuery(this).find('.skillbar-bar').animate({
-						width:jQuery(this).attr('data-percent')
-					},2000);
+						width : jQuery(this).attr('data-percent')
+					}, 2000);
 				});
+				
+				insertPouch = function(cosmeticNo){
+					console.log(cosmeticNo);
+					$.ajax({
+						url:"http://localhost:8888/rest/myPouch/customerNo/"+${customerNo}+"/recommend/insert/cosmeticNo/"+cosmeticNo
+						,type:"get"
+						,dataType:"json"
+						,success:successCallback
+						,error:errorCallback
+					});
+				};
+				
+				var errorCallback = function() {
+					alert("수행중 오류가 발생했습니다.");
+				};
+				var successCallback = function(){
+					alert("파우치에 등록 되었습니다.");
+				};
+				
 			});
+		
 		</script>
+		
+		
 </body>
 
 </html>

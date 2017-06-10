@@ -10,7 +10,7 @@
 	<mvc:annotation-driven />
 	
 	<mvc:resources location="/resources/" mapping="/resources/**" />
-
+	
 	<context:component-scan base-package="controller" />
 
 <!-- 	멀리파라미터 빈 선언 -->
