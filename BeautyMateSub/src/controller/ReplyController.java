@@ -1,9 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import controller.utils.Const;
 import controller.utils.HttpResponse;
