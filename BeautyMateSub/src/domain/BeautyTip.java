@@ -13,6 +13,9 @@ public class BeautyTip {
 	private BeautyTipCategory category;
 	private List<Reply> beautyTipReplys;
 	
+	//
+	private Integer listCount; // 전체개수를 알아오기 위해(페이징)
+	
 	public BeautyTip(){}
 	
 	public BeautyTip(int beautyTipNo, String beautyTipTitle, String image, String beautyTipContent, String video,
@@ -145,8 +148,18 @@ public class BeautyTip {
 				+ ", category=" + category + ", beautyTipReplys=" + beautyTipReplys + "]";
 	}
 	
-	
-	
+	//페이징
+	public void setListCount(Integer listCount) {
+		this.listCount = listCount;
+	}
+
+	public int getListCount() {
+		return listCount;
+	}
+
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
+	}
 	
 	
 	

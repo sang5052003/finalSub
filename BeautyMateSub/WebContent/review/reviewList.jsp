@@ -35,18 +35,11 @@
 
   <!-- FAVICON -->
   <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+ 
+  
+   <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
 
 <style>
-  /* Paste this css to your style sheet file or under head tag */
-  /* This only works with JavaScript,
-  if it's not present, don't show loader */
   .no-js #loader { display: none;  }
   .js #loader { display: block; position: absolute; left: 100px; top: 0; }
   .se-pre-con {
@@ -56,7 +49,7 @@
   	width: 100%;
   	height: 100%;
   	z-index: 9999;
-  	background: url(plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
+  	background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
   }
   </style>
 
@@ -139,8 +132,11 @@
           </div>
           
           <br><br>
-          			 <div class="text-center">
-					<select name="searchType">
+          
+          
+          <div class='text-center'>
+
+					<select name="searchType" >
 						<option value="n"
 							<c:out value="${pager.searchType == null?'selected':''}"/>>
 							---</option>
@@ -152,8 +148,9 @@
 							Content</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
-					<button id='searchBtn'>Search</button>
-					</div>
+					<button  type="button" id='searchBtn'>Search</button>
+
+				</div>
           
           
             <div class="text-right">
@@ -171,7 +168,7 @@
                     >
                       <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
                       <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">writer</span></td>
+                      <td><span class="price">${review.customer.id }</span></td>
                     </tr>
                     </c:forEach>
                   </tbody>
@@ -185,7 +182,7 @@
               <nav aria-label="Page navigation">
                 <ul class="pagination">
                 
-                <c:if test="${pageMaker.prev}">
+                			<c:if test="${pageMaker.prev}">
 								<c:choose>
 									<c:when test="${pager.keyword != null }">
 										<li><a
@@ -263,7 +260,7 @@
 	}
 </script>
 
-<script>
+<<script>
 	$(document).ready(
 			function() {
 
@@ -274,7 +271,7 @@
 							self.location = "listsearch.do"
 									+ '${pageMaker.makeQuery(1)}'
 									+ "&searchType="
-									+ $("select option:selected").val()
+									+ $("select[name=searchType] option:selected").val()
 									+ "&keyword=" + $('#keywordInput').val();
 
 						});
@@ -287,6 +284,7 @@
 
 			});
 </script>
+
 
   <script>
   	//paste this code under head tag or in a seperate js file.

@@ -32,6 +32,7 @@ public class IndexController {
 		
 		//return "reply/beautyTip/editForm.do";
 		//return "redirect:/reply/beautyTip/clear.do?replyNo=12&postNo=2";
-		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.makeupInformation;
+		//return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.makeupInformation;
+		return "redirect:/beautyTip/listpage.do?category=" + BeautyTipCategory.makeupInformation;
 	}
 }

@@ -13,6 +13,22 @@ public class Review {
 	private Cosmetic cosmetic;
 	private Recommend recommend;
 	private Integer listCount; // 전체개수를 알아오기 위해
+	
+	private String[] files;
+	
+	
+
+	public String[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+
+	public void setListCount(Integer listCount) {
+		this.listCount = listCount;
+	}
 
 	public int getListCount() {
 		return listCount;

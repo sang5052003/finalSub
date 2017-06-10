@@ -75,7 +75,7 @@ public class SurveyController {
 //		고객번호 가져온다.
 //		int customerNo = (int) session.getAttribute("customerNo");
 		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
-		System.out.println(url);
+//		System.out.println(url);
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 		// HttpClient
@@ -96,7 +96,7 @@ public class SurveyController {
 		
 		
 		SkinType skinType = new Gson().fromJson(responseContent, type);
-		System.out.println(skinType);
+//		System.out.println(skinType);
 //		List<NameValuePair> list = new ArrayList<NameValuePair>();
 //		SkinType skin = new SkinType();
 //		skin.setBaumanType(skinType.getBaumanType());
@@ -157,8 +157,8 @@ public class SurveyController {
 
 	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
-
-		String url = Const.getOriginpath() + "recommend/list/customer/" + 1; // get, 1=customerNo
+//		추천된 화장품 목록 받기
+		String url = Const.getOriginpath() + "recommend/list/customer/" + 2;
 
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 
@@ -178,7 +178,7 @@ public class SurveyController {
 		
 		
 //		추천값 (유사도)받기
-		String u = Const.getOriginpath() + "recommend/list/value/" + 1; 
+		String u = Const.getOriginpath() + "recommend/list/value/" + 2; 
 
 
 		HttpGet hGet = new HttpGet(u); // <-> HttpPost

@@ -10,6 +10,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- 영상 -->
+  <link
+	href="https://cdn.rawgit.com/videojs/video.js/v5.4.4/dist/video-js.css"
+	rel="stylesheet">
+	<script
+	src="https://cdn.rawgit.com/videojs/video.js/v5.4.4/dist/video.js"></script>
+	<script
+	src="https://cdn.rawgit.com/eXon/videojs-youtube/v2.0.3/dist/Youtube.js"></script>
+  
+  
   <title>Blog Single - Angel Beauty</title>
 
   <!-- GOOGLE FONT -->
@@ -223,20 +234,15 @@
 
           <div class="col-sm-4 col-xs-12">
             <div class="blogSidebar">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon2">
-                <a href="#" class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></a>
-              </div>
               <div class="panel panel-default">
                 <div class="panel-heading">Categories</div>
                 <div class="panel-body">
                   <ul class="list-unstyle categoryList">
-                    <li><a href="product-right-sidebar.html">Beauty</a></li>
-                    <li><a href="product-right-sidebar.html">Hair Cut</a></li>
-                    <li><a href="product-right-sidebar.html">Facial</a></li>
-                    <li><a href="product-right-sidebar.html">Massage</a></li>
-                    <li><a href="product-right-sidebar.html">Make up</a></li>
-                    <li><a href="product-right-sidebar.html">Waxing</a></li>
+                    <li><a href="${ctx }/beautyTip/list.do?category=${beautyTip.category}">목록 으로</a></li>
+                    <c:if test="${beautyTip.customer.id eq loginedId }">
+                    <li><a href="${ctx }/beautyTip/editForm.do?beautyTipNo=${beautyTip.beautyTipNo}">수정 하기</a></li>
+                    <li><a href="${ctx }/beautyTip/clear.do?beautyTipNo=${beautyTip.beautyTipNo}&category=${beautyTip.category}">삭제 하기</a></li>
+                    </c:if>
                   </ul>
                 </div>
               </div>
@@ -288,14 +294,22 @@
 
             <div class="blogPost singlePost">
             <h2>${beautyTip.beautyTipTitle }</h2>
-            <% for(int i = 0; i < 3; i++){
-            	%>
-            	<img src="${loadPath }${beautyTip.imgArr[i] }" alt="Image Blog" class="img-responsive">
-                <p>${beautyTip.contentArr[i] }</p>
-                <p>pppppp </p>
-            	<%
-	            }
-            	%>
+            
+            	<c:forEach var="item" items="${beautyTip.imgArr }" varStatus="sts">
+	            	<img src="${loadPath }${beautyTip.imgArr[sts.count - 1] }" alt="Image Blog" class="img-responsive">
+    	            <p>${beautyTip.contentArr[sts.count - 1] }</p>
+                </c:forEach>
+                
+                <!-- 영상 -->
+                <video id="my-video" class="video-js" controls preload="auto"
+					width="640" height="264" data-setup="{}">
+				<source src="${beautyTip.video}" type='video/mp4'> <!-- <source	src="https://youtu.be/s6yENYX_6IY" type='video/youtube'> -->
+				<p class="vjs-no-js">
+					To view this video please enable JavaScript, and consider upgrading to
+					a web browser that <a href="http://videojs.com/html5-video-support/"
+						target="_blank">supports HTML5 video</a>
+				</p></video>
+                
               
               <!-- <p><img src="http://placehold.it/400x300" alt="Image Blog">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, </p>
               <p>ExceCupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto. </p> -->
@@ -305,55 +319,35 @@
                 <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
               </ul>
             </div>
+            <div id="replys">
             <div class="blogCommnets">
-              <h3>3 Comments</h3>
+              <h3>${beautyTip.replySize } Comments</h3>
+              <c:forEach var="reply" items="${beautyTip.beautyTipReplys }" >
               <div class="media">
                 <a class="media-left" href="#">
                   <img class="media-object" src="http://placehold.it/70x70" alt="Image">
                 </a>
                 <div class="media-body">
-                  <h4 class="media-heading">Integer blandit</h4>
+                  <h4 class="media-heading">${reply.customer.id }</h4>
                   <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>
-                  <p>Reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                  <button type="button" class="btn btn-link">Reply</button>
+                  <p id="${reply.replyNo }">${reply.replyContent }</p>
+                  <c:if test="${reply.customer.id eq loginedId }">
+	                  <button type="button" class="btn btn-link" onclick="javascript:modifyReply(${reply.replyNo})">수정</button>&nbsp;&nbsp;&nbsp;
+	                  <button type="button" class="btn btn-link" onclick="javascript:removeReply(${reply.replyNo })">삭제</button>
+                  </c:if>
                 </div>
               </div>
-              <div class="media mediaMargin">
-                <a class="media-left" href="#">
-                  <img class="media-object" src="http://placehold.it/70x70" alt="Image">
-                </a>
-                <div class="media-body">
-                  <h4 class="media-heading">Integer blandit</h4>
-                  <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>
-                  <p>Reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                  <button type="button" class="btn btn-link">Reply</button>
-                </div>
-              </div>
-              <div class="media">
-                <a class="media-left" href="#">
-                  <img class="media-object" src="http://placehold.it/70x70" alt="Image">
-                </a>
-                <div class="media-body">
-                  <h4 class="media-heading">Integer blandit</h4>
-                  <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>
-                  <p>Reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                  <button type="button" class="btn btn-link">Reply</button>
-                </div>
-              </div>
+              </c:forEach>
+             
             </div>
+           </div>
             <div class="commentsForm">
               <form action="" method="POST" role="form">
                 <h3>leave a comment</h3>
                   <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Type Your Comment"></textarea>
+                    <textarea class="form-control" id="replyContent" rows="3" placeholder="Type Your Comment"></textarea>
                   </div>
-                  <div class="form-group form-half form-left">
-                    <input type="text" class="form-control" id="" placeholder="Name">
-                  </div>
-                  <div class="form-group form-half form-right">
-                    <input type="email" class="form-control" id="" placeholder="Email">
-                  </div>
-                <button type="submit" class="btn btn-primary">submit now</button>
+                <button type="button" class="btn btn-primary" id="replyAddBtn">submit now</button>
               </form>
             </div>
 
@@ -530,6 +524,192 @@
   <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
   <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
   <script src="${ctx }/resources/js/custom.js"></script>
+
+<script>
+
+    var postNo = ${beautyTip.beautyTipNo};
+	var originPath = "http://localhost:8888/rest/";
+	<%-- var loginedId = '<%=(String)session.getAttribute("loginedId") %>'; --%>
+	var loginedId = "${loginedId}";
+	
+	var displayReply = function(resultData) {
+		
+		  $.ajax({
+			url: '${ctx}/replies/beautyTip/all/' + postNo
+			,type: 'get'
+			,dataType: 'json'
+			,success : function(data) {
+				var replyHtml = "";
+				
+				$.each(data.beautyTipReplys, function(index, reply) {
+					replyHtml +=
+						'<div class="blogCommnets">';
+					
+						if(index == 0){
+							
+							replyHtml += '<h3>' + data.replySize + ' Comments</h3>';
+						}
+						
+					replyHtml +=
+						'<div class="media">' + 
+						'<a class="media-left" href="#">' + 
+						'<img class="media-object" src="http://placehold.it/70x70" alt="Image"></a>' +
+						'<div class="media-body">' + 
+						'<h4 class="media-heading">' + reply.customer.id + '</h4>' +
+						'<h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>' +
+						'<p id="' + reply.replyNo + '">' + reply.replyContent + '</p>';
+						
+						if(loginedId == reply.customer.id){
+						
+							replyHtml +=
+								'<button type="button" class="btn btn-link" onclick="javascript:modifyReply(' + reply.replyNo + ')">수정</button>&nbsp;&nbsp;&nbsp;' +
+								'<button type="button" class="btn btn-link" onclick="javascript:removeReply(' + reply.replyNo + ')">삭제</button>';
+							//listHtml += '<li><a href="javascript:delFunc(' + beautyTip.beautyTipNo + ');"' + ' class="btn btn-common btn-dark">삭제</a></li>'
+						}
+						
+						
+						replyHtml += '</div></div>';
+				});
+				
+				$("#replys").empty();
+				$("#replys").append(replyHtml);
+				$("#replyContent").val("");
+			}
+		});
+		
+	};	
+	
+	var errorCallback = function() {
+		alert("수행중 오류 발생");
+	};
+	
+	///////
+	
+	var removeReply = function(replyNo) {
+		$.ajax({
+			url: originPath + "beautyTip/reply/remove/" + replyNo
+			,type:"get"
+			,headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override": "GET" 
+			},
+			dataType : "json",
+			success : displayReply,
+			error : errorCallback
+		});
+	};
+	
+	
+	var modifyReply = function(replyNo) {
+		$.ajax({
+			url : "${ctx}/replies/beautyTip/modify/" + replyNo	
+			,type : "get"
+			,headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "GET" 
+			},
+			dataType : 'text',
+			success : function(result) {
+				var reply = JSON.parse(result);
+				
+				var modifyHtml = "";
+				modifyHtml += '<textarea rows="5" cols="60" id ="'+ reply.replyNo + "area" +'">'+ reply.replyContent +'</textarea>';
+				//modifyHtml += '<a href="javascript:replyModify('+ reply.replyNo +');">수정</a>';
+				$("#"+replyNo).empty();
+				$("#"+replyNo).append(modifyHtml);
+				
+				//수정버튼 바꿔치기 -> 완료
+				var temp = $("#"+replyNo).next();//
+				temp.attr("onclick", "");//.click(replyModify);
+				temp.unbind("click");
+				temp.bind("click", function(){
+					replyModify(replyNo);
+				});
+				temp.text("완료");
+			},
+			error : errorCallback
+		
+		});
+	};
+	
+	
+	var replyModify = function(replyNo) {
+		$.ajax({
+			url : "${ctx}/replies/beautyTip/modify"
+			,type : "post"
+			,headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "POST" 
+			},
+			dataType : "text",
+			data: JSON.stringify({
+				replyNo : replyNo,
+				replyContent : $("#"+replyNo+"area").val(), 
+				postNo : postNo
+			}),
+			success : displayReply
+			,error : errorCallback
+		});
+	};
+	
+	
+	
+		
+</script>
+
+
+<script>
+$(document).ready(function() {
+
+	var formObj = $("form[role='form']");
+
+	
+	
+	console.log(loginedId);
+	
+	//console.log(formObj);
+	
+	$("#replyAddBtn").on("click", function() {
+		
+		$.ajax({
+			
+			url: '${ctx}/replies/beautyTip/register'
+			,type:"post"
+			,headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "POST" 
+			}
+			,dataType : 'text'
+			,data: JSON.stringify({
+				replyContent : $("#replyContent").val(), 
+				postNo : postNo
+			})
+			,success : displayReply
+			,error : errorCallback
+		});
+	});
+	
+	
+
+	$("#modifyBtn").on("click", function() {
+		formObj.attr("action", "modify.do");
+		formObj.attr("method", "get");
+		formObj.submit();
+	});
+
+	$("#removeBtn").on("click", function() {
+		formObj.attr("action", "remove.do");
+		formObj.submit();
+	});
+
+	$("#goListBtn ").on("click", function() {
+		formObj.attr("method", "get");
+		formObj.attr("action", "listpage.do");
+		formObj.submit();
+	});
+
+});
+</script>
 
   <script>
   	//paste this code under head tag or in a seperate js file.
