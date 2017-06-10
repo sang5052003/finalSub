@@ -47,6 +47,9 @@
 		center no-repeat #fff;
 }
 </style>
+<!-- FAVICON -->
+<link href="${ctx}/resources/img/favicon.png" rel="shortcut icon">
+
 <link rel="stylesheet" href="${ctx }/resources/css/style.css">
 <!--내가 쓰는 스크립트, 스타일시트  -->
 <link rel="stylesheet"
@@ -200,7 +203,7 @@ label.star:before {
 													<input type="hidden" name="${cosmetics.cosmeticNo }"
 														value="${cosmetics.cosmeticNo }">
 													<button type="button"
-														class="btn btn-common btn-full-round btn-theme"
+														class="btn btn-common btn-full-round btn-theme" 
 														onclick="javascript:gradeReg(${cosmetics.cosmeticNo })"
 														name="gradeBtn">평가</button>
 												</div>

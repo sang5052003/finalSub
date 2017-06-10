@@ -135,10 +135,10 @@ public class CustomerController {
 		int responseStatus = HttpResponse.getInstance().getResponseStatus(response);
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
-		System.out.println(responseStatus);
-		System.out.println("concon" + responseContent);
+//		System.out.println(responseStatus);
+//		System.out.println("concon" + responseContent);
 		TypeToken<Customer> typeToken = new TypeToken<Customer>() {};
-		 
+		
 		Type type = typeToken.getType();
 		Customer cus = new Gson().fromJson(responseContent, type);
 
