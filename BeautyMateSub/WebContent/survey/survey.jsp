@@ -208,6 +208,7 @@
                         }
                         else {
                             ptStr4 = 'T';
+<<<<<<< HEAD
                         }   */
 =======
                    .se-pre-con {
@@ -353,6 +354,10 @@
                         }  */
 >>>>>>> refs/remotes/origin/0609JM1758
                         skinType = 'ORNT';
+=======
+                        }  */   
+                        skinType = 'ORNW';
+>>>>>>> refs/remotes/origin/0610jun1454
                         //skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
                         document.getElementById('skinType').value = skinType;
                         /* alert(skinType); */
@@ -1665,7 +1670,7 @@
                                                     </tr>
                                                     <!-- -----2~7---- -->
                                                     <tr>
-                                                        <td style="font-weight: bold;"><div id=pt4_qu2><a href="javascript:;" id="pt_02tab4">1. 얼굴에 주름이 있나요?</a></div></td>
+                                                        <td style="font-weight: bold;"><div id=pt4_qu2><a href="javascript:;" id="pt_02tab4">2~7번 아래 보기에 해당하는 번호를 각설문에 답 해 주세요.</a></div></td>
                                                     </tr>
                                                     <tr>
                                                         <td style="padding: 0px 2px 5px 10px;">① 나이보다 5∼10년 젊어 보인다./보였다.</td>
