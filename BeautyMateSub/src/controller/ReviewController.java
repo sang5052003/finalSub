@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +50,7 @@ public class ReviewController {
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
 	public String showReviewPage(@ModelAttribute("pager") SearchPager pager, Model model)
 			throws ClientProtocolException, IOException {
+
 		pager.setSearchType(null);
 		pager.setKeyword(null); // 초기화
 		
@@ -66,6 +68,17 @@ public class ReviewController {
 		}
 		// 온다.
 		// index, size 0 일시 예외처리
+		
+		// 이미지 잘라서 넣기
+		for(Review r : list){
+			if(r.getImage() ==null)
+				continue;
+			r.setFiles(r.getImage().split(",")); 
+		}
+		
+		for(Review r : list){
+			System.out.println(r.toString());
+		}
 
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("reviewList", list);
@@ -85,13 +98,17 @@ public class ReviewController {
 		
 		List<String> list = new ArrayList<>();
 		String image = r.getImage();
+		try{
 		String [] images = image.split(",");
-		for(String s : images){
-			list.add(s);
+			for(String s : images){
+				list.add(s);
+			}
+		}catch (NullPointerException e) {
+			e.printStackTrace();
+			return list;
+		
 		}
-		for(String s : list){
-			System.out.println(s);
-		}
+		
 		return list;
 	}
 	
@@ -199,11 +216,15 @@ public class ReviewController {
 		String image="";
 		int count =0;
 		
-		for(String s : review.getFiles()){ // image가 칼럼 하나에 다 넣기
-			count++;
-			image += s;
-		if(count != review.getFiles().length)
-			image +=",";
+		try{
+			for(String s : review.getFiles()){ // image가 칼럼 하나에 다 넣기
+				count++;
+				image += s;
+				if(count != review.getFiles().length)
+					image +=",";
+			}
+		}catch (NullPointerException e) { // 널일 때 예외 처리
+			e.printStackTrace();
 		}
 		
 		review.setImage(image);
@@ -358,7 +379,6 @@ public class ReviewController {
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json");
 		CloseableHttpResponse response = httpClient.execute(httpPost);
-
 
 		response.close();
 

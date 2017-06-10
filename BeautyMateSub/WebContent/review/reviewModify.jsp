@@ -59,6 +59,15 @@
 
       <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
 
+<<<<<<< HEAD
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+=======
+>>>>>>> refs/remotes/origin/0609JM1758
 
 <style>
 .no-js #loader {
@@ -255,7 +264,12 @@ label.star:before {
 													</div>
 												</div>
 												<div class="col-md-10 col-sm-9 col-xs-12">
+<<<<<<< HEAD
+													<form class="form-horizontal"
+														action="${ctx }/review/modify.do" method="post" role="form">
+=======
 													
+>>>>>>> refs/remotes/origin/0609JM1758
 														
 															<input type='hidden' name='page' value="${pager.page}"> 
 															<input type='hidden' name='perPageNum' value="${pager.perPageNum}">
@@ -276,7 +290,7 @@ label.star:before {
 																	<input type="text" class="form-control"
 																		name="cosmeticName" id="cosmeticName"
 																		value="${review.cosmetic.cosmeticName }"
-																		aria-describedby="basic-addon221"></input>
+																		aria-describedby="basic-addon221" readonly="readonly"></input>
 																	
 																</div>
 																<div class="stars">
@@ -316,15 +330,27 @@ label.star:before {
 															<input type="hidden" value="${review.recommend.cosmeticNo }" name= "recommend.cosmeticNo">
 														</div>
 														
+<<<<<<< HEAD
+														</form>
+=======
 														
+>>>>>>> refs/remotes/origin/0609JM1758
 														<div class="text-right">
 															<button type="submit" id="modify" class="btn btn-common btn-theme">수정
 															</button>
+<<<<<<< HEAD
 															<button type="submit" id="back" class="btn btn-common btn-theme">취소
 															</button>
 															
 <!-- 															<a class="btn btn-common btn-theme" -->
 <%-- 																href="${ctx }/review/listpage.do">취소</a> --%>
+=======
+														<a class="btn btn-common btn-theme" href="${ctx }/review/listpage.do">취소</a>
+<!-- 															<button type="submit" id="back" class="btn btn-common btn-theme">취소 -->
+<!-- 															</button> -->
+															
+
+>>>>>>> refs/remotes/origin/0609JM1758
 														</div>
 												</div>
 											</div>
@@ -406,8 +432,11 @@ label.star:before {
 											
 											
 											
+<<<<<<< HEAD
+=======
 											
 											
+>>>>>>> refs/remotes/origin/0609JM1758
 										});
 					</script>
 

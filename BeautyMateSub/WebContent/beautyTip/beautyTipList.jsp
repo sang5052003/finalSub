@@ -223,16 +223,28 @@
 
           <div class="col-sm-4 col-xs-12">
             <div class="blogSidebar">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon2">
-                <a href="#" class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></a>
-              </div>
+            	<a href="${ctx }/beautyTip/registForm.do" class="btn btn-common btn-theme">등록</a><br>
+	            <div id="searchDiv" class="row">
+	            	<div class="form-group col-sm-4">
+	            		<div class="countrySelect">
+							<select name="guiest_id2" id="guiest_id2" class="select-drop">
+		                          <option value="0">작성자</option>
+		                          <option value="1">제목</option>
+		                     </select>
+		                </div>
+		             </div>
+		             
+		              <div class="input-group col-sm-8">
+		                <input type="text" class="form-control" name="searchInput" placeholder="Search..." aria-describedby="basic-addon2">
+		                <a href="#" class="input-group-addon" id="basic-addon2"><i class="fa fa-search "></i></a>
+		              </div>
+	              </div>
               <div class="panel panel-default">
                 <div class="panel-heading">Categories</div>
                 <div class="panel-body">
                   <ul class="list-unstyle categoryList">
-                    <li><a href="product-right-sidebar.html">메이크업 정보</a></li>
-                    <li><a href="product-right-sidebar.html">세일 정보</a></li>
+                    <li><a href="#" id="makeUpInfoTab">메이크업 정보</a></li>
+                    <li><a href="#" id="saleInfoTab">세일 정보</a></li>
                   </ul>
                 </div>
               </div>
@@ -283,91 +295,54 @@
 <!-- blog list start -->
           <div class="col-sm-8 col-xs-12">
           
-			<c:forEach var="beautyTip" items="${beautyTipList }">
-				<div class="blogPost">
-	              <img src="${beautyTip.image }" alt="Image Blog" class="img-responsive" width="770" height="400">
-	              <h2><a href="blog-single-right-sidebar.html">${beautyTip.beautyTipTitle }</a></h2>
-	              <p>${beautyTip.beautyTipContent } </p>
-	              <ul class="list-inline">
-	                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${beautyTip.customer.id }</a></li>
-	                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-	                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> ${beautyTip.beautyTipReplys.size() } Comments</a></li>
-	              </ul>
-	            </div>
-			</c:forEach>
+          	<div id="post">
+				<c:forEach var="beautyTip" items="${beautyTipList }">
+					<div class="blogPost">
+		              <img src="${loadPath}${beautyTip.firstImage }" alt="Image Blog" class="img-responsive" width="770" height="400">
+		              <h2><a href="${ctx }/beautyTip/showDetail.do?beautyTipNo=${beautyTip.beautyTipNo }">${beautyTip.beautyTipTitle }</a></h2>
+		              <p>${beautyTip.firstContent } </p>
+		              <ul class="list-inline">
+		                <li><i class="fa fa-user" aria-hidden="true"></i> ${beautyTip.customer.id }</li>
+		                <li><i class="fa fa-comments-o" aria-hidden="true"></i> ${beautyTip.beautyTipReplys.size() } Comments</li>
+		                <c:if test="${beautyTip.customer.id eq loginedId }">
+			                <li><a href="javascript:delFunc(${beautyTip.beautyTipNo })" class="btn btn-common btn-dark">삭제</a></li>
+		                </c:if>
+		              </ul>
+		            </div>
+				</c:forEach>
+			</div>
 			
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-            <div class="blogPost">
-              <img src="http://placehold.it/770x400" alt="Image Blog" class="img-responsive">
-              <h2><a href="blog-single-right-sidebar.html">The standard Lorem Ipsum passage</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </p>
-              <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
-              </ul>
-            </div>
-
-            <div class="paginationCommon paginationOne">
+			<div class="paginationCommon paginationOne text-center ">
               <nav aria-label="Page navigation">
                 <ul class="pagination">
-                  <li>
-                    <a href="#" aria-label="Previous">
-                      <span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true" style="position:absolute; top:17px; right:17px"></i></span>
-                    </a>
-                  </li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li>
-                    <a href="#" aria-label="Next">
-                      <span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true" style="position:absolute; top:17px; right:17px"></i></span>
-                    </a>
-                  </li>
+                	<div id = "pageDiv">
+                			<c:if test="${pageMaker.prev}">
+								<li><a href="listpage.do${pageMaker.makeQueryForBeautyTip(pageMaker.startPage - 1, beautyTipList.get(0).category) }" aria-label="Previous">
+									<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+									</a>
+								</li>
+							</c:if>
+							
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="idx">
+								<li class="active"
+									<c:out value="${pageMaker.pager.page == idx?'class =active':''}"/>>
+									<a href="listpage.do${pageMaker.makeQueryForBeautyTip(idx, beautyTipList.get(0).category) }">${idx}</a>
+							</c:forEach>
+							
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li>
+							<a href="listpage.do${pageMaker.makeQueryForBeautyTip(pageMaker.endPage +1, beautyTipList.get(0).category) }" aria-label="Next">
+							<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+							</a>
+							</li>
+							</c:if>		
+					</div>										
                 </ul>
               </nav>
             </div>
+			
+            
 
 
           </div>
@@ -551,6 +526,267 @@
   		$(".se-pre-con").fadeOut("slow");;
   	});
   </script>
+  
+  <script type="text/javascript">
+	
+  		var loadPath = "http://localhost:8080/BeautyMate/resources/img/save/";
+  
+  		var cate = "";
+  		
+		var delFunc;
+		$(document).ready(function() {
+
+			//리스트상태에서 지우는 ajax
+			delFunc = function(beautyTipNo){
+
+				/* "beautyTip/remove/" + removeNo */
+				/* /remove/ajax/{id}&{category} */
+				$.ajax({
+					url:"http://localhost:8888/rest/beautyTip/remove/ajax/" + beautyTipNo
+					,type:"get"
+					,dataType:"json"
+					//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+					,success:displayList
+					,error:errorCallback
+				});
+			};
+			
+			//카테고리 검색(탭)
+			$("#makeUpInfoTab").click(function(){
+				
+				cate = 'makeupInformation';
+				var pagStart = 1;
+				var pagEnd = 3;
+				var vUrl = "http://localhost:8888/rest/beautyTip/";
+				vUrl += "listpage/pagStart/" + pagStart + "/pagEnd/" + pagEnd + "/category/" + cate;
+					$.ajax({
+						url:vUrl
+						,type:"get"
+						,dataType:"json"
+						//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+						,success:displayList
+						,error:errorCallback
+					});
+					
+					$("#searchDiv").show();
+					
+					console.log(pagStart);
+					console.log(pagEnd);
+			});
+			
+			
+			$("#saleInfoTab").click(function(){
+				
+				cate = 'saleInformation';
+				var pagStart = 1;
+				var pagEnd = 3;
+				var vUrl = "http://localhost:8888/rest/beautyTip/";
+				vUrl += "listpage/pagStart/" + pagStart + "/pagEnd/" + pagEnd + "/category/" + cate;
+					$.ajax({
+						url:vUrl
+						,type:"get"
+						,dataType:"json"
+						//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+						,success:displayList
+						,error:errorCallback
+					});
+					
+					$("#searchDiv").hide();
+			});
+			
+			
+			//검색버튼
+			var searchInput = $(":input[name=searchInput]");
+			searchInput.next().click(function(){
+				//console.log(searchInput.val());
+				//guiest_id2
+				//var v = $("select[name=guiest_id2]").val();
+				//console.log(v);
+				
+				searchAjax(searchInput.val(), $("select[name=guiest_id2]").val());
+			});
+			
+			var searchAjax = function(content, select){
+				
+				var vUrl = "http://localhost:8888/rest/beautyTip/find/";
+				if(select == 0){ //작성자
+					
+					//검색값 없는 경우
+					if(content == ""){
+						content = "admin";
+					}
+					
+					vUrl += "author/" + content;
+				}else{ //제목
+					
+					if(content == ""){
+						content = "§";
+					}
+					
+					vUrl += "title/" + content;
+				}
+				
+				$.ajax({
+					url:vUrl
+					,type:"get"
+					,dataType:"json"
+					//,data:{articleId:$("#articleId").val(), comm:$("#comment").val()}
+					,success:displayList
+					,error:errorCallback
+				});
+				
+			};
+			
+			//
+			//ajax성공시..(page)
+			var displayListWithPage = function(resultData) {
+	            
+				var listHtml = "";
+				
+				//로그인 아이디 검사(삭제버튼 활성)
+				var loginId = "${loginedId}";
+				
+
+				
+				$.each(resultData, function(index, beautyTip){
+					
+					
+					listHtml += '<div class="blogPost">';
+					listHtml += '<img src=' + loadPath + beautyTip.firstImage + ' alt="Image Blog" class="img-responsive" width="770" height="400">';
+					listHtml += '<h2><a href="${ctx }/beautyTip/showDetail.do?beautyTipNo=' + beautyTip.beautyTipNo + '">' + beautyTip.beautyTipTitle + '</a></h2>';
+					listHtml += '<p>' + beautyTip.firstContent + '</p>';
+					listHtml += '<ul class="list-inline">';
+					listHtml += '<li><i class="fa fa-user" aria-hidden="true"></i>' + beautyTip.customer.id + '</li>';
+					listHtml += '<li><i class="fa fa-comments-o" aria-hidden="true"></i>' + beautyTip.replySize + ' Comments</li>';
+					
+					if(loginId == beautyTip.customer.id){
+						
+						listHtml += '<li><a href="javascript:delFunc(' + beautyTip.beautyTipNo + ');"' + ' class="btn btn-common btn-dark">삭제</a></li>'
+					}
+					
+					listHtml += '</ul></div>';
+				});
+				
+				//div태그에다가 넣는 방식.. /div가 필요없다
+				$("#post").empty();
+				$("#post").append(listHtml);
+				/* $("#comment").val(""); */
+				
+				
+			};
+			
+			//ajax성공시..
+			var displayList = function(resultData) {
+	            
+				var listHtml = "";
+				
+				//로그인 아이디 검사(삭제버튼 활성)
+				var loginId = "${loginedId}";
+				
+
+				
+				$.each(resultData, function(index, beautyTip){
+					
+					
+					listHtml += '<div class="blogPost">';
+					listHtml += '<img src=' + loadPath + beautyTip.firstImage + ' alt="Image Blog" class="img-responsive" width="770" height="400">';
+					listHtml += '<h2><a href="${ctx }/beautyTip/showDetail.do?beautyTipNo=' + beautyTip.beautyTipNo + '">' + beautyTip.beautyTipTitle + '</a></h2>';
+					listHtml += '<p>' + beautyTip.firstContent + '</p>';
+					listHtml += '<ul class="list-inline">';
+					listHtml += '<li><i class="fa fa-user" aria-hidden="true"></i>' + beautyTip.customer.id + '</li>';
+					listHtml += '<li><i class="fa fa-comments-o" aria-hidden="true"></i>' + beautyTip.replySize + ' Comments</li>';
+					
+					if(loginId == beautyTip.customer.id){
+						
+						listHtml += '<li><a href="javascript:delFunc(' + beautyTip.beautyTipNo + ');"' + ' class="btn btn-common btn-dark">삭제</a></li>'
+					}
+					
+					listHtml += '</ul></div>';
+				});
+				
+				//div태그에다가 넣는 방식.. /div가 필요없다
+				$("#post").empty();
+				$("#post").append(listHtml);
+				/* $("#comment").val(""); */
+				
+				//pageMaker
+				/* <ul class="pagination">
+                
+    			<c:if test="${pageMaker.prev}">
+					<li><a href="listpage.do${pageMaker.makeQueryForBeautyTip(pageMaker.startPage - 1, beautyTipList.get(0).category) }" aria-label="Previous">
+						<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+						</a>
+					</li>
+				</c:if>
+				
+				<c:forEach begin="${pageMaker.startPage }"
+					end="${pageMaker.endPage }" var="idx">
+					<li class="active"
+						<c:out value="${pageMaker.pager.page == idx?'class =active':''}"/>>
+						<a href="listpage.do${pageMaker.makeQueryForBeautyTip(idx, beautyTipList.get(0).category) }">${idx}</a>
+				</c:forEach>
+				
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				<li>
+				<a href="listpage.do${pageMaker.makeQueryForBeautyTip(pageMaker.endPage +1, beautyTipList.get(0).category) }" aria-label="Next">
+				<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+				</a>
+				</li>
+				</c:if>												
+    			</ul> */
+    			
+    			listHtml = "";
+    			var prev = "${pageMaker.prev}";
+    			var next = "${pageMaker.next}";
+    			//var listUrl = "";
+    			
+    				if(prev == true){
+    				
+    					listHtml += '<li><a href="listpage.do${pageMaker.makeQueryForBeautyTip(pageMaker.startPage - 1, beautyTipList.get(0).category) }" aria-label="Previous">';
+    					listHtml += '<span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>';
+    					listHtml += '</a></li>';
+    				} 
+    			
+    			
+    				var len = parseInt("${pageMaker.endPage }");
+    				console.log(len);
+    				for(var idx = 0; idx < len; idx++){
+    					
+    					if(idx == parseInt("${pageMaker.pager.page}")){
+    						listHtml += '<li class="active">';	
+    					}
+    					else{
+    						listHtml += '<li class="">';
+    					}
+    					listHtml += '<a href="listpage.do?pagStart=' + (idx + 1) + '&pagEnd=' + len + '&category=' + cate + '">' + (idx + 1) + '</a></li>';
+    				}
+    			
+    				var endPage = parseInt("${pageMaker.endPage}");
+    				console.log(endPage);
+    				console.log(next);
+    			 	 if(next == true){
+    			 		 console.log("dkdkdk");
+    			 		listHtml +=
+    			 		'<li>' +
+    			 		'<a href="" aria-label="Next">' +
+    			 		'<span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>' + 
+    			 		'</a></li>';
+    			 	 }
+    				
+    			$("#pageDiv").empty();
+    			$("#pageDiv").append(listHtml);
+				
+			};
+			
+			
+			//ajax실패
+			var errorCallback = function() {
+				alert("수행중 오류가 발생했습니다.");
+			};
+			
+			
+		});/* end ready */
+	</script>
 
 </body>
 

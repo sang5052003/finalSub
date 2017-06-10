@@ -36,6 +36,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
 import com.google.gson.reflect.TypeToken;
 
 import controller.utils.Const;
@@ -46,7 +47,7 @@ import domain.Customer;
 @Controller
 @RequestMapping("customer")
 public class CustomerController {
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -62,7 +63,6 @@ public class CustomerController {
 
 	}
 
-	
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	public String customerJoin(Customer customer, RedirectAttributes rttr)
 			throws ClientProtocolException, IOException, ParseException {
@@ -118,11 +118,11 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String customerLogin(Customer customer,HttpServletRequest request,RedirectAttributes rttr) throws ClientProtocolException, IOException {
+	public String customerLogin(Customer customer, HttpServletRequest request, RedirectAttributes rttr)
+			throws ClientProtocolException, IOException {
 
-		String url = Const.getOriginpath() + "customer/login/id/"+customer.getId();
+		String url = Const.getOriginpath() + "customer/login/id/" + customer.getId();
 
-	
 		HttpPost httpPost = new HttpPost(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -139,45 +139,44 @@ public class CustomerController {
 
 		System.out.println(responseStatus);
 		System.out.println("concon" + responseContent);
-		TypeToken<Customer> typeToken = new TypeToken<Customer>() {};
-		 
+		TypeToken<Customer> typeToken = new TypeToken<Customer>() {
+		};
+
 		Type type = typeToken.getType();
 		Customer cus = new Gson().fromJson(responseContent, type);
 
-		 
-		 if(cus!=null){
-			 HttpSession session = request.getSession(); // 세션은 설정 해줄 수 있음 타이머
-			 session.setAttribute("loginedCustomer", cus.getId());
-			 session.setAttribute("customerNo", cus.getCustomerNo());
-		
-		 }else{
-			 HttpSession session = request.getSession(false); //
-				if (session != null) {
-					session.invalidate();
-				}
-				rttr.addFlashAttribute("msg", "LOGINFAIL");
-				return "redirect:/customer/joinForm.do";
+		if (cus != null) {
+			HttpSession session = request.getSession(); // 세션은 설정 해줄 수 있음 타이머
+			session.setAttribute("loginedCustomer", cus.getId());
+			session.setAttribute("customerNo", cus.getCustomerNo());
 
-		 }
-		 
+		} else {
+			HttpSession session = request.getSession(false); //
+			if (session != null) {
+				session.invalidate();
+			}
+			rttr.addFlashAttribute("msg", "LOGINFAIL");
+			return "redirect:/customer/joinForm.do";
+
+		}
+
 		response.close();
 		httpClient.close();
 
 		return "/index.jsp";
 	}
-	
+
 	@RequestMapping(value = "logout.do")
-	public void customerLogOut(HttpSession session ,HttpServletRequest request,HttpServletResponse response) throws ClientProtocolException, IOException {
-		System.out.println("before:"+session);
-		
+	public void customerLogOut(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws ClientProtocolException, IOException {
+		System.out.println("before:" + session);
+
 		session.removeAttribute("loginedCustomer");
 		session.removeAttribute("customerNo");
 		session.invalidate();
-		
+
 		System.out.println(session);
 		response.sendRedirect(request.getContextPath());
 	}
-	
-	
 
 }

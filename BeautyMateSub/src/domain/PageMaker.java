@@ -11,7 +11,7 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 
-	private int displayPageNum = 10;
+	private int displayPageNum = 3;
 
 	private Pager pager;
 
@@ -22,6 +22,8 @@ public class PageMaker {
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 
+		System.out.println("totalcount : " + totalCount);
+		
 		setData();
 
 	}
@@ -30,8 +32,11 @@ public class PageMaker {
 		endPage = (int) (Math.ceil(pager.getPage() / (double) displayPageNum) * displayPageNum); // 모든
 																									// 페이지수에
 																									// 대응하기
-																									// 위해
 
+		
+		System.out.println(pager.getPage());
+		System.out.println("endpage : " + endPage);
+		
 		startPage = (endPage - displayPageNum) + 1; // 시작 페이지
 
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) pager.getPerPageNum()));
@@ -101,17 +106,35 @@ public class PageMaker {
 
 		return uriComponents.toUriString();
 	}
+	
+	//sangki's
+	public String makeQueryForBeautyTip(int page, BeautyTipCategory category) { // 동적 쿼리
 
-	 public String makeSearch(int page) {
-	
-	 UriComponents uriComponents =
-	 UriComponentsBuilder.newInstance().queryParam("page", page)
-	 .queryParam("perPageNum", pager.getPerPageNum())
-	 .queryParam("searchType", ((SearchPager) pager).getSearchType())
-	 .queryParam("keyword", ((SearchPager) pager).getKeyword()).build();
-	
-	 return uriComponents.toUriString();
-	 }
+		System.out.println("==makeQueryForBeautyTip==");
+		System.out.println(pager.getPerPageNum());
+		
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", pager.getPerPageNum())
+				.queryParam("category", category)
+				.build();
+
+		return uriComponents.toUriString();
+	}
+
+	public String makeSearch(int page) {
+
+		System.out.println("===makeSearch===");
+		System.out.println(page);
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", pager.getPerPageNum())
+				.queryParam("searchType", ((SearchPager) pager).getSearchType())
+				.queryParam("keyword", ((SearchPager) pager).getKeyword()).build();
+
+		System.out.println(uriComponents.toUriString());
+
+		return uriComponents.toUriString();
+	}
 
 	@Override
 	public String toString() {

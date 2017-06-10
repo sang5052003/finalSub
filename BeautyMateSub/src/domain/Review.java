@@ -15,6 +15,7 @@ public class Review {
 	private Cosmetic cosmetic;
 	private Recommend recommend;
 	private Integer listCount; // 전체개수를 알아오기 위해
+
 //	private Date regdate;
 	
 	private String[] files;

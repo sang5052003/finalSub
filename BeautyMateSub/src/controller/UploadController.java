@@ -40,7 +40,6 @@ public class UploadController {
 		System.out.println(file.getOriginalFilename());
 		System.out.println(file.getSize());
 		System.out.println(file.getContentType());
-
 		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 
 		model.addAttribute("savedName", savedName);

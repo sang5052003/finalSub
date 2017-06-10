@@ -48,6 +48,21 @@
 	
 	
 	
+<<<<<<< HEAD
+<!-- 	<!-- Bootstrap 3.3.4 --> 
+<%--     <link href="${ctx }/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --%>
+<!--     Font Awesome Icons -->
+<!--     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
+<!--     Ionicons -->
+<!--     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" /> -->
+<!--     Theme style -->
+<%--     <link href="${ctx }/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
+<!--     AdminLTE Skins. Choose a skin from the css/skins 
+<!--          folder instead of downloading all of them to reduce the load. --> 
+<%--     <link href="${ctx }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
+	
+	
+=======
     
       <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
   
@@ -56,17 +71,21 @@
     .back { background-color: gray; opacity:0.5; width: 100%; height: 300%; overflow:hidden;  z-index:1101;}
     .front { 
        z-index:1110; opacity:1; boarder:1px; margin: auto; 
+       	top: 25%;
+       	left:32%;
+     	width: 50%; 
+     	height: 50%; 
       }
      .show{
        position:relative;
-       max-width: 1200px; 
-       max-height: 800px; 
+       max-width: 1600px; 
+       max-height: 1000px; 
        overflow: auto;       
      } 
      
      #imglist { 
 	     list-style:none;
-	     margin-left : 165px; 
+	     margin-left : 10px; 
 	     padding:0; 
 	     
  	} 
@@ -84,7 +103,10 @@
     <div id="popup_front" class='popup front' style="display:none;">
      <img id="popup_img">
     </div>    
+>>>>>>> refs/remotes/origin/0609JM1758
     
+      <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
+  
     
 
 <style>
@@ -183,38 +205,61 @@
             </ul>
           </div>
           
-<!-- USER SECTION -->
-      <section class="clearfix userSection padding">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <ul class="list-inline squareBtn">
-                <li class="li"><a href="user-dashboard.html" class="btn btn-common">Account Dashboard</a></li>
-                <li class="li"><a href="user-profile.html" class="btn btn-common btn-theme">Profile</a></li>
-                <li class="li"><a href="address.html" class="btn btn-common">Address</a></li>
-                <li class="li"><a href="all-order.html" class="btn btn-common">All Orders</a></li>
-                <li class="li"><a href="wishlist.html" class="btn btn-common">Wishlist</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="innerWrapper">
-                <div class="orderBox  patternbg">
-                    리뷰
-                </div>
-                <div class="profile">
-                  <div class="row">
-                    <div class="col-md-2 col-sm-3 col-xs-12">
-                      <div class="thumbnail">
-                        <img src="http://www.dongkoo.com/uploads/product/%EB%8B%A5%ED%84%B0%EB%AA%A8%EB%8D%94%EB%82%98%ED%97%A4%EC%96%B4%ED%86%A0%EB%8B%89.png" 
-                        width="270px" height="270px" alt="profile-image">
-                        <div class="caption">
-                          <a href="#" class="btn btn-primary btn-block" role="button">Change Avatar</a>
-                        </div>
-                      </div>
-                    </div>
+                	<form role="form" action="${ctx }/review/modify.do" method="post">
+
+					<input type='hidden' name='reviewNo' id='reviewNo' value="${review.reviewNo}">
+					<input type='hidden' name='page' value="${pager.page}"> <input
+						type='hidden' name='perPageNum' value="${pager.perPageNum}">
+					<input type='hidden' name='searchType' value="${pager.searchType}">
+					<input type='hidden' name='keyword' value="${pager.keyword}">
+
+					</form>
+          
+          
+          <br><br>
+<!-- USER SECTION -->   
+   	<section class="clearfix userSection padding">
+   	<div class="row">
+<!--             <div class="col-xs-12"> -->
+<!--               <ul class="list-inline squareBtn"> -->
+	<div class="panel panel-default cartInfo">
+            <div class="panel-heading patternbg">Review</div>
+            <div class="panel-body tableArea">
+              <div>
+              <table class="table">
+                  <tbody>
+                    <tr>
+                      <td><div class="cartImage"><img src="${review.cosmetic.img}" style="width:100px;height:100px" alt="profile-image"></div></td>
+                      <td style="text-align:left;">${review.cosmetic.category}<br><span>${review.cosmetic.brand}</span><br><span>${review.cosmetic.cosmeticName}</span>
+                      <br><span>${review.cosmetic.volume} / ${review.cosmetic.cost}</span></td>
+                      <td style="width:0px"></td>
+                    </tr>
+                    <tr>
+                       <td colspan="3" style="text-align:left;"><i class="fa fa-user-o" aria-hidden="true"></i> ${review.customer.id } <br><span>날짜</span> </td>             
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align:left;">
+                        <c:forEach begin="1" end="${review.recommend.grade}" step="1" varStatus="status">
+		                        <i class="fa fa-star" aria-hidden="true" style="color: #FFE400"></i> 		                     
+	                        </c:forEach>
+	                        <c:forEach begin="1" end="${5 - review.recommend.grade}" step="1" varStatus="status">
+	                        <i class="fa fa-star-o" aria-hidden="true"></i>
+	                        </c:forEach>
+	                        (${review.recommend.grade})
+                         <br><span><strong>${review.reviewTitle}</strong></span><br><span>${review.reviewContent}</span><br><br>
+<%--                            <c:forEach items="${review.files }" var="file"> --%>
+<!-- 	                           <div class="cartImage" style="float:left; margin-right:5px;"> -->
+<%-- 	                           <img src="${ctx }/displayFile?fileName=${file}" style="width:100px;height:100px" alt="Image cart"> --%>
+<!-- 	                           </div> -->
+<%-- 	                           </c:forEach> --%>
+                           </td>                         
+                    </tr>
+                  </tbody>
+                </table>
+					
+					
                     
+<<<<<<< HEAD
                     
                    	<form role="form" action="${ctx }/review/modify.do" method="post">
 
@@ -242,10 +287,11 @@
                             </div>
                           </div>
                           <br>
-                          
+=======
                           	
 					<ul class="mailbox-attachments clearfix uploadedList" id="imglist" ></ul>
                           
+>>>>>>> refs/remotes/origin/0609JM1758
                           <div class="text-right">
 									<button type="submit" class="btn btn-common btn-theme" id="modifyBtn">수정</button>
 									<button type="submit" class="btn btn-common btn-theme" id="removeBtn">삭제</button>
@@ -254,6 +300,7 @@
                     </div>
                   </div>
                 </div>
+<<<<<<< HEAD
               </div>
             </div>
           </div>
@@ -275,31 +322,57 @@
 			  <c:forEach items="${review.replys }" var="reply" varStatus="status">            
 <%--                   <li class="" data-reply=${reply.replyNo }> --%>
                   <div class="blogCommnets">
+=======
+                </div>
+			</section>
+     
+<!--           <div class="row"> -->
+<!--           <div class="col-xs-12"> -->
+<!--             <div class="tabCommon tabOne singleTab"> -->
+              <input type="button" id="replyCount"  class="btn btn-common btn-theme" value="Reply(${review.replys.size() })"> 
+<!--               </div> -->
+<!--               <div class="tab-content patternbg">             -->
+               <div id="reviews" class="tab-pane fade in active">			   			   
+			  <c:forEach items="${review.replys }" var="reply" varStatus="status">     
+			  	       
+                  <div class="blogCommnets" >
+>>>>>>> refs/remotes/origin/0609JM1758
                     <div class="media	">
                       <a class="media-left" href="#">
+                      	<i class="fa fa-user-o" aria-hidden="true"></i>
                         <img class="media-object" src="http://placehold.it/70x70" alt="Image">
                       </a>
                       <div class="media-body">
                         <h4 class="media-heading">리뷰작성자</h4>
                         <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>
                         <p class="timeline-body" id="${reply.replyNo}">${reply.replyContent }</p>
+<<<<<<< HEAD
+<!--                         <button class="btn btn-link">Reply</button> -->
+=======
+>>>>>>> refs/remotes/origin/0609JM1758
                         <div class="text-right">
                         <input class="timeline-header" type="hidden" name ="${reply.replyNo }" id ="${reply.replyNo }" value="${reply.replyNo }"/>
-                        
-          
-					
-				
+                           
 							
 						<div class="timeline-footer">
                          <a style="padding:10px" href="javascript:modifyReply(${reply.replyNo});"><i class="fa fa-pencil"aria-hidden="true"></i></a>
                          <a style="padding:10px" href="javascript:removeReply(${reply.replyNo});"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+<<<<<<< HEAD
 <!--                          <button type="button" id='replyRemoveBtn'><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
+=======
+						</div>
+>>>>>>> refs/remotes/origin/0609JM1758
 						</div>
                           </div>
                       </div>
                     </div>
+<<<<<<< HEAD
                   </div>
                   </c:forEach> 
+=======
+                  </c:forEach>
+                  </div> 
+>>>>>>> refs/remotes/origin/0609JM1758
 <!--                     <div class="media mediaMargin"> -->
 <!--                       <a class="media-left" href="#"> -->
 <!--                         <img class="media-object" src="http://placehold.it/70x70" alt="Image"> -->
@@ -311,8 +384,11 @@
 <!--                         <button class="btn btn-link">Reply</button> -->
                         
 <!--                       </div> -->
-                    </div>
-                  </div>
+                    
+                  
+                  <br><br>
+                   <div class="row">
+          <div class="col-xs-12">
                   <div class="commentsForm">
                     <h3>leave a comment</h3>
 <!--                   <form action="" method="POST" role="form"> -->
@@ -330,14 +406,11 @@
                         <button type="button" class="btn btn-common btn-theme" id="replyAddBtn">댓글 작성</button>
                     </div>
             </div>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
+         </div>    
+      
+             </div>
+             </div>   
+                <br><br>
 
    
      
@@ -357,14 +430,16 @@
   <script src="${ctx }/resources/js/custom.js"></script>
 
 
+<<<<<<< HEAD
+=======
 <script type="text/javascript" src="${ctx }/resources/js/upload.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <script id="templateAttach" type="text/x-handlebars-template">
 <li id='imgli' data-src='${ctx}{{fullName}}'>
   <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
-  <div class="mailbox-attachment-info">
-	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+  <div class="mailbox-attachment-info" style="text-align:center">
+	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name" >{{fileName}}</a>
 	</span>
   </div>
 </li>                
@@ -372,6 +447,7 @@
 
 
 
+>>>>>>> refs/remotes/origin/0609JM1758
 <script>
 
     var postNo = ${review.reviewNo};
@@ -484,6 +560,11 @@
 				$("#reviews").empty();
 				$("#reviews").append(replyHtml);
 				$("#replyContent").val("");
+<<<<<<< HEAD
+=======
+				console.log(data.replys.length);
+				$("#replyCount").val("Reply("+data.replys.length +")");
+>>>>>>> refs/remotes/origin/0609JM1758
 				
 			}
 		});
@@ -522,6 +603,8 @@ $(document).ready(function() {
 	});
 
 });
+<<<<<<< HEAD
+=======
 
 var template = Handlebars.compile($("#templateAttach").html());
 
@@ -564,12 +647,24 @@ $("#popup_img").on("click", function(){
 });	
 
 
+>>>>>>> refs/remotes/origin/0609JM1758
 </script>
 
 
   <script>
   	$(window).load(function() {
   		$(".se-pre-con").fadeOut("slow");
+  		
+  		$("tr").hover(
+  	  			function () {
+  	  				$(this).css("backgroundColor","#F6F6F6");	
+  					
+  				},
+  	  			function () {
+  	  				$(this).css("backgroundColor","#ffffff");		
+  					
+  				}
+  	  		)
   		
   	});
   </script>
