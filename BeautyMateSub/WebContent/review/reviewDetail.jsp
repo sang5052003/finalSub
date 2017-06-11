@@ -501,6 +501,7 @@ $(document).ready(function() {
 	});
 
 	$("#removeBtn").on("click", function() {
+		
 		formObj.attr("action", "remove.do");
 		formObj.submit();
 	});

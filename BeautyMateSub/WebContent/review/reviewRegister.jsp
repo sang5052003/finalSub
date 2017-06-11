@@ -286,7 +286,7 @@ label.star:before {
 													<ul class="mailbox-attachments clearfix uploadedList">
 													</ul>
 													<div class="text-right">
-														<button type="submit" class="btn btn-common btn-theme">작성</button>
+														<button type="submit" id="registerBtn" class="btn btn-common btn-theme">작성</button>
 														<a class="btn btn-common btn-theme"
 															href="${ctx }/review/listpage.do">취소</a>
 
@@ -427,19 +427,20 @@ $(".fileDrop").on("drop", function(event){
 });
 
 
+
 $("#registerForm").submit(function(event){
 	event.preventDefault();
 	
-	var that = $(this);
+		var that = $(this);
+		
+		var str ="";
+		$(".uploadedList .delbtn").each(function(index){
+			 str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
+		});
+		
+		that.append(str);
 	
-	var str ="";
-	$(".uploadedList .delbtn").each(function(index){
-		 str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
-	});
-	
-	that.append(str);
-
-	that.get(0).submit();
+		that.get(0).submit();
 });
 
 
@@ -459,6 +460,10 @@ $(".uploadedList").on("click", "a", function(event){
 	   }
   });
 });
+
+
+
+
 
 </script>
 
