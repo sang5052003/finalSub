@@ -32,7 +32,7 @@
 					<td>${cosmetic.brand}</td>
 					<td><a href="showByNo.do?cosmeticNo=${cosmetic.cosmeticNo}">${cosmetic.cosmeticName}</a></td>
 					<td>${cosmetic.category}</td>
-					<td>${cosmetic.volume}</td>
+					<td>${cosmetic.cosmeticName}</td>
 					<td>${cosmetic.cost}</td>
 					<td>${cosmetic.img}</td>
 					<td>${cosmetic.ingredients}</td>
