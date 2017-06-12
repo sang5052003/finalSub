@@ -332,7 +332,6 @@ label.star:before {
 																<textarea class="form-control" id=""
 																	name='reviewContent' placeholder="">${review.reviewContent}</textarea>
 															</div>
-															
 															<input type="hidden" name="reviewNo" value="${review.reviewNo }">
 															<input type="hidden" value="${review.cosmetic.cosmeticNo }" name="cosmetic.cosmeticNo">
 															<input type="hidden" value="${review.recommend.recommendNo }" name= "recommend.recommendNo">
