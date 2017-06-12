@@ -3,11 +3,13 @@ package controller;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.Consts;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 import controller.utils.Const;
 import controller.utils.HttpResponse;
 import domain.Cosmetic;
+import domain.Customer;
 import domain.SkinType;
 
 @Controller
@@ -41,13 +44,13 @@ public class SurveyController {
 		return "/survey/skinTypeRegistForm.jsp";
 	}
 
-	@RequestMapping(value = "skinTypeRegist.do")
-	public String surveySkinTypeRegist(HttpServletRequest req, Model model)
+	@RequestMapping(value = "skinTypeRegist.do", method=RequestMethod.POST)
+	public String surveySkinTypeRegist(HttpSession session, HttpServletRequest req, Model model)
 			throws ClientProtocolException, IOException {
 
 		String skinType = req.getParameter("skinType");
 
-		int customerNo = 1;
+		int customerNo = (int) session.getAttribute("customerNo");
 		String url = Const.getOriginpath() + "survey/insert/customerNo/" + customerNo + "/skinType/" + skinType;
 
 		HttpPost httpPost = new HttpPost(url);
@@ -70,56 +73,20 @@ public class SurveyController {
 
 	}
 
-	@RequestMapping(value = "skinTypeResult.do", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "skinTypeResult.do", method={RequestMethod.GET,RequestMethod.POST}, produces = "application/json; charset=UTF-8")
 	public String skinTypeResult(HttpSession session, Model model) throws ClientProtocolException, IOException {
-//		고객번호 가져온다.
-//		int customerNo = (int) session.getAttribute("customerNo");
-		String url = Const.getOriginpath() + "survey/customerNo/" + 1; // get , 1=customerNo
-//		System.out.println(url);
-		// apache lib
-		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
-		// HttpClient
+		int customerNo = (int) session.getAttribute("customerNo");
+		String url = Const.getOriginpath() + "survey/customerNo/" + customerNo; 
+		HttpGet httpGet = new HttpGet(url); 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		// os에 붙음
-		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로 던짐
-		// 상태코드확인
+		CloseableHttpResponse response = httpClient.execute(httpGet); 
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
-		// 내용을 json으로 받는다(stream으로)
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
-		// 상태체크해서 처리 해줘야 됨
-		// json(String) to object
-		// gson lib
-		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
 		TypeToken<SkinType> typeToken = new TypeToken<SkinType>() {};
-		// java.lang.reflect.type, import
 		Type type = typeToken.getType();
-		
-		
 		SkinType skinType = new Gson().fromJson(responseContent, type);
-//		System.out.println(skinType);
-//		List<NameValuePair> list = new ArrayList<NameValuePair>();
-//		SkinType skin = new SkinType();
-//		skin.setBaumanType(skinType.getBaumanType());
-//		skin.setExplanation(skinType.getExplanation());
-//		skin.setRecommendedIngredient(skinType.getRecommendedFood());
-//		skin.setBannedIngredient(skinType.getBannedIngredient());
-//		skin.setRecommendedFood(skinType.getRecommendedFood());
-//		skin.setHabit(skinType.getHabit());
-		
-//		list.add(new BasicNameValuePair("baumanType", skinType.getBaumanType().toString()));
-//		list.add(new BasicNameValuePair("explanation", skinType.getExplanation().toString()));
-//		list.add(new BasicNameValuePair("recommendedIngredient", skinType.getRecommendedIngredient().toString()));
-//		list.add(new BasicNameValuePair("bannedIngredient", skinType.getBannedIngredient().toString()));
-//		list.add(new BasicNameValuePair("recommendedFood", skinType.getRecommendedFood().toString()));
-//		list.add(new BasicNameValuePair("habit", skinType.getHabit().toString()));
-//		UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity();
-//	    formEntity.setContentType("application/json");
-//	    formEntity.setContentEncoding("UTF-8");
 		response.close();
-
 		model.addAttribute("skinType", skinType);
-
-		
 		return "/survey/skinTypeResult.jsp";
 
 	}
@@ -151,50 +118,44 @@ public class SurveyController {
 
 		model.addAttribute("cosmetics", cosmetics);
 		model.addAttribute("cosmeticNames", cosmeticNames);
+
 		return "/survey/gradeRegistForm.jsp";
 	}
 
-
-	@RequestMapping(value = "surveyResult.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String surveyResult(HttpServletRequest req, Model model) throws ClientProtocolException, IOException {
-//		추천된 화장품 목록 받기
-		String url = Const.getOriginpath() + "recommend/list/customer/" + 2;
-
+	@RequestMapping(value = "surveyResult.do", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	public String surveyResult(HttpSession session, HttpServletRequest req, Model model)
+			throws ClientProtocolException, IOException {
+		int customerNo = (int) session.getAttribute("customerNo");
+		// 추천된 화장품 목록 받기
+		String url = Const.getOriginpath() + "recommend/list/customer/" + customerNo; // customerNo
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		CloseableHttpResponse response = httpClient.execute(httpGet); 
+		CloseableHttpResponse response = httpClient.execute(httpGet);
 
 		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
-		
+
 		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
 		};
-		
+
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 		response.close();
-		
-		
-//		추천값 (유사도)받기
-		String u = Const.getOriginpath() + "recommend/list/value/" + 2; 
 
+		// 추천값 (유사도)받기
+		String u = Const.getOriginpath() + "recommend/list/value/" + customerNo; // customerNo
 
 		HttpGet hGet = new HttpGet(u); // <-> HttpPost
 
-		// HttpClient
 		CloseableHttpClient hc = HttpClients.createDefault();
 
-		// os에 붙음
 		CloseableHttpResponse resp = hc.execute(hGet); // 예외 바깥으로
 		// 던짐
 
-		// 상태코드확인
 		int rsc = HttpResponse.getInstance().getResponseStatus(resp);
-		// 내용을 json으로 받는다(stream으로)
 		String rc = HttpResponse.getInstance().getResponseContent(resp);
-
 		TypeToken<int[]> tToken = new TypeToken<int[]>() {
 		};
 
@@ -203,22 +164,132 @@ public class SurveyController {
 		resp.close();
 		model.addAttribute("cosmetics", cosmetics);
 		model.addAttribute("values", values);
+		url = Const.getOriginpath() + "survey/customerNo/" + customerNo;
+		httpGet = new HttpGet(url);
+		httpClient = HttpClients.createDefault();
+		response = httpClient.execute(httpGet);
+		responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		responseContent = HttpResponse.getInstance().getResponseContent(response);
+		TypeToken<SkinType> skinTypeToken = new TypeToken<SkinType>() {
+		};
+		Type skintype = skinTypeToken.getType();
+		SkinType skinType = new Gson().fromJson(responseContent, skintype);
+		response.close();
+
+		String cusRecoIngre = skinType.getRecommendedIngredient();
+		String[] splitCusRecoIngre = cusRecoIngre.split(",");
+
+		String cusBanIngre = skinType.getBannedIngredient();
+		String[] splitCusBanIngre = cusBanIngre.split(",");
+		int cosNo = 0;
+		String cosReco = null;
+		String cosBan = null;
+		for (Cosmetic c : cosmetics) {
+			String recoIngre = c.getIngredients();
+			cosNo = c.getCosmeticNo();
+			String[] splitRecoIngre = recoIngre.split("·");
+			List<String> recoList = new ArrayList<>();
+			List<String> banList = new ArrayList<>();
+
+			for (String scrifromXml : splitCusRecoIngre) {
+				for (String sri : splitRecoIngre) {
+
+					String xmldata = scrifromXml;
+					String dbdata = sri;
+
+					xmldata = xmldata.toString().replaceAll(" ", "");// 공백
+					xmldata = xmldata.toString().replaceAll("\\p{Z}", ""); // 공백
+					xmldata = xmldata.toString().replaceAll("\t", "");// 탭
+					xmldata = xmldata.toString().replaceAll("\n", "");// 엔터
+
+					dbdata = dbdata.toString().replaceAll(" ", "");
+					dbdata = dbdata.toString().replaceAll("\\p{Z}", "");
+					dbdata = dbdata.toString().replaceAll("\t", "");
+					dbdata = dbdata.toString().replaceAll("\n", "");
+
+					// 테스트
+					// System.out.println(dbdata);
+					// System.out.println(xmldata);
+					// boolean torf = dbdata.equals(xmldata);
+					// System.out.println(torf);
+
+					if (dbdata.toString().equals(xmldata.toString())) {
+						recoList.add(xmldata);
+						String[] simpleArray = new String[recoList.size()];
+						recoList.toArray(simpleArray);
+						if (cosReco == null) {
+							cosReco = Arrays.toString(simpleArray);
+						} else {
+							cosReco = cosReco + Arrays.toString(simpleArray);
+						}
+						recoList.clear();
+						model.addAttribute("recoList_" + cosNo, cosReco);
+					}
+				}
+			}
+			for (String scbifromXml : splitCusBanIngre) {
+				for (String sri : splitRecoIngre) {
+
+					String xmldata = scbifromXml;
+					String dbdata = sri;
+
+					xmldata = xmldata.toString().replaceAll(" ", "");// 공백
+					xmldata = xmldata.toString().replaceAll("\\p{Z}", ""); // 공백
+					xmldata = xmldata.toString().replaceAll("\t", "");// 탭
+					xmldata = xmldata.toString().replaceAll("\n", "");// 엔터
+
+					dbdata = dbdata.toString().replaceAll(" ", "");
+					dbdata = dbdata.toString().replaceAll("\\p{Z}", "");
+					dbdata = dbdata.toString().replaceAll("\t", "");
+					dbdata = dbdata.toString().replaceAll("\n", "");
+
+					if (dbdata.toString().equals(xmldata.toString())) {
+						banList.add(xmldata);
+						String[] simpleArray = new String[banList.size()];
+						banList.toArray(simpleArray);
+						if (cosBan == null) {
+							cosBan = Arrays.toString(simpleArray);
+						} else {
+							cosBan = cosBan + Arrays.toString(simpleArray);
+						}
+						banList.clear();
+						model.addAttribute("banList_" + cosNo, cosBan);
+					}
+				}
+			}
+		}
 		return "/survey/recommendResult.jsp";
 
 	}
 
 	// 픽미템 탭 누르면 나오는 페이지(설문을 했다면 skinTypeResult페이지가 나올것이다)
 	@RequestMapping(value = "survey.do", method = RequestMethod.GET)
+	public String survey(Customer customer, HttpSession session, HttpServletRequest req, Model model)
+			throws ClientProtocolException, IOException {
+		if (session.getAttribute("loginedCustomer") != null) {
+			int cusNo = (int) session.getAttribute("customerNo");
+			String url = Const.getOriginpath() + "customer/findNo/customerNo/" + cusNo;
+			
+			HttpGet httpGet = new HttpGet(url);
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			CloseableHttpResponse response = httpClient.execute(httpGet);
+			
+			int responseStatus = HttpResponse.getInstance().getResponseStatus(response);
+			String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
-	public String survey(HttpServletRequest req, Model model) {
-		// 커스터머 검색 후 그아이디에 스킨타입있는지확인후 그스킨타입으로 확인해야함 *****
-
-		String skinType = (String) req.getSession().getAttribute("skinType");
-
-		if (skinType != null) {
-			return "/survey/skinTypeResult.do";
+			TypeToken<Customer> typeToken = new TypeToken<Customer>() {};
+			Type type = typeToken.getType();
+			Customer cus = new Gson().fromJson(responseContent, type);
+			String skinType = cus.getSkinType();
+			response.close();
+			
+			if (skinType != null) {
+				return "/survey/skinTypeResult.do";
+			} else {
+				return "/survey/survey.jsp";
+			}
 		} else {
-			return "/survey/survey.jsp";
+			return "redirect:/customer/joinForm.do";
 		}
 	}
 

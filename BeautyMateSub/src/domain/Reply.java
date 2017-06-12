@@ -1,11 +1,14 @@
 package domain;
 
+import java.util.Date;
+
 public class Reply {
 	
 	private int replyNo;
 	private String replyContent;
 	private Customer customer;
 	private int postNo;
+//	private Date regdate; 
 	
 	public Reply() {}
 
@@ -16,6 +19,15 @@ public class Reply {
 		this.customer = customer;
 		this.postNo = postNo;
 	}
+	
+
+//	public Date getRegdate() {
+//		return regdate;
+//	}
+//
+//	public void setRegdate(Date regdate) {
+//		this.regdate = regdate;
+//	}
 
 	public int getReplyNo() {
 		return replyNo;
@@ -55,6 +67,12 @@ public class Reply {
 				+ postNo + "]";
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", customer=" + customer + ", postNo="
+//				+ postNo + ", regdate=" + regdate + "]";
+//	}
+	
 	
 	
 

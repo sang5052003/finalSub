@@ -1,14 +1,18 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import javax.management.JMRuntimeException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.http.Consts;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -33,35 +37,25 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import com.google.gson.reflect.TypeToken;
+
 import controller.utils.Const;
 import controller.utils.HttpResponse;
+import domain.Cosmetic;
 import domain.Customer;
 
 @Controller
 @RequestMapping("customer")
 public class CustomerController {
-	// @InitBinder
-	// public void initBinder(WebDataBinder binder) throws Exception {
-	// binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
-	//
-	// public void setAsText(String text) throws IllegalArgumentException {
-	// try {
-	// setValue(new SimpleDateFormat("yyyy-MM-dd").parse(text));
-	// } catch (ParseException e) {
-	// setValue(null);
-	// } catch (java.text.ParseException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(true);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
 	}
+	
+	
 
 	@RequestMapping(value = "joinForm.do", method = RequestMethod.GET)
 	public String cosmeticShowRegisterForm() {
@@ -70,7 +64,8 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
-	public String customerJoin(Customer customer,RedirectAttributes rttr)throws ClientProtocolException, IOException, ParseException {
+	public String customerJoin(Customer customer, RedirectAttributes rttr)
+			throws ClientProtocolException, IOException, ParseException {
 		// SimpleDateFormat new_format = new SimpleDateFormat("yyyy-MM-dd");
 
 		String url = Const.getOriginpath() + "customer/insert";
@@ -113,11 +108,72 @@ public class CustomerController {
 
 		response.close();
 
-//		if (responseContent == "1") {
+		if (responseContent.equals("1")) {
 			rttr.addFlashAttribute("msg", "SUCCESS");
-
-//			return "redirect:/customer/joinForm.do"; 
-//		}
-		return "/customer/customerForm.jsp";
+			return "redirect:/customer/joinForm.do";
+		} else {
+			rttr.addFlashAttribute("msg", "FAIL");
+			return "redirect:/customer/joinForm.do";
+		}
 	}
+
+	@RequestMapping(value = "login.do", method = RequestMethod.POST)
+	public String customerLogin(Customer customer, HttpServletRequest request, RedirectAttributes rttr)
+			throws ClientProtocolException, IOException {
+
+		String url = Const.getOriginpath() + "customer/login/id/" + customer.getId();
+
+		HttpPost httpPost = new HttpPost(url);
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		StringEntity entity = new StringEntity(new Gson().toJson(customer), Consts.UTF_8); // throw
+		httpPost.setEntity(entity);
+		httpPost.setHeader("Content-type", "application/json"); // data가
+																// json이다(os에
+																// noti)
+
+		CloseableHttpResponse response = httpClient.execute(httpPost); // throw
+
+		int responseStatus = HttpResponse.getInstance().getResponseStatus(response);
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+		TypeToken<Customer> typeToken = new TypeToken<Customer>() {};
+		
+		Type type = typeToken.getType();
+		Customer cus = new Gson().fromJson(responseContent, type);
+
+		if (cus != null) {
+			HttpSession session = request.getSession(); // 세션은 설정 해줄 수 있음 타이머
+			session.setAttribute("loginedCustomer", cus.getId());
+			session.setAttribute("customerNo", cus.getCustomerNo());
+
+		} else {
+			HttpSession session = request.getSession(false); //
+			if (session != null) {
+				session.invalidate();
+			}
+			rttr.addFlashAttribute("msg", "LOGINFAIL");
+			return "redirect:/customer/joinForm.do";
+
+		}
+
+		response.close();
+		httpClient.close();
+
+		return "/index.jsp";
+	}
+
+	@RequestMapping(value = "logout.do")
+	public void customerLogOut(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws ClientProtocolException, IOException {
+		System.out.println("before:" + session);
+
+		session.removeAttribute("loginedCustomer");
+		session.removeAttribute("customerNo");
+		session.invalidate();
+
+		System.out.println(session);
+		response.sendRedirect(request.getContextPath());
+	}
+
 }

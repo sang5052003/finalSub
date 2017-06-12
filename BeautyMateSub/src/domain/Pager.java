@@ -9,9 +9,9 @@ public class Pager {
 
 	public Pager() {
 		this.page = 1; // 초기값
-		this.perPageNum = 10; // 10개씩 보여주기
+		this.perPageNum = 4; // 10개씩 보여주기
 		this.pagStart = 1;
-		this.pagEnd = 10;
+		this.pagEnd = 3;
 	}
 
 	public void setPagStart(int pagStart) {
@@ -41,8 +41,8 @@ public class Pager {
 			return;
 		}
 
-		pagStart = page * 10 - 9;
-		pagEnd = page * 10;
+		pagStart = page * 3 - 2;
+		pagEnd = page * 3;
 
 		this.page = page;
 	}
@@ -55,8 +55,8 @@ public class Pager {
 
 	public void setPerPageNum(int perPageNum) {
 
-		if (perPageNum <= 0 || perPageNum > 100) {
-			this.perPageNum = 10; // 10으로 고정
+		if (perPageNum <= 0 || perPageNum > 300) {
+			this.perPageNum = 3; // 10으로 고정
 			return;
 		}
 
