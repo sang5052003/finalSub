@@ -137,11 +137,8 @@ public class CustomerController {
 		int responseStatus = HttpResponse.getInstance().getResponseStatus(response);
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
-		System.out.println(responseStatus);
-		System.out.println("concon" + responseContent);
-		TypeToken<Customer> typeToken = new TypeToken<Customer>() {
-		};
-
+		TypeToken<Customer> typeToken = new TypeToken<Customer>() {};
+		
 		Type type = typeToken.getType();
 		Customer cus = new Gson().fromJson(responseContent, type);
 
@@ -163,7 +160,7 @@ public class CustomerController {
 		response.close();
 		httpClient.close();
 
-		return "/index.jsp";
+		return "/oldindex.jsp";
 	}
 
 	@RequestMapping(value = "logout.do")

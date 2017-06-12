@@ -164,7 +164,7 @@
                 <li class="li"><a href="user-dashboard.html" class="btn btn-common">에센스</a></li>
                 <li class="li"><a href="user-profile.html" class="btn btn-common">스킨</a></li>
                 <li class="li"><a href="address.html" class="btn btn-common">로션</a></li>
-                <li class="li"><a href="all-order.html" class="btn btn-common">크림</a></li>
+                <li class="li"><a href="all-order.html" class="btn btn-common">크림</a></li>	
                 <li class="li"><a href="wishlist.html" class="btn btn-common">미스트</a></li>
                 <li class="li"><a href="wishlist.html" class="btn btn-common btn-theme">페이스오일</a></li>
               </ul>

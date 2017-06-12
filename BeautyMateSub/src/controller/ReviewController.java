@@ -99,9 +99,9 @@ public class ReviewController {
 		List<String> list = new ArrayList<>();
 		String image = r.getImage();
 		try{
-		String [] images = image.split(",");
-			for(String s : images){
-				list.add(s);
+				String [] images = image.split(",");
+				for(String s : images){
+					list.add(s);
 			}
 		}catch (NullPointerException e) {
 			e.printStackTrace();
@@ -255,11 +255,13 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
-	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr, @RequestParam("grade")int grade)
+	public String reviewModify(Review review, SearchPager pager, RedirectAttributes rttr)
 			throws ClientProtocolException, IOException {
-		System.out.println(review);
-		Recommend recommend = review.getRecommend();
-		recommend.setGrade(grade);
+		
+//		@RequestParam("grade")int grade
+		System.out.println(review.toString()+"!!!!");
+//		Recommend recommend = review.getRecommend();
+//		recommend.setGrade(grade);
 		String url = Const.getOriginpath() + "review/modify";
 
 		System.out.println(review.toString()+"^^");  
