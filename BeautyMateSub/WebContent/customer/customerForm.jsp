@@ -143,7 +143,7 @@ label.css-label {
 								log in your <span>account</span>
 							</div>
 							<div class="panel-body">
-<<<<<<< HEAD
+
 								<form>
 									<div class="form-group">
 										<i class="fa fa-info-circle" aria-hidden="true"></i> <input
@@ -440,7 +440,7 @@ label.css-label {
 		});
 		
 		
-=======
+
 								<form method="post" action="login.do">
 									<div class="form-group">
 										<i class="fa fa-info-circle" aria-hidden="true"></i> <input

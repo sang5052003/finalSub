@@ -5,6 +5,8 @@
 <c:set var="ctx">${pageContext.request.contextPath }</c:set>
 <html lang="en">
 <head>
+<%@ include file="../common/common.jspf"%>
+<%@ include file="../common/header.jspf"%>
 
   <!-- SITE TITTLE -->
   <meta charset="utf-8">
@@ -12,31 +14,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Angel Beauty</title>
 
-  <!-- GOOGLE FONT -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
-  
-  <!-- PLUGINS CSS STYLE -->
-  <link href="${ctx}/resources/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/selectbox/select_option1.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet" media="screen">
-  <link href="${ctx}/resources/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/isotope/isotope.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/datepicker/datepicker.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css" rel="stylesheet">
-
-  
   <!-- CUSTOM CSS -->
   <link href="${ctx}/resources/css/style.css" rel="stylesheet">
   <link href="${ctx}/resources/css/default.css" rel="stylesheet" id="option_color">
-
-
-  <!-- FAVICON -->
-  <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -238,30 +218,7 @@
       </section>
 
     <!-- FOOTER -->
-    
-
- <!-- JAVASCRIPTS -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
-  <script src="${ctx }/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-  <script src="${ctx }/resources/plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
-  <script src="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.js"></script>
-  <script src="${ctx }/resources/plugins/isotope/isotope.min.js"></script>
-  <script src="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.js"></script>
-  <script src="${ctx }/resources/plugins/isotope/isotope-triger.min.js"></script>
-  <script src="${ctx }/resources/plugins/smoothscroll/SmoothScroll.min.js"></script>
-  <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
-  <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
-  <script src="${ctx }/resources/js/custom.js"></script>
-
-  <script>
-  	//paste this code under head tag or in a seperate js file.
-  	// Wait for window load
-  	$(window).load(function() {
-  		// Animate loader off screen
-  		$(".se-pre-con").fadeOut("slow");;
-  	});
-  </script>
+  
 
 </body>
 

@@ -6,6 +6,8 @@
 <c:set var="ctx">${pageContext.request.contextPath }</c:set>
 <html lang="en">
 <head>
+<%@ include file="../common/common.jspf"%>
+<%@ include file="../common/header.jspf"%>
 
   <!-- SITE TITTLE -->
   <meta charset="utf-8">
@@ -13,31 +15,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Single Product - Angel Beauty</title>
 
-  <!-- GOOGLE FONT -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,600,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
-
-  <!-- PLUGINS CSS STYLE -->
-  <link href="${ctx}/resources/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/selectbox/select_option1.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet" media="screen">
-  <link href="${ctx}/resources/plugins/fancybox/jquery.fancybox.pack.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/isotope/isotope.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/datepicker/datepicker.min.css" rel="stylesheet">
-  <link href="${ctx}/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css" rel="stylesheet">
-
   <!-- CUSTOM CSS -->
   <link href="${ctx}/resources/css/style.css" rel="stylesheet">
   <link href="${ctx}/resources/css/default.css" rel="stylesheet" id="option_color">
   
-
-  <!-- FAVICON -->
-  <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
-
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -64,85 +45,8 @@
 
 </head>
 
-<body class="body-wrapper static">
-  <div class="se-pre-con"></div>
-  <div class="main-wrapper">
-    <!-- HEADER -->
-    <header id="pageTop" class="header">
+<body>
 
-      <!-- TOP INFO BAR -->
-      <div class="top-info-bar">
-        <div class="container">
-          <div class="top-bar-right">
-            <ul class="list-inline">
-                <li><select id="sel">
-                          <option value="0"></option>
-                          <option value="1">브랜드</option>
-                          <option value="2">제품</option>
-                         
-                        </select></li>
-                <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
-                  <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
-                <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
-                 
-                
-            </ul>
-              
-          </div>
-           
-        </div>
-      </div>
-
-      <!-- NAVBAR -->
-      <nav id="menuBar" class="navbar navbar-default lightHeader" role="navigation">
-        <div class="container">
-
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html"><img src="${ctx}/resources/img/logo.png" alt="logo" ></a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li class="active">
-                <a href="index.html">HOME</a>
-              </li>
-                <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PICKMETEM</a>
-               
-              </li>
-              <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RANKING</a>
-               
-              </li>
-              <li class=" dropdown megaDropMenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REVIEW</a>
-               
-              </li>
-              <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BeautyTip</a>
-                
-              </li>
-              <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY Pouch</a>
-                
-              </li>
-             
-            </ul>
-          </div>
-
-          <!-- Cart button -->
-          
-        </div>
-      </nav>
-    </header>
 
 
 
@@ -566,32 +470,6 @@
         </div>
       </div>
     </section>-->
-
-
-
-
-  <!-- JAVASCRIPTS -->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <script src="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.js"></script>
-  <script src="${ctx }/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-  <script src="${ctx }/resources/plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
-  <script src="${ctx }/resources/plugins/owl-carousel/owl.carousel.min.js"></script>
-  <script src="${ctx }/resources/plugins/isotope/isotope.min.js"></script>
-  <script src="${ctx }/resources/plugins/fancybox/jquery.fancybox.pack.js"></script>
-  <script src="${ctx }/resources/plugins/isotope/isotope-triger.min.js"></script>
-  <script src="${ctx }/resources/plugins/smoothscroll/SmoothScroll.min.js"></script>
-  <script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
-  <script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
-  <script src="${ctx }/resources/js/custom.js"></script>
-  
-  <script>
-  	//paste this code under head tag or in a seperate js file.
-  	// Wait for window load
-  	$(window).load(function() {
-  		// Animate loader off screen
-  		$(".se-pre-con").fadeOut("slow");
-  	});
-</script>
 
   <script> /* 알레르기 주의성분 */
 	
