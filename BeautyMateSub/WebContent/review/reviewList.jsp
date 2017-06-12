@@ -151,12 +151,8 @@
 							Content</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
-<<<<<<< HEAD
-					<button  type="button" id='searchBtn'>Search</button>
-=======
 					<button  type="button" id='searchBtn'><i class="fa fa-search" aria-hidden="true"></i></button>
 					
->>>>>>> refs/remotes/origin/0609JM1758
 
 				</div>
           
@@ -202,18 +198,7 @@
 	                    </tr>
 	                    </c:forEach>
                   <tbody>
-<<<<<<< HEAD
-                  <c:forEach items="${reviewList}" var="review" varStatus="status">
-                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
-                    >
-                      <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">${review.customer.id }</span></td>
-                    </tr>
-                    </c:forEach>
-                  </tbody>
-=======
->>>>>>> refs/remotes/origin/0609JM1758
+
                 </table>
               </div>
             </div>

@@ -160,7 +160,7 @@ public class CustomerController {
 		response.close();
 		httpClient.close();
 
-		return "/index.jsp";
+		return "/oldindex.jsp";
 	}
 
 	@RequestMapping(value = "logout.do")
