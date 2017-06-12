@@ -82,6 +82,29 @@
 	background:
 		url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif)
 		center no-repeat #fff;
+	}
+	
+	
+.fileDrop {
+	width: 100%;
+	height: 100px;
+	border: 1px dotted blue;
+}
+		
+	#uplist { 
+	     list-style:none;
+	     margin-left : 0px; 
+	     padding:0; 
+	     
+ 	} 
+
+	#imgli { 
+     margin: 0 0 0 0; 
+     padding: 0 0 0 0;
+     border : 0;
+     float: left;
+ 	} 
+		
 }
 </style>
 <link rel="stylesheet"
@@ -255,12 +278,7 @@ label.star:before {
 													</div>
 												</div>
 												<div class="col-md-10 col-sm-9 col-xs-12">
-<<<<<<< HEAD
-													<form class="form-horizontal"
-														action="${ctx }/review/modify.do" method="post" role="form">
-=======
-													
->>>>>>> refs/remotes/origin/0609JM1758
+
 														
 															<input type='hidden' name='page' value="${pager.page}"> 
 															<input type='hidden' name='perPageNum' value="${pager.perPageNum}">
@@ -304,7 +322,7 @@ label.star:before {
 															name="star" value="1" /> <label class="star star-1"
 															for="star-1"></label>
 													</div>
-													<input type="hidden" id="grade" name="grade" value="" >
+													<input type="hidden" id="grade" name="recommend.grade" value="" >
 															</div>
 														</div>
 														</div>
@@ -321,27 +339,33 @@ label.star:before {
 															<input type="hidden" value="${review.recommend.cosmeticNo }" name= "recommend.cosmeticNo">
 														</div>
 														
-<<<<<<< HEAD
-														</form>
-=======
 														
->>>>>>> refs/remotes/origin/0609JM1758
+														
+														
+													<div class="form-group">
+														<label for="exampleInputEmail1">File Upload</label>
+														<div class="fileDrop"></div>
+													</div>
+
+
+
+													<div>
+														<hr>
+													</div>
+
+													<ul class="mailbox-attachments clearfix uploadedList">
+													</ul>
+														
+														
+														
 														<div class="text-right">
 															<button type="submit" id="modify" class="btn btn-common btn-theme">수정
 															</button>
-<<<<<<< HEAD
-															<button type="submit" id="back" class="btn btn-common btn-theme">취소
-															</button>
-															
-<!-- 															<a class="btn btn-common btn-theme" -->
-<%-- 																href="${ctx }/review/listpage.do">취소</a> --%>
-=======
 														<a class="btn btn-common btn-theme" href="${ctx }/review/listpage.do">취소</a>
 <!-- 															<button type="submit" id="back" class="btn btn-common btn-theme">취소 -->
 <!-- 															</button> -->
 															
 
->>>>>>> refs/remotes/origin/0609JM1758
 														</div>
 												</div>
 											</div>
@@ -382,53 +406,153 @@ label.star:before {
 						src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
 					<script src="${ctx }/resources/js/custom.js"></script>
 					
-					<script type="text/javascript">
-					var gradeStar; 
-					
-					$(document).ready(function() {
-						
-						$(":input[name=reviewContent]").keydown(function(){
-							gradeStar = $('input:radio[name="star"]:checked').val();
-							
-							document.getElementById("grade").value = gradeStar;
-							console.log(gradeStar);
-						});
-					});
 					
 					
-				</script>
+					
+					<script type="text/javascript" src="${ctx }/resources/js/upload.js"></script>
+				<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+				<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 
+<%-- <a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a> --%>
+
+<script id="template" type="text/x-handlebars-template">
+<li id='imgli'>
+  <span class="mailbox-attachment-icon has-img"><img src="${ctx}{{imgsrc}}" alt="Attachment"></span>
+  <div class="mailbox-attachment-info">
+	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+	<a href="{{fullName}}" 
+     class="btn btn-default btn-xs pull-right delbtn"></a>
+	<a data-src="{{fullName}}" ><i class="fa fa-fw fa-remove"></i></a> 
+	</span>
+  </div>
+</li>                
+</script> 
+
+
+<script>
+
+
+
+var template = Handlebars.compile($("#template").html());
+
+$(".fileDrop").on("dragenter dragover", function(event){
+	event.preventDefault();
+});
+
+
+$(".fileDrop").on("drop", function(event){
+	event.preventDefault();
+	
+	var files = event.originalEvent.dataTransfer.files;
+	
+	var file = files[0];
+
+	var formData = new FormData();
+	
+	formData.append("file", file);	
+	
+	
+	$.ajax({
+		  url: '${ctx}/uploadAjax',
+		  data: formData,
+		  dataType:'text',
+		  processData: false,
+		  contentType: false,
+		  type: 'POST',
+		  success: function(data){
+			  
+			  var fileInfo = getFileInfo(data);
+			  
+			  var html = template(fileInfo);
+			  
+// 			  console.log(fileInfo);
+// 			  console.log(html);
+			  
+			  
+			  $(".uploadedList").append(html);
+		  }
+		});	
+});
+
+
+$(".uploadedList").on("click", "a", function(event){
+	
+	 var that = $(this);
+
+ $.ajax({
+	   url:"${ctx}/deleteFile",
+	   type:"post",
+	   data: {fileName:$(this).attr("data-src")},
+	   dataType:"text",
+	   success:function(result){
+		   if(result == 'deleted'){
+			   that.closest("li").remove();
+		   }
+	   }
+ });
+});
+
+var postNo = ${review.reviewNo};
+
+
+$.getJSON("${ctx}/review/getAttach/"+postNo,function(list){
+	$(list).each(function(){
+		
+		var fileInfo = getFileInfo(this);
+		console.log(fileInfo);
+		var html = template(fileInfo);
+		console.log(html);
+		
+		 $(".uploadedList").append(html);
+		
+	});
+});
+
+
+
+
+</script>
+					
+					
 					<script>
-						$(document)
-								.ready(
-										function() {
+						$(document).ready( function() {
+											
+						
+						$('input:radio[name="star"]:input[value=${review.recommend.grade}]').attr("checked",true); // grade 값 가져오기			
 
-											var formObj = $("form[role='form']");
+						var formObj = $("form[role='form']");
 
-											console.log(formObj);
+						console.log(formObj);
 
+						formObj.submit(function(event) {
+									// 등급값 전달
+									document.getElementById("grade").value = $(":input:radio[name=star]:checked").val();
 									
-											$("#modify").on("click",
-													function() {
-														formObj.submit();
-													});
-											
-											$("#back").on("click",
-													function() {
-												
-												self.location = "${ctx}/review/listpage.do?page=${pager.page}&perPageNum=${pager.perPageNum}"
-													+ "&searchType=${pager.searchType}&keyword=${pager.keyword}";
-					
-													});
-											
-											
-											
-<<<<<<< HEAD
-=======
-											
-											
->>>>>>> refs/remotes/origin/0609JM1758
-										});
+									event.preventDefault();
+									
+									var that = $(this);
+									
+									var str ="";
+									$(".uploadedList .delbtn").each(function(index){
+										 str += "<input type='hidden' name='files["+index+"]' value='"+$(this).attr("href") +"'> ";
+									});
+									
+									that.append(str);
+
+									that.get(0).submit();
+																			
+								});
+						
+						$("#back").on("click",
+								function() {
+							
+							self.location = "${ctx}/review/listpage.do?page=${pager.page}&perPageNum=${pager.perPageNum}"
+								+ "&searchType=${pager.searchType}&keyword=${pager.keyword}";
+
+								});
+						
+					});
 					</script>
 
 
