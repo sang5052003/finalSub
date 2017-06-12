@@ -13,7 +13,6 @@
 		<fieldset>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">리플 테스트</label>
-
 					<input  type="hidden" class="form-control" name="replyNo" value="${replyNo }">
 				<div class="col-lg-10">내용
 					<input type="text" class="form-control" name="replyContent" value="${contents }">

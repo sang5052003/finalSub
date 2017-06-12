@@ -1,5 +1,5 @@
 package domain;
-
+ 
 public class Recommend {
 	
 	private int recommendNo;
