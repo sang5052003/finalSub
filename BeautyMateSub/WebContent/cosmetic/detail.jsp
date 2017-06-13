@@ -52,426 +52,440 @@
 
 <!-- SINGLE PRODUCT SECTION -->
     <section class="clearfix singleProduct">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6 col-xs-12">
-            <div class="singleIamge">
-              <img src="${cosmetic.img}" alt="Image Single Product" width="340px" height="340px">
-            </div>
-          </div>
-          <div class="col-sm-6 col-xs-12">
-            <div class="singleProductInfo">
-              <br>
-              <h5 style="font-size : 12.5px;">${cosmetic.brand} </h5>
-              <h4 style="color : Dimgray"> ${cosmetic.cosmeticName} </h4> <!--<del>$50</del>-->
-                
-            <ul class="list-inline category">
-                <li style="font-size: 13px;">tag:</li>
-                <li><a href="#" style="color:orangeRed; font-size: 12px; font-weight: bold;">#Ranking</a></li>
-                <li><a href="#" style="color:orangeRed; font-size: 12px; font-weight: bold;">#${cosmetic.category}</a></li>
-                     <li><a href="#" style="color:orangeRed; font-size: 12px; font-weight: bold;">#${cosmetic.volume}</a></li>
-                     <li><a href="#" style="color:orangeRed; font-size: 12px; font-weight: bold;">#${cosmetic.cost}원 </a></li>
-               
-            </ul>
-                
-                
-                <span style="color:Dimgray; font-size: 15px; font-weight: bold;"> Review &nbsp;</span>
-                <span style="color:black; font-size: 11px;"> (4.05점 / 1,800명)  </span>
-                <br><br>
-               
-                 <div class="progressSingle" style="line-height:0px;">
-                    <span style="color:gold; font-size: 18px;">★★★★★</span>&nbsp;
-                      <span style="color:gray; font-size: 10px;"> (150명)</span>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:45%">
-                          
-                        </div>
-                      </div>
-                </div>
-                
-                <div class="progressSingle" style="line-height:0px;">
-                    <span style="color:gold; font-size: 18px;">★★★★</span>&nbsp;
-                     <span style="color:white; font-size: 18px;">★</span>
-                     <span style="color:gray; font-size: 10px;">(10명)</span>
-                      <div class="progress">
-                            
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:45%">
-                          
-                        </div>
-                      </div>
-                </div>
-                
-                <div class="progressSingle" style="line-height:0px;">
-                    <span style="color:gold; font-size: 18px;">★★★</span>&nbsp;
-                      <span style="color:white; font-size: 18px;">★★</span>
-                    <span style="color:gray; font-size: 10px;"> (50명)</span>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:85%">
-                            
-                        </div>
-                      </div>
-                </div>
-                
-                <div class="progressSingle" style="line-height:0px;">
-                    <span style="color:gold; font-size: 18px;">★★</span>&nbsp;
-                      <span style="color:white; font-size: 18px;">★★★</span>
-                    <span style="color:gray; font-size: 10px;"> (15명)</span>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:15%">
-                          
-                        </div>
-                      </div>
-                </div>
-                
-                <div class="progressSingle" style="line-height:0px;">
-                    <span style="color:gold; font-size: 18px;">★</span>&nbsp;
-                    <span style="color:white; font-size: 18px;">★★★★</span>
-                    <span style="color:gray; font-size: 10px;"> (1명)</span>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:5%">
-                               
-                        </div>
-                          
-                      </div> 
-                </div>
-        
-        <br>
-        <span class="list-inline roundBtn">
-        <span><a href="javascript:void(0)" class="btn btn-common btn-round btn-gray" 
-                 style="font-size: 13px; padding:15px;">★ My Pouch</a></span>&nbsp;&nbsp;
-            
-         <span><a href="javascript:void(0)" class="btn btn-common btn-round btn-gray" 
-                  style="font-size: 13px; padding:15px;">
-             <i class="fa fa-credit-card" aria-hidden="true"></i> 가격정보 </a></span>&nbsp;&nbsp;
-            
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					<div class="singleIamge">
+						<img src="${cosmetic.img}" alt="Image Single Product"
+							width="340px" height="340px">
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-12">
+					<div class="singleProductInfo">
+						<br>
+						<h5 style="font-size: 12.5px;">${cosmetic.brand}</h5>
+						<h4 style="color: Dimgray">${cosmetic.cosmeticName}</h4>
+						<!--<del>$50</del>-->
 
-        <span><a href="javascript:void(0)" class="btn btn-common btn-round btn-dark" 
-                 style="font-size: 13px; padding:15px;"> 
-            <i class="fa fa-bell" aria-hidden="true"></i> 수정요청 </a></span> &nbsp;&nbsp;
-       
-  
-        </span>
-               
-                
-                   
-                   
-     
-  
-            <!--
+						<ul class="list-inline category">
+							<li style="font-size: 13px;">tag:</li>
+							<li><a href="#"
+								style="color: orangeRed; font-size: 12px; font-weight: bold;">#Ranking</a></li>
+							<li><a href="#"
+								style="color: orangeRed; font-size: 12px; font-weight: bold;">#${cosmetic.category}</a></li>
+							<li><a href="#"
+								style="color: orangeRed; font-size: 12px; font-weight: bold;">#${cosmetic.volume}</a></li>
+							<li><a href="#"
+								style="color: orangeRed; font-size: 12px; font-weight: bold;">#${cosmetic.cost}원
+							</a></li>
+
+						</ul>
+
+
+						<span style="color: Dimgray; font-size: 15px; font-weight: bold;">
+							Review &nbsp;</span> <span style="color: black; font-size: 11px;">
+							(4.05점 / 1,800명) </span> <br>
+						<br>
+
+						<div class="progressSingle" style="line-height: 0px;">
+							<span style="color: gold; font-size: 18px;">★★★★★</span>&nbsp; <span
+								style="color: gray; font-size: 10px;"> (150명)</span>
+							<div class="progress">
+								<div class="progress-bar progress-bar-primary"
+									role="progressbar" aria-valuenow="40" aria-valuemin="0"
+									aria-valuemax="100" style="width: 45%"></div>
+							</div>
+						</div>
+
+						<div class="progressSingle" style="line-height: 0px;">
+							<span style="color: gold; font-size: 18px;">★★★★</span>&nbsp; <span
+								style="color: white; font-size: 18px;">★</span> <span
+								style="color: gray; font-size: 10px;">(10명)</span>
+							<div class="progress">
+
+								<div class="progress-bar progress-bar-primary"
+									role="progressbar" aria-valuenow="40" aria-valuemin="0"
+									aria-valuemax="100" style="width: 45%"></div>
+							</div>
+						</div>
+
+						<div class="progressSingle" style="line-height: 0px;">
+							<span style="color: gold; font-size: 18px;">★★★</span>&nbsp; <span
+								style="color: white; font-size: 18px;">★★</span> <span
+								style="color: gray; font-size: 10px;"> (50명)</span>
+							<div class="progress">
+								<div class="progress-bar progress-bar-primary"
+									role="progressbar" aria-valuenow="40" aria-valuemin="0"
+									aria-valuemax="100" style="width: 85%"></div>
+							</div>
+						</div>
+
+						<div class="progressSingle" style="line-height: 0px;">
+							<span style="color: gold; font-size: 18px;">★★</span>&nbsp; <span
+								style="color: white; font-size: 18px;">★★★</span> <span
+								style="color: gray; font-size: 10px;"> (15명)</span>
+							<div class="progress">
+								<div class="progress-bar progress-bar-primary"
+									role="progressbar" aria-valuenow="40" aria-valuemin="0"
+									aria-valuemax="100" style="width: 15%"></div>
+							</div>
+						</div>
+
+						<div class="progressSingle" style="line-height: 0px;">
+							<span style="color: gold; font-size: 18px;">★</span>&nbsp; <span
+								style="color: white; font-size: 18px;">★★★★</span> <span
+								style="color: gray; font-size: 10px;"> (1명)</span>
+							<div class="progress">
+								<div class="progress-bar progress-bar-primary"
+									role="progressbar" aria-valuenow="40" aria-valuemin="0"
+									aria-valuemax="100" style="width: 5%"></div>
+
+							</div>
+						</div>
+
+						<br> <span class="list-inline roundBtn"> <span><a
+								href="javascript:void(0)"
+								class="btn btn-common btn-round btn-gray"
+								style="font-size: 13px; padding: 15px;">★ My Pouch</a></span>&nbsp;&nbsp;
+
+							<span><a href="javascript:void(0)"
+								class="btn btn-common btn-round btn-gray"
+								style="font-size: 13px; padding: 15px;"> <i
+									class="fa fa-credit-card" aria-hidden="true"></i> 가격정보
+							</a></span>&nbsp;&nbsp; <span><a href="javascript:void(0)"
+								class="btn btn-common btn-round btn-dark"
+								style="font-size: 13px; padding: 15px;"> <i
+									class="fa fa-bell" aria-hidden="true"></i> 수정요청
+							</a></span> &nbsp;&nbsp;
+
+
+						</span>
+
+
+
+
+
+
+						<!--
             <div class="alert alert-success alert-common" role="alert">You succesfully read this message</div>
             <div class="alert alert-info alert-common" role="alert"> 민감성 </div>
             <div class="alert alert-warning alert-common" role="alert"> Better check yourself.You are not looking too good</div>
             <div class="alert alert-danger alert-common" role="alert">Better check yourself.You are not looking too good</div>
 -->
-    
-       
-                    
-                
-                   
-              
-                
-            
-                      
-                
-         
-            </div>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="tabCommon tabOne singleTab">
-              <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#details">Ingredients</a></li>
-                <li><a data-toggle="tab" href="#reviews">Reviews (2)</a></li>
-              </ul>
- 
-              <div class="tab-content patternbg">
-              <div id="details" class="tab-pane fade in active">
-                              
- 
-        <div class="row">
-          <div class="col-md-6 col-xs-12">
-            <div class="collapse-style1">
-              <div class="collapse navbar-collapse navbar-ex1-collapse content-collapse" style="width:800px;">
-                <ul class="nav navbar-nav collapse-nav">
-                  <li>
-                    <a  class="collapsed" data-target="#collapse1" aria-expanded="true"> 성분 구성 <span id="allCount" style="color:black; font-size: 10px;">  </span> </a> 
-                    <div id="collapse1" class="collapse collapseItem in">
-                      <div class="collapse-inner">
-                        <div class="container">
-                            <br>
-                           <div class="progress" style="width:630px; height:25px; margin-left:10px;" >
-                          <div id="infoProgressbar" class="progress-bar progress-bar-info" role="progressbar" style="width:80%"> 
-                              <span id="componentCount"></span>
-                            
-                            </div>
-                            <div id="warningProgressbar" class="progress-bar progress-bar-warning" role="progressbar" style="width:10%">
-                           	<span id="allergyCount"></span>
-                               
-                            </div>
-                            <div id="dangerProgressbar" class="progress-bar progress-bar-danger" role="progressbar" style="width:10%">
-                            <span id="twentyCount"></span>
-                            </div>
-                          </div>
-                            <br>
-                            
-   
-                          
-                            
-                            <div class="alert alert-warning alert-dismissible" role="alert" 
-                                 style="width:650px; background-color: #FFFFFF;">
-                                <img src="${ctx}/resources/img/flower.png"style="width:30px;">
-                                
-                                 <span style="font-size:12px; color:orangeRed; font-weight:bold;"> 전성분 </span><br>
-                                 <span style="font-size:12px; color: deepPink; font-weight:bold;"> ─────────────────────────────────────────────────── </span>
-                                <span id="phrase" style="font-size:12px; color: lightSeaGreen;">${cosmetic.ingredients}</span>
-                                 <span id="phrase2" style="display:none;">${cosmetic.ingredients}</span>
-  							                               
-                            </div>    
-                      
-                               
-                            <div class="alert alert-warning alert-dismissible" role="alert" 
-                                 style="width:650px; background-color: #FFFFFF;">
-                                <img src="${ctx}/resources/img/allergy.jpg" style="width:30px;">
-                                  <span style="font-size:12px; color:orangeRed; font-weight:bold;"> 알레르기 주의성분 </span><br>
-                                  <span style="font-size:12px; color: deepPink; font-weight:bold;"> ─────────────────────────────────────────────────── </span>
-                                    <div id="allergyCaution" style="font-size:12px; color: orange;">  </div>
-                                
 
 
-                            </div>      
-                            
-                            
-            
-                            <div class="alert alert-warning alert-dismissible" role="alert" 
-                                 style="width:650px; background-color: #FFFFFF;">
-                                <img src="${ctx}/resources/img/20danger.png" style="width:30px;">
-                                 <span style="font-size:12px; color:orangeRed; font-weight:bold;"> 20가지 주의성분 </span><br>
-                                 <span style="font-size:12px; color: deepPink; font-weight:bold;"> ─────────────────────────────────────────────────── </span>                         
-                               	 <div id="twentyCaution" style="font-size:12px; color: crimson;">  </div>
-                 
-  							
 
-                                
-                            </div>    
-                            
-                        
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                    
-                    
-                    
-                  
-                </ul>
-              </div>
-            </div>
-          </div>
-            
-            <div class="pull-right">
-             <div class="col-md-6 col-xs-12">
-            <div class="collapse-style1">
-              <div class="collapse navbar-collapse navbar-ex1-collapse content-collapse" style="width:230px;">
-                <ul class="nav navbar-nav collapse-nav">
-                    
-                  <li>
-                    <a  class="collapsed" href="javascript:;" data-toggle="collapse" data-target="#collapse2" style="height:80px;">
-                        <img src="${ctx}/resources/img/allergy.jpg" style="width:20px;">
-                        <span style="font-size:13px; color:indianRed; ">알레르기 주의성분</span><i class="fa fa-plus"></i>
-                        <br><span style="font-size:10px; color:tomato; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 식약처 고시 "화장품 알러지 성분"</span> </a>
-                    
-                        
-                    <div id="collapse2" class="collapse collapseItem">
-                      <div class="collapse-inner">
-                          <span style="font-size:11px; color:darkGreen;"> 
-                              ─────────────────
-                              
-                               <span style="font-size:11px; color:olive;"> 
-                              · 아밀신남알 <br>
-                              · 벤질알코올 <br>
-                              · 신나밀알코올 
-                              · 시트랄 <br>
-                              · 유제놀 <br>
-                              · 하이드록시시트로넬알 <br>
-                              · 이소유제놀 <br>
-                              · 아밀신나밀알코올 <br>
-                              · 벤질살리실레이트 <br>
-                              · 신남알 <br>
-                              · 쿠마린 <br>
-                              · 제라니올 <br>
-                              · 하이드록시이소헥실3-사이클로헥센카복스알데하이드 <br>
-                              · 아니스에탄올 <br>
-                              · 벤질신나메이트 <br>
-                              · 파네솔 <br>
-                              · 부틸페닐메칠프로피오날 <br>
-                              · 리날룰 <br>
-                              · 벤질베조에이트 <br>
-                              · 시트로넬롤 <br>
-                              · 헥실신남알 <br>
-                              · 리모넨 <br>
-                              · 메칠2-옥티노에이트 <br>
-                              · 알파-이소메칠이오논 <br>
-                              · 참나무이끼추출물 <br>
-                              · 나무이끼추출물
-                       </span>
-                          </span>
 
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                   <a  class="collapsed" href="javascript:;" data-toggle="collapse" data-target="#collapse3" style="height:80px;">
-                        <img src="${ctx}/resources/img/20danger.png" style="width:20px;">
-                        <span style="font-size:13px; color:indianRed; ">20가지 주의성분</span><i class="fa fa-plus"></i>
-                        <br><span style="font-size:10px; color:tomato; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 도서 "대한민국 화장품의 비밀"</span> </a>
-                    
-                    <div id="collapse3" class="collapse collapseItem">
-                      <div class="collapse-inner">
-                        <span style="font-size:11px; color:darkGreen;"> 
-                            ─────────────────
-                             <span style="font-size:11px; color:olive;"> 
-                              · 디부틸히드록시톨루엔 <br>
-                              · 미네랄오일<br>
-                              · 부틸하이드록시아니솔<br>
-                              · 소듐라우릴설페이트/소듐라우레스설페이트<br>
-                              · 소르빈산/소르빅애씨드<br>
-                              · 아보벤젠/부틸메톡시디벤조일메탄<br>
-                              · 옥시벤존/벤조페논-3<br>
-                              · 이미다졸리디닐우레아/디아졸리디닐우레아/디엠디엠하이단토인<br>
-                              · 이소프로필메틸페놀<br>
-                              · 이소프로필알코올/프로필알코올<br>
-                              · 인공향료<br>
-                              · 티몰<br>
-                              · 트리에탄올아민<br>
-                              · 트리이소프로파놀아민<br>
-                              · 트리클로산<br>
-                              · 파라벤<br>
-                              · 페녹시에탄올<br>
-                              · 폴리에틸렌글라이콜<br>
-                              · 합성착색료<br>
-                              · 호르몬류<br>
-                            </span>
 
-                       </span>
-                      </div>
-                    </div>
-                  </li>
-                  
-                  
-                </ul>
-              </div>
-            </div>
-          </div>    
-            </div>
-           
-                  </div>
 
-             
-                  
-                  
-                  
-            
 
-               <!--   <ul class="list-inline">
+
+
+
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="tabCommon tabOne singleTab">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#details">Ingredients</a></li>
+							<li><a data-toggle="tab" href="#reviews">Reviews (2)</a></li>
+						</ul>
+
+						<div class="tab-content patternbg">
+							<div id="details" class="tab-pane fade in active">
+
+
+								<div class="row">
+									<div class="col-md-6 col-xs-12">
+										<div class="collapse-style1">
+											<div
+												class="collapse navbar-collapse navbar-ex1-collapse content-collapse"
+												style="width: 800px;">
+												<ul class="nav navbar-nav collapse-nav">
+													<li><a class="collapsed" data-target="#collapse1"
+														aria-expanded="true"> 성분 구성 <span id="allCount"
+															style="color: black; font-size: 10px;"> </span>
+													</a>
+														<div id="collapse1" class="collapse collapseItem in">
+															<div class="collapse-inner">
+																<div class="container">
+																	<br>
+																	<div class="progress"
+																		style="width: 630px; height: 25px; margin-left: 10px;">
+																		<div id="infoProgressbar"
+																			class="progress-bar progress-bar-info"
+																			role="progressbar" style="width: 80%">
+																			<span id="componentCount"></span>
+
+																		</div>
+																		<div id="warningProgressbar"
+																			class="progress-bar progress-bar-warning"
+																			role="progressbar" style="width: 10%">
+																			<span id="allergyCount"></span>
+
+																		</div>
+																		<div id="dangerProgressbar"
+																			class="progress-bar progress-bar-danger"
+																			role="progressbar" style="width: 10%">
+																			<span id="twentyCount"></span>
+																		</div>
+																	</div>
+																	<br>
+
+
+
+
+																	<div class="alert alert-warning alert-dismissible"
+																		role="alert"
+																		style="width: 650px; background-color: #FFFFFF;">
+																		<img src="${ctx}/resources/img/flower.png"
+																			style="width: 30px;"> <span
+																			style="font-size: 12px; color: orangeRed; font-weight: bold;">
+																			전성분 </span><br> <span
+																			style="font-size: 12px; color: deepPink; font-weight: bold;">
+																			─────────────────────────────────────────────────── </span>
+																		<span id="phrase"
+																			style="font-size: 12px; color: lightSeaGreen;">${cosmetic.ingredients}</span>
+																		<span id="phrase2" style="display: none;">${cosmetic.ingredients}</span>
+
+																	</div>
+
+
+																	<div class="alert alert-warning alert-dismissible"
+																		role="alert"
+																		style="width: 650px; background-color: #FFFFFF;">
+																		<img src="${ctx}/resources/img/allergy.jpg"
+																			style="width: 30px;"> <span
+																			style="font-size: 12px; color: orangeRed; font-weight: bold;">
+																			알레르기 주의성분 </span><br> <span
+																			style="font-size: 12px; color: deepPink; font-weight: bold;">
+																			─────────────────────────────────────────────────── </span>
+																		<div id="allergyCaution"
+																			style="font-size: 12px; color: orange;"></div>
+
+
+
+																	</div>
+
+
+
+																	<div class="alert alert-warning alert-dismissible"
+																		role="alert"
+																		style="width: 650px; background-color: #FFFFFF;">
+																		<img src="${ctx}/resources/img/20danger.png"
+																			style="width: 30px;"> <span
+																			style="font-size: 12px; color: orangeRed; font-weight: bold;">
+																			20가지 주의성분 </span><br> <span
+																			style="font-size: 12px; color: deepPink; font-weight: bold;">
+																			─────────────────────────────────────────────────── </span>
+																		<div id="twentyCaution"
+																			style="font-size: 12px; color: crimson;"></div>
+
+
+
+
+																	</div>
+
+
+																</div>
+															</div>
+														</div></li>
+
+
+
+
+												</ul>
+											</div>
+										</div>
+									</div>
+
+									<div class="pull-right">
+										<div class="col-md-6 col-xs-12">
+											<div class="collapse-style1">
+												<div
+													class="collapse navbar-collapse navbar-ex1-collapse content-collapse"
+													style="width: 230px;">
+													<ul class="nav navbar-nav collapse-nav">
+
+														<li><a class="collapsed" href="javascript:;"
+															data-toggle="collapse" data-target="#collapse2"
+															style="height: 80px;"> <img
+																src="${ctx}/resources/img/allergy.jpg"
+																style="width: 20px;"> <span
+																style="font-size: 13px; color: indianRed;">알레르기
+																	주의성분</span><i class="fa fa-plus"></i> <br>
+															<span style="font-size: 10px; color: tomato;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	식약처 고시 "화장품 알러지 성분"</span>
+														</a>
+
+
+															<div id="collapse2" class="collapse collapseItem">
+																<div class="collapse-inner">
+																	<span style="font-size: 11px; color: darkGreen;">
+																		───────────────── <span
+																		style="font-size: 11px; color: olive;"> · 아밀신남알
+																			<br> · 벤질알코올 <br> · 신나밀알코올 · 시트랄 <br>
+																			· 유제놀 <br> · 하이드록시시트로넬알 <br> · 이소유제놀 <br>
+																			· 아밀신나밀알코올 <br> · 벤질살리실레이트 <br> · 신남알 <br>
+																			· 쿠마린 <br> · 제라니올 <br> ·
+																			하이드록시이소헥실3-사이클로헥센카복스알데하이드 <br> · 아니스에탄올 <br>
+																			· 벤질신나메이트 <br> · 파네솔 <br> · 부틸페닐메칠프로피오날 <br>
+																			· 리날룰 <br> · 벤질베조에이트 <br> · 시트로넬롤 <br>
+																			· 헥실신남알 <br> · 리모넨 <br> · 메칠2-옥티노에이트 <br>
+																			· 알파-이소메칠이오논 <br> · 참나무이끼추출물 <br> · 나무이끼추출물
+																	</span>
+																	</span>
+
+																</div>
+															</div></li>
+														<li><a class="collapsed" href="javascript:;"
+															data-toggle="collapse" data-target="#collapse3"
+															style="height: 80px;"> <img
+																src="${ctx}/resources/img/20danger.png"
+																style="width: 20px;"> <span
+																style="font-size: 13px; color: indianRed;">20가지
+																	주의성분</span><i class="fa fa-plus"></i> <br>
+															<span style="font-size: 10px; color: tomato;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	도서 "대한민국 화장품의 비밀"</span>
+														</a>
+
+															<div id="collapse3" class="collapse collapseItem">
+																<div class="collapse-inner">
+																	<span style="font-size: 11px; color: darkGreen;">
+																		───────────────── <span
+																		style="font-size: 11px; color: olive;"> ·
+																			디부틸히드록시톨루엔 <br> · 미네랄오일<br> · 부틸하이드록시아니솔<br>
+																			· 소듐라우릴설페이트/소듐라우레스설페이트<br> · 소르빈산/소르빅애씨드<br>
+																			· 아보벤젠/부틸메톡시디벤조일메탄<br> · 옥시벤존/벤조페논-3<br> ·
+																			이미다졸리디닐우레아/디아졸리디닐우레아/디엠디엠하이단토인<br> · 이소프로필메틸페놀<br>
+																			· 이소프로필알코올/프로필알코올<br> · 인공향료<br> · 티몰<br>
+																			· 트리에탄올아민<br> · 트리이소프로파놀아민<br> · 트리클로산<br>
+																			· 파라벤<br> · 페녹시에탄올<br> · 폴리에틸렌글라이콜<br>
+																			· 합성착색료<br> · 호르몬류<br>
+																	</span>
+
+																	</span>
+																</div>
+															</div></li>
+
+
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+
+
+
+
+
+								<!--   <ul class="list-inline">
                     <li><i class="fa fa-check" aria-hidden="true"></i>Vestibulum iaculis quam.</li>
                     <li><i class="fa fa-check" aria-hidden="true"></i>Vestibulum iaculis quam.</li>
                     <li><i class="fa fa-check" aria-hidden="true"></i>Quam ac libero volutpat placerat.</li>
                     <li><i class="fa fa-check" aria-hidden="true"></i>Quam ac libero volutpat placerat.</li>
                   </ul>
 -->
-                </div>
-                <div id="reviews" class="tab-pane fade">
+</div>
+                 <div id="reviews" class="tab-pane fade">
                   <div class="blogCommnets">
                     <div class="media">
-                      <a class="media-left" href="#">
-                        <img class="media-object" src="http://placehold.it/70x70" alt="Image">
+                    <a class="media-left" href="#">
+                        <img style="border-radius:100%" class="media-object" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxKV8kmFD0djWTAodhIRDF6tyUTp6atE3ta4PYDHbKxgVbxLxD" alt="Image">  
                       </a>
-                      <div class="media-body">
-                        <h4 class="media-heading">Integer blandit</h4>
-                        <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>
-                        <p>Reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                        <button class="btn btn-link">Reply</button>
-                      </div>
+                        
+                      <div class="media-body" >
+<!--                        <span class="media-heading" > 보습력 짱</span>-->
+                       <span style="color:black;"> </span>
+
+                        <span style="color:white; font-size: 20px; background-color:orangeRed;">★★★★☆ </span><br>
+                        <span style="font-size:13px; font-wieght:bold; color:dimGray; font-weight:bold;"> dorothy</span>
+                          <span style="font-size:13px; font-wieght:bold; color:black;"> / </span>
+                        <span style="color:mediumVioletRed; font-size: 12px; font-weight:bold;"><i class="fa fa-calendar" aria-hidden="true"></i> 22 September, 2016</span><br><br>
+                        <div style="font-size:12.5px; color:darkCyan; width: 90%; font-weight:bold;">봄웜이나 가을뮤트 예상중인데 색이 너무 안어울려요 바르는순간 5년 늙어버림 ㅎ 근데 적당히 촉촉하고 적당히 오래가요 재구매 의사는 없지만 유명템 써본거로 만족.. 가끔 성숙한 느낌나게 시크해보이고 싶을때 가아끔씩 발라요~ 잘어울리는 분들한텐 좋을거같아요 가을트루나 가을딥??</div><br>
+                          
+                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxKV8kmFD0djWTAodhIRDF6tyUTp6atE3ta4PYDHbKxgVbxLxD" style="width:200px;"><br>
+                          
+                        
+                          <br>
+                  <!--      <div style="font-size:12.5px; color:teal; width: 90%; background-color:white;">
+                            리뷰
+                          </div>-->
+                          
+     
+               <div class="panel panel-default recentBlogPosts">
+               <!-- <div class="panel-heading">  comment  </div>-->
+                     <div class="panel-heading"> 
+                         <span style="font-size:18px; margin-top: 10px; float: left; width: 15%; font-weight:bold;"> comment </span>
+                        <form action="" method="POST" role="form">
+                   <div class="input-group" style="float: left; width: 60%;">
+                     <input type="text" class="form-control" placeholder="댓글을 입력하세요" aria-describedby="basic-addon221">
+                  </div> &nbsp;&nbsp;
+                     <button type="submit" class="btn btn-primary" style="font-size:12px; width: 15%;"> 등록 </button>
+                         </form>
+            
+                   </div>
+
+                  <div class="panel-body">
+                  <div class="media">
+                    <a class="media-left">
+                      <img style="border-radius:100%; width:50px;" class="media-object" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxKV8kmFD0djWTAodhIRDF6tyUTp6atE3ta4PYDHbKxgVbxLxD" alt="Image">
+                    </a>
+                      <div class="media-body" >
+                       <span style="color:black;"> </span>
+                        <span style="font-size:13px; font-wieght:bold; color:dimGray; font-weight:bold;"> dorothy</span>
+                          <span style="font-size:13px; font-wieght:bold; color:black;"> / </span>
+                        <span style="color:mediumVioletRed; font-size: 12px; font-weight:bold;"><i class="fa fa-calendar" aria-hidden="true"></i> 22 September, 2016</span><br>
+                          <span style="font-size:13px; font-wieght:bold; color:black;"> 아 별로네요 </span>
                     </div>
-                    <div class="media mediaMargin">
-                      <a class="media-left" href="#">
-                        <img class="media-object" src="http://placehold.it/70x70" alt="Image">
-                      </a>
-                      <div class="media-body">
-                        <h4 class="media-heading">Integer blandit</h4>
-                        <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>
-                        <p>Reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                        <button class="btn btn-link">Reply</button>
-                      </div>
-                    </div>
+                  </div>
+                    
                     <div class="media">
-                      <a class="media-left" href="#">
-                        <img class="media-object" src="http://placehold.it/70x70" alt="Image">
-                      </a>
-                      <div class="media-body">
-                        <h4 class="media-heading">Integer blandit</h4>
-                        <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>
-                        <p>Reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-                        <button type="button" class="btn btn-link">Reply</button>
+                    <a class="media-left">
+                      <img style="border-radius:100%; width:50px;" class="media-object" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxKV8kmFD0djWTAodhIRDF6tyUTp6atE3ta4PYDHbKxgVbxLxD" alt="Image">
+                    </a>
+                      <div class="media-body" >
+                       <span style="color:black;"> </span>
+                        <span style="font-size:13px; font-wieght:bold; color:dimGray; font-weight:bold;"> dorothy</span>
+                          <span style="font-size:13px; font-wieght:bold; color:black;"> / </span>
+                        <span style="color:mediumVioletRed; font-size: 12px; font-weight:bold;"><i class="fa fa-calendar" aria-hidden="true"></i> 22 September, 2016</span><br>
+                          <span style="font-size:13px; font-wieght:bold; color:black;"> 아 별로네요 </span>
+                    </div>
+                  </div>
+                    
+                  
+                  
+                </div>
+              </div>
+                          
+                        
+              </div>
+            </div>
+          </div>
+                      
                       </div>
                     </div>
+                    
+                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      <!--  <div class="row">
-          <div class="col-xs-12">
-            <div class="relatedTitle">
-              <h2>Related Products</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#" class="realatedInner">
-              <div class="productBox">
-                <img src="http://placehold.it/300x375" alt="Image Product" class="img-responsive">
-              </div>
-              <div class="productName">Oil Set</div>
-              <div class="productPrice">$15</div>
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#" class="realatedInner">
-              <div class="productBox">
-                <img src="http://placehold.it/300x375" alt="Image Product" class="img-responsive">
-              </div>
-              <div class="productName">Herbal Body Cream</div>
-              <div class="productPrice">$50</div>
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#" class="realatedInner">
-              <div class="productBox">
-                <img src="http://placehold.it/300x375" alt="Image Product" class="img-responsive">
-              </div>
-              <div class="productName">Flying Ninja</div>
-              <div class="productPrice">$75</div>
-            </a>
-          </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="#" class="realatedInner">
-              <div class="productBox">
-                <img src="http://placehold.it/300x375" alt="Image Product" class="img-responsive">
-              </div>
-              <div class="productName">Ninja Silhouette</div>
-              <div class="productPrice">$35</div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>-->
+                    </div>
+                    
 
-  <script> /* 알레르기 주의성분 */
+
+		<script> /* 알레르기 주의성분 */
 	
   var allergyColor="";
   var allCount = 0;
