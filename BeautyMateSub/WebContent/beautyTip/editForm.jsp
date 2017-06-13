@@ -278,7 +278,8 @@
 											<div class="form-group">
 												<p class="col-md-2 col-sm-3" align="right">사진
 												<div class="col-md-8 col-sm-7">
-													<input type="file" id="getImgFile${sts.count - 1 }" class="imgFileClass" name="imgFileName${sts.count - 1 }" accept="image/*" onchange="javascript:imgOn(this, ${sts.count - 1 })" >
+												<!-- file value = readonly이므로 바꿔주고 싶다면(설정하고 싶다면) innerHtml로 해야함 -->
+													<input type="file" id="getImgFile${sts.count - 1 }" class="imgFileClass" name="imgFileName${sts.count - 1 }" accept="image/*" onchange="javascript:imgOn(this, ${sts.count - 1 })">
 												</div>
 											</div>
 										
@@ -297,26 +298,41 @@
 														<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">정보 추가</a>
 													</div>
 												<label for="" class="col-md-2 col-sm-3 control-label"></label>
+												
+												<br>
+												<!-- 분홍 라인 -->
+												<div class="clearfix footerInfo" style="margin-left:220px;width:740px;"></div>
 											</div>
 										
 										</c:forEach>
 										
-										<br><br><br><br><br><br>
+										<br><br><br>
+										
+										<div class="form-group" >
+					            			<div class="countrySelect" style="width:150px;margin-left:220px">
+												<select name="vSelect" id="vSelect" class="">
+													<option selected="selected" value="f">파일</option>
+													<option value="u">URL</option>
+							                     </select>
+						                	</div>
+						             	</div>
 										
 										<div class="form-group">
 											<p class="col-md-2 col-sm-3" align="right">영상
-												<div class="col-md-4 col-sm-3">
+												<div class="col-md-4 col-sm-3" style="display:inline">
 													<input type="file" name="vFileName" value="video" accept="video/*">
 												</div>
-											<label for="" class="col-md-2 col-sm-3 control-label"></label>
+												<div class="col-md-3 col-sm-2" style="display:none">
+													<input type="text" name="vURLName" value="" placeholder="URL">
+												</div>
 										</div>
 										
 										<div class="form-group">
 										<label for="" class="col-md-2 col-sm-3 control-label"></label>
 											<div class="col-md-4 col-sm-3">
 													<!-- <input type="hidden" id="inputImg" name="image" value="" > -->
-												<input type="submit" class="btn btn-common btn-theme" value="정보 수정">&nbsp&nbsp&nbsp
-												<a href="${ctx }/beautyTip/list.do?category=${beautyTip.category}" class="btn btn-common btn-theme">작성 취소</a>	
+												<input type="submit" class="btn btn-common btn-theme" value="정보 수정">&nbsp;&nbsp;&nbsp;
+												<a href="${ctx }/beautyTip/listpage.do?category=${beautyTip.category}" class="btn btn-common btn-theme">작성 취소</a>	
 											</div>
 											
 										<label for="" class="col-md-2 col-sm-3 control-label"></label>
@@ -707,6 +723,9 @@
 					'<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">정보 추가</a>' +
 					'</div>' +
 					'<label for="" class="col-md-2 col-sm-3 control-label"></label>' +
+					
+					'<br>' + 
+					'<div class="clearfix footerInfo" style="margin-left:220px;width:740px"></div>' +
 					'</div>';
 					
 					//
@@ -771,6 +790,26 @@
 				
 				//imgIdArr.splice(idx, 1);
 			};
+			
+			//
+			$("#vSelect").change(function(){
+				
+				//console.log($(this).val());
+				
+				var selValue = $(this).val();
+				
+				console.log(selValue);
+				if(selValue == "u"){
+					$("input[name=vURLName]").parent().show();
+					$("input[name=vFileName]").parent().hide();
+					$("input[name=vFileName]").val(""); //초기화
+					
+				}else{
+					$("input[name=vURLName]").parent().hide();
+					$("input[name=vFileName]").parent().show();
+					$("input[name=vURLName]").val("");
+				}
+			});
 			
 		});/* endready */
 		

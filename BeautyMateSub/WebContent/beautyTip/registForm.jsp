@@ -293,24 +293,45 @@
 														<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">정보 추가</a>
 													</div>
 												<label for="" class="col-md-2 col-sm-3 control-label"></label>
+												
+												<br>
+												<!-- 분홍 라인 -->
+												<div class="clearfix footerInfo" style="margin-left:220px;width:740px;"></div>
 											</div>
 										
+											
 										
-										<br><br><br><br><br><br>
+										<br><br><br>
+										
+										<div class="form-group" >
+					            			<div class="countrySelect" style="width:150px;margin-left:220px">
+												<select name="vSelect" id="vSelect" class="">
+													<option selected="selected" value="f">파일</option>
+													<option value="u">URL</option>
+							                     </select>
+						                	</div>
+						             	</div>
 										
 										<div class="form-group">
 											<p class="col-md-2 col-sm-3" align="right">영상
-												<div class="col-md-4 col-sm-3">
-													<input type="file" name="vFileName" value="video" accept="video/*">
+												<div class="col-md-3 col-sm-2" style="display:inline">
+													<input type="file" name="vFileName" value="video1" accept="video/*">
 												</div>
-											<label for="" class="col-md-2 col-sm-3 control-label"></label>
+												<div class="col-md-3 col-sm-2" style="display:none">
+													<input type="text" name="vURLName" value="" placeholder="URL">
+												</div>
 										</div>
 										
+										
+										<!-- 비디오 파일 -->
 										<div class="form-group">
 										<label for="" class="col-md-2 col-sm-3 control-label"></label>
 											<div class="col-md-4 col-sm-3">
 													<!-- <input type="hidden" id="inputImg" name="image" value="" > -->
-												<input type="submit" class="btn btn-primary btn-block" value="SAVE INFO">
+													
+												<input type="submit" class="btn btn-common btn-theme" value="작성 완료">&nbsp;&nbsp;&nbsp;
+												<a href="${ctx }/beautyTip/listpage.do?category=makeupInformation" class="btn btn-common btn-theme">작성 취소</a>
+												
 											</div>
 										<label for="" class="col-md-2 col-sm-3 control-label"></label>
 										</div>
@@ -660,7 +681,10 @@
 				var imgFileName = "imgFileName" + len; //변하는 이미지 파일이름
 				var beautyTipContent = "beautyTipContent" + len; //여러개의 콘텐츠를 저장하기 위해서 변하는 이름 지정
 			
-				var tag = 
+				<!-- 분홍 라인 -->
+				var tag = "";
+				
+				tag +=
 					'<div class="myFormGroup" name="form-groupName">' + 
 					'<div class="form-group">' + 
 					'<center><img src="http://placehold.it/1280x700" width="700" height="400" align="middle" id=' + imgId + ' name="img" class="showImgClass" alt="profile-image"></center></div>' +
@@ -681,7 +705,12 @@
 					'<a href="javascript:addTags()" class="btn btn-common btn-full-round btn-theme">정보 추가</a>' +
 					'</div>' +
 					'<label for="" class="col-md-2 col-sm-3 control-label"></label>' +
+					
+					'<br>' + 
+					'<div class="clearfix footerInfo" style="margin-left:220px;width:740px"></div>' +
 					'</div>';
+					
+					
 					
 					//
 					$(".form-group[name=lastForm]").each(function(idx){
@@ -690,6 +719,7 @@
 						aTag.attr("href", "javascript:removeTags(" + (idx + 1) + ")");
 						aTag.removeClass("btn btn-common btn-full-round btn-theme").addClass("btn btn-common btn-full-round btn-dark");
 						aTag.text("정보 삭제");
+						
 						if(idx == len - 1){
 							$(this).after(tag);
 							
@@ -745,6 +775,26 @@
 				
 				//imgIdArr.splice(idx, 1);
 			};
+			
+			
+			$("#vSelect").change(function(){
+				
+				//console.log($(this).val());
+				
+				var selValue = $(this).val();
+				
+				console.log(selValue);
+				if(selValue == "u"){
+					$("input[name=vURLName]").parent().show();
+					$("input[name=vFileName]").parent().hide();
+					$("input[name=vFileName]").val(""); //초기화
+				}else{
+					$("input[name=vURLName]").parent().hide();
+					$("input[name=vFileName]").parent().show();
+					$("input[name=vURLName]").val("");
+				}
+			});
+			
 			
 		});/* endready */
 		

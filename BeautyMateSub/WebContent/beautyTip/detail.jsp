@@ -238,7 +238,7 @@
                 <div class="panel-heading">Categories</div>
                 <div class="panel-body">
                   <ul class="list-unstyle categoryList">
-                    <li><a href="${ctx }/beautyTip/list.do?category=${beautyTip.category}">목록 으로</a></li>
+                    <li><a href="${ctx }/beautyTip/listpage.do?category=${beautyTip.category}">목록 으로</a></li>
                     <c:if test="${beautyTip.customer.id eq loginedId }">
                     <li><a href="${ctx }/beautyTip/editForm.do?beautyTipNo=${beautyTip.beautyTipNo}">수정 하기</a></li>
                     <li><a href="${ctx }/beautyTip/clear.do?beautyTipNo=${beautyTip.beautyTipNo}&category=${beautyTip.category}">삭제 하기</a></li>
@@ -246,77 +246,86 @@
                   </ul>
                 </div>
               </div>
+              
+              <!-- 리스트를 필요.. -->
               <div class="panel panel-default recentBlogPosts">
                 <div class="panel-heading">Resent Posts</div>
                 <div class="panel-body">
+                <c:forEach var="beautyTip" items="${recentList }">
                   <div class="media">
-                    <a class="media-left" href="blog-single-right-sidebar.html">
-                      <img class="media-object" src="http://placehold.it/70x70" alt="Image">
+                    <a class="media-left" href="#">
+                      <img class="media-object" src="${loadPath}${beautyTip.firstImage }" width="80px" alt="Image">
                     </a>
                     <div class="media-body">
-                      <h4 class="media-heading"><a href="blog-single-right-sidebar.html">Cras vulputate nisi sus</a></h4>
+                      <h4 class="media-heading"><a href="#">"${beautyTip.beautyTipTitle }"</a></h4>
                       <ul class="list-inline">
-                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>Jone Doe</a></li>
-                        <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>4 Comments</a></li>
+                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>${beautyTip.customer.id }</a></li>
+                        <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>${beautyTip.beautyTipReplys.size() } Comments</a></li>
                       </ul>
                     </div>
                   </div>
-                  <div class="media">
-                    <a class="media-left" href="blog-single-right-sidebar.html">
-                      <img class="media-object" src="http://placehold.it/70x70" alt="Image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading"><a href="blog-single-right-sidebar.html">massa iaculis porta dui</a></h4>
-                      <ul class="list-inline">
-                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>Jone Doe</a></li>
-                        <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>4 Comments</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="media">
-                    <a class="media-left" href="blog-single-right-sidebar.html">
-                      <img class="media-object" src="http://placehold.it/70x70" alt="Image">
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading"><a href="blog-single-right-sidebar.html">venenatis augue vel.</a></h4>
-                      <ul class="list-inline">
-                        <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>Jone Doe</a></li>
-                        <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>4 Comments</a></li>
-                      </ul>
-                    </div>
-                  </div>
+                  </c:forEach>
+                  
                 </div>
               </div>
+              
+              
+              
             </div>
           </div>
 
           <div class="col-sm-8 col-xs-12">
 
             <div class="blogPost singlePost">
-            <h2>${beautyTip.beautyTipTitle }</h2>
+            <h1 align="center" style="margin-top:20px;margin-bottom:100px">${beautyTip.beautyTipTitle }</h1>
             
             	<c:forEach var="item" items="${beautyTip.imgArr }" varStatus="sts">
-	            	<img src="${loadPath }${beautyTip.imgArr[sts.count - 1] }" alt="Image Blog" class="img-responsive">
-    	            <p>${beautyTip.contentArr[sts.count - 1] }</p>
+	            	<img src="${loadPath }${beautyTip.imgArr[sts.count - 1] }" alt="Image Blog" class="img-responsive" style="width:500px;margin:50px;margin-left:130px">
+    	            <p align="center">${beautyTip.contentArr[sts.count - 1] }</p>
+    	            
+    	            <!-- 분홍라인 -->
+                	<div class="clearfix footerInfo" style="width:740px"></div>
+    	            <br>
                 </c:forEach>
                 
+                
+                
                 <!-- 영상 -->
-                <video id="my-video" class="video-js" controls preload="auto"
-					width="640" height="264" data-setup="{}">
-				<source src="${beautyTip.video}" type='video/mp4'> <!-- <source	src="https://youtu.be/s6yENYX_6IY" type='video/youtube'> -->
-				<p class="vjs-no-js">
-					To view this video please enable JavaScript, and consider upgrading to
-					a web browser that <a href="http://videojs.com/html5-video-support/"
-						target="_blank">supports HTML5 video</a>
-				</p></video>
+                <c:if test="${beautyTip.video ne null}">
+                <div style="width:500px;margin:50px;margin-top:100px">
+                
+                <c:choose>
+                	<c:when test="${url eq null}">
+                		
+		                <video id="my-video" class="video-js" controls preload="auto"
+							width="640" height="264" data-setup="{}">
+						<source src="${beautyTip.video}" type='video/mp4'> <!-- <source	src="https://youtu.be/s6yENYX_6IY" type='video/youtube'> -->
+						<p class="vjs-no-js">
+							To view this video please enable JavaScript, and consider upgrading to
+							a web browser that <a href="http://videojs.com/html5-video-support/"
+								target="_blank">supports HTML5 video</a>
+						</p></video>
+						
+                	</c:when>
+                	<c:otherwise>
+                		<video id="my_video_1" class="video-js" controls preload="auto" width="640" height="268" data-setup='{ "techOrder": ["youtube"] }'>
+					    <source src="${url }" type='video/youtube'>
+					   </video>
+                	</c:otherwise>
+                </c:choose>
+                
+                </div>
+                </c:if>
+                
+                
                 
               
               <!-- <p><img src="http://placehold.it/400x300" alt="Image Blog">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exerci tation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, </p>
               <p>ExceCupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto. </p> -->
+              <br><br>
               <ul class="list-inline">
-                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Admin</a></li>
-                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 21 Likes</a></li>
-                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 5 Comments</a></li>
+                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> ${beautyTip.customer.id }</a></li>
+                <li><a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> ${beautyTip.beautyTipReplys.size() } Comments</a></li>
               </ul>
             </div>
             <div id="replys">
@@ -324,9 +333,9 @@
               <h3>${beautyTip.replySize } Comments</h3>
               <c:forEach var="reply" items="${beautyTip.beautyTipReplys }" >
               <div class="media">
-                <a class="media-left" href="#">
+                <!-- <a class="media-left" href="#">
                   <img class="media-object" src="http://placehold.it/70x70" alt="Image">
-                </a>
+                </a> -->
                 <div class="media-body">
                   <h4 class="media-heading">${reply.customer.id }</h4>
                   <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>
@@ -347,7 +356,7 @@
                   <div class="form-group">
                     <textarea class="form-control" id="replyContent" rows="3" placeholder="Type Your Comment"></textarea>
                   </div>
-                <button type="button" class="btn btn-primary" id="replyAddBtn">submit now</button>
+                <button type="button" class="btn btn-primary" id="replyAddBtn">댓글 작성</button>
               </form>
             </div>
 
@@ -553,7 +562,6 @@
 					replyHtml +=
 						'<div class="media">' + 
 						'<a class="media-left" href="#">' + 
-						'<img class="media-object" src="http://placehold.it/70x70" alt="Image"></a>' +
 						'<div class="media-body">' + 
 						'<h4 class="media-heading">' + reply.customer.id + '</h4>' +
 						'<h5><span><i class="fa fa-calendar" aria-hidden="true"></i>22 September, 2016</span></h5>' +

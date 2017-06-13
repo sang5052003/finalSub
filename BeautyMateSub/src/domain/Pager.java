@@ -2,16 +2,16 @@ package domain;
 
 public class Pager {
 
-	protected int page; // 페이지 개수
+	protected int page; // 페이지 
 	protected int perPageNum; // 몇개씩 보여줄지
 	protected int pagStart;
 	protected int pagEnd;
 
 	public Pager() {
 		this.page = 1; // 초기값
-		this.perPageNum = 4; // 10개씩 보여주기
+		this.perPageNum = 10; // 10개씩 보여주기
 		this.pagStart = 1;
-		this.pagEnd = 3;
+		this.pagEnd = 10;
 	}
 
 	public void setPagStart(int pagStart) {
@@ -41,8 +41,8 @@ public class Pager {
 			return;
 		}
 
-		pagStart = page * 3 - 2;
-		pagEnd = page * 3;
+		pagStart = page * 10 - 9;
+		pagEnd = page * 10;
 
 		this.page = page;
 	}
@@ -56,7 +56,7 @@ public class Pager {
 	public void setPerPageNum(int perPageNum) {
 
 		if (perPageNum <= 0 || perPageNum > 300) {
-			this.perPageNum = 3; // 10으로 고정
+			this.perPageNum = 10; // 10으로 고정
 			return;
 		}
 

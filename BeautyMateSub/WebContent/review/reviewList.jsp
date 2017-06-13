@@ -151,12 +151,7 @@
 							Content</option>
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
-<<<<<<< HEAD
-					<button  type="button" id='searchBtn'>Search</button>
-=======
 					<button  type="button" id='searchBtn'><i class="fa fa-search" aria-hidden="true"></i></button>
-					
->>>>>>> refs/remotes/origin/0609JM1758
 
 				</div>
           
@@ -202,7 +197,6 @@
 	                    </tr>
 	                    </c:forEach>
                   <tbody>
-<<<<<<< HEAD
                   <c:forEach items="${reviewList}" var="review" varStatus="status">
                     <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
                     >
@@ -212,8 +206,7 @@
                     </tr>
                     </c:forEach>
                   </tbody>
-=======
->>>>>>> refs/remotes/origin/0609JM1758
+
                 </table>
               </div>
             </div>
@@ -302,7 +295,7 @@
 	}
 </script>
 
-<<script>
+<script>
 	$(document).ready(
 			function() {
 
