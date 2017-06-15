@@ -135,7 +135,6 @@ public class CosmeticController {
 		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};	
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
-		
 		System.out.println("TypeToken");
 
 		response.close();

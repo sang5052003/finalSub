@@ -328,7 +328,7 @@
 				insertPouch = function(cosmeticNo){
 					console.log(cosmeticNo);
 					$.ajax({
-						url:"http://localhost:8888/rest/myPouch/customerNo/"+${customerNo}+"/recommend/insert/cosmeticNo/"+cosmeticNo
+						url:"http://localhost:8888/rest/myPouch/customerNo/"+${customerNo}+"/recommend/insert/cosmeticNo/"+cosmeticNo 
 						,type:"get"
 						,dataType:"json"
 						,success:successCallback

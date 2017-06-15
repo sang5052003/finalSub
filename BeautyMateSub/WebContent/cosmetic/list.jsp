@@ -79,7 +79,6 @@
 							<tbody>
 								<c:forEach items="${cosmetics}" var="cosmetic" varStatus="sts">
 								<c:set var="cosmeticName" value="${cosmetic.cosmeticName}" />	
-			
 									<tr>
 										<td style="width: 5%;">
 										<c:choose>
@@ -114,10 +113,10 @@
 											&nbsp; &nbsp; &nbsp;<span style="color: DeepPink"> ${cosmetic.averageGrade} </span>&nbsp;</td>
 										
 										
-										 <td style="width: 10%;"><a href="#" style="color: gray; font-size:12px;">리뷰 : 1833개</a>&nbsp;</td>
+										 <td style="width: 10%;"><a href="#" style="color: gray; font-size:12px;">리뷰 : ${cosmetic.reviews.size() }개</a>&nbsp;</td>
 										
 										<td><a class="btn btn-common" href="showByNo.do?cosmeticNo=${cosmetic.cosmeticNo}">상세보기</a>
-										 <a class="btn btn-common" href="" style="font-size: 12.5px;">★ My Pouch </a>
+										 <a class="btn btn-common" onclick="javascript:insertPouch(${cosmetic.cosmeticNo})" style="font-size: 12.5px;">★ My Pouch </a>
 										 
 											<c:if test="${loginedCustomer eq 'admin' }">
 											&nbsp; <a href="modifyForm.do?cosmeticNo=${cosmetic.cosmeticNo}" style="margin-right: 10px"><i class="fa fa-pencil"aria-hidden="true"></i> </a> 
@@ -148,6 +147,32 @@
    
  
 </body>
+<script type="text/javascript">
+var insertPouch;
 
+$(document).ready(function() {
+	insertPouch = function(cosmeticNo){
+		console.log(cosmeticNo);
+		$.ajax({
+			url:"http://localhost:8888/rest/myPouch/customerNo/"+${customerNo}+"/cosmetic/insert/cosmeticNo/"+cosmeticNo+"/myPouch/customerNo/"+${customerNo}
+			,type:"get"
+			,dataType:"json"
+			,success:successCallback
+			,error:errorCallback
+		});
+	};
+	
+	var errorCallback = function() {
+		alert("수행중 오류가 발생했습니다.");
+	};
+	var successCallback = function(){
+		alert("파우치에 등록 되었습니다.");
+	};
+
+});
+
+
+
+</script>
 </html>
 
