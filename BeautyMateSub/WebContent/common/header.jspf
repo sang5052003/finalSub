@@ -21,7 +21,14 @@
                          
                         </select></li>
                 <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
+
+
+                  <li><a id="login" target="_blank" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN/JOIN</a></li>
+
+                  <li>
+=======
    <li>
+
                   <c:choose>
 	<c:when test="${loginedCustomer eq null}">
 		 <a id="login" target="_self" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN / JOIN</a>

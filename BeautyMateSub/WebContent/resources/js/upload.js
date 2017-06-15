@@ -16,10 +16,14 @@ function getFileInfo(fullName){
 		imgsrc = "/displayFile?fileName="+fullName;
 		fileLink = fullName.substr(14);
 		
+		console.log(imgsrc);
+		
 		var front = fullName.substr(0,12); // /2015/07/01/ 
 		var end = fullName.substr(14);
 		
 		getLink = "/displayFile?fileName="+front + end;
+		
+		console.log(getLink);
 		
 	}else{
 		imgsrc ="/resources/dist/img/file.png";
