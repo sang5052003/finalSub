@@ -166,9 +166,9 @@ public class ReviewController {
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String reviewRegist(HttpSession session, Model model) throws IOException {
 
-//		if (session.getAttribute("loginedCustomer") == null) {
-//			return "redirect:/customer/joinForm.do";
-//		}
+		if (session.getAttribute("loginedCustomer") == null) {
+			return "redirect:/customer/joinForm.do";
+		}
 		
 		String url = Const.getOriginpath() + "cosmetic/findAll";
 
@@ -234,9 +234,9 @@ public class ReviewController {
 		
 		
 		System.out.println(review.toString()+"asdas");
-//		 Customer customer = new Customer();
-//		 customer.setCustomerNo((int)session.getAttribute("customerNo"));
-//		 review.setCustomer(customer);
+		 Customer customer = new Customer();
+		 customer.setCustomerNo((int)session.getAttribute("customerNo"));
+		 review.setCustomer(customer);
 		 jsonByObject(url, review);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");

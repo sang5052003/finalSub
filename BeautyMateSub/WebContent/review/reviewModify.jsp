@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
 <c:set var="ctx" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <head>
@@ -186,8 +185,16 @@ label.star:before {
                          
                         </select></li>
                 <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
-                  <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
-                <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
+                  <li>
+					     <c:choose>
+							<c:when test="${loginedCustomer eq null}">
+							 <a id="login" target="_self" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN / JOIN</a>
+							</c:when>
+						<c:otherwise>
+							<a href="${ctx}/customer/logout.do">LOGOUT</a>
+ 						</c:otherwise>
+						</c:choose>
+                 </li>
                  
                 
             </ul>
@@ -244,22 +251,22 @@ label.star:before {
 					<!-- USER SECTION -->
 					<section class="clearfix userSection padding">
 						<div class="container">
-							<div class="row">
-								<div class="col-xs-12">
-									<ul class="list-inline squareBtn">
-										<li class="li"><a href="user-dashboard.html"
-											class="btn btn-common">Account Dashboard</a></li>
-										<li class="li"><a href="user-profile.html"
-											class="btn btn-common btn-theme">Profile</a></li>
-										<li class="li"><a href="address.html"
-											class="btn btn-common">Address</a></li>
-										<li class="li"><a href="all-order.html"
-											class="btn btn-common">All Orders</a></li>
-										<li class="li"><a href="wishlist.html"
-											class="btn btn-common">Wishlist</a></li>
-									</ul>
-								</div>
-							</div>
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-xs-12"> -->
+<!-- 									<ul class="list-inline squareBtn"> -->
+<!-- 										<li class="li"><a href="user-dashboard.html" -->
+<!-- 											class="btn btn-common">Account Dashboard</a></li> -->
+<!-- 										<li class="li"><a href="user-profile.html" -->
+<!-- 											class="btn btn-common btn-theme">Profile</a></li> -->
+<!-- 										<li class="li"><a href="address.html" -->
+<!-- 											class="btn btn-common">Address</a></li> -->
+<!-- 										<li class="li"><a href="all-order.html" -->
+<!-- 											class="btn btn-common">All Orders</a></li> -->
+<!-- 										<li class="li"><a href="wishlist.html" -->
+<!-- 											class="btn btn-common">Wishlist</a></li> -->
+<!-- 									</ul> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="innerWrapper">
