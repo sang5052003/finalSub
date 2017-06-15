@@ -290,7 +290,7 @@ public class BeautyTipController {
 		System.out.println("vPath " + vPath);
 
 		return beautyTip;
-	}
+	} 
 
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 
