@@ -2,7 +2,5 @@ package domain;
 
 public enum BeautyTipCategory {
 	
-	saleInformation, makeupInformation
-
-
+	saleInformation, makeupInformation 
 }
