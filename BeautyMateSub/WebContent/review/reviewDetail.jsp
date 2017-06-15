@@ -48,21 +48,6 @@
 	
 	
 	
-<<<<<<< HEAD
-<!-- 	<!-- Bootstrap 3.3.4 --> 
-<%--     <link href="${ctx }/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> --%>
-<!--     Font Awesome Icons -->
-<!--     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> -->
-<!--     Ionicons -->
-<!--     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" /> -->
-<!--     Theme style -->
-<%--     <link href="${ctx }/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> --%>
-<!--     AdminLTE Skins. Choose a skin from the css/skins 
-<!--          folder instead of downloading all of them to reduce the load. --> 
-<%--     <link href="${ctx }/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> --%>
-	
-	
-=======
     
       <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
   
@@ -103,7 +88,6 @@
     <div id="popup_front" class='popup front' style="display:none;">
      <img id="popup_img">
     </div>    
->>>>>>> refs/remotes/origin/0609JM1758
     
       <script src="${ctx}/resources/js/jQuery-2.1.4.min.js"></script>
   
@@ -186,19 +170,19 @@
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RANKING</a>
+                <a href="${ctx }/cosmetic/showAll.do" >RANKING</a>
                
               </li>
               <li class=" dropdown megaDropMenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REVIEW</a>
+                <a href="${ctx }/review/listpage.do" >REVIEW</a>
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BeautyTip</a>
+                <a href="${ctx }/beautyTip/list.do" >BeautyTip</a>
                 
               </li>
               <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY Pouch</a>
+                 <a href="${ctx }/myPouch/list.do">MY Pouch</a>
                 
               </li>
              
@@ -259,39 +243,9 @@
 					
 					
                     
-<<<<<<< HEAD
-                    
-                   	<form role="form" action="${ctx }/review/modify.do" method="post">
-
-					<input type='hidden' name='reviewNo' id='reviewNo' value="${review.reviewNo}">
-					<input type='hidden' name='page' value="${pager.page}"> <input
-						type='hidden' name='perPageNum' value="${pager.perPageNum}">
-					<input type='hidden' name='searchType' value="${pager.searchType}">
-					<input type='hidden' name='keyword' value="${pager.keyword}">
-
-					</form>
-                    
-                    
-                    
-                    <div class="col-md-10 col-sm-9 col-xs-12">
-                          <div class="form-group">
-                            <label for="" class="col-md-2 col-sm-3 control-label">Title</label>
-                            <div class="col-md-10 col-sm-9">
-                              <input type="text" class="form-control" id="" placeholder="" readonly="readonly" value="${review.reviewTitle }">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="" class="col-md-2 col-sm-3 control-label">Content</label>
-                            <div class="col-md-10 col-sm-9">
-                                <textarea class="form-control" id="" placeholder="" readonly="readonly">${review.reviewContent }</textarea>
-                            </div>
-                          </div>
-                          <br>
-=======
                           	
 					<ul class="mailbox-attachments clearfix uploadedList" id="imglist" ></ul>
                           
->>>>>>> refs/remotes/origin/0609JM1758
                           <div class="text-right">
 									<button type="submit" class="btn btn-common btn-theme" id="modifyBtn">수정</button>
 									<button type="submit" class="btn btn-common btn-theme" id="removeBtn">삭제</button>
@@ -300,29 +254,6 @@
                     </div>
                   </div>
                 </div>
-<<<<<<< HEAD
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-                    
-      
-      
-          <div class="row">
-          <div class="col-xs-12">
-            <div class="tabCommon tabOne singleTab">
-              <ul class="nav nav-tabs">
-              <div class="text-left">
-              <input type="button" class="btn btn-common btn-theme" value="Reply(2)"> 
-              </div>
-              </ul>
-              <div class="tab-content patternbg">            
-               <div id="reviews" class="tab-pane fade in active">			   			   
-			  <c:forEach items="${review.replys }" var="reply" varStatus="status">            
-<%--                   <li class="" data-reply=${reply.replyNo }> --%>
-                  <div class="blogCommnets">
-=======
                 </div>
 			</section>
      
@@ -336,7 +267,6 @@
 			  <c:forEach items="${review.replys }" var="reply" varStatus="status">     
 			  	       
                   <div class="blogCommnets" >
->>>>>>> refs/remotes/origin/0609JM1758
                     <div class="media	">
                       <a class="media-left" href="#">
                       	<i class="fa fa-user-o" aria-hidden="true"></i>
@@ -346,10 +276,6 @@
                         <h4 class="media-heading">리뷰작성자</h4>
                         <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>
                         <p class="timeline-body" id="${reply.replyNo}">${reply.replyContent }</p>
-<<<<<<< HEAD
-<!--                         <button class="btn btn-link">Reply</button> -->
-=======
->>>>>>> refs/remotes/origin/0609JM1758
                         <div class="text-right">
                         <input class="timeline-header" type="hidden" name ="${reply.replyNo }" id ="${reply.replyNo }" value="${reply.replyNo }"/>
                            
@@ -357,22 +283,13 @@
 						<div class="timeline-footer">
                          <a style="padding:10px" href="javascript:modifyReply(${reply.replyNo});"><i class="fa fa-pencil"aria-hidden="true"></i></a>
                          <a style="padding:10px" href="javascript:removeReply(${reply.replyNo});"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-<<<<<<< HEAD
-<!--                          <button type="button" id='replyRemoveBtn'><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
-=======
 						</div>
->>>>>>> refs/remotes/origin/0609JM1758
 						</div>
                           </div>
                       </div>
                     </div>
-<<<<<<< HEAD
-                  </div>
-                  </c:forEach> 
-=======
                   </c:forEach>
                   </div> 
->>>>>>> refs/remotes/origin/0609JM1758
 <!--                     <div class="media mediaMargin"> -->
 <!--                       <a class="media-left" href="#"> -->
 <!--                         <img class="media-object" src="http://placehold.it/70x70" alt="Image"> -->
@@ -430,8 +347,6 @@
   <script src="${ctx }/resources/js/custom.js"></script>
 
 
-<<<<<<< HEAD
-=======
 <script type="text/javascript" src="${ctx }/resources/js/upload.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
@@ -442,12 +357,11 @@
 	<a href="${ctx}{{getLink}}" class="mailbox-attachment-name" >{{fileName}}</a>
 	</span>
   </div>
-</li>                
+</li>
 </script>  
 
 
 
->>>>>>> refs/remotes/origin/0609JM1758
 <script>
 
     var postNo = ${review.reviewNo};
@@ -560,11 +474,8 @@
 				$("#reviews").empty();
 				$("#reviews").append(replyHtml);
 				$("#replyContent").val("");
-<<<<<<< HEAD
-=======
 				console.log(data.replys.length);
 				$("#replyCount").val("Reply("+data.replys.length +")");
->>>>>>> refs/remotes/origin/0609JM1758
 				
 			}
 		});
@@ -592,6 +503,7 @@ $(document).ready(function() {
 	});
 
 	$("#removeBtn").on("click", function() {
+		
 		formObj.attr("action", "remove.do");
 		formObj.submit();
 	});
@@ -603,8 +515,6 @@ $(document).ready(function() {
 	});
 
 });
-<<<<<<< HEAD
-=======
 
 var template = Handlebars.compile($("#templateAttach").html());
 
@@ -647,7 +557,6 @@ $("#popup_img").on("click", function(){
 });	
 
 
->>>>>>> refs/remotes/origin/0609JM1758
 </script>
 
 

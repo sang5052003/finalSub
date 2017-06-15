@@ -75,7 +75,8 @@
                           <option value="2">제품</option>
                          
                         </select></li>
-                <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
+
+				<li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
                   <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
                 <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
                  
@@ -113,19 +114,19 @@
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RANKING</a>
+                 <a href="${ctx }/cosmetic/showAll.do" >RANKING</a>
                
               </li>
               <li class=" dropdown megaDropMenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REVIEW</a>
+                <a href="${ctx }/review/listpage.do" >REVIEW</a>
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BeautyTip</a>
+                <a href="${ctx }/beautyTip/list.do" >BeautyTip</a>
                 
               </li>
               <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY Pouch</a>
+                 <a href="${ctx }/myPouch/list.do">MY Pouch</a>
                 
               </li>
              
@@ -152,6 +153,7 @@
 					</select> <input type="text" name='keyword' id="keywordInput"
 						value='${pager.keyword }'>
 					<button  type="button" id='searchBtn'><i class="fa fa-search" aria-hidden="true"></i></button>
+
 
 				</div>
           
@@ -197,15 +199,6 @@
 	                    </tr>
 	                    </c:forEach>
                   <tbody>
-                  <c:forEach items="${reviewList}" var="review" varStatus="status">
-                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'"
-                    >
-                      <td><div class="cartImage"><img src="http://placehold.it/100x105" alt="Image cart"></div></td>
-                      <td>${review.reviewTitle } <br> <span>${review.reviewContent }</span></td>
-                      <td><span class="price">${review.customer.id }</span></td>
-                    </tr>
-                    </c:forEach>
-                  </tbody>
 
                 </table>
               </div>
@@ -295,7 +288,7 @@
 	}
 </script>
 
-<script>
+<<script>
 	$(document).ready(
 			function() {
 
