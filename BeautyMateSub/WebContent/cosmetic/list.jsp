@@ -119,7 +119,7 @@
 										<td><a class="btn btn-common" href="showByNo.do?cosmeticNo=${cosmetic.cosmeticNo}">상세보기</a>
 										 <a class="btn btn-common" href="" style="font-size: 12.5px;">★ My Pouch </a>
 										 
-											<c:if test="${loginedCustomer eq null }">
+											<c:if test="${loginedCustomer eq 'admin' }">
 											&nbsp; <a href="modifyForm.do?cosmeticNo=${cosmetic.cosmeticNo}" style="margin-right: 10px"><i class="fa fa-pencil"aria-hidden="true"></i> </a> 
 											&nbsp;<a href="remove.do?cosmeticNo=${cosmetic.cosmeticNo}"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
 											</c:if>

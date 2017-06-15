@@ -22,7 +22,7 @@ public class IndexController {
 		
 		//sangki's no edit plz
 		//return "redirect:/beautyTip/showDetail.do?beautyTipNo=2";
-		//return "redirect:/cosmetic/test.do";
+		return "redirect:/cosmetic/showAll.do";
 		//return "redirect:/beautyTip/registForm.do";
 		//return "beautyTip/regist.do";
 		//return "redirect:/beautyTip/editForm.do?beautyTipNo=4";
@@ -33,6 +33,6 @@ public class IndexController {
 		//return "reply/beautyTip/editForm.do";
 		//return "redirect:/reply/beautyTip/clear.do?replyNo=12&postNo=2";
 		//return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.makeupInformation;
-		return "redirect:/beautyTip/listpage.do?category=" + BeautyTipCategory.makeupInformation;
+		//return "redirect:/beautyTip/listpage.do?category=" + BeautyTipCategory.makeupInformation;
 	}
 }

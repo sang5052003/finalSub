@@ -250,7 +250,7 @@ public class ReviewController {
 			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "review/modify/reviewNo/" + reviewNo;
-		System.out.println(url);
+		System.out.println(url);	
 		Review review = jsonObject(url);
 
 		model.addAttribute("review", review);

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+ 
 <!DOCTYPE html>
 <c:set var="ctx">${pageContext.request.contextPath }</c:set>
 <html>
@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login SignUp - Beauty Mate</title>
-
+ 
 <!-- GOOGLE FONT -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -25,7 +25,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff"
 	rel="stylesheet">
-
+ 
 <link href="${ctx }/resources/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 <link href="${ctx }/resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="${ctx }/resources/plugins/font-awesome/css/font-awesome.min.css"
@@ -38,22 +38,22 @@
 <link href="${ctx }/resources/plugins/datepicker/datepicker.min.css" rel="stylesheet">
 <link href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css"
 	rel="stylesheet">
-
+ 
 <!-- CUSTOM CSS -->
 <link href="${ctx }/resources/css/style.css" rel="stylesheet">
 <link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
-
-
+ 
+ 
 <!-- FAVICON -->
 <link href="${ctx }/resources/img/favicon.png" rel="shortcut icon">
-
+ 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
+ 
 <style>
 /* Paste this css to your style sheet file or under head tag */
 /* This only works with JavaScript,
@@ -61,14 +61,14 @@
 .no-js #loader {
 	display: none;
 }
-
+ 
 .js #loader {
 	display: block;
 	position: absolute;
 	left: 100px;
 	top: 0;
 }
-
+ 
 .se-pre-con {
 	position: fixed;
 	left: 0px;
@@ -80,7 +80,7 @@
 		url(../resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif)
 		center no-repeat #fff;
 }
-
+ 
 input[type=radio].css-checkbox {
 	position: absolute;
 	z-index: -1000;
@@ -93,7 +93,7 @@ input[type=radio].css-checkbox {
 	padding: 0;
 	border: 0;
 }
-
+ 
 input[type=radio].css-checkbox+label.css-label {
 	padding-left: 17px;
 	height: 12px;
@@ -105,11 +105,11 @@ input[type=radio].css-checkbox+label.css-label {
 	vertical-align: middle;
 	cursor: pointer;
 }
-
+ 
 input[type=radio].css-checkbox:checked+label.css-label {
 	background-position: 0 -12px;
 }
-
+ 
 label.css-label {
 	background-image:
 		url(http://csscheckbox.com/checkboxes/u/csscheckbox_d7934d7b4f2a8223f39419d9e7af69c1.png);
@@ -121,18 +121,18 @@ label.css-label {
 	user-select: none;
 }
 </style>
-
+ 
 </head>
-
+ 
 <body class="body-wrapper static">
 	<div class="se-pre-con"></div>
 	<div class="main-wrapper">
 		<!-- HEADER -->
 	
-
+ 
 	<%@ include file="../common/header.jspf"%>
-
-
+ 
+ 
 		<!-- FORM AREA SECTION -->
 		<section class="clearfix formArea">
 			<div class="container">
@@ -143,7 +143,6 @@ label.css-label {
 								log in your <span>account</span>
 							</div>
 							<div class="panel-body">
-
 								<form method="post" action="login.do">
 									<div class="form-group">
 										<i class="fa fa-info-circle" aria-hidden="true"></i> <input
@@ -186,7 +185,7 @@ label.css-label {
 											type="password" class="form-control" name="password"
 											id="pwd1" placeholder="Password">
 									</div>
-
+ 
 									<div class="form-group">
 										<i class="fa fa-envelope" aria-hidden="true"></i> <input
 											type="email" class="form-control" name="email" id="email1"
@@ -197,19 +196,19 @@ label.css-label {
 											type="date" class="form-control" name="birth" id="birth"
 											placeholder="Birth">
 									</div>
-
-
+ 
+ 
 									<div class="form-group">
-
+ 
 										<input type="radio" name="gender" id="radio1"
 											class="css-checkbox" checked="checked" value="f" /> <label
 											for="radio1" class="css-label radGroup1"
 											style="margin-right: 15px;">여자</label> <input type="radio"
 											name="gender" id="radio2" class="css-checkbox" value="m" />
 										<label for="radio2" class="css-label radGroup1">남자</label>
-
+ 
 									</div>
-
+ 
 									<input class="btn btn-xs btn-default" type="submit" value="등록">
 									<button type="submit" class="btn btn-primary btn-block">Sign
 										UP</button>
@@ -220,7 +219,7 @@ label.css-label {
 				</div>
 			</div>
 		</section>
-
+ 
 		
 			<!-- COPY RIGHT -->
 			<div class="clearfix copyRight">
@@ -253,10 +252,10 @@ label.css-label {
 			</div>
 		</footer>
 	</div>
-
+ 
 	<!-- APPOINMENT MODAL -->
 	
-
+ 
 	<!-- JAVASCRIPTS -->
 	<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -271,9 +270,9 @@ label.css-label {
 	<script src="${ctx }/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="${ctx }/resources/plugins/syotimer/jquery.syotimer.min.js"></script>
 	<script src="${ctx }/resources/js/custom.js"></script>
-
-
-
+ 
+ 
+ 
 	<script type="text/javascript">
 		//paste this code under head tag or in a seperate js file.
 		// Wait for window load
@@ -284,7 +283,7 @@ label.css-label {
 		});
 		
 		var result = '${msg}';
-
+ 
 		if (result == 'SUCCESS') {
 			alert("가입 완료");
 		}
@@ -323,8 +322,8 @@ label.css-label {
 		        }).text(message);
 		    }
 		})(jQuery)
-
-
+ 
+ 
 		$(document).ready(function() {
 			
 			var userInputId = getCookie("userInputId");
@@ -388,7 +387,7 @@ label.css-label {
 		    })
 		})
 		
-
+ 
 		function setCookie(cookieName, value, exdays){
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
@@ -415,13 +414,15 @@ function getCookie(cookieName) {
     }
     return unescape(cookieValue);
 }
-
+ 
 		
 	</script>
 	
 	
 	
-
+ 
 </body>
-
+ 
 </html>
+ 
+ 

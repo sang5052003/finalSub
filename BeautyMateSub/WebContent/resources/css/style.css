@@ -960,14 +960,14 @@ textarea.form-control {
     margin-bottom: 35px;
     letter-spacing: 1px; }
   .tabCommon.singleTab .tab-pane .blogCommnets .media {
-    padding-bottom: 15px;
+    padding-bottom: 1px; /*변경 : 15px -> 1px;*/
     border-bottom: 1px dashed #b7b7b7; }
     @media (min-width: 320px) {
       .tabCommon.singleTab .tab-pane .blogCommnets .media {
         margin-top: 15px; } }
     @media (min-width: 768px) {
       .tabCommon.singleTab .tab-pane .blogCommnets .media {
-        margin-top: 30px; } }
+        margin-top: 5px; } } /*변경 : 30px -> 5px;*/
   @media (min-width: 320px) {
     .tabCommon.singleTab .tab-pane .blogCommnets .media > .pull-left {
       padding: 0 0 20px 0; } }
@@ -1230,7 +1230,7 @@ textarea.form-control {
   .alert-common.alert-info {
     background-color: #4da5c9; }
   .alert-common.alert-warning {
-    background-color: #e6b048; }
+    background-color: #e6b048; } 
   .alert-common.alert-danger {
     background-color: #e26857; }
 
