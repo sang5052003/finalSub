@@ -75,7 +75,8 @@
                           <option value="2">제품</option>
                          
                         </select></li>
-                <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
+
+				<li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
                   <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
                 <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
                  
@@ -113,19 +114,19 @@
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RANKING</a>
+                 <a href="${ctx }/cosmetic/showAll.do" >RANKING</a>
                
               </li>
               <li class=" dropdown megaDropMenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REVIEW</a>
+                <a href="${ctx }/review/listpage.do" >REVIEW</a>
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BeautyTip</a>
+                <a href="${ctx }/beautyTip/list.do" >BeautyTip</a>
                 
               </li>
               <li class=" dropdown singleDrop">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY Pouch</a>
+                 <a href="${ctx }/myPouch/list.do">MY Pouch</a>
                 
               </li>
              
