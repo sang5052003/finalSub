@@ -121,7 +121,7 @@
         </script>
         <script>
             function goToSurvey() {
-                document.gotoSurvey.action = "${ctx}/survey/survey.do";
+                document.gotoSurvey.action = "${ctx}/survey/survey.jsp";
                 document.gotoSurvey.method = "get";
                 document.gotoSurvey.submit();
             }

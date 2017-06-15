@@ -268,7 +268,7 @@ public class SurveyController {
 			throws ClientProtocolException, IOException {
 		if (session.getAttribute("loginedCustomer") != null) {
 			int cusNo = (int) session.getAttribute("customerNo");
-			String url = Const.getOriginpath() + "customer/findNo/" + cusNo;
+			String url = Const.getOriginpath() + "customer/findNo/no/" + cusNo;
 			
 			HttpGet httpGet = new HttpGet(url);
 			CloseableHttpClient httpClient = HttpClients.createDefault();
