@@ -67,150 +67,6 @@
                         top: 0;
                     }
                     
-<<<<<<< HEAD
-                    .se-pre-con {
-                        position: fixed;
-                        left: 0px;
-                        top: 0px;
-                        width: 100%;
-                        height: 100%;
-                        z-index: 9999;
-                        background: url(${ctx}/resources/plugins/simple-pre-loader/images/loader-64x/Preloader_2.gif) center no-repeat #fff;
-                    }
-                    
-                    a {
-                        fornt-weight: bold;
-                        font-size: 20px;
-                    }
-                </style>
-                <script type="text/javascript">
-                     function tryCheckType() {
-                    	/* var ptStr1, ptStr2, ptStr3, ptStr4;
-                        var skinType = null;
-                        var checked_index = 0;
-                        var checked_value = 0;
-                        var checkNull = 0;
-                        var checked_index2 = 0;
-                        var checked_value2 = 0;
-                        var checkNull2 = 0;
-                        var checked_index3 = 0;
-                        var checked_value3 = 0;
-                        var checkNull3 = 0;
-                        var checked_index4 = 0;
-                        var checked_value4 = 0;
-                        var checkNull4 = 0;
-                        for (var j = 1; j < 12; j++) {
-                            var obj = document.getElementsByName('pt_' + j + 'radio');
-                            for (i = 0; i < obj.length; i++) {
-                                if (obj[i].checked) {
-                                    checked_index = i + 1;
-                                    checked_value = Number(obj[i].value) + Number(checked_value);
-                                }
-                            }
-                            if (checked_value == Number(checkNull)) {
-                                document.getElementById('checkAlert').value = 'Part.1 질문 번호' + j + '번의 항목을 완성 해 주세요';
-                                document.getElementById('checkAlertDiv').style.display = 'block';
-                                //alert('Part.1 질문 번호' + j + '번의 항목을 완성 해 주세요');
-                                document.getElementById('tabpt').href = '#pt1tab';
-                                document.getElementById('goqu').href = '#pt1_qu'+j;
-                                return;
-                            }
-                            else {
-                                checkNull = checked_value + 0;
-                                continue;
-                            }
-                        }
-                        for (var j = 1; j < 20; j++) {
-                            var obj = document.getElementsByName('pt_' + j + 'radio2');
-                            for (i = 0; i < obj.length; i++) {
-                                if (obj[i].checked) {
-                                    checked_index2 = i + 1;
-                                    checked_value2 = Number(obj[i].value) + Number(checked_value2);
-                                }
-                            }
-                            if (checked_value2 == Number(checkNull2)) {
-                                document.getElementById('checkAlert').value = 'Part.2 질문 번호' + j + '번의 항목을 완성 해 주세요';
-                                document.getElementById('checkAlertDiv').style.display = 'block';
-                                //alert('Part.2 질문 번호' + j + '번의 항목을 완성 해 주세요');
-                                document.getElementById('tabpt').href = '#pt2tab';
-                                alert('주소바꿨다 ' + document.getElementById('tabpt').href);
-                                document.getElementById('goqu').href = '#pt2_qu'+j;
-                                return;
-                            }
-                            else {
-                                checkNull2 = checked_value2 + 0;
-                                continue;
-                            }
-                        }
-                        for (var j = 1; j < 14; j++) {
-                            var obj = document.getElementsByName('pt_' + j + 'radio3');
-                            for (i = 0; i < obj.length; i++) {
-                                if (obj[i].checked) {
-                                    checked_index3 = i + 1;
-                                    checked_value3 = Number(obj[i].value) + Number(checked_value3);
-                                }
-                            }
-                            if (checked_value3 == Number(checkNull3)) {
-                                document.getElementById('checkAlert').value = 'Part.3 질문 번호' + j + '번의 항목을 완성 해 주세요';
-                                document.getElementById('checkAlertDiv').style.display = 'block';
-                                //alert('Part.3 질문 번호' + j + '번의 항목을 완성 해 주세요');
-                                document.getElementById('tabpt').href = '#pt3tab';
-                                alert('주소바꿨다 ' + document.getElementById('tabpt').href);
-                                document.getElementById('goqu').href = '#pt3_qu'+j;
-                                return;
-                            }
-                            else {
-                                checkNull3 = checked_value3 + 0;
-                                continue;
-                            }
-                        }
-                        for (var j = 1; j < 22; j++) {
-                            var obj = document.getElementsByName('pt_' + j + 'radio4');
-                            for (i = 0; i < obj.length; i++) {
-                                if (obj[i].checked) {
-                                    checked_index4 = i + 1;
-                                    checked_value4 = Number(obj[i].value) + Number(checked_value4);
-                                }
-                            }
-                            if (checked_value4 == Number(checkNull4)) {
-                                document.getElementById('checkAlert').value = 'Part.4 질문 번호' + j + '번의 항목을 완성 해 주세요';
-                                document.getElementById('checkAlertDiv').style.display = 'block';
-                                // alert('Part.4 질문 번호' + j + '번의 항목을 완성 해 주세요'); 
-                                document.getElementById('tabpt').href = '#pt4tab';
-                                document.getElementById('goqu').href = '#pt4_qu'+j;
-                                return;
-                            }
-                            else {
-                                checkNull4 = checked_value4 + 0;
-                                continue;
-                            }
-                        }
-                        if (checked_value <= 44 && checked_value >= 27) {
-                            ptStr1 = 'O';
-                        }
-                        else {
-                            ptStr1 = 'D';
-                        }
-                        if (checked_value2 <= 72 && checked_value2 >= 30) {
-                            ptStr2 = 'S';
-                        }
-                        else {
-                            ptStr2 = 'R';
-                        }
-                        if (checked_value3 <= 52 && checked_value3 >= 29) {
-                            ptStr3 = 'P';
-                        }
-                        else {
-                            ptStr3 = 'N';
-                        }
-                        if (checked_value4 <= 85 && checked_value4 >= 41) {
-                            ptStr4 = 'W';
-                        }
-                        else {
-                            ptStr4 = 'T';
-<<<<<<< HEAD
-                        }   */
-=======
                    .se-pre-con {
                 position: fixed;
                 left: 0px;
@@ -352,12 +208,7 @@
                         else {
                             ptStr4 = 'T';
                         }  */
->>>>>>> refs/remotes/origin/0609JM1758
-                        skinType = 'ORNT';
-=======
-                        }  */   
                         skinType = 'ORNW';
->>>>>>> refs/remotes/origin/0610jun1454
                         //skinType = ptStr1 + ptStr2 + ptStr3 + ptStr4;
                         document.getElementById('skinType').value = skinType;
                         /* alert(skinType); */
@@ -834,11 +685,7 @@
                                                     <!-- -----4---- -->
                                                     <tr>
                                                         <td style="font-weight: bold;"><div id=pt2_qu4><a href="javascript:;" id="pt_04tab2">4. 14K 금이 아닌 장신구를 착용할 경우에 피부 발진이 자주
-<<<<<<< HEAD
-													발생합니까?</a></td>
-=======
 													발생합니까?</a></div></td>
->>>>>>> refs/remotes/origin/0609JM1758
                                                     </tr>
                                                     <tr>
                                                         <td style="padding: 0px 2px 5px 10px;">
@@ -2112,14 +1959,9 @@
                                         <hr>
                                         <div id="checkAlertDiv" role="alert" class="alert1 alert-danger alert-common1" style="filter:alpha(opacity=50); display:none;"><span style="font-size: 20px;">Warning!  </span>
                                             <input id="checkAlert" name="checkAlert" value="" style="background-color:transparent;font-size: 15px;border: none; border-right: 0px; border-top: 0px; boder-left: 0px; width:70%; boder-bottom: 0px; readonly: true;"> 
-<<<<<<< HEAD
-                                            <a href="" id="tabpt" class="tabpt" data-toggle="tab" onclick="fn()">설문 수정하기</a> 
-                                            <a type="hidden" href="" id="goqu" class="goqu" data-toggle="tab"></a> </div>
-=======
                                             <div style="text-align:right"><a href="" id="tabpt" class="tabpt" data-toggle="tab" onclick="fn()">설문 수정하기</a></div> 
                                             <a type="hidden" href="" id="goqu" class="goqu" data-toggle="tab"></a> 
                                             <div style="text-align:right"><a>(현제 다른 탭을 진행중이시라면 "설문 수정하기"를 두번 눌러주세요)</a></div></div>
->>>>>>> refs/remotes/origin/0609JM1758
                                         <br>
                                         <div align="center" style="text-align: center;">
                                             <button type="submit" class="btn btn-common btn-full-round btn-theme" onclick="tryCheckType();"> 설문조사 응답 완료

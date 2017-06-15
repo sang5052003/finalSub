@@ -254,7 +254,7 @@
 							<div class="row">
 								<div class="">
 									<form action="${ctx }/beautyTip/edit.do" method="post"
-										enctype="multipart/form-data" class="form-horizontal">
+										enctype="multipart/form-data" class="form-horizontal" name="editForm">
 										<input type="hidden" name="beautyTipNo" value="${beautyTip.beautyTipNo }">
 										<div class="row">
 											<div class="form-group">
@@ -561,7 +561,7 @@
 	
 	<script type="text/javascript">
 	
-		
+	
 		var imgOn;
 	
 		var addTags;
@@ -809,6 +809,19 @@
 					$("input[name=vFileName]").parent().show();
 					$("input[name=vURLName]").val("");
 				}
+			});
+			
+			//
+			$("form[name=editForm]").submit(function(event) {
+				
+				$(".imgFileClass").each(function(i){
+					var x = $(this).val();
+					if (x == "") {
+				        alert("그림 파일들을 모두 등록 해야 됨!!!");
+				        event.preventDefault();
+				        return false;
+				    }	
+				});
 			});
 			
 		});/* endready */

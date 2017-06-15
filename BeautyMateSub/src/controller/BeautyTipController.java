@@ -230,6 +230,12 @@ public class BeautyTipController {
 			// upload
 			try {
 
+				if(fileName.equals("vFileName")){
+					if(file.getOriginalFilename().equals("")){
+						continue;
+					}
+				}
+				
 				String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 
 			} catch (IOException e1) {

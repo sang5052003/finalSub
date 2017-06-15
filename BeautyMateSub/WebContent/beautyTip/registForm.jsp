@@ -254,7 +254,7 @@
 							<div class="row">
 								<div class="">
 									<form action="${ctx }/beautyTip/regist.do" method="post"
-										enctype="multipart/form-data" class="form-horizontal">
+										enctype="multipart/form-data" class="form-horizontal" name="registForm">
 										<div class="row">
 											<div class="form-group">
 												<label for="" class="col-md-2 col-sm-3 control-label">제목</label>
@@ -793,6 +793,18 @@
 					$("input[name=vFileName]").parent().show();
 					$("input[name=vURLName]").val("");
 				}
+			});
+			
+			$("form[name=registForm]").submit(function(event) {
+				
+				$(".imgFileClass").each(function(i){
+					var x = $(this).val();
+					if (x == "") {
+				        alert("그림 파일들을 모두 등록 해야 됨!!!");
+				        event.preventDefault();
+				        return false;
+				    }
+				});
 			});
 			
 			
