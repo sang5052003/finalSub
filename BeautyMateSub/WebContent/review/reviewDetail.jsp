@@ -29,7 +29,7 @@
   <link href="${ctx }/resources/plugins/bootstrapthumbnail/bootstrap-thumbnail.css" rel="stylesheet">
 
   <!-- CUSTOM CSS -->
-  <link href="${ctx }/resources/css/style.css" rel="stylesheet">
+    <link href="${ctx }/resources/css/styleJ.css" rel="stylesheet">
   <link href="${ctx }/resources/css/default.css" rel="stylesheet" id="option_color">
 
   <!-- FAVICON -->
@@ -133,8 +133,16 @@
                          
                         </select></li>
                 <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
-                  <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN</a></li>
-                <li><a id="login" target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">JOIN</a></li>
+                  <li>
+					     <c:choose>
+							<c:when test="${loginedCustomer eq null}">
+							 <a id="login" target="_self" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN / JOIN</a>
+							</c:when>
+						<c:otherwise>
+							<a href="${ctx}/customer/logout.do">LOGOUT</a>
+ 						</c:otherwise>
+						</c:choose>
+                 </li>
                  
                 
             </ul>
@@ -199,8 +207,6 @@
 
 					</form>
           
-          
-          <br><br>
 <!-- USER SECTION -->   
    	<section class="clearfix userSection padding">
    	<div class="row">
@@ -247,8 +253,10 @@
 					<ul class="mailbox-attachments clearfix uploadedList" id="imglist" ></ul>
                           
                           <div class="text-right">
+                          			<c:if test="${loginedCustomer eq review.customer.id or loginedCustomer eq admin }">
 									<button type="submit" class="btn btn-common btn-theme" id="modifyBtn">수정</button>
 									<button type="submit" class="btn btn-common btn-theme" id="removeBtn">삭제</button>
+									</c:if>
 									<button type="submit" class="btn btn-common btn-theme" id="goListBtn">목록</button>      
 						  </div>                                 
                     </div>
@@ -273,7 +281,7 @@
                         <img class="media-object" src="http://placehold.it/70x70" alt="Image">
                       </a>
                       <div class="media-body">
-                        <h4 class="media-heading">리뷰작성자</h4>
+                        <h4 class="media-heading">${loginedCustomer }</h4>
                         <h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>
                         <p class="timeline-body" id="${reply.replyNo}">${reply.replyContent }</p>
                         <div class="text-right">
@@ -459,8 +467,8 @@
 				
 				$.each(data.replys, function(index,reply) {
 					replyHtml += '<div class="blogCommnets"> <div class="media	"> <a class="media-left" href="#">' ;
-					replyHtml += '<img class="media-object" src="http://placehold.it/70x70" alt="Image"></a>1';
-					replyHtml += '<div class="media-body"> <h4 class="media-heading">리뷰작성자</h4>';
+					replyHtml += '<img class="media-object" src="http://placehold.it/70x70" alt="Image"></a>';
+					replyHtml += '<div class="media-body"> <h4 class="media-heading">${loginedCustomer }</h4>';
 					replyHtml += '<h5><span><i class="fa fa-calendar" aria-hidden="true"></i>날짜</span></h5>';
 					replyHtml += '<p class="timeline-body" id="'+ reply.replyNo +'">'+ reply.replyContent+'</p>';
 // 					replyHtml += '<button class="btn btn-link">Reply</button>';
