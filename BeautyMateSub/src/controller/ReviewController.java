@@ -46,6 +46,8 @@ import domain.SearchPager;
 @Controller
 @RequestMapping("review")
 public class ReviewController {
+	
+	private int customerNo=-1;
 
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
 	public String showReviewPage(@ModelAttribute("pager") SearchPager pager, Model model)
@@ -164,9 +166,10 @@ public class ReviewController {
 	@RequestMapping(value = "register.do", method = RequestMethod.GET)
 	public String reviewRegist(HttpSession session, Model model) throws IOException {
 
-		if (session.getAttribute("loginCustomer") == null) {
-			// 로그인 페이지로
-		}
+//		if (session.getAttribute("loginedCustomer") == null) {
+//			return "redirect:/customer/joinForm.do";
+//		}
+		
 		String url = Const.getOriginpath() + "cosmetic/findAll";
 
 		HttpGet httpGet = new HttpGet(url);
@@ -231,9 +234,10 @@ public class ReviewController {
 		
 		
 		System.out.println(review.toString()+"asdas");
-		// Customer customer = (Customer)session.getAttribute("loginCustomer");
-		// review.setCustomer(customer);
-		jsonByObject(url, review);
+//		 Customer customer = new Customer();
+//		 customer.setCustomerNo((int)session.getAttribute("customerNo"));
+//		 review.setCustomer(customer);
+		 jsonByObject(url, review);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
