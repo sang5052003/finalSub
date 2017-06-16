@@ -123,7 +123,7 @@
                   </ul>
                 </div>
               </div>
-              
+               
               <!-- 에.. -->
               <div class="panel panel-default recentBlogPosts">
                 <div class="panel-heading">Resent Posts</div>
