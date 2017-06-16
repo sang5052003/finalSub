@@ -1,5 +1,6 @@
 package domain;
 
+
 public class BeautyTipPager extends Pager {
 
 	private BeautyTipCategory category;
@@ -13,6 +14,7 @@ public class BeautyTipPager extends Pager {
 		this.perPageNum = 10; // 3개씩 보여주기
 		this.pagStart = 1;
 		this.pagEnd = 10;
+		this.category = BeautyTipCategory.makeupInformation;
 		this.searchType = null;
 		this.keyword = null;
 	}

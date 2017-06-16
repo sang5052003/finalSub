@@ -41,6 +41,7 @@ import domain.BeautyTip;
 import domain.BeautyTipCategory;
 import domain.BeautyTipPager;
 import domain.Customer;
+import domain.MyPouch;
 import domain.PageMaker;
 
 @Controller
@@ -77,9 +78,6 @@ public class BeautyTipController {
 		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
 		};
 
-		System.out.println("===beautyTipShowDetail===");
-		System.out.println(responseContent);
-
 		// java.lang.reflect.type, import
 		Type type = typeToken.getType();
 
@@ -99,8 +97,8 @@ public class BeautyTipController {
 		model.addAttribute("recentList", beautyTipList); // 총3개임 현재
 
 		// 로그인에서 받는 것으로 수정해야함!!
-		// String loginedId = (String)session.getAttribute("loginedId");
-		model.addAttribute("loginedId", "id"); // 현재 id 고정
+		String loginedId = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", loginedId); // 현재 id 고정
 
 		String video = detailTip.getVideo();
 		if(video != null && video.contains("§")){
@@ -121,6 +119,10 @@ public class BeautyTipController {
 	public String beautyTipRegistForm(HttpSession session) {
 
 		// session체크(로그인)
+		if (session.getAttribute("loginedCustomer") == null) {
+			
+			return "redirect:/customer/joinForm.do";
+		}
 
 		// 메이크업팁만 작성 하도록 고정 됨..
 		return "redirect:/beautyTip/registForm.jsp";
@@ -140,7 +142,8 @@ public class BeautyTipController {
 		// beautyTip.setVideo("vvv");
 
 		//
-		beautyTip.setCustomer(new Customer(1)); // session에서
+		int customerNo = (Integer)request.getSession().getAttribute("customerNo");
+		beautyTip.setCustomer(new Customer(customerNo)); // session에서
 
 		//
 		HttpPost httpPost = new HttpPost(url);
@@ -286,8 +289,6 @@ public class BeautyTipController {
 		beautyTip.setVideo(vPath);
 		
 		//vUrlStr
-		System.out.println("vUrlStr " + vUrlStr);
-		System.out.println("vPath " + vPath);
 
 		return beautyTip;
 	}
@@ -418,7 +419,7 @@ public class BeautyTipController {
 
 	// 페이징 리스트
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
-	public String showListPage(@ModelAttribute("pager") BeautyTipPager pager, Model model, BeautyTipCategory category)
+	public String showListPage(@ModelAttribute("pager") BeautyTipPager pager, Model model, BeautyTipCategory category, HttpSession session)
 			throws ClientProtocolException, IOException {
 
 		pager.setSearchType(null);
@@ -434,8 +435,6 @@ public class BeautyTipController {
 
 		// pager.init();
 
-		System.out.println(url);
-		System.out.println(pager.getPage());
 
 		List<BeautyTip> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
@@ -449,17 +448,33 @@ public class BeautyTipController {
 		// 온다.
 		// index, size 0 일시 예외처리
 
-		System.out.println("===showPage===");
-		System.out.println(pageMaker);
 
 		model.addAttribute("pageMaker", pageMaker);
 
 		model.addAttribute("beautyTipList", list);
 		model.addAttribute("category", category); // 메이크업만..페이징?
-		model.addAttribute("loginedId", "id"); // 겟세션 아이디
+		
+		
+		String id = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", id); // 겟세션 아이디
+		
+		if(session.getAttribute("customerNo") != null){
+			int customerNo = (Integer)session.getAttribute("customerNo");
+			model.addAttribute("loginedNo", customerNo); // 겟세션 아이디
+		}
+		
 		model.addAttribute("loadPath", Const.getLoadpath()); // 이미지 불러올 경로
 		
 		model.addAttribute("recentList", this.getRecentList());
+		
+		//파우치
+		//myPouch/customerNo/{customerNo}/beauty/find
+		//url = Const.getOriginpath() + "myPouch/customerNo/" + customerNo + "/beauty/find";
+
+		/*List<BeautyTip> listFromPouch = jsonByList(url);
+		System.out.println("ppp");
+		System.out.println(listFromPouch);
+		model.addAttribute("listFromPouch", listFromPouch);*/
 
 		return "/beautyTip/beautyTipList.jsp";
 	}
@@ -467,20 +482,17 @@ public class BeautyTipController {
 	// searchMaker
 	// 검색
 	@RequestMapping(value = "listsearch.do", method = RequestMethod.GET)
-	public String showReviewSearch(@ModelAttribute("pager") BeautyTipPager pager, Model model)
+	public String showReviewSearch(@ModelAttribute("pager") BeautyTipPager pager, Model model, HttpSession session)
 			throws ClientProtocolException, IOException {
 
 		if (pager.getKeyword() == null || pager.getKeyword().trim() == "") {
 			return "redirect:/beautyTip/listpage.do";
 		}
 
-		System.out.println("===listsearch.do===");
-		System.out.println(pager.getPageStart());
 
 		String url = Const.getOriginpath() + "beautyTip/listsearch/pagStart/" + pager.getPagStart() + "/pagEnd/"
 				+ pager.getPagEnd() + "/searchType/" + pager.getSearchType() + "/keyword/" + pager.getKeyword();
 
-		System.out.println("search : " + url);
 
 		List<BeautyTip> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
@@ -492,13 +504,21 @@ public class BeautyTipController {
 			pageMaker.setTotalCount(list.get(0).getListCount()); // 전체 개수를
 		}
 
-		System.out.println(list);
 
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("beautyTipList", list);
 
 		model.addAttribute("category", "makeupInformation"); // 메이크업만..페이징?
-		model.addAttribute("loginedId", "id"); // 겟세션 아이디
+		
+		String id = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", id); // 겟세션 아이디
+		
+		if(session.getAttribute("customerNo") != null){
+			int customerNo = (Integer)session.getAttribute("customerNo");
+			model.addAttribute("loginedNo", customerNo); // 겟세션 아이디	
+		}
+		
+		
 		model.addAttribute("loadPath", Const.getLoadpath()); // 이미지 불러올 경로
 		
 		model.addAttribute("recentList", this.getRecentList());
@@ -507,7 +527,7 @@ public class BeautyTipController {
 	}
 
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
-	public String beautyTipList(BeautyTipCategory category, Model model) throws ClientProtocolException, IOException {
+	public String beautyTipList(BeautyTipCategory category, Model model, HttpSession session) throws ClientProtocolException, IOException {
 
 		// findAll
 		String url = Const.getOriginpath() + "beautyTip/find/category/" + category;// get
@@ -547,7 +567,15 @@ public class BeautyTipController {
 
 		model.addAttribute("beautyTipList", beautyTipList);
 		model.addAttribute("category", category.toString());
-		model.addAttribute("loginedId", "id"); // 겟세션 아이디
+		
+		String id = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", id); // 겟세션 아이디
+		
+		if(session.getAttribute("customerNo") != null){
+			int customerNo = (Integer)session.getAttribute("customerNo");
+			model.addAttribute("loginedNo", customerNo); // 겟세션 아이디	
+		}
+		
 		model.addAttribute("loadPath", Const.getLoadpath()); // 이미지 불러올 경로
 
 		response.close();
@@ -601,6 +629,11 @@ public class BeautyTipController {
 			throws ClientProtocolException, IOException {
 
 		// session체크(로그인)
+		if (session.getAttribute("loginedCustomer") == null) {
+			
+			return "redirect:/customer/joinForm.do";
+		}
+		
 
 		//
 		BeautyTip beautyTip = this.getSrcForEdit(beautyTipNo);
@@ -852,6 +885,7 @@ public class BeautyTipController {
 
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
+		
 		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
 		};
 		Type type = typeToken.getType();
@@ -860,7 +894,7 @@ public class BeautyTipController {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
 
-		System.out.println(responseContent);
+		
 
 		List<BeautyTip> beautyTips = gsonBuilder.create().fromJson(responseContent, type);
 
