@@ -83,13 +83,13 @@
 								<select name="guiest_id2" id="guiest_id2" class="select-drop" style="margin-left:15px;">
 									<option value="n"
 										<c:out value="${pageMaker.pager.searchType == null?'selected':''}"/>>
-										---</option>
+										카테고리 선택</option>
 									<option value="t"
 										<c:out value="${pageMaker.pager.searchType eq 't'?'selected':''}"/>>
-										Title</option>
+										제목</option>
 									<option value="c"
 										<c:out value="${pageMaker.pager.searchType eq 'c'?'selected':''}"/>>
-										Author</option>
+										작성자</option>
 			                          <!-- <option value="0">작성자</option>
 			                          <option value="1">제목</option> -->
 			                     </select>

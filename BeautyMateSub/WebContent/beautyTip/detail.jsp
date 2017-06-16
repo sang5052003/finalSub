@@ -130,12 +130,11 @@
             <h1 align="center" style="margin-top:20px;margin-bottom:100px">${beautyTip.beautyTipTitle }</h1>
             
             	<c:forEach var="item" items="${beautyTip.imgArr }" varStatus="sts">
-	            	<img src="${loadPath }${beautyTip.imgArr[sts.count - 1] }" alt="Image Blog" class="img-responsive" style="width:500px;margin:50px;margin-left:130px">
+	            	<img src="${loadPath }${beautyTip.imgArr[sts.count - 1] }" alt="Image Blog" class="img-responsive" style="width:500px;margin-left:130px;margin-top:0px;">
     	            <p align="center">${beautyTip.contentArr[sts.count - 1] }</p>
     	            
     	            <!-- 분홍라인 -->
-                	<div class="clearfix footerInfo" style="width:740px"></div>
-    	            <br>
+                	<div class="clearfix footerInfo" style="width:740px;margin-bottom:-70px"></div>
                 </c:forEach>
                 
                 

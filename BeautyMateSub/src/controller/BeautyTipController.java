@@ -203,6 +203,9 @@ public class BeautyTipController {
 			}
 			else {
 				if (param.startsWith("beautyTipContent")) {
+					
+					if(param.equals("")) param = " "; //스페이스 하나넣기..
+					
 					contentParams.add(param);
 				}
 			}
@@ -273,11 +276,16 @@ public class BeautyTipController {
 		// 컨텐츠 구분자 추가(컨텐츠는 거꾸로 추가 되어서 순서 맞추려고 for문 씀)
 		beautyTipContent = "";
 		for (int i = 0; i < contentList.size(); i++) {
+			
+			if(contentList.get(i).equals("")){
+				continue;
+			}
+			
 			beautyTipContent += contentList.get(i) + "§"; // 구분자, ㅁ5
 		}
-		beautyTipContent = beautyTipContent.substring(0, beautyTipContent.length() - 1); // 마지막
-																							// 구분자
-																							// 삭제
+		if(beautyTipContent.length() >= 1){
+			beautyTipContent = beautyTipContent.substring(0, beautyTipContent.length() - 1); 
+		}
 
 		//
 		BeautyTip beautyTip = new BeautyTip();
