@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
@@ -17,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import controller.utils.Const;
+import controller.utils.DateDeserializer;
 import controller.utils.HttpResponse;
+import domain.BeautyTip;
 import domain.Cosmetic;
 import domain.CosmeticCategory;
 import domain.Test;
@@ -29,7 +33,7 @@ import domain.Test;
 @RequestMapping("cosmetic")
 public class CosmeticController {
 
-//	// test용
+	// // test용
 	@RequestMapping(value = "test.do", method = RequestMethod.GET)
 	public String test(Model model) throws ClientProtocolException, IOException {
 
@@ -85,14 +89,14 @@ public class CosmeticController {
 	public String cosmeticRegist(Cosmetic cosmetic) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "cosmetic/insert";
-		
+
 		System.out.println(url);
 
 		System.out.println(cosmetic.toString());
-		
+
 		HttpPost httpPost = new HttpPost(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		
+
 		StringEntity entity = new StringEntity(new Gson().toJson(cosmetic));
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json");
@@ -103,21 +107,19 @@ public class CosmeticController {
 
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
-		
-		response.close();
-		
-		
 
-		if(responseContent == "1"){
+		response.close();
+
+		if (responseContent == "1") {
 			return "redirect:showAll.do";
 		}
-			return "/cosmetic/registerForm.jsp";
+		return "/cosmetic/registerForm.jsp";
 	}
 
 	// 화장품 검색(전체)
 	@RequestMapping(value = "showAll.do", method = RequestMethod.GET)
 	public String cosmeticShowAll(Model model) throws ClientProtocolException, IOException {
-		
+
 		String url = Const.getOriginpath() + "cosmetic/findAll";
 
 		HttpGet httpGet = new HttpGet(url);
@@ -131,8 +133,8 @@ public class CosmeticController {
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
 
-
-		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};	
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
+		};
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 		System.out.println("TypeToken");
@@ -140,7 +142,7 @@ public class CosmeticController {
 		response.close();
 
 		model.addAttribute("cosmetics", cosmetics);
-		
+
 		System.out.println("model");
 
 		return "list.jsp";
@@ -148,8 +150,9 @@ public class CosmeticController {
 
 	// 화장품 검색(카테고리)
 	@RequestMapping(value = "showByCategory.do", method = RequestMethod.GET)
-	public String cosmeticShowByCategory(CosmeticCategory cosmeticCategory, Model model) throws ClientProtocolException, IOException {
-		
+	public String cosmeticShowByCategory(CosmeticCategory cosmeticCategory, Model model)
+			throws ClientProtocolException, IOException {
+
 		String url = Const.getOriginpath() + "cosmetic/findByCategory/" + cosmeticCategory;
 
 		HttpGet httpGet = new HttpGet(url);
@@ -163,8 +166,8 @@ public class CosmeticController {
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
 
-
-		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
+		};
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 
@@ -178,11 +181,11 @@ public class CosmeticController {
 	// 화장품 검색(이름)
 	@RequestMapping(value = "showByName.do", method = RequestMethod.GET)
 	public String cosmeticShowByName(String cosmeticTitle, Model model) throws ClientProtocolException, IOException {
-		
+
 		System.out.println("into");
 
 		String url = Const.getOriginpath() + "cosmetic/findByTitle/" + cosmeticTitle;
-		
+
 		System.out.println(url);
 
 		HttpGet httpGet = new HttpGet(url);
@@ -196,8 +199,8 @@ public class CosmeticController {
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
 
-
-		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
+		};
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 
@@ -214,8 +217,6 @@ public class CosmeticController {
 	public String cosmeticShowByBrand(String brand, Model model) throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "cosmetic/findByBrand/" + brand;
-		
-	
 
 		HttpGet httpGet = new HttpGet(url);
 
@@ -228,8 +229,8 @@ public class CosmeticController {
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
 
-
-		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>(){};
+		TypeToken<List<Cosmetic>> typeToken = new TypeToken<List<Cosmetic>>() {
+		};
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 
@@ -243,7 +244,7 @@ public class CosmeticController {
 	// 화장품 상세
 	@RequestMapping(value = "showByNo.do", method = RequestMethod.GET)
 	public String cosmeticShowByNo(int cosmeticNo, Model model) throws ClientProtocolException, IOException {
-		
+
 		String url = Const.getOriginpath() + "cosmetic/findByNo/" + cosmeticNo;
 
 		HttpGet httpGet = new HttpGet(url);
@@ -257,8 +258,8 @@ public class CosmeticController {
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
 
-
-		TypeToken<Cosmetic> typeToken = new TypeToken<Cosmetic>(){};
+		TypeToken<Cosmetic> typeToken = new TypeToken<Cosmetic>() {
+		};
 		Type type = typeToken.getType();
 		Cosmetic cosmetic = new Gson().fromJson(responseContent, type);
 
@@ -272,7 +273,7 @@ public class CosmeticController {
 	// 화장품 수정
 	@RequestMapping(value = "modifyForm.do", method = RequestMethod.GET)
 	public String cosmeticShowEdit(Model model, int cosmeticNo) throws ClientProtocolException, IOException {
-		
+
 		String url = Const.getOriginpath() + "cosmetic/findByNo/" + cosmeticNo;
 
 		HttpGet httpGet = new HttpGet(url);
@@ -286,28 +287,28 @@ public class CosmeticController {
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
 
-
-		TypeToken<Cosmetic> typeToken = new TypeToken<Cosmetic>(){};
+		TypeToken<Cosmetic> typeToken = new TypeToken<Cosmetic>() {
+		};
 		Type type = typeToken.getType();
 		Cosmetic cosmetic = new Gson().fromJson(responseContent, type);
 
 		response.close();
 
 		model.addAttribute("cosmetic", cosmetic);
-		
+
 		return "/cosmetic/modifyForm.jsp";
 	}
-		
+
 	@RequestMapping(value = "modify.do", method = RequestMethod.POST)
 	public String cosmeticModify(Cosmetic cosmetic) throws ClientProtocolException, IOException {
-		
+
 		System.out.println(cosmetic.toString());
-		
+
 		String url = Const.getOriginpath() + "cosmetic/modify";
 
 		HttpPost httpPost = new HttpPost(url);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		
+
 		StringEntity entity = new StringEntity(new Gson().toJson(cosmetic));
 		httpPost.setEntity(entity);
 		httpPost.setHeader("Content-type", "application/json");
@@ -318,20 +319,20 @@ public class CosmeticController {
 
 		System.out.println(responseStatusCode);
 		System.out.println("concon" + responseContent);
-		
+
 		response.close();
 
-		if(responseContent == "1"){
+		if (responseContent == "1") {
 			return "redirect:showAll.do";
 		}
-			return "/cosmetic/modifyForm.jsp";
-		
+		return "/cosmetic/modifyForm.jsp";
+
 	}
 
 	// 화장품 삭제
 	@RequestMapping(value = "remove.do", method = RequestMethod.GET)
 	public String cosmeticRemove(int cosmeticNo) throws ClientProtocolException, IOException {
-		
+
 		String url = Const.getOriginpath() + "cosmetic/remove/" + cosmeticNo;
 
 		HttpGet httpGet = new HttpGet(url);
@@ -348,8 +349,7 @@ public class CosmeticController {
 		response.close();
 
 		return "redirect:showAll.do";
-		
+
 	}
-	
 
 }

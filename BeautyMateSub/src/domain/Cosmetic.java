@@ -13,12 +13,12 @@ public class Cosmetic {
 	private CosmeticCategory category;
 	private String ingredients;
 	private List<Review> reviews;
-	private int averageGrade;
+	private float averageGrade;
 	
 	public Cosmetic(){}
 
 	public Cosmetic(int cosmeticNo, String cosmeticName, String volume, int cost, String img, String brand,
-			CosmeticCategory category, String ingredients, List<Review> reviews, int averageGrade) {
+			CosmeticCategory category, String ingredients, List<Review> reviews, float averageGrade) {
 		super();
 		this.cosmeticNo = cosmeticNo;
 		this.cosmeticName = cosmeticName;
@@ -104,11 +104,11 @@ public class Cosmetic {
 		this.reviews = reviews;
 	}
 
-	public int getAverageGrade() {
+	public float getAverageGrade() {
 		return averageGrade;
 	}
 
-	public void setAverageGrade(int averageGrade) {
+	public void setAverageGrade(float averageGrade) {
 		this.averageGrade = averageGrade;
 	}
 
