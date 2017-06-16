@@ -11,7 +11,7 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 
-	private int displayPageNum = 3;
+	private int displayPageNum = 10;
 
 	private Pager pager;
 
@@ -23,27 +23,40 @@ public class PageMaker {
 		this.totalCount = totalCount;
 
 		System.out.println("totalcount : " + totalCount);
-		
-		setData();
 
+		setData();
 	}
 
 	private void setData() {
+		
+		
+		
 		endPage = (int) (Math.ceil(pager.getPage() / (double) displayPageNum) * displayPageNum); // 모든
 																									// 페이지수에
 																									// 대응하기
 
-		
-		System.out.println(pager.getPage());
-		System.out.println("endpage : " + endPage);
-		
+		// ????
+		System.out.println("===setData2===");
+		System.out.println((Math.ceil(pager.getPage() / (double) displayPageNum)));
+		System.out.println(displayPageNum);
+		//System.out.println(pager.getPage());
+		System.out.println(pager);
+		System.out.println(endPage); //1
+
 		startPage = (endPage - displayPageNum) + 1; // 시작 페이지
 
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) pager.getPerPageNum()));
+	
+		System.out.println(Math.ceil(totalCount / (double) pager.getPerPageNum()));
+		System.out.println(totalCount); //8
+		System.out.println(pager.getPerPageNum());
+		System.out.println(tempEndPage);
 
 		if (endPage > tempEndPage) { // 최대값 정의
 			endPage = tempEndPage;
 		}
+		
+		System.out.println(endPage);
 
 		prev = startPage == 1 ? false : true; // 1일 때는 << 끔
 
@@ -106,21 +119,32 @@ public class PageMaker {
 
 		return uriComponents.toUriString();
 	}
-	
-	//sangki's
-	public String makeQueryForBeautyTip(int page, BeautyTipCategory category) { // 동적 쿼리
 
-		System.out.println("==makeQueryForBeautyTip==");
-		System.out.println(pager.getPerPageNum());
-		
+	// sangki's
+	public String makeQueryForBeautyTip(int page, BeautyTipCategory category) { // 동적
+																				// 쿼리
+
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-				.queryParam("perPageNum", pager.getPerPageNum())
-				.queryParam("category", category)
-				.build();
+				.queryParam("perPageNum", pager.getPerPageNum()).queryParam("category", category).build();
 
 		return uriComponents.toUriString();
 	}
+	// sangki's
+	public String makeSearchForBeautyTip(int page) {
 
+		System.out.println("===makeSearchForBeautyTip===");
+		System.out.println(page);
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", pager.getPerPageNum())
+				.queryParam("searchType", ((BeautyTipPager) pager).getSearchType())
+				.queryParam("keyword", ((BeautyTipPager) pager).getKeyword()).build();
+
+		System.out.println(uriComponents.toUriString());
+
+		return uriComponents.toUriString();
+	}
+	
 	public String makeSearch(int page) {
 
 		System.out.println("===makeSearch===");

@@ -6,6 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -225,10 +227,12 @@ public class TestController {
 
 	////////////// beautyTip//////////////
 	@RequestMapping(value = "beautyTip/register", method = RequestMethod.POST)
-	public ResponseEntity<String> beautyTipReplyRegister(@RequestBody Reply reply)
+	public ResponseEntity<String> beautyTipReplyRegister(@RequestBody Reply reply, HttpSession session)
 			throws ClientProtocolException, IOException { // 등록
 
-		Customer c = new Customer(1);
+		int no = (Integer)session.getAttribute("customerNo");
+		
+		Customer c = new Customer(no);
 		reply.setCustomer(c);
 
 		String url = Const.getOriginpath() + "beautyTip/reply/insert";

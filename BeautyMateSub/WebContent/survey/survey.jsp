@@ -67,7 +67,6 @@
                         top: 0;
                     }
                     
-<<<<<<< HEAD
                     .se-pre-con {
                         position: fixed;
                         left: 0px;
@@ -826,11 +825,7 @@
                                                     <!-- -----4---- -->
                                                     <tr>
                                                         <td style="font-weight: bold;"><div id=pt2_qu4><a href="javascript:;" id="pt_04tab2">4. 14K 금이 아닌 장신구를 착용할 경우에 피부 발진이 자주
-<<<<<<< HEAD
-													발생합니까?</a></td>
-=======
 													발생합니까?</a></div></td>
->>>>>>> refs/remotes/origin/0609JM1758
                                                     </tr>
                                                     <tr>
                                                         <td style="padding: 0px 2px 5px 10px;">

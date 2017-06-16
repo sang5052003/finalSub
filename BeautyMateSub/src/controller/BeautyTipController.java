@@ -41,6 +41,7 @@ import domain.BeautyTip;
 import domain.BeautyTipCategory;
 import domain.BeautyTipPager;
 import domain.Customer;
+import domain.MyPouch;
 import domain.PageMaker;
 
 @Controller
@@ -51,7 +52,7 @@ public class BeautyTipController {
 	public String beautyTipShowDetail(int beautyTipNo, Model model, HttpSession session)
 			throws ClientProtocolException, IOException {
 
-		String url = Const.getOriginpath() + "beautyTip/find/id/" + beautyTipNo;// get
+		String url = Const.getOriginpath() + "beautyTip/find/recent/id/" + beautyTipNo;// get
 
 		// apache lib
 		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
@@ -74,7 +75,7 @@ public class BeautyTipController {
 		// gson lib
 		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
 
-		TypeToken<BeautyTip> typeToken = new TypeToken<BeautyTip>() {
+		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
 		};
 
 		// java.lang.reflect.type, import
@@ -83,17 +84,30 @@ public class BeautyTipController {
 		// 객체에 Date타입 필드가 있는 경우
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
-		BeautyTip beautyTip = gsonBuilder.create().fromJson(responseContent, type);
+		List<BeautyTip> beautyTipList = gsonBuilder.create().fromJson(responseContent, type);
 		// BeautyTip beautyTip = new Gson().fromJson(responseContent, type);
 
-		model.addAttribute("beautyTip", beautyTip); // 이안에 이미 매퍼에서 받아온 댓글들이
-													// 들어있어야 함
+		BeautyTip detailTip = beautyTipList.get(beautyTipList.size() - 1);
+		model.addAttribute("beautyTip", detailTip);
+		beautyTipList.remove(beautyTipList.size() - 1);
+		
+		// 들어있어야 함
 		model.addAttribute("loadPath", Const.getLoadpath()); // 이미지 불러올 경로
 
-		// 로그인에서 받는 것으로 수정해야함!!
-		// String loginedId = (String)session.getAttribute("loginedId");
-		model.addAttribute("loginedId", "id"); // 현재 id 고정
+		model.addAttribute("recentList", beautyTipList); // 총3개임 현재
 
+		// 로그인에서 받는 것으로 수정해야함!!
+		String loginedId = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", loginedId); // 현재 id 고정
+
+		String video = detailTip.getVideo();
+		if(video != null && video.contains("§")){
+			video = video.substring(1);
+			model.addAttribute("url", video);
+		}else{
+			//model.addAttribute("url", "");
+		}
+		
 		//
 		response.close();
 		httpClient.close();
@@ -105,8 +119,12 @@ public class BeautyTipController {
 	public String beautyTipRegistForm(HttpSession session) {
 
 		// session체크(로그인)
+		if (session.getAttribute("loginedCustomer") == null) {
+			
+			return "redirect:/customer/joinForm.do";
+		}
 
-		//
+		// 메이크업팁만 작성 하도록 고정 됨..
 		return "redirect:/beautyTip/registForm.jsp";
 	}
 
@@ -124,7 +142,8 @@ public class BeautyTipController {
 		// beautyTip.setVideo("vvv");
 
 		//
-		beautyTip.setCustomer(new Customer(1)); // session에서
+		int customerNo = (Integer)request.getSession().getAttribute("customerNo");
+		beautyTip.setCustomer(new Customer(customerNo)); // session에서
 
 		//
 		HttpPost httpPost = new HttpPost(url);
@@ -153,7 +172,9 @@ public class BeautyTipController {
 		// // 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
 		// String category = ;
 		// category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
-		return "redirect:/beautyTip/list.do?category=" + beautyTip.getCategory();
+		// return "redirect:/beautyTip/list.do?category=" +
+		// beautyTip.getCategory();
+		return "redirect:/beautyTip/listpage.do?category=" + beautyTip.getCategory();
 	}
 
 	// 파일업로드 cos랑 양립안되서 새로 만듬..
@@ -165,6 +186,7 @@ public class BeautyTipController {
 		List<String> contentParams = new ArrayList<>();
 		List<String> imgStrList = new ArrayList<>();
 		String vStr = "";
+		String vUrlStr = "";
 
 		//
 		Enumeration<String> paramEnums = request.getParameterNames();
@@ -175,8 +197,15 @@ public class BeautyTipController {
 
 				beautyTipTitle = request.getParameter(param);
 
-			} else {
+			}
+			else if(param.equals("vURLName")){
+				vUrlStr = request.getParameter(param);
+			}
+			else {
 				if (param.startsWith("beautyTipContent")) {
+					
+					if(param.equals("")) param = " "; //스페이스 하나넣기..
+					
 					contentParams.add(param);
 				}
 			}
@@ -199,13 +228,20 @@ public class BeautyTipController {
 			// 경로 저장
 			if (fileName.equals("vFileName")) {
 				vStr = file.getOriginalFilename();
-			} else {
+			}
+			else {
 				imgStrList.add(file.getOriginalFilename());
 			}
 
 			// upload
 			try {
 
+				if(fileName.equals("vFileName")){
+					if(file.getOriginalFilename().equals("")){
+						continue;
+					}
+				}
+				
 				String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 
 			} catch (IOException e1) {
@@ -227,28 +263,40 @@ public class BeautyTipController {
 
 		// System.out.println(imgPath);
 
-		String vPath = Const.getLoadpath() + vStr;
+		String vPath = "";
+		if(!vStr.equals("")){
+			
+			vPath = Const.getLoadpath() + vStr;
+		}else{
+			if(!vUrlStr.equals("")){
+				vPath = "§" + vUrlStr;
+			}
+		}
 
 		// 컨텐츠 구분자 추가(컨텐츠는 거꾸로 추가 되어서 순서 맞추려고 for문 씀)
 		beautyTipContent = "";
 		for (int i = 0; i < contentList.size(); i++) {
+			
+			if(contentList.get(i).equals("")){
+				continue;
+			}
+			
 			beautyTipContent += contentList.get(i) + "§"; // 구분자, ㅁ5
 		}
-		beautyTipContent = beautyTipContent.substring(0, beautyTipContent.length() - 1); // 마지막
-																							// 구분자
-																							// 삭제
+		if(beautyTipContent.length() >= 1){
+			beautyTipContent = beautyTipContent.substring(0, beautyTipContent.length() - 1); 
+		}
 
 		//
-		BeautyTip beautyTip = new BeautyTip();// 0, beautyTipTitle, imgPath,
-												// beautyTipContent, "vv", new
-												// Customer(1),
-												// BeautyTipCategory.makeupInformation,
-												// null);
+		BeautyTip beautyTip = new BeautyTip();
+		
 		beautyTip.setBeautyTipNo(0);
 		beautyTip.setBeautyTipContent(beautyTipContent);
 		beautyTip.setBeautyTipTitle(beautyTipTitle);
 		beautyTip.setImage(imgPath);
 		beautyTip.setVideo(vPath);
+		
+		//vUrlStr
 
 		return beautyTip;
 	}
@@ -379,23 +427,28 @@ public class BeautyTipController {
 
 	// 페이징 리스트
 	@RequestMapping(value = "listpage.do", method = RequestMethod.GET)
-	public String showListPage(@ModelAttribute("pager") BeautyTipPager pager, Model model, BeautyTipCategory category)
+	public String showListPage(@ModelAttribute("pager") BeautyTipPager pager, Model model, BeautyTipCategory category, HttpSession session)
 			throws ClientProtocolException, IOException {
 
-		String url = Const.getOriginpath() + "beautyTip/listpage/pagStart/" + pager.getPagStart() + "/pagEnd/"
-				+ pager.getPagEnd() + "/category/" + category;
+		pager.setSearchType(null);
+		pager.setKeyword(null); // 초기화
 
-		System.out.println(url);
-		System.out.println(pager.getPagStart());
-		System.out.println(pager.getPagEnd());
-		System.out.println(pager);
-		System.out.println();
+		if (category == null) {
+			pager.init();
+			// category = BeautyTipCategory.makeupInformation;
+		}
+
+		String url = Const.getOriginpath() + "beautyTip/listpage/pagStart/" + pager.getPagStart() + "/pagEnd/"
+				+ pager.getPagEnd() + "/category/" + pager.getCategory() + "/page/" + pager.getPage();
+
+		// pager.init();
+
 
 		List<BeautyTip> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
 		pager.setCategory(category);
 		pageMaker.setPager(pager);
-		if (list.size() == 0) { //0
+		if (list.size() == 0) { // 0
 			pageMaker.setTotalCount(0);
 		} else {
 			pageMaker.setTotalCount(list.get(0).getListCount()); // 전체 개수를
@@ -403,21 +456,86 @@ public class BeautyTipController {
 		// 온다.
 		// index, size 0 일시 예외처리
 
-		System.out.println("===showPage===");
-		System.out.println(pageMaker);
-		
+
 		model.addAttribute("pageMaker", pageMaker);
 
 		model.addAttribute("beautyTipList", list);
 		model.addAttribute("category", category); // 메이크업만..페이징?
-		model.addAttribute("loginedId", "id"); // 겟세션 아이디
+		
+		
+		String id = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", id); // 겟세션 아이디
+		
+		if(session.getAttribute("customerNo") != null){
+			int customerNo = (Integer)session.getAttribute("customerNo");
+			model.addAttribute("loginedNo", customerNo); // 겟세션 아이디
+		}
+		
 		model.addAttribute("loadPath", Const.getLoadpath()); // 이미지 불러올 경로
+		
+		model.addAttribute("recentList", this.getRecentList());
+		
+		//파우치
+		//myPouch/customerNo/{customerNo}/beauty/find
+		//url = Const.getOriginpath() + "myPouch/customerNo/" + customerNo + "/beauty/find";
+
+		/*List<BeautyTip> listFromPouch = jsonByList(url);
+		System.out.println("ppp");
+		System.out.println(listFromPouch);
+		model.addAttribute("listFromPouch", listFromPouch);*/
+
+		return "/beautyTip/beautyTipList.jsp";
+	}
+
+	// searchMaker
+	// 검색
+	@RequestMapping(value = "listsearch.do", method = RequestMethod.GET)
+	public String showReviewSearch(@ModelAttribute("pager") BeautyTipPager pager, Model model, HttpSession session)
+			throws ClientProtocolException, IOException {
+
+		if (pager.getKeyword() == null || pager.getKeyword().trim() == "") {
+			return "redirect:/beautyTip/listpage.do";
+		}
+
+
+		String url = Const.getOriginpath() + "beautyTip/listsearch/pagStart/" + pager.getPagStart() + "/pagEnd/"
+				+ pager.getPagEnd() + "/searchType/" + pager.getSearchType() + "/keyword/" + pager.getKeyword();
+
+
+		List<BeautyTip> list = jsonByList(url);
+		PageMaker pageMaker = new PageMaker();
+		pager.setCategory(BeautyTipCategory.makeupInformation);
+		pageMaker.setPager(pager);
+		if (list.size() == 0) {
+			pageMaker.setTotalCount(0);
+		} else {
+			pageMaker.setTotalCount(list.get(0).getListCount()); // 전체 개수를
+		}
+
+
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("beautyTipList", list);
+
+		model.addAttribute("category", "makeupInformation"); // 메이크업만..페이징?
+		
+		String id = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", id); // 겟세션 아이디
+		
+		if(session.getAttribute("customerNo") != null){
+			int customerNo = (Integer)session.getAttribute("customerNo");
+			model.addAttribute("loginedNo", customerNo); // 겟세션 아이디	
+		}
+		
+		
+		model.addAttribute("loadPath", Const.getLoadpath()); // 이미지 불러올 경로
+		
+		model.addAttribute("recentList", this.getRecentList());
 
 		return "/beautyTip/beautyTipList.jsp";
 	}
 
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
-	public String beautyTipList(BeautyTipCategory category, Model model) throws ClientProtocolException, IOException {
+	public String beautyTipList(BeautyTipCategory category, Model model, HttpSession session) throws ClientProtocolException, IOException {
 
 		// findAll
 		String url = Const.getOriginpath() + "beautyTip/find/category/" + category;// get
@@ -457,7 +575,15 @@ public class BeautyTipController {
 
 		model.addAttribute("beautyTipList", beautyTipList);
 		model.addAttribute("category", category.toString());
-		model.addAttribute("loginedId", "id"); // 겟세션 아이디
+		
+		String id = (String)session.getAttribute("loginedCustomer");
+		model.addAttribute("loginedId", id); // 겟세션 아이디
+		
+		if(session.getAttribute("customerNo") != null){
+			int customerNo = (Integer)session.getAttribute("customerNo");
+			model.addAttribute("loginedNo", customerNo); // 겟세션 아이디	
+		}
+		
 		model.addAttribute("loadPath", Const.getLoadpath()); // 이미지 불러올 경로
 
 		response.close();
@@ -466,12 +592,56 @@ public class BeautyTipController {
 		return "/beautyTip/beautyTipList.jsp";
 	}
 
+	private List<BeautyTip> getRecentList() throws ClientProtocolException, IOException {
+
+		// findAll
+		String url = Const.getOriginpath() + "beautyTip/find/recent";
+
+		// apache lib
+		HttpGet httpGet = new HttpGet(url); // <-> HttpPost
+
+		// HttpClient
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		// os에 붙음
+		CloseableHttpResponse response = httpClient.execute(httpGet); // 예외 바깥으로
+
+		// 상태코드확인
+		int responseStatusCode = HttpResponse.getInstance().getResponseStatus(response);
+		// 내용을 json으로 받는다(stream으로)
+		String responseContent = HttpResponse.getInstance().getResponseContent(response);
+
+		// json(String) to object
+		// gson lib
+		// TypeToken은 생성자가 없기 때문에 바로 {}닫아 줌
+		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
+		};
+
+		// java.lang.reflect.type, import
+		Type type = typeToken.getType();
+
+		// 객체에 Date타입 필드가 있는 경우
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+		List<BeautyTip> recentList = gsonBuilder.create().fromJson(responseContent, type);
+
+		response.close();
+		httpClient.close();
+		
+		return recentList;
+	}
+
 	// 수정
 	@RequestMapping(value = "editForm.do", method = RequestMethod.GET)
 	public String beautyTipEditForm(int beautyTipNo, HttpSession session, Model model)
 			throws ClientProtocolException, IOException {
 
 		// session체크(로그인)
+		if (session.getAttribute("loginedCustomer") == null) {
+			
+			return "redirect:/customer/joinForm.do";
+		}
+		
 
 		//
 		BeautyTip beautyTip = this.getSrcForEdit(beautyTipNo);
@@ -571,7 +741,7 @@ public class BeautyTipController {
 		String category = beautyTip.getCategory().toString();
 
 		// 디테일로?
-		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.valueOf(category);
+		return "redirect:/beautyTip/listpage.do?category=" + BeautyTipCategory.valueOf(category);
 	}
 
 	// 삭제
@@ -605,7 +775,7 @@ public class BeautyTipController {
 		// req -> 이전페이지(form jsp)에서 넘어온 값으로 BeautyTipCategory를 지정
 		String category = req.getParameter("category");
 		// category = "makeupInformation"; // 나중에 jsp완성되면 지울 정보
-		return "redirect:/beautyTip/list.do?category=" + BeautyTipCategory.valueOf(category);
+		return "redirect:/beautyTip/listpage.do?category=" + BeautyTipCategory.valueOf(category);
 	}
 
 	// 작성자 검색
@@ -723,6 +893,7 @@ public class BeautyTipController {
 
 		String responseContent = HttpResponse.getInstance().getResponseContent(response);
 
+		
 		TypeToken<List<BeautyTip>> typeToken = new TypeToken<List<BeautyTip>>() {
 		};
 		Type type = typeToken.getType();
@@ -731,13 +902,13 @@ public class BeautyTipController {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
 
-		System.out.println(responseContent);
 		
+
 		List<BeautyTip> beautyTips = gsonBuilder.create().fromJson(responseContent, type);
 
-		/*for (BeautyTip b : beautyTips) {
-			System.out.println(b.toString());
-		}*/
+		/*
+		 * for (BeautyTip b : beautyTips) { System.out.println(b.toString()); }
+		 */
 
 		response.close();
 
