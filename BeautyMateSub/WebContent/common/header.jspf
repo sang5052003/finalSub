@@ -8,7 +8,7 @@
 <!-- HEADER -->
 <header id="pageTop" class="header">
 
-<<<<<<< HEAD
+
 	<!-- TOP INFO BAR -->
 	<div class="top-info-bar">
 		<div class="container">
@@ -72,7 +72,7 @@
 					<li class=" dropdown megaDropMenu"><a
 						href="${ctx }/review/listpage.do">REVIEW</a></li>
 					<li class=" dropdown singleDrop"><a
-						href="${ctx }/beautyTip/list.do">BeautyTip</a></li>
+						href="${ctx }/beautyTip/listpage.do?category=makeupInformation">BeautyTip</a></li>
 					<li class=" dropdown singleDrop"><a
 						href="${ctx }/myPouch/list.do">MY Pouch</a></li>
 

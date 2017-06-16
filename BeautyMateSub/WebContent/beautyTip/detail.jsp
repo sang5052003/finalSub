@@ -145,7 +145,7 @@
                 
                 <c:choose>
                 	<c:when test="${url eq null}">
-                		
+                		<p>file</p>
 		                <video id="my-video" class="video-js" controls preload="auto"
 							width="640" height="264" data-setup="{}">
 						<source src="${beautyTip.video}" type='video/mp4'> <!-- <source	src="https://youtu.be/s6yENYX_6IY" type='video/youtube'> -->
@@ -157,6 +157,7 @@
 						
                 	</c:when>
                 	<c:otherwise>
+                		<p>url</p>
                 		<video id="my_video_1" class="video-js" controls preload="auto" width="640" height="268" data-setup='{ "techOrder": ["youtube"] }'>
 					    <source src="${url }" type='video/youtube'>
 					   </video>
