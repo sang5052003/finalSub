@@ -128,12 +128,13 @@
             <ul class="list-inline">
                 <li><select id="sel">
                           <option value="0"></option>
-                          <option value="1">브랜드</option>
-                          <option value="2">제품</option>
+                          <option value="b">브랜드</option>
+						  <option value="p">제품</option>
                          
-                        </select></li>
-                <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
-                  <li>
+                        </select><li><input id="search" type="text" placeholder="화장품을 검색해보세요" >
+						<a target="_blank" href="javascript:searchCos();"
+						class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
+					<li>
 					     <c:choose>
 							<c:when test="${loginedCustomer eq null}">
 							 <a id="login" target="_self" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN / JOIN</a>
@@ -186,7 +187,7 @@
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="${ctx }/beautyTip/list.do" >BeautyTip</a>
+                <a href="${ctx }/beautyTip/listpage.do?category=makeupInformation" >BeautyTip</a>
                 
               </li>
               <li class=" dropdown singleDrop">
@@ -218,14 +219,16 @@
               <div>
               <table class="table">
                   <tbody>
-                    <tr>
+                    <tr style="cursor:pointer;"  onclick="location.href='${ctx}/cosmetic/showByNo.do?cosmeticNo=${review.cosmetic.cosmeticNo}'">
                       <td><div class="cartImage"><img src="${review.cosmetic.img}" style="width:100px;height:100px" alt="profile-image"></div></td>
-                      <td style="text-align:left;">${review.cosmetic.category}<br><span>${review.cosmetic.brand}</span><br><span>${review.cosmetic.cosmeticName}</span>
+                      <td style="text-align:left;"><span>${review.cosmetic.category}</span></span><br><span>${review.cosmetic.brand}</span><br><span>${review.cosmetic.cosmeticName}</span>
                       <br><span>${review.cosmetic.volume} / ${review.cosmetic.cost}</span></td>
                       <td style="width:0px"></td>
                     </tr>
                     <tr>
-                       <td colspan="3" style="text-align:left;"><i class="fa fa-user-o" aria-hidden="true"></i> ${review.customer.id } <br><span>날짜</span> </td>             
+                       <td colspan="3" style="text-align:left;"><i class="fa fa-user-o" aria-hidden="true"></i> ${review.customer.id } <br>
+                       <!-- <span>날짜</span>  -->
+                       </td>             
                     </tr>
                     <tr>
                         <td colspan="3" style="text-align:left;">
@@ -317,7 +320,7 @@
                   <div class="commentsForm">
                     <h3>leave a comment</h3>
 <!--                   <form action="" method="POST" role="form"> -->
-						<input class="form-control" type="text" placeholder="ID" id="newReplyWriter">
+						<input class="form-control" type="text"  id="newReplyWriter" readonly="readonly" value="${loginedCustomer }">
                       <div class="form-group">
                         <textarea class="form-control" rows="3"  name ="replyContent" id="replyContent" placeholder="Type Your Comment"></textarea>
                       </div>
@@ -568,6 +571,8 @@ $("#popup_img").on("click", function(){
 </script>
 
 
+
+
   <script>
   	$(window).load(function() {
   		$(".se-pre-con").fadeOut("slow");
@@ -586,6 +591,28 @@ $("#popup_img").on("click", function(){
   	});
   </script>
 </body>
+
+
+<script type="text/javascript">
+	
+
+var searchCos = function() {
+	
+	var select  = $("#sel option:selected").val();
+	var value = $("#search").val();
+	
+	if(select === 'b'){
+		self.location = "${ctx}/cosmetic/showByBrand.do?brand="+value;
+		
+	}else if(select ==='p'){
+		self.location = "${ctx}/cosmetic/showByName.do?cosmeticTitle="+value;
+	}else{
+		alert("옵션을 선택해주세요");
+		return;
+	}
+	
+};
+	</script>
 
 
 

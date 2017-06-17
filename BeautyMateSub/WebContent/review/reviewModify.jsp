@@ -180,12 +180,15 @@ label.star:before {
             <ul class="list-inline">
                 <li><select id="sel">
                           <option value="0"></option>
-                          <option value="1">브랜드</option>
-                          <option value="2">제품</option>
+                          <option value="b">브랜드</option>
+							<option value="p">제품</option>
                          
                         </select></li>
-                <li> <input id="search" type="text" placeholder="화장품을 검색해보세요" > <a target="_blank" href="#" class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
-                  <li>
+                <li><input id="search" type="text" placeholder="화장품을 검색해보세요" >
+						<a target="_blank" href="javascript:searchCos();"
+						class="btn btn-primary first-btn waves-effect waves-light scale-up">search</a></li>
+
+					<li>
 					     <c:choose>
 							<c:when test="${loginedCustomer eq null}">
 							 <a id="login" target="_self" href="${ctx}/customer/customerForm.jsp" class="btn btn-primary first-btn waves-effect waves-light scale-up">LOGIN / JOIN</a>
@@ -238,7 +241,7 @@ label.star:before {
                
               </li>
               <li class=" dropdown singleDrop">
-                <a href="${ctx }/beautyTip/list.do" >BeautyTip</a>
+                <a href="${ctx }/beautyTip/listpage.do?category=makeupInformation" >BeautyTip</a>
                 
               </li>
               <li class=" dropdown singleDrop">
@@ -569,6 +572,27 @@ $.getJSON("${ctx}/review/getAttach/"+postNo,function(list){
 							;
 						});
 					</script>
+					
+					<script type="text/javascript">
+	
+
+var searchCos = function() {
+	
+	var select  = $("#sel option:selected").val();
+	var value = $("#search").val();
+	
+	if(select === 'b'){
+		self.location = "${ctx}/cosmetic/showByBrand.do?brand="+value;
+		
+	}else if(select ==='p'){
+		self.location = "${ctx}/cosmetic/showByName.do?cosmeticTitle="+value;
+	}else{
+		alert("옵션을 선택해주세요");
+		return;
+	}
+	
+};
+	</script>
 </body>
 
 </html>

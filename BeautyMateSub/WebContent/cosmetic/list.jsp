@@ -58,12 +58,12 @@
           <div class="row">
             <div class="col-xs-12">
               <ul class="list-inline squareBtn">
-                <li class="li"><a href="showByCategory.do?cosmeticCategory=essence" class="btn btn-common">에센스</a></li>
-                <li class="li"><a href="showByCategory.do?cosmeticCategory=skin" class="btn btn-common">스킨</a></li>
-                <li class="li"><a href="showByCategory.do?cosmeticCategory=lotion" class="btn btn-common">로션</a></li>
-                <li class="li"><a href="showByCategory.do?cosmeticCategory=cream" class="btn btn-common">크림</a></li>	
-                <li class="li"><a href="showByCategory.do?cosmeticCategory=mist" class="btn btn-common">미스트</a></li>
-                <li class="li"><a href="showByCategory.do?cosmeticCategory=faceOil" class="btn btn-common ">페이스오일</a></li>
+                <li class="li"><a href="showByCategory.do?cosmeticCategory=에센스" class="btn btn-common">에센스</a></li>
+                <li class="li"><a href="showByCategory.do?cosmeticCategory=스킨" class="btn btn-common">스킨</a></li>
+                <li class="li"><a href="showByCategory.do?cosmeticCategory=로션" class="btn btn-common">로션</a></li>
+                <li class="li"><a href="showByCategory.do?cosmeticCategory=크림" class="btn btn-common">크림</a></li>	
+                <li class="li"><a href="showByCategory.do?cosmeticCategory=미스트" class="btn btn-common">미스트</a></li>
+                <li class="li"><a href="showByCategory.do?cosmeticCategory=페이스오일" class="btn btn-common ">페이스오일</a></li>
               </ul>
               
             </div>
@@ -76,7 +76,7 @@
                   <div class="panel-body tableArea">
                     <div class="table-responsive">
                       <table class="table">
-							<tbody>
+							<tbody id=cosmeticBody>
 								<c:forEach items="${cosmetics}" var="cosmetic" varStatus="sts">
 								<c:set var="cosmeticName" value="${cosmetic.cosmeticName}" />	
 									<tr>
@@ -107,7 +107,7 @@
 										
 											<td style="width: 10%;"><br> 
 											 <div style="CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(${ctx }/resources/img/icon_star2_size.png) 0px 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 60px; PADDING-TOP: 0px; HEIGHT: 11.5px;">
- 												<p style="WIDTH:50%; PADDING-RIGHT:0px; PADDING-LEFT:0px; BACKGROUND: url(${ctx }/resources/img/icon_star_size.png) 1.6px 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 11.5px;">
+ 												<p style="WIDTH:${cosmetic.averageGrade * 20}%; PADDING-RIGHT:0px; PADDING-LEFT:0px; BACKGROUND: url(${ctx }/resources/img/icon_star_size.png) 1.6px 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 11.5px;">
 											 	</p>
 											 </div><br>
 											&nbsp; &nbsp; &nbsp;<span style="color: DeepPink"> ${cosmetic.averageGrade} </span>&nbsp;</td>
@@ -130,12 +130,13 @@
 
 										</td>
 									</tr>
-								</c:forEach>
+								</c:forEach>	
 							</tbody>
 						</table>
                     </div>
                   </div>
                 </div>
+<!--                  <a class="btn btn-common" onclick="javascript:addViewCosmetic()">화장품 더 보기</a> -->
               </form>
             </div>
           </div>
@@ -154,11 +155,12 @@ $(document).ready(function() {
 	insertPouch = function(cosmeticNo){
 		console.log(cosmeticNo);
 		$.ajax({
-			url:"http://localhost:8888/rest/myPouch/customerNo/"+${customerNo}+"/cosmetic/insert/cosmeticNo/"+cosmeticNo+"/myPouch/customerNo/"+${customerNo}
+			url:"http://localhost:8888/rest/myPouch/customerNo/" +${customerNo}+"/cosmetic/insert/cosmeticNo/"+ cosmeticNo + "/myPouch/customerNo/"+${customerNo}
 			,type:"get"
 			,dataType:"json"
 			,success:successCallback
 			,error:errorCallback
+			
 		});
 	};
 	
@@ -168,10 +170,61 @@ $(document).ready(function() {
 	var successCallback = function(){
 		alert("파우치에 등록 되었습니다.");
 	};
-
 });
 
 
+	
+</script>
+
+
+<script >
+
+
+// var addViewCosmetic = function() {
+// 	$.ajax({
+	
+// 		url: "http://localhost:8888/rest/cosmetic/findAll"
+// 		,type:"get"
+// 		,dataType:"json"
+// 		,success: function(data) {
+// 			var cosmeticHtml = "";
+			
+// 			$.each(data, function(index,cosmetic) {
+				
+// 				cosmeticHtml += '<c:set var="cosmeticName" value="' + ${cosmetic.cosmeticName} + '" />';
+					
+// 				cosmeticHtml += '<tr> <td style="width: 5%;">';
+						
+// 				cosmeticHtml += '</td><td><a class="cartImage"><img src="' + ${cosmetic.img} + '" alt="Image cart" width="100px" height="100px"></a></td>';
+									
+// 				cosmeticHtml += '<td><span style="font-size: 12px;">' + ${cosmetic.brand} + '</span><br>'; 
+			
+// 				cosmeticHtml +=	 '<a style="font-size: 15px; font-weight: bold;">${fn:substring(cosmeticName,0,25) }</a><br>';
+				
+// 				cosmeticHtml += '<span style="font-size: 12px;">' + ${cosmetic.volume}+'/'+${cosmetic.cost} + '</span></td>';
+				
+// 				cosmeticHtml += '<td style="width: 10%;"><br>';
+			
+// 				cosmeticHtml += '<div style="CLEAR: both; PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(${ctx }/resources/img/icon_star2_size.png) 0px 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 60px; PADDING-TOP: 0px; HEIGHT: 11.5px;">';
+// 				cosmeticHtml +=	'<p style="WIDTH:'+${cosmetic.averageGrade * 20}+'%; PADDING-RIGHT:0px; PADDING-LEFT:0px; BACKGROUND: url(${ctx }/resources/img/icon_star_size.png) 1.6px 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; HEIGHT: 11.5px;">';
+// 				cosmeticHtml += '</p></div><br>&nbsp; &nbsp; &nbsp;<span style="color: DeepPink"> ${cosmetic.averageGrade} </span>&nbsp;</td>';
+// 			/* 	cosmeticHtml +=	'<td style="width: 10%;"><a href="#" style="color: gray; font-size:12px;">리뷰 :'+ ${cosmetic.reviews.size() }개 +'</a>&nbsp;</td>';
+// 				cosmeticHtml +=	'<td><a class="btn btn-common" href="showByNo.do?cosmeticNo='+${cosmetic.cosmeticNo}+'">상세보기</a>';
+// 				cosmeticHtml += '<a class="btn btn-common" onclick="javascript:insertPouch('+${cosmetic.cosmeticNo}+')" style="font-size: 12.5px;">★ My Pouch </a>';
+// 				cosmeticHtml +=	'<c:if test="${loginedCustomer eq 'admin' }">'; */
+// 				/* cosmeticHtml += '&nbsp; <a href="modifyForm.do?cosmeticNo='+ ${cosmetic.cosmeticNo} + '" style="margin-right: 10px"><i class="fa fa-pencil"aria-hidden="true"></i> </a>';
+// 				cosmeticHtml += '&nbsp;<a href="remove.do?cosmeticNo=' + ${cosmetic.cosmeticNo} + '"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>';
+// 				cosmeticHtml +=	'</c:if> <td> <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button></td></tr>'; */
+// 			});
+				
+			
+// 			alert(" 되었습니다.");
+// 			$("#cosmeticBody").empty();
+// 			$("#cosmeticBody").append(cosmeticHtml);
+// 		}
+		 
+// 	});
+// };
 
 </script>
 </html>

@@ -211,7 +211,7 @@ public class ReviewController {
 		Recommend recommend = new Recommend();
 		recommend.setCosmeticNo(cosmeticNo);
 		recommend.setGrade(grade);
-		recommend.setCustomerNo(2);
+		recommend.setCustomerNo((int)session.getAttribute("customerNo"));
 		
 		review.setRecommend(recommend);
 //		System.out.println(review.toString());
@@ -233,7 +233,7 @@ public class ReviewController {
 		review.setImage(image);
 		
 		
-		System.out.println(review.toString()+"asdas");
+//		System.out.println(review.toString()+"asdas");
 		 Customer customer = new Customer();
 		 customer.setCustomerNo((int)session.getAttribute("customerNo"));
 		 review.setCustomer(customer);
