@@ -278,9 +278,9 @@ label.star:before {
 											<ul class="mailbox-attachments clearfix uploadedList">
 											</ul>
 											<div class="text-right">
-<!-- 												<button type="submit" id="registerBtn" -->
-<!-- 													class="btn btn-common btn-theme">작성</button> -->
-												<a class="btn btn-common btn-theme" href="javascript:reviewRegister();" >작성</a>
+												<button type="submit" id="registerBtn"
+													class="btn btn-common btn-theme">작성</button>
+<!-- 												<a class="btn btn-common btn-theme" href="javascript:reviewRegister();" >작성</a>  -->
 												<a class="btn btn-common btn-theme"
 													href="${ctx }/review/listpage.do">취소</a>
 
@@ -302,25 +302,25 @@ label.star:before {
 		
 		<script type="text/javascript">
 
-			var formObj = $("form[role='form']");
+// 			var formObj = $("form[role='form']");
 			
-			var reviewRegister = function() {
+// 			var reviewRegister = function() {
 				
-				console.log($("#cosmeticName").val());
+// 				console.log($("#cosmeticName").val());
 				
-				if($("#cosmeticName").val() ===""){
-					alert("화장품을 선택해주세요");
-					return;
-				}
-				if(check==false){
-					alert("화장품을 검색을 눌러주세요");
-					return;
-				}
+// 				if($("#cosmeticName").val() ===""){
+// 					alert("화장품을 선택해주세요");
+// 					return;
+// 				}
+// 				if(check==false){
+// 					alert("화장품을 검색을 눌러주세요");
+// 					return;
+// 				}
 				
 				
-				formObj.attr("action","register.do");
-				formObj.submit();
-			};
+// 				formObj.attr("action","register.do");
+// 				formObj.submit();
+// 			};
 				
 			
 		
