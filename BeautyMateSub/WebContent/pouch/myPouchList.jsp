@@ -358,8 +358,7 @@ opacity
 										<tr>
 											<td class="ranking">${sts.count}</td>
 											<td>${cosmetic.brand }</td>
-											
-											<td><a href="#">${cosmetic.cosmeticName }</a></td>
+											<td><a href="${ctx}/cosmetic/showByNo.do?cosmeticNo=${cosmetic.cosmeticNo}">${cosmetic.cosmeticName }</a></td>
 											<td><form id="cosmeticDeleteForm"
 													action="${ctx }/myPouch/cosmeticClear.do" method="get">
 													<!-- <input name="recruitID" type="hidden" value="${recruit.id }">  -->
@@ -368,7 +367,7 @@ opacity
 														id="tabCheckedId" name="tabChecked" type="hidden"
 														value="100"> <input class="btn-xs btn-danger btnPlay"
 														type="button" value="삭제" style="border-color:rgba(0,0,0,.0001);"
-														onclick="cosmeticDeletFormFunc(${cosmetic.cosmeticNo })">
+													    onclick="cosmeticDeletFormFunc(${cosmetic.cosmeticNo })">
  
 												</form></td>
  
