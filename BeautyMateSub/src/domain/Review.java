@@ -1,9 +1,11 @@
 package domain;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Review {
-	
+
 	private int reviewNo;
 	private String reviewTitle;
 	private String reviewContent;
@@ -12,8 +14,44 @@ public class Review {
 	private Customer customer;
 	private Cosmetic cosmetic;
 	private Recommend recommend;
+	private Integer listCount; // 전체개수를 알아오기 위해
+
+//	private Date regdate;
 	
-	public Review(){}
+	private String[] files;
+	
+	
+	
+//	public Date getRegdate() {
+//		return regdate;
+//	}
+//
+//	public void setRegdate(Date regdate) {
+//		this.regdate = regdate;
+//	}
+
+	public String[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+
+	public void setListCount(Integer listCount) {
+		this.listCount = listCount;
+	}
+
+	public int getListCount() {
+		return listCount;
+	}
+
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
+	}
+
+	public Review() {
+	}
 
 	public Review(int reviewNo, String reviewTitle, String reviewContent, String image, List<Reply> replys,
 			Customer customer, Cosmetic cosmetic, Recommend recommend) {
@@ -96,8 +134,18 @@ public class Review {
 	public String toString() {
 		return "Review [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
 				+ ", image=" + image + ", replys=" + replys + ", customer=" + customer + ", cosmetic=" + cosmetic
-				+ ", recommend=" + recommend + "]";
+				+ ", recommend=" + recommend + ", listCount=" + listCount + ", files=" + Arrays.toString(files) + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Review [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent
+//				+ ", image=" + image + ", replys=" + replys + ", customer=" + customer + ", cosmetic=" + cosmetic
+//				+ ", recommend=" + recommend + ", listCount=" + listCount + ", regdate=" + regdate + ", files="
+//				+ Arrays.toString(files) + "]";
+//	}
 	
+
 	
+
 }

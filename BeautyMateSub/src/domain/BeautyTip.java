@@ -13,6 +13,9 @@ public class BeautyTip {
 	private BeautyTipCategory category;
 	private List<Reply> beautyTipReplys;
 	
+	//
+	private Integer listCount; // 전체개수를 알아오기 위해(페이징)
+	
 	public BeautyTip(){}
 	
 	public BeautyTip(int beautyTipNo, String beautyTipTitle, String image, String beautyTipContent, String video,
@@ -47,6 +50,47 @@ public class BeautyTip {
 	public String getImage() {
 		return image;
 	}
+	
+	public String getFirstImage() {
+		
+		String[] arr = this.split(image);
+		
+		if(arr == null) return image;
+		
+		return this.split(image)[0];
+	}
+	
+	public String getFirstContent(){
+		
+		String[] arr = this.split(beautyTipContent);
+		
+		if(arr == null) return beautyTipContent;
+		
+		return this.split(beautyTipContent)[0];
+	}
+	
+	private String[] split(String str){
+		
+		if(str == null) return null;
+		
+		String[] arr = str.split("§");
+		
+		return arr;
+	}
+	
+	public String[] getImgArr(){
+		return this.split(image);
+	}
+	
+	public String[] getContentArr(){
+		return this.split(beautyTipContent);
+	}
+	
+	public int getFileCount(){
+		String[] arr = this.split(image);
+		return arr.length;
+	}
+	
 
 	public void setImage(String image) {
 		this.image = image;
@@ -91,6 +135,11 @@ public class BeautyTip {
 	public void setBeautyTipReplys(List<Reply> beautyTipReplys) {
 		this.beautyTipReplys = beautyTipReplys;
 	}
+	
+	public int getReplySize(){
+		if(this.beautyTipReplys == null) return 0;
+		return this.beautyTipReplys.size();
+	}
 
 	@Override
 	public String toString() {
@@ -99,8 +148,18 @@ public class BeautyTip {
 				+ ", category=" + category + ", beautyTipReplys=" + beautyTipReplys + "]";
 	}
 	
-	
-	
+	//페이징
+	public void setListCount(Integer listCount) {
+		this.listCount = listCount;
+	}
+
+	public int getListCount() {
+		return listCount;
+	}
+
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
+	}
 	
 	
 	
