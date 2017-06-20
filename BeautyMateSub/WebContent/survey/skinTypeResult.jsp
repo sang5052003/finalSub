@@ -27,7 +27,7 @@
         <!-- FAVICON -->
         <link href="${ctx}/resources/img/favicon.png" rel="shortcut icon">
         <!-- CUSTOM CSS -->
-        <link href="${ctx}/resources/css/stylejun.css" rel="stylesheet">
+        <link href="${ctx}/resources/css/style.css" rel="stylesheet">
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
         <style>
             .no-js #loader {
