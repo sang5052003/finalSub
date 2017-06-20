@@ -21,6 +21,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -41,17 +43,21 @@ import domain.BeautyTip;
 import domain.BeautyTipCategory;
 import domain.BeautyTipPager;
 import domain.Customer;
-import domain.MyPouch;
 import domain.PageMaker;
+
 
 @Controller
 @RequestMapping("beautyTip")
 public class BeautyTipController {
 
+	@Autowired
+	private ResourceLoader loader;
+	
 	@RequestMapping(value = "showDetail.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String beautyTipShowDetail(int beautyTipNo, Model model, HttpSession session)
 			throws ClientProtocolException, IOException {
 
+		
 		String url = Const.getOriginpath() + "beautyTip/find/recent/id/" + beautyTipNo;// get
 
 		// apache lib
@@ -303,8 +309,12 @@ public class BeautyTipController {
 
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 
-		String savePath = "C:\\Users\\kosta\\workSpace(final)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\BeautyMateSub\\resources\\img\\save";
-
+		String path = loader.getResource("resources/img/save").getURI().getPath();
+		path = path.substring(1, path.length() - 1);
+		path = path.replace("/", "\\");
+		String savePath = path;
+		//String savePath = "C:\\Users\\kosta\\workSpace(final)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\BeautyMateSub\\resources\\img\\save";
+		
 		// UUID uid = UUID.randomUUID();
 
 		// String savedName = uid.toString() + "_" + originalName;
