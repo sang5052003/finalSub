@@ -140,17 +140,17 @@ label.star:before {
 								<li><a href="javascript:javascript:void(0)"
 									onclick="viewAll()">All</a></li>
 								<li><a href="javascript:javascript:void(0)"
-									onclick="categoryList('essence')">Essence</a></li>
+									onclick="categoryList('에센스')">Essence</a></li>
 								<li><a href="javascript:void(0)"
-									onclick="categoryList('mist')">Mist</a></li>
+									onclick="categoryList('미스트')">Mist</a></li>
 								<li><a href="javascript:void(0)"
-									onclick="categoryList('lotion')">Lotion</a></li>
+									onclick="categoryList('로션')">Lotion</a></li>
 								<li><a href="javascript:void(0)"
-									onclick="categoryList('faceOil')">FaceOil</a></li>
+									onclick="categoryList('페이스오일')">FaceOil</a></li>
 								<li><a href="javascript:void(0)"
-									onclick="categoryList('skin')">Skin</a></li>
+									onclick="categoryList('스킨')">Skin</a></li>
 								<li><a href="javascript:void(0)"
-									onclick="categoryList('cream')">Cream</a></li>
+									onclick="categoryList('크림')">Cream</a></li>
 							</ul>
 						</div>
 					</div>

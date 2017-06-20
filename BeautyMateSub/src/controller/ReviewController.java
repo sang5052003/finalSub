@@ -59,7 +59,6 @@ public class ReviewController {
 		String url = Const.getOriginpath() + "review/listpage/pagStart/" + pager.getPagStart() + "/pagEnd/"
 				+ pager.getPagEnd();
 
-
 		List<Review> list = jsonByList(url);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setPager(pager);
@@ -211,10 +210,10 @@ public class ReviewController {
 		Recommend recommend = new Recommend();
 		recommend.setCosmeticNo(cosmeticNo);
 		recommend.setGrade(grade);
-		recommend.setCustomerNo(2);
+		recommend.setCustomerNo((int)session.getAttribute("customerNo"));
 		
 		review.setRecommend(recommend);
-//		System.out.println(review.toString());
+		System.out.println(review.toString()+"^");
 		
 		String image="";
 		int count =0;
@@ -233,7 +232,7 @@ public class ReviewController {
 		review.setImage(image);
 		
 		
-		System.out.println(review.toString()+"asdas");
+		 System.out.println(review.toString()+"asdas");
 		 Customer customer = new Customer();
 		 customer.setCustomerNo((int)session.getAttribute("customerNo"));
 		 review.setCustomer(customer);

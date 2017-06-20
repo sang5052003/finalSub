@@ -230,6 +230,7 @@ label.star:before {
 																aria-describedby="basic-addon221">
 															<button type="button"
 																class="btn btn-common btn-full-round btn-theme"
+																value=""
 																name="searchName" style="width: 20%">Search</button>
 														</div>
 														<div class="stars">
@@ -279,6 +280,7 @@ label.star:before {
 											<div class="text-right">
 												<button type="submit" id="registerBtn"
 													class="btn btn-common btn-theme">작성</button>
+<!-- 												<a class="btn btn-common btn-theme" href="javascript:reviewRegister();" >작성</a>  -->
 												<a class="btn btn-common btn-theme"
 													href="${ctx }/review/listpage.do">취소</a>
 
@@ -295,12 +297,42 @@ label.star:before {
 				</div>
 			</div>
 		</section>
+		
+		
+		
+		<script type="text/javascript">
+
+// 			var formObj = $("form[role='form']");
+			
+// 			var reviewRegister = function() {
+				
+// 				console.log($("#cosmeticName").val());
+				
+// 				if($("#cosmeticName").val() ===""){
+// 					alert("화장품을 선택해주세요");
+// 					return;
+// 				}
+// 				if(check==false){
+// 					alert("화장품을 검색을 눌러주세요");
+// 					return;
+// 				}
+				
+				
+// 				formObj.attr("action","register.do");
+// 				formObj.submit();
+// 			};
+				
+			
+		
+		</script>
 
 
 
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript">
 			var cosmeticNames = ${cosmeticNames	};
+			
+			var check = false;
 
 			var gradeStar;
 
@@ -313,6 +345,7 @@ label.star:before {
 								$(":input[name=searchName]")
 										.click(
 												function() {
+													check = true;
 													var name = $(
 															":input[name=cosmeticName]")
 															.val();

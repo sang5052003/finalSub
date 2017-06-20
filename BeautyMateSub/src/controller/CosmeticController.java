@@ -2,6 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,6 +32,7 @@ import controller.utils.HttpResponse;
 import domain.BeautyTip;
 import domain.Cosmetic;
 import domain.CosmeticCategory;
+import domain.Review;
 import domain.Test;
 
 @Controller
@@ -141,7 +147,35 @@ public class CosmeticController {
 
 		response.close();
 
-		model.addAttribute("cosmetics", cosmetics);
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() { // 평점순
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getAverageGrade() > o2.getAverageGrade()) ? -1
+						: (o1.getAverageGrade() < o2.getAverageGrade()) ? 1 : 0;
+			}
+
+		});
+
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() // 리뷰 많은 순으로
+		{
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getReviews().size() > o2.getReviews().size()) ? -1
+						: (o1.getReviews().size() < o2.getReviews().size()) ? 1 : 0;
+			}
+		});
+
+		List<Cosmetic> cos = new ArrayList<>();
+
+		for (int i = 0; i < 100; i++) {
+			cos.add(cosmetics.get(i));
+		}
+
+		model.addAttribute("cosmetics", cos);
 
 		System.out.println("model");
 
@@ -172,6 +206,28 @@ public class CosmeticController {
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 
 		response.close();
+		
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() { // 평점순
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getAverageGrade() > o2.getAverageGrade()) ? -1
+						: (o1.getAverageGrade() < o2.getAverageGrade()) ? 1 : 0;
+			}
+
+		});
+
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() // 리뷰 많은 순으로
+		{
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getReviews().size() > o2.getReviews().size()) ? -1
+						: (o1.getReviews().size() < o2.getReviews().size()) ? 1 : 0;
+			}
+		});
 
 		model.addAttribute("cosmetics", cosmetics);
 
@@ -204,6 +260,28 @@ public class CosmeticController {
 		Type type = typeToken.getType();
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() { // 평점순
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getAverageGrade() > o2.getAverageGrade()) ? -1
+						: (o1.getAverageGrade() < o2.getAverageGrade()) ? 1 : 0;
+			}
+
+		});
+
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() // 리뷰 많은 순으로
+		{
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getReviews().size() > o2.getReviews().size()) ? -1
+						: (o1.getReviews().size() < o2.getReviews().size()) ? 1 : 0;
+			}
+		});
+
 		response.close();
 
 		model.addAttribute("cosmetics", cosmetics);
@@ -214,7 +292,8 @@ public class CosmeticController {
 
 	// 화장품 검색(브랜드)
 	@RequestMapping(value = "showByBrand.do", method = RequestMethod.GET)
-	public String cosmeticShowByBrand(String brand, Model model) throws ClientProtocolException, IOException {
+	public String cosmeticShowByBrand(@RequestParam("brand") String brand, Model model)
+			throws ClientProtocolException, IOException {
 
 		String url = Const.getOriginpath() + "cosmetic/findByBrand/" + brand;
 
@@ -235,6 +314,28 @@ public class CosmeticController {
 		List<Cosmetic> cosmetics = new Gson().fromJson(responseContent, type);
 
 		response.close();
+
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() { // 평점순
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getAverageGrade() > o2.getAverageGrade()) ? -1
+						: (o1.getAverageGrade() < o2.getAverageGrade()) ? 1 : 0;
+			}
+
+		});
+
+		Collections.sort(cosmetics, new Comparator<Cosmetic>() // 리뷰 많은 순으로
+		{
+
+			@Override
+			public int compare(Cosmetic o1, Cosmetic o2) {
+
+				return (o1.getReviews().size() > o2.getReviews().size()) ? -1
+						: (o1.getReviews().size() < o2.getReviews().size()) ? 1 : 0;
+			}
+		});
 
 		model.addAttribute("cosmetics", cosmetics);
 
@@ -264,6 +365,12 @@ public class CosmeticController {
 		Cosmetic cosmetic = new Gson().fromJson(responseContent, type);
 
 		response.close();
+
+		for (Review r : cosmetic.getReviews()) {
+			if (r.getImage() == null)
+				continue;
+			r.setFiles(r.getImage().split(","));
+		}
 
 		model.addAttribute("cosmetic", cosmetic);
 

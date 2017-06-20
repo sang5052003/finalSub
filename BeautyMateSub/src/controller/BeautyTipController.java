@@ -314,7 +314,7 @@ public class BeautyTipController {
 		path = path.replace("/", "\\");
 		String savePath = path;
 		//String savePath = "C:\\Users\\kosta\\workSpace(final)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp2\\wtpwebapps\\BeautyMateSub\\resources\\img\\save";
-		
+
 		// UUID uid = UUID.randomUUID();
 
 		// String savedName = uid.toString() + "_" + originalName;

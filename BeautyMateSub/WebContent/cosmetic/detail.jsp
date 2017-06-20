@@ -235,7 +235,7 @@ html.mmodal-active, body.mmodal-active {
 
 						<div class="progressSingle" style="line-height: 0px;">
 							<span style="color: gold; font-size: 18px;">★★★★★</span>&nbsp; <span
-								style="color: gray; font-size: 10px;"> (${fiveStar }명)</span>
+								style="color: gray; font-size: 10px; margin-left: 5px">(${fiveStar }명)</span>
 							<div class="progress">
 								<div class="progress-bar progress-bar-primary"
 									role="progressbar" aria-valuenow="40" aria-valuemin="0"
@@ -298,7 +298,7 @@ html.mmodal-active, body.mmodal-active {
 						<br> <span class="list-inline roundBtn"> <span><a
 								href="javascript:void(0)"
 								class="btn btn-common btn-round btn-gray"
-								style="font-size: 13px; padding: 15px;">★ My Pouch</a></span>&nbsp;&nbsp;
+								style="font-size: 13px; padding: 15px;" onclick="javascript:insertPouch(${cosmetic.cosmeticNo})">★ My Pouch</a></span>&nbsp;&nbsp;
 							<span><div
 									value="http://shopping.naver.com/search/all.nhn?where=all&frm=NVSCTAB&query=${cosmetic.cosmeticName}"
 									class="btn btn-common btn-round btn-gray buttons"
@@ -340,13 +340,13 @@ html.mmodal-active, body.mmodal-active {
 					</div>
 				</div>
 			</div>
-
+	
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="tabCommon tabOne singleTab">
 						<ul class="nav nav-tabs">
 							<li class="active"><a data-toggle="tab" href="#details">Ingredients</a></li>
-							<li><a data-toggle="tab" href="#reviews">Reviews (2)</a></li>
+							<li><a data-toggle="tab" href="#reviews">Reviews (${cosmetic.reviews.size() })</a></li>
 						</ul>
 
 						<div class="tab-content patternbg">
@@ -549,8 +549,10 @@ html.mmodal-active, body.mmodal-active {
                   </ul>
 -->
 							</div>
-							<div id="reviews" class="tab-pane fade">
-								<div class="blogCommnets">
+
+							<div id="reviews" class="tab-pane fade"  >
+								<c:forEach items="${cosmetic.reviews }" var="review" varStatus="status">
+								<div class="blogCommnets" id="comment" style="cursor:pointer;" onclick="location.href='${ctx}/review/detail.do?reviewNo=${review.reviewNo}'" >
 									<div class="media">
 										<a class="media-left" href="#"> <img
 											style="border-radius: 100%" class="media-object"
@@ -561,30 +563,37 @@ html.mmodal-active, body.mmodal-active {
 										<div class="media-body">
 											<!--                        <span class="media-heading" > 보습력 짱</span>-->
 											<span style="color: black;"> </span> <span
-												style="color: white; font-size: 20px; background-color: orangeRed;">★★★★☆
+												style="color: white; font-size: 20px; background-color: orangeRed;">
+												<c:forEach begin="1" end="${review.recommend.grade }" step="1" varStatus="st" >
+												★
+												</c:forEach>
+												<c:forEach begin="1" end="${5 - review.recommend.grade }" step="1">
+												☆
+												</c:forEach>
 											</span><br> <span
 												style="font-size: 13px; font-wieght: bold; color: dimGray; font-weight: bold;">
-												dorothy</span> <span
+												${review.customer.id }</span> <span
 												style="font-size: 13px; font-wieght: bold; color: black;">
 												/ </span> <span
-												style="color: mediumVioletRed; font-size: 12px; font-weight: bold;"><i
-												class="fa fa-calendar" aria-hidden="true"></i> 22 September,
-												2016</span><br> <br>
+												style="color: mediumVioletRed; font-size: 12px; font-weight: bold;">
+<!-- 												<i class="fa fa-calendar" aria-hidden="true"></i>  -->
+												${review.reviewTitle }</span><br> <br>
 											<div
-												style="font-size: 12.5px; color: darkCyan; width: 90%; font-weight: bold;">봄웜이나
-												가을뮤트 예상중인데 색이 너무 안어울려요 바르는순간 5년 늙어버림 ㅎ 근데 적당히 촉촉하고 적당히 오래가요
-												재구매 의사는 없지만 유명템 써본거로 만족.. 가끔 성숙한 느낌나게 시크해보이고 싶을때 가아끔씩 발라요~
-												잘어울리는 분들한텐 좋을거같아요 가을트루나 가을딥??</div>
-											<br> <img
-												src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxKV8kmFD0djWTAodhIRDF6tyUTp6atE3ta4PYDHbKxgVbxLxD"
-												style="width: 200px;"><br> <br>
+												style="font-size: 12.5px; color: darkCyan; width: 90%; font-weight: bold;">${review.reviewContent }</div>
+											<br> 
+											<c:forEach items="${review.files }" var="file">
+											<img
+												src="${ctx }/displayFile?fileName=${file}"
+												style="width: 200px;">
+												<br> <br>
 											<!--      <div style="font-size:12.5px; color:teal; width: 90%; background-color:white;">
                             리뷰
-                          </div>-->
+                          </div>-->             </c:forEach>
+  
 
 
-											<div class="panel panel-default recentBlogPosts">
-												<!-- <div class="panel-heading">  comment  </div>-->
+										<!-- 	<div class="panel panel-default recentBlogPosts">
+												<div class="panel-heading">  comment  </div>
 												<div class="panel-heading">
 													<span
 														style="font-size: 18px; margin-top: 10px; float: left; width: 15%; font-weight: bold;">
@@ -601,6 +610,8 @@ html.mmodal-active, body.mmodal-active {
 													</form>
 
 												</div>
+												
+													
 
 												<div class="panel-body">
 													<div class="media">
@@ -624,45 +635,26 @@ html.mmodal-active, body.mmodal-active {
 														</div>
 													</div>
 
-													<div class="media">
-														<a class="media-left"> <img
-															style="border-radius: 100%; width: 50px;"
-															class="media-object"
-															src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxKV8kmFD0djWTAodhIRDF6tyUTp6atE3ta4PYDHbKxgVbxLxD"
-															alt="Image">
-														</a>
-														<div class="media-body">
-															<span style="color: black;"> </span> <span
-																style="font-size: 13px; font-wieght: bold; color: dimGray; font-weight: bold;">
-																dorothy</span> <span
-																style="font-size: 13px; font-wieght: bold; color: black;">
-																/ </span> <span
-																style="color: mediumVioletRed; font-size: 12px; font-weight: bold;"><i
-																class="fa fa-calendar" aria-hidden="true"></i> 22
-																September, 2016</span><br> <span
-																style="font-size: 13px; font-wieght: bold; color: black;">
-																아 별로네요 </span>
-														</div>
-													</div>
-
 
 
 												</div>
-											</div>
-
+											</div> -->
 
 										</div>
 									</div>
 								</div>
-
+           	</c:forEach>
 							</div>
-						</div>
 
+						</div>
+					
 
 					</div>
 				</div>
 			</div>
 		</div>
+						
+
 		<div id="mmodal-container">
 			<div class="mmodal-background">
 				<div class="mmodal">
@@ -801,7 +793,47 @@ html.mmodal-active, body.mmodal-active {
 				$('body').removeClass('mmodal-active');
 				$(".input-group").show();
 			});
+			
+			$(".blogCommnets").hover( 
+				function () {
+	  				$(this).css("backgroundColor","#F6F6F6");	
+					
+				},
+	  			function () {
+	  				$(this).css("backgroundColor","#ffffff");		
+					
+				}
+				)
+				
 		</script>
+		
+		
+		<script type="text/javascript">
+var insertPouch;
+
+$(document).ready(function() {
+	insertPouch = function(cosmeticNo){
+		console.log(cosmeticNo);
+		$.ajax({
+			url:"http://localhost:8888/rest/myPouch/customerNo/" +${customerNo}+"/cosmetic/insert/cosmeticNo/"+ cosmeticNo + "/myPouch/customerNo/"+${customerNo}
+			,type:"get"
+			,dataType:"json"
+			,success:successCallback
+			,error:errorCallback
+		});
+	};
+	
+	var errorCallback = function() {
+		alert("수행중 오류가 발생했습니다.");
+	};
+	var successCallback = function(){
+		alert("파우치에 등록 되었습니다.");
+	};
+
+});
+
+
+</script>
 </body>
 
 </html>
